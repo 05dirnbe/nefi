@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+    <method>Preprocessing</method>
+    <method>Segmentation</method>
+    <method>Graph detection</method>
+    <method>Graph filtering</method>
+</order>

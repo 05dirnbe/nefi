@@ -1,0 +1,69 @@
+nefi 1.0.3
+Structure:
+Motivation -- product GUI usage should be as easy as possible.
+Problem -- hard to know what are the right settings for the algorithm.
+The purpose of nefi gui is to help to find the right config for your batch
+processing.
+Preprocessing functions are ok as of right now, they don't follow any specific
+design pattern.
+Graph filtering however requires a strategy pattern which is already
+implemented.
+Graph filtering should be extensible (plugins).
+The pipeline does not exist in the code.
+(!) The list algorithm implementation is not good enough because the user if
+forced to recompute the pipeline.
+New design:
+  avoid recomputation of the pipeline,
+  multithreading,
+  windows os support is very important!
+
+The new design is envisioned to be clever enough that the problems above will
+disappear.
+On top of structural design at every point. Implementation is second. Don't
+think about algorithms.
+This is a software engineering task at its best.
+
+nefi 2.0 project goals:
+Take a good amount of time to understand how the software is currently working.
+Work through the code and undestand how the pipeline is executed.
+1. First big issue understanding how the pipeline works.
+2. Be clear how it should all work in blocks.
+3. Then we shall think how this can be inserted into the GUI.
+Think about this, how to take apart the car and how to put it together back.
+The client expects the car to be better build afterwards.
+Ultimate project goal, bring the software design is take the whole project and
+send it to open source ppl so that they could work on it.
+
+Must haves:
+  Create a toy model first (contract requirement).
+  Documentation is a must-have for the project.
+  Code documentation is super important for toy project.
+
+Any developer should be able to use a toy model to understand what is going on.
+A developer should be able to add something new to the toy model and be able
+to see the result.
+
+Book: "Java desing patters"
+
+Question:
+  Allow or prohibit using preprocessing for lower products of the pipeline
+  that were created by other algorithms?
+
+Deliverables for 27 nov:
+  Toy model.
+  Toy model documentation.
+
+Give a text pipeline to the toy model, the text pipeline represents GUI
+actions.
+
+Potential customers: average joe and professionals that would want to
+contribute.
+
+Console mode is super important.
+I want some way for a user to save an existing pipeline and use it later.
+Make sure that the existing functionality will not disappear with introduction
+of a toy model.
+
+Meeting with the client:
+    not tue 4-6, thu 2-3.
+    other days at 16:00
