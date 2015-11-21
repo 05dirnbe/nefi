@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Adaptive Threshold'
-__belongs2__ = 'Segmentation'
+__algorithm__ = 'Fast nl Means Denoising'
+__belongs2__ = 'Preprocessing'
 
 
 def apply(image, settings):
     """Replace this stub with actual implementation."""
-    print '> Algorithm: "blur" processing "%s" with "%s"' % (image, settings)
+    print '> Algorithm: %s processing "%s" with "%s"' % (__algorithm__, image, settings)
     return 0
 
 
