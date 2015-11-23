@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$USER_HOME$/dev/nefi1.0.3/.idea/nefi1.0.3.iml" filepath="$USER_HOME$/dev/nefi1.0.3/.idea/nefi1.0.3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/nefi2.iml" filepath="$PROJECT_DIR$/.idea/nefi2.iml" />
-    </modules>
-  </component>
-</project>
