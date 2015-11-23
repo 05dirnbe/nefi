@@ -53,7 +53,7 @@ class Method:
         return self.name
 
     def set_modified(self):
-        print '> Method: "%s" was modified.' % self.name
+        print '> Method: "%s" was modified. Start processing from "%s".' % (self.name, self.name)
         self.modified = True
 
     def get_modified(self):

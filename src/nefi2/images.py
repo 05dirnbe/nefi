@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
-
+"""
+A class that represents an image object.
+Used to handle io operations on image files and set various attributes.
+"""
 import ntpath
+import cv2
 
 
 class Image:
@@ -16,8 +20,17 @@ class Image:
         print '> Image: "%s" processed: %s' % (self.name, self.processed)
 
     def read_image(self, img_path):
-        return img_path
+        """
+        Read in an image using its relative path.
+
+        Args:
+            img_path -- relative path to the image.
+        Returns:
+            numpy.ndarray -- numpy array of the image representation.
+        """
         print '> Image: "%s" image loaded.' % self.name
+        return cv2.imread(img_path, cv2.CV_LOAD_IMAGE_COLOR)
+
 
     @property
     def processed(self):
@@ -35,6 +48,7 @@ class Image:
         """Save the name of the algorithm that processed the image and its
         settings."""
         self.signature = signature
+
 
 if __name__ == '__main__':
     pass
