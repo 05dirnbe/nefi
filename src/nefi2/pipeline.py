@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from images import Image
+from out_container import OutContainer
+
 import re
 import os
 import sys
@@ -119,6 +121,7 @@ class Pipeline:
         self.methods = _modder.scan_meths()
         _methmap = _modder._get_methmath()
         self.container = self.create_meth_container(_methmap)
+        self._out_container = OutContainer()
         print '> Pipeline: initialized with the following methods:'
         for m in self.methods:
             print m
@@ -154,27 +157,33 @@ class Pipeline:
     def run_meth_container(self):
         """Run each method in the container sequentially."""
         print '> Pipeline: default pipeline loaded.'
-        # draft implementation
-        alg_config = ['Blur', 'Otsus Threshold', 'Guo Hall graph detector',
+        # dummy config, remove it when the settings implementation is done
+        def_config = ['Blur', 'Otsus Threshold', 'Guo Hall graph detector',
                       'Keep only largest connected component']
+
         # first check if pipeline was modified
         modified = [m.name for m in self.container if m.get_modified()]
+        self._out_container.flush()
         if not modified:
-            for meth, alg in zip(self.container, alg_config):
-                meth.set_alg(alg)
-                meth.run(self.image, 'Default settings')
-                self.image.get_status()
+            result = self.image
+            for meth, alg in zip(self.container, def_config):
+                meth.activate(alg)
+                result = meth.run(result, def_config)
+                result.get_status()
+                self._out_container.receive(result)
+                print 'OUT:', result.result
         else:
             idx = [n[0] for n in enumerate(self.methods)
                          if n[-1].get_name() in modified][0]
-            for meth, alg in zip(self.container[idx:], alg_config[idx:]):
-                meth.set_alg(alg)
-                meth.run(self.image, 'Default settings')
-                self.image.get_status()
-
-    def run_container_method(self):
-        """Run single specific method from the container."""
-        print '> Pipeline: Running "%s" on "%s"' % (self.methods, self.image)
+            result = self.image
+            for meth, alg in zip(self.container[idx:], def_config[idx:]):
+                meth.activate(alg)
+                result = meth.run(result, def_config)
+                result.get_status()
+                self._out_container.receive(result)
+                print 'OUT:', result.result
+        print 'CONTAINER:', self._out_container.results
+        return result
 
 
 if __name__ == '__main__':
@@ -184,28 +193,29 @@ if __name__ == '__main__':
     """
     Choosing one single method and algorithm to process the image.
     """
-    img = Image()
-    img.read_image('Polycephalum image')
+    img = Image('Polycephalum image')
     print '\nAction: selected method "Preprocessing"'
-    prep = ppl.get_container_meth("Preprocessing")[0]
+    meth = ppl.get_container_meth("Preprocessing")[0]
     print '\nAction: selected algorithm "Blur"'
-    prep.set_alg('Blur')
-    settings = "Default settings"
-    print '\nAction: process "{0}"'.format(img.img)
+    meth.activate('Blur')
+    print '\nAction: process "{0}"'.format(img.name)
     print 'Action: clicked Run button.'
-    prep.run(img, settings)
+    out = meth.run(img, 'Blur')
     img.get_status()
+    print out.signature
+
     # A user runs a pipeline of algorithms
     print '\nUI: ======= PIPELINE TEST ======='
     """
     Choosing a predefined pipeline and running it.
     """
-    img = Image()
-    img.read_image('A Junius wing')
+    img = Image('A Junius wing')
     ppl.receive_image(img)
     print '\nAction: selected default pipeline'
     print 'Action: clicked Run button.'
-    ppl.run_meth_container()
+    out = ppl.run_meth_container()
+    print out.signature
+
     # A user changes algorithm settings, we do not recalculate the pipeline.
     print '\nUI: ======= PIPELINE RECALC TEST ======='
     """
@@ -216,5 +226,6 @@ if __name__ == '__main__':
     """
     print 'Action: changed settings in "Segmentation" method.'
     print 'Action: clicked Run button.'
-    ppl.mod_container_meth('Segmentation')
-    ppl.run_meth_container()
+    ppl.mod_container_meth('Graph detection')
+    out = ppl.run_meth_container()
+    print out.signature
