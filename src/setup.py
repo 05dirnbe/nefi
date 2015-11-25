@@ -31,34 +31,33 @@ class PyTest(TestCommand):
         self.test_suite = True
 
     def run_tests(self):
-
         errcode = pytest.main(self.test_args)
         sys.exit(errcode)
 
 
 setup(
-    name='nefi2',
-    version=nefi2.__version__,
-    url='ssh://git@se.st.cs.uni-saarland.de/towards-nefi-2-0.git',
-    license='BSD',
-    author='',
-    tests_require=['pytest'],
-    install_requires=['numpy>=1.9.1',
-                      'networkx>=1.9.1',
-                      'thinning>=1.2.3',
-                      'OpenCV>=2.4.10'
-                    ],
-    cmdclass={'test': PyTest},
-    author_email='',
-    description='NEFI is an extensible tool for extracting graphs from images '
-                'of networks.',
-    long_description=full_description,
-    packages=['nefi2'],
-    include_package_data=True,
-    platforms='any',
-    test_suite='tests',
+    name = 'nefi2',
+    version = nefi2.__version__,
+    url = 'ssh://git@se.st.cs.uni-saarland.de/towards-nefi-2-0.git',
+    license = 'BSD',
+    author = '',
+    tests_require = ['pytest'],
+    install_requires = ['numpy>=1.9.1',
+                        'networkx>=1.9.1',
+                        'thinning>=1.2.3',
+                        'OpenCV>=2.4.10'
+                       ],
+    cmdclass = {'test': PyTest},
+    author_email = '',
+    description = 'NEFI is an extensible tool for extracting graphs from \
+                   images of networks.',
+    long_description = full_description,
+    packages = ['nefi2'],
+    include_package_data = True,
+    platforms = 'any',
+    test_suite = 'tests',
     classifiers = [''],
-    extras_require={
-        'testing': ['pytest'],
-    }
+    extras_require = {
+                     'testing': ['pytest'],
+                     }
 )
