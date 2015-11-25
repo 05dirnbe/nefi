@@ -1,26 +1,20 @@
 # -*- coding: utf-8 -*-
+"""
+    A Pipeline class represents a central control mechanism over a sequential
+    image processing pipeline. It controls all the available image processing
+    methods, handles processing results and works as an mediator between the
+    algorithms and UI.
+"""
 
 from images import Image
-from out_container import OutContainer
-from presenter import ModelScanner
-
-import re
-import os
-import sys
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'methods'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-
-
-# TODO: instance attributes self. should not be outside __init__ unless no other way.
+from container import OutContainer
 
 
 class Pipeline:
-    def __init__(self):
+    def __init__(self, methods, methmap):
         """Initialize default methods and their respective algorithms."""
-        _modder = ModelScanner()
-        self.methods = _modder.scan_meths()
-        _methmap = _modder._get_methmath()
-        self.container = self.create_meth_container(_methmap)
+        self.methods = methods
+        self.container = self.create_meth_container(methmap)
         self._out_container = OutContainer()
         print '> Pipeline: initialized with the following methods:'
         for m in self.methods:
@@ -90,51 +84,4 @@ class Pipeline:
 
 
 if __name__ == '__main__':
-    ppl = Pipeline()
-    # A user wants to run one algorithm to process an image
-    print '\nUI: ======= ALGORITHM TEST ======='
-    """
-    Choosing one single method and algorithm to process the image.
-    """
-
-    # available samples: p_polycephalum.jpg, a_junius_wing.jpg
-    impath = os.path.join('example_images', 'p_polycephalum.jpg')
-    img = Image(impath)
-    print '\nAction: selected method "Preprocessing"'
-    meth = ppl.get_container_meth("Preprocessing")[0]
-    print '\nAction: selected algorithm "Blur"'
-    meth.activate('Blur')
-    print '\nAction: process "{0}"'.format(img.name)
-    print 'Action: clicked Run button.'
-    out = meth.run(img, 'Blur')
-    img.get_status()
-    print 'LAST PROCESSED BY: ', out.signature
-
-    # A user runs a pipeline of algorithms
-    print '\nUI: ======= PIPELINE TEST ======='
-    """
-    Choosing a predefined pipeline and running it.
-    """
-    img = Image('A Junius wing')
-    ppl.receive_image(img)
-    print '\nAction: selected default pipeline'
-    print 'Action: clicked Run button.'
-    out = ppl.run_meth_container()
-    print 'LAST PROCESSED BY: ', out.signature
-
-    # A user changes algorithm settings, we do not recalculate the pipeline.
-    print '\nUI: ======= PIPELINE RECALC TEST ======='
-    """
-    This is a scenario, when a user modifies one of the algorithms
-    in the pipeline and the pipeline starts from the method which algorithm
-    has been changed.
-    Original NEFI recalculates the whole pipeline for this user case.
-    """
-    print 'Action: changed settings in "Segmentation" method.'
-    print 'Action: clicked Run button.'
-    #ppl.mod_container_meth('Preprocessing')
-    #ppl.mod_container_meth('Segmentation')
-    #ppl.mod_container_meth('Graph detection')
-    #ppl.mod_container_meth('Graph filtering')
-    out = ppl.run_meth_container()
-    print 'LAST PROCESSED BY: ', out.signature
+    pass
