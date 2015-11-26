@@ -11,10 +11,10 @@ from container import OutContainer
 
 
 class Pipeline:
-    def __init__(self, methods, methmap):
+    def __init__(self, methods, container):
         """Initialize default methods and their respective algorithms."""
         self.methods = methods
-        self.container = self.create_meth_container(methmap)
+        self.container = container
         self._out_container = OutContainer()
         print '> Pipeline: initialized with the following methods:'
         for m in self.methods:

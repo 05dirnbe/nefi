@@ -34,8 +34,8 @@ class ExtensionLoader:
         self.methdir = os.path.join('model', 'methods')
         self.scan_dirs()
         _found_methods = self.scan_meths()
-        _mapping = self._get_methmath()
-        self.pipeline = Pipeline(_found_methods, _mapping)
+        _container = self._get_meth_container(_found_methods)
+        self.pipeline = Pipeline(_found_methods, _container)
 
     def scan_dirs(self):
         """
@@ -106,19 +106,25 @@ class ExtensionLoader:
                       'requirements, skipping.'.format(fpath)
                 self.meths.remove(me)
 
-    def _get_methmath(self):
+    def _get_meth_container(self, found_meths):
         """
-        Scan algorithms dir for new algorithms, check for compliance and
-        build alg -> method mapping.
+        Build alg -> method mapping.
+        Create a container with methods that represent a pipeline with
+        selected algorithms and predefined settings.
 
             Returns:
-                dict -- algorithm -> method mapping
+                meth_container -- a list with Method instances
         """
         alg_meth_map = {}
         for ext in self.algs:
             imported = __import__(ext.split('.')[0])
             alg_meth_map[imported] = getattr(imported, 'belongs')()
-        return alg_meth_map
+
+        meth_container = []
+        for meth in found_meths:
+            inst = getattr(meth, 'new')(alg_meth_map)  # creating Method objects
+            meth_container.append(inst)
+        return meth_container
 
 
     def _sniff(self, alg_fun):
@@ -189,7 +195,7 @@ if __name__ == '__main__':
     print 'Action: clicked Run button.'
     #ppl.mod_container_meth('Preprocessing')
     #ppl.mod_container_meth('Segmentation')
-    #ppl.mod_container_meth('Graph detection')
+    ppl.mod_container_meth('Graph detection')
     #ppl.mod_container_meth('Graph filtering')
     out = ppl.run_meth_container()
     print 'LAST PROCESSED BY: ', out.signature
