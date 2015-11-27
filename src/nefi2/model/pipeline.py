@@ -51,6 +51,18 @@ class Pipeline:
             if meth.name == methname:
                 meth.set_modified()
 
+    def run_meth(self, meth_name, alg):
+        """Run a specific method."""
+        # dummy settings, remove them
+        settings = {'param1': 50, 'param2': 25}
+        result = self.image
+        for meth in self.container:
+            if meth_name == meth.name:
+                meth.activate(alg)
+                result = meth.run(result, settings)
+                break
+        return result
+
     def run_meth_container(self):
         """Run each method in the container sequentially."""
         print '> Pipeline: pipeline started.'

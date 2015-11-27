@@ -151,16 +151,17 @@ class ExtensionLoader:
 if __name__ == '__main__':
     loader = ExtensionLoader()
     ppl = loader.get_pipeline()
+    # available samples: p_polycephalum.jpg, a_junius_wing.jpg
+    impath = os.path.join('example_images', 'p_polycephalum.jpg')
+    img = Image(impath)
+    #ppl.receive_image(img)
+    #ppl.run_meth('Preprocessing', 'Blur')
 
     # A user wants to run one algorithm to process an image
     print '\nUI: ======= ALGORITHM TEST ======='
     """
     Choosing one single method and algorithm to process the image.
     """
-
-    # available samples: p_polycephalum.jpg, a_junius_wing.jpg
-    impath = os.path.join('example_images', 'p_polycephalum.jpg')
-    img = Image(impath)
     print '\nAction: selected method "Preprocessing"'
     meth = ppl.get_container_meth("Preprocessing")[0]
     print '\nAction: selected algorithm "Blur"'
