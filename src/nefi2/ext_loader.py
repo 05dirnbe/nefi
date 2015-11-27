@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    A class that works with "model" folder and is used to initialize the
-    pipeline with available methods and their respective algorithms.
+A class that works with "model" folder and is used to initialize the
+pipeline with available methods and their respective algorithms.
 """
 import inspect
 import re
@@ -30,12 +30,21 @@ class ExtensionLoader:
     corresponding mapping that is used by Method class upon instantiating.
     """
     def __init__(self):
+        """
+        Class constructor
+        Instance vars:
+            self.algdir -- a direcory path for algorithms
+            self.methdir -- a directory path for methods
+            self.algs -- a list of algorithm paths
+            self.meths -- a list of method paths
+            self.pipeline -- Pipeline instance
+        """
         self.algdir = os.path.join('model', 'algorithms')
         self.methdir = os.path.join('model', 'methods')
         self.scan_dirs()
         _found_methods = self.scan_meths()
         _container = self._get_meth_container(_found_methods)
-        self.pipeline = Pipeline(_found_methods, _container)
+        self.pipeline = Pipeline(_container)
 
     def scan_dirs(self):
         """
@@ -55,9 +64,8 @@ class ExtensionLoader:
         Scan methods dir for new methods, check interface compliance,
         import methods, get method order from config.xml and return a sorted
         list of imported method instances.
-
-            Returns:
-                imported_meths -- a sorted list of imported methods
+        Returns:
+            imported_meths -- a sorted list of imported methods
         """
         print '> ExtLoader: Importing methods...'
         meth_list = []
@@ -80,14 +88,17 @@ class ExtensionLoader:
         return imported_meths
 
     def _check_compliance(self):
-        """Check extension's code compliance."""
+        """
+        Check extension's code compliance. If a file does not comply with the
+        interface, skip it (it won't be displaued in UI).
+        """
         _alg_required = ('apply', 'belong', 'main', 'get_name')
         for ex in self.algs:
             fpath = os.path.join(self.algdir, ex)
             with open(fpath, 'r') as extfile:
                 fdata = extfile.read()
             # WARNING! findall does not do full word match
-            found = re.findall('|'.join(_alg_required), fdata)
+            found = re.findall('|'.join(_alg_required), fdata)  # FIX: weak matching
             if len(found) < 4:
                 print found
                 print 'AlgorithmSyntaxError: {0} does not comply with code ' \
@@ -100,7 +111,7 @@ class ExtensionLoader:
             with open(fpath, 'r') as methfile:
                 fdata = methfile.read()
             # WARNING! findall does not do full word match
-            found = re.findall('|'.join(_meth_required), fdata)
+            found = re.findall('|'.join(_meth_required), fdata)  # FIX: weak matching
             if len(found) < 3:
                 print 'MethodSyntaxError: {0} does not comply with code ' \
                       'requirements, skipping.'.format(fpath)
@@ -111,9 +122,10 @@ class ExtensionLoader:
         Build alg -> method mapping.
         Create a container with methods that represent a pipeline with
         selected algorithms and predefined settings.
-
-            Returns:
-                meth_container -- a list with Method instances
+        Args:
+            found_meths -- a list of found and imported methods
+        Returns:
+            meth_container -- a list with Method instances
         """
         alg_meth_map = {}
         for ext in self.algs:
@@ -129,14 +141,14 @@ class ExtensionLoader:
 
     def _sniff(self, alg_fun):
         """
-            Inspect the algorithm function arguments and their respective types
-            in order to inform the UI about the widgets that are required to
-            correctly display the algorithm settings.
+        Inspect the algorithm function arguments and their respective types
+        in order to inform the UI about the widgets that are required to
+        correctly display the algorithm settings.
 
-            <There should be two widgets available. Basically two of them
-            actually make sense: checkbox and slider. I think other widgets are
-            redundant and only add more unneeded complexity. If we detect that
-            algorithm function requires bool argument we create a checkbox,
+        <There should be two widgets available. Basically two of them
+        actually make sense: checkbox and slider. I think other widgets are
+        redundant and only add more unneeded complexity. If we detect that
+        algorithm function requires bool argument we create a checkbox,
             else a slider.>
         """
         return inspect.getargspec(alg_fun)

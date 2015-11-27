@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-    This class is used to receive, keep and send the results of the algorithms
-    processing. The results will be kept in a simple list object and directly
-    accessed if required.
+This class is used to receive, keep and send the results of the algorithms
+processing. The results will be kept in a simple list object and directly
+accessed if required.
 """
 
 
@@ -11,7 +11,7 @@ class OutContainer:
         self.results = []
 
     def receive(self, image):
-        """Receive the processed image and save it in a list."""
+        """Receive a processed image and save it in a list."""
         self.results.append(image)
 
     def flush(self):
