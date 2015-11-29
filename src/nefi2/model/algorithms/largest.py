@@ -4,7 +4,7 @@ __algorithm__ = 'Keep only largest connected component'
 __belongs2__ = 'Graph filtering'
 
 
-def apply(image, settings):
+def process(image, settings):
     """Replace this stub with actual implementation."""
     print '> Algorithm: "blur" processing "%s" with "%s"' % (image, settings)
     sign(image, settings)

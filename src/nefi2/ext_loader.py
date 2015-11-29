@@ -16,9 +16,18 @@ from model.images import Image
 
 
 def read_config():
-    with open('config.xml', 'r') as conf:
-        etconf = et.fromstring(conf.read())
-    return etconf
+    """
+    Parse config.xml and return xml representation of the file.
+    """
+    tree = et.parse('config.xml')
+    root = tree.getroot()
+    config = []
+    for child in root:
+        if child.tag == 'order':
+            config.append(child)
+        elif child.tag == 'pipeline':
+            config.append(child)
+    return config
 
 
 class ExtensionLoader:
@@ -42,9 +51,10 @@ class ExtensionLoader:
         self.algdir = os.path.join('model', 'algorithms')
         self.methdir = os.path.join('model', 'methods')
         self.scan_dirs()
-        _found_methods = self.scan_meths()
+        _order, _pipe = read_config()
+        _found_methods = self.scan_meths(_order)
         _container = self._get_meth_container(_found_methods)
-        self.pipeline = Pipeline(_container)
+        self.pipeline = Pipeline(_container, _pipe)
 
     def scan_dirs(self):
         """
@@ -59,7 +69,7 @@ class ExtensionLoader:
         self.meths = filter(lambda x: not _ignored.match(x), _meth_files)
         self._check_compliance()
 
-    def scan_meths(self):
+    def scan_meths(self, _order):
         """
         Scan methods dir for new methods, check interface compliance,
         import methods, get method order from config.xml and return a sorted
@@ -74,7 +84,7 @@ class ExtensionLoader:
             imported = __import__(met.split('.')[0])
             imported_meths.append(imported)
             meth_list.append(getattr(imported, 'get_name')())
-        meth_order = [meth.text for meth in read_config().iter('method')]
+        meth_order = [meth.text for meth in _order.iter('method')]
         missing_meth = [i for i in meth_list if i not in meth_order]
         missing_conf = [i for i in meth_order if i not in meth_list]
         if missing_meth:
@@ -90,7 +100,7 @@ class ExtensionLoader:
     def _check_compliance(self):
         """
         Check extension's code compliance. If a file does not comply with the
-        interface, skip it (it won't be displaued in UI).
+        interface, skip it (it won't be displayed in UI).
         """
         _alg_required = ('apply', 'belong', 'main', 'get_name')
         for ex in self.algs:
@@ -177,7 +187,7 @@ if __name__ == '__main__':
     print '\nAction: selected method "Preprocessing"'
     meth = ppl.get_container_meth("Preprocessing")[0]
     print '\nAction: selected algorithm "Blur"'
-    meth.activate('Blur')
+    meth.use_alg('Blur')
     print '\nAction: process "{0}"'.format(img.name)
     print 'Action: clicked Run button.'
     out = meth.run(img, 'Blur')

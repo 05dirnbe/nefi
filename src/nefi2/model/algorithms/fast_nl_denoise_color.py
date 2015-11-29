@@ -4,7 +4,7 @@ __algorithm__ = 'Fast nl Means Denoising Colored'
 __belongs2__ = 'Preprocessing'
 
 
-def apply(image, settings):
+def process(image, settings):
     """Replace this stub with actual implementation."""
     print '> Algorithm: %s processing "%s" with "%s"' % (__algorithm__, image, settings)
     sign(image, settings)

@@ -6,6 +6,7 @@ transmitting the output to the pipeline. It serves as an intermediate layer
 between the algorithms and the pipeline.
 """
 
+
 class Method:
     def __init__(self, name, methmap):
         """
@@ -41,7 +42,7 @@ class Method:
         """
         return [k for k, v in methmap.items() if v == self.name]
 
-    def activate(self, alg_name):
+    def use_alg(self, alg_name):
         """
         Explicitly set an algorithm for current method.
         Args:
@@ -50,7 +51,7 @@ class Method:
         print '> "%s" method: "%s" algorithm shall be used' % (self.name, alg_name)
         self.curalg = alg_name
 
-    def get_activated(self):
+    def get_used_alg(self):
         """
         Return the name of the currently set algorithm.
         Returns:
@@ -68,7 +69,7 @@ class Method:
         print '> "%s" method: using "%s" algorithm' % (self.name, self.curalg)
         _algorithm = [mod for mod in self.algs
                       if self.curalg == mod.__algorithm__][0]
-        changes = _algorithm.apply(image, settings)
+        changes = _algorithm.process(image, settings)
         image.save(changes)
         image.processed = True
         return image

@@ -4,7 +4,7 @@ __algorithm__ = 'Otsus Threshold'
 __belongs2__ = 'Segmentation'
 
 
-def apply(image, settings):
+def process(image, settings):
     """Replace this stub with actual implementation."""
     print '> Algorithm: "blur" processing "%s" with "%s"' % (image, settings)
     sign(image, settings)

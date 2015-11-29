@@ -13,7 +13,7 @@ __belongs2__ = 'Preprocessing'
 __settings__ = 'Left percentage, Right percentage'
 
 
-def apply(image, settings):
+def process(image, settings):
     # Do something before running the algorithm.
     print '> Algorithm: %s processing "%s" with "%s"' % (__algorithm__, image, settings)
     sign(image, settings)
