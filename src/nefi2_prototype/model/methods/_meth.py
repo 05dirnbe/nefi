@@ -72,6 +72,7 @@ class Method:
         changes = _algorithm.process(image, settings)
         image.save(changes)
         image.processed = True
+        self.modified = False  # reset modified variable after processing
         return image
 
     def get_name(self):

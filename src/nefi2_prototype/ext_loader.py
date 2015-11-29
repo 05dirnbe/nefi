@@ -15,19 +15,12 @@ from model.pipeline import Pipeline
 from model.images import Image
 
 
-def read_config():
+def read_config(xml_path):
     """
-    Parse config.xml and return xml representation of the file.
+    Parse config.xml and return its xml representation.
     """
-    tree = et.parse('config.xml')
-    root = tree.getroot()
-    config = []
-    for child in root:
-        if child.tag == 'order':
-            config.append(child)
-        elif child.tag == 'pipeline':
-            config.append(child)
-    return config
+    tree = et.parse(xml_path)
+    return tree.getroot()
 
 
 class ExtensionLoader:
@@ -44,17 +37,34 @@ class ExtensionLoader:
         Instance vars:
             self.algdir -- a direcory path for algorithms
             self.methdir -- a directory path for methods
-            self.algs -- a list of algorithm paths
-            self.meths -- a list of method paths
+            self.all_algs -- a list of algorithm paths
+            self.all_meths -- a list of method paths
             self.pipeline -- Pipeline instance
+        Private vars:
+            _default_pipe -- xml.etree object of config.xml
+            _found_methods -- a sorted list of imported methods
+            _container -- a list with Method instances
         """
         self.algdir = os.path.join('model', 'algorithms')
         self.methdir = os.path.join('model', 'methods')
         self.scan_dirs()
-        _order, _pipe = read_config()
-        _found_methods = self.scan_meths(_order)
+        _default_pipe = read_config('config.xml')
+        _found_methods = self.scan_meths(_default_pipe)
         _container = self._get_meth_container(_found_methods)
-        self.pipeline = Pipeline(_container, _pipe)
+        self.pipeline = Pipeline(_container, _default_pipe)
+
+    def new_pipeline(self, pipe_path):
+        """
+        Replace currently active pipeline with a new one.
+        Args:
+            pipe_path -- a file path to a new pipeline
+        """
+        _new_pipe = read_config(pipe_path)  # xml.etree object
+        new_meths = [elem.attrib['method'] for elem in _new_pipe]
+        _found_methods = self.scan_meths(_new_pipe)
+        self.pipeline.container = []  # erasing current method container
+        _new_container = self._get_meth_container(_found_methods)
+        self.pipeline.load_new_pipeline(_new_container, _new_pipe)
 
     def scan_dirs(self):
         """
@@ -64,27 +74,34 @@ class ExtensionLoader:
         """
         _alg_files = os.listdir(self.algdir)
         _meth_files = os.listdir(self.methdir)
-        _ignored = re.compile(r'.*.pyc|__init__|_meth.py|howto.txt')
-        self.algs = filter(lambda x: not _ignored.match(x), _alg_files)
-        self.meths = filter(lambda x: not _ignored.match(x), _meth_files)
+        _ignored = re.compile(r'.*.pyc|__init__|_meth.py|HOWTO.txt')
+        self.all_algs = filter(lambda x: not _ignored.match(x), _alg_files)
+        self.all_meths = filter(lambda x: not _ignored.match(x), _meth_files)
         self._check_compliance()
 
-    def scan_meths(self, _order):
+    def scan_meths(self, pipe_config):
         """
         Scan methods dir for new methods, check interface compliance,
-        import methods, get method order from config.xml and return a sorted
-        list of imported method instances.
+        import methods according to provided pipeline config, sort them and
+        return a list of imported method instances.
+        Args:
+            pipe_config -- xml.etree object of config.xml
         Returns:
             imported_meths -- a sorted list of imported methods
         """
         print '> ExtLoader: Importing methods...'
         meth_list = []
         imported_meths = []
-        for met in self.meths:
-            imported = __import__(met.split('.')[0])
-            imported_meths.append(imported)
-            meth_list.append(getattr(imported, 'get_name')())
-        meth_order = [meth.text for meth in _order.iter('method')]
+        for settings in pipe_config:
+            meth_name = settings.attrib['method']
+            for met in self.all_meths:
+                imported = __import__(met.split('.')[0])
+                imp_name = getattr(imported, 'get_name')()
+                if imp_name == meth_name:
+                    imported_meths.append(imported)
+                    meth_list.append(imp_name)
+
+        meth_order = [m.attrib['method'] for m in pipe_config.iter('settings')]
         missing_meth = [i for i in meth_list if i not in meth_order]
         missing_conf = [i for i in meth_order if i not in meth_list]
         if missing_meth:
@@ -94,6 +111,7 @@ class ExtensionLoader:
             print 'MethodNotPresentError: {0} not found in methods dir'.format(missing_conf)
             return 1
         # sorting methods according to config.xml order
+        print meth_order
         imported_meths.sort(key=lambda x: meth_order.index(x.get_name()))
         return imported_meths
 
@@ -103,7 +121,7 @@ class ExtensionLoader:
         interface, skip it (it won't be displayed in UI).
         """
         _alg_required = ('apply', 'belong', 'main', 'get_name')
-        for ex in self.algs:
+        for ex in self.all_algs:
             fpath = os.path.join(self.algdir, ex)
             with open(fpath, 'r') as extfile:
                 fdata = extfile.read()
@@ -113,10 +131,10 @@ class ExtensionLoader:
                 print found
                 print 'AlgorithmSyntaxError: {0} does not comply with code ' \
                       'requirements, skipping.'.format(fpath)
-                self.algs.remove(ex)
+                self.all_algs.remove(ex)
 
         _meth_required = ('new', 'get_name')
-        for me in self.meths:
+        for me in self.all_meths:
             fpath = os.path.join(self.methdir, me)
             with open(fpath, 'r') as methfile:
                 fdata = methfile.read()
@@ -125,7 +143,7 @@ class ExtensionLoader:
             if len(found) < 3:
                 print 'MethodSyntaxError: {0} does not comply with code ' \
                       'requirements, skipping.'.format(fpath)
-                self.meths.remove(me)
+                self.all_meths.remove(me)
 
     def _get_meth_container(self, found_meths):
         """
@@ -138,7 +156,7 @@ class ExtensionLoader:
             meth_container -- a list with Method instances
         """
         alg_meth_map = {}
-        for ext in self.algs:
+        for ext in self.all_algs:
             imported = __import__(ext.split('.')[0])
             alg_meth_map[imported] = getattr(imported, 'belongs')()
 
@@ -178,16 +196,15 @@ if __name__ == '__main__':
     img = Image(impath)
     #ppl.receive_image(img)
     #ppl.run_meth('Preprocessing', 'Blur')
-
     # A user wants to run one algorithm to process an image
     print '\nUI: ======= ALGORITHM TEST ======='
     """
     Choosing one single method and algorithm to process the image.
     """
-    print '\nAction: selected method "Preprocessing"'
-    meth = ppl.get_container_meth("Preprocessing")[0]
-    print '\nAction: selected algorithm "Blur"'
-    meth.use_alg('Blur')
+    print '\nAction: selected method "Segmentation"'
+    meth = ppl.get_container_meth("Segmentation")[0]
+    print '\nAction: selected algorithm "Otsus Threshold"'
+    meth.use_alg('Otsus Threshold')
     print '\nAction: process "{0}"'.format(img.name)
     print 'Action: clicked Run button.'
     out = meth.run(img, 'Blur')
@@ -222,3 +239,15 @@ if __name__ == '__main__':
     #ppl.mod_container_meth('Graph filtering')
     out = ppl.run_meth_container()
     print 'LAST PROCESSED BY: ', out.signature
+
+    # A user selects a different pipeline
+    print '\nUI: ======= NEW PIPELINE TEST ======='
+    """User loads previously saved pipeline into current instance"""
+    loader.new_pipeline('saved_pipelines/a_junius.xml')
+    img = Image('A Junius wing')
+    ppl.receive_image(img)
+    print '\nAction: selected default pipeline'
+    print 'Action: clicked Run button.'
+    out = ppl.run_meth_container()
+    print 'LAST PROCESSED BY: ', out.signature
+

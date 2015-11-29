@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Settings for default pipeline -->
+<pipeline>
+    <settings method="Preprocessing" alg="Median Blur">
+        <param name="ksize">5</param>
+    </settings>
+    <settings method="Segmentation" alg="Guided Watershed with adaptive threshold">
+        <param name="bg_iter">0</param>
+        <param name="block_size">23</param>
+        <param name="constant">1</param>
+        <param name="fg_iter">0</param>
+    </settings>
+    <settings method="Graph detection" alg="Guo Hall graph detector"/>
+    <settings method="Graph filtering" alg="Keep only largest connected component"/>
+    <settings method="Graph filtering" alg="Simple cycle filter"/>
+</pipeline>

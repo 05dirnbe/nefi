@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Application order of image processing methods and algorithm settings-->
+<pipeline>
+    <settings method="Preprocessing" alg="Blur">
+        <param name="ksize">5</param>
+    </settings>
+    <settings method="Segmentation" alg="Adaptive Threshold">
+        <param name="block_size">11</param>
+        <param name="constant">2</param>
+    </settings>
+    <settings method="Graph detection" alg="Guo Hall graph detector"/>
+    <settings method="Graph filtering" alg="Keep only largest connected component"/>
+</pipeline>
+

@@ -5,10 +5,9 @@ image processing pipeline. It controls all the available image processing
 methods, handles processing results and works as an mediator between the
 algorithms and UI.
 """
-import xml.etree.ElementTree as et
+import sys
 from container import OutContainer
 
-import sys
 
 class Pipeline:
     def __init__(self, container, default_pipe):
@@ -29,6 +28,18 @@ class Pipeline:
         for m in self.container:
             print m
         print ''
+
+    def load_new_pipeline(self, new_container, new_pipe):
+        """
+        Load a new pipeline and remove all previous results.
+        Args:
+            new_container -- a list with Method instances
+            new_pipe -- xml.etree object of config.xml
+        """
+        self.container = new_container
+        print '[ NEW CONTAINER LOADED ]', new_container
+        self._pipe = new_pipe
+        self._out_container.flush()  # removing all previous results
 
     def receive_image(self, image):
         """Get image and its settings.
@@ -126,21 +137,24 @@ class Pipeline:
         """
         ismethod = param.get('method')
         isalg = param.get('alg')
+        settings = {}
         if ismethod:
-            settings = {}
             # get method settings with algorithm
-            elem = [elem for elem in self._pipe.iter('settings')
-                    if ismethod == elem.attrib['method']][0]
+            elems = [el for el in self._pipe.iter('settings')
+                    if ismethod == el.attrib['method']][-1]
         elif isalg:
-            settings = {}
             # get algorithm settings and values
-            elem = [elem for elem in self._pipe.iter('settings')
-                    if isalg == elem.attrib['alg']][0]
+            elems = [el for el in self._pipe.iter('settings')
+                    if isalg == el.attrib['alg']][0]
+        else:
+            # FIX: handle it differently
+            print 'CRITICAL ERROR: No settings found for %s!' % param
+            sys.exit(1)
         # get algorithm settings
         alg_pars = [(par.attrib['name'], par.text)
-                    for par in elem.iter('param')]
+                    for par in elems.iter('param')]
         # store settings in dict
-        settings[elem.attrib['alg']] = dict(alg_pars)
+        settings[elems.attrib['alg']] = dict(alg_pars)
         return settings
 
 
