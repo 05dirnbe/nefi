@@ -6,7 +6,7 @@ from setuptools.command.test import test as TestCommand
 import io
 import codecs
 import os
-import nefi2_prototype.nefi2
+import nefi2.nefi2
 import pytest
 import sys
 
@@ -36,8 +36,8 @@ class PyTest(TestCommand):
 
 
 setup(
-    name = 'nefi2_prototype',
-    version = nefi2_prototype.__version__,
+    name = 'nefi2',
+    version = nefi2.__version__,
     url = 'ssh://git@se.st.cs.uni-saarland.de/towards-nefi-2-0.git',
     license = 'BSD',
     author = '',
@@ -52,7 +52,7 @@ setup(
     description = 'NEFI is an extensible tool for extracting graphs from \
                    images of networks.',
     long_description = full_description,
-    packages = ['nefi2_prototype'],
+    packages = ['nefi2'],
     include_package_data = True,
     platforms = 'any',
     test_suite = 'tests',
