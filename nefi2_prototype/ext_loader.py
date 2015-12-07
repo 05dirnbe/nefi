@@ -76,6 +76,7 @@ class ExtensionLoader:
         _meth_files = os.listdir(self.methdir)
         _ignored = re.compile(r'.*.pyc|__init__|_meth.py|HOWTO.txt')
         self.all_algs = filter(lambda x: not _ignored.match(x), _alg_files)
+        print self.all_algs; sys.exit()
         self.all_meths = filter(lambda x: not _ignored.match(x), _meth_files)
         self._check_compliance()
 
