@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import _meth
+import _step
 
 
 __meth_name__ = 'Preprocessing'
@@ -15,13 +15,13 @@ def get_name():
     return __meth_name__
 
 
-def new(methmap):
+def new(stepmap):
     """
     Create a new Method instance.
     Args:
-        methmap -- a simple dict mapping: algorithm --> method
+        stepmap -- a simple dict mapping: algorithm --> method
     """
-    return _meth.Method(get_name(), methmap)
+    return _step.Step(get_name(), stepmap)
 
 
 if __name__ == '__main__':

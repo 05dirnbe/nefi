@@ -21,6 +21,11 @@ class Pipeline:
             self._out_container -- a list that keeps processing results
             self.image -- Image object instance
         """
+        """
+        _available_steps List<Steps>
+        _selected_steps List<Steps>
+        _ordering List<String>
+        """
         self.container = container
         self._pipe = default_pipe
         self._out_container = OutContainer()
