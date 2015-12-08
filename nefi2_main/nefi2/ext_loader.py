@@ -13,15 +13,35 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'steps'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 import xml.etree.ElementTree as et
 
-from model.pipeline import Pipeline
-
 
 def read_config(xml_path):
     """
-    Parse config.xml and return its xml representation.
+    Parse config.xml, extract steps order and their default settings.
+    Create a list with order of steps and a dictionary of default settings.
+    Args:
+        xml_path -- a path to config.xml
+    Returns:
+        order -- a list of steps order
+        settings -- a settings dictionary of {Step: {Algorithm: {Param: val}}}
     """
     tree = et.parse(xml_path)
-    return tree.getroot()
+    root = tree.getroot()
+    for elem in root:
+        if elem.tag == 'order':
+            # create steps order list
+            order = [e.text for e in elem.iter('step')]
+        elif elem.tag == 'default':
+            # create a settings dictionary
+            settings = {}
+            for step in elem.iter('step'):
+                step_name = step.attrib['name']
+                for alg in step.iter('alg'):
+                    alg_name = alg.attrib['name']
+                    settings[step_name] = {alg_name: {}}
+                    for param in alg.iter('param'):
+                        params = {param.attrib['name']: param.text}
+                        settings[step_name][alg_name].update(params)
+    return order, settings
 
 
 class ExtensionLoader:
@@ -48,7 +68,7 @@ class ExtensionLoader:
         """
         self.alg_dir = os.path.join('model', 'algorithms')
         self.step_dir = os.path.join('model', 'steps')
-        self.all_steps, self.all_algs = self._check(self.scan_dirs())
+        self.all_steps, self.all_algs = self._check(*self.scan_dirs())
         ###
         _default_config = read_config('config.xml')
         _found_steps = self.scan_meths(_default_config)

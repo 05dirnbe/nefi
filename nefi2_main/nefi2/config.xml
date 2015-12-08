@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Application order of image processing steps -->
+<!-- Application order of image processing steps, default algorithm settings-->
 <pipeline>
-    <step>Preprocessing</step>
-    <step>Segmentation</step>
-    <step>Graph detection</step>
-    <step>Graph filtering</step>
+    <order>
+        <step>Preprocessing</step>
+        <step>Segmentation</step>
+        <step>Graph detection</step>
+        <step>Graph filtering</step>
+    </order>
+    <default>
+        <step name="Preprocessing">
+            <alg name="Blur">
+                <param name="ksize">5</param>
+            </alg>
+        </step>
+        <step name="Segmentation">
+            <alg name="Adaptive Threshold">
+                <param name="block_size">11</param>
+                <param name="constant">2</param>
+            </alg>
+        </step>
+        <step name="Graph detection">
+            <alg name="Guo Hall graph detector"/>
+        </step>
+        <step name="Graph filtering">
+            <alg name="Keep only largest connected component"/>
+        </step>
+    </default>
 </pipeline>
 

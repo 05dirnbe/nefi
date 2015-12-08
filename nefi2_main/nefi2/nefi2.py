@@ -10,6 +10,9 @@ It also enables console batch processing mode.
 from ext_loader import ExtensionLoader
 
 
+__version__ = 0.1
+
+
 def main():
     """Start the main pipeline and UI"""
     exloader = ExtensionLoader()

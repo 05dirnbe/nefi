@@ -1,0 +1,10 @@
+.idea
+/nefi2_prototype/*.pyc
+/nefi2_prototype/model/*.pyc
+/nefi2_prototype/model/algorithms/*.pyc
+/nefi2_prototype/model/methods/*.pyc
+/nefi2_main/nefi2/*.pyc
+/nefi2_main/nefi2/model/.*.pyc
+/nefi2_main/nefi2/model/algorithms/*.pyc
+/nefi2_main/nefi2/model/steps/*.pyc
+
