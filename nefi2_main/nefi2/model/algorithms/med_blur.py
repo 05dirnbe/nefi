@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Median Blur'
-__belongs2__ = 'Preprocessing'
+__belongs__ = 'Preprocessing'
 
 
-import _alg
-
-def med_blur():
+def med_blur(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, med_blur)
+def process(image, settings):
+    med_blur(image, settings)
 
 
 if __name__ == '__main__':

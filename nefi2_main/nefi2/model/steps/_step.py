@@ -26,7 +26,7 @@ class Step:
         self.algs = self.get_algs(stepmap)
         self.modified = False
 
-        # dummy implementation below, replace
+        # for debugging only
         print '> Step: I am "%s" step' % self.name
         print '> I have the following algorithms:'
         for a in self.algs:
@@ -51,7 +51,7 @@ class Step:
         print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
         self.curalg = alg_name
 
-    def get_used_alg(self):
+    def get_set_alg(self):
         """
         Return the name of the currently set algorithm.
         Returns:

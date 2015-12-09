@@ -54,6 +54,7 @@ class ExtensionLoader:
     algorithm belongs to which method and creates a corresponding mapping that
     is used by Step class upon instantiating.
     """
+
     def __init__(self):
         """
         Constructor
@@ -157,14 +158,14 @@ class ExtensionLoader:
             a list of algorithms checked for interface compliance
         """
         # check algorithm files
-        _alg_interface = ('process', 'belong', 'main', 'get_name')
+        _alg_interface = ('process', '__belongs__', '__algorithm__')
         for alg in algs:
             fpath = os.path.join(self.alg_dir, alg)
             with open(fpath, 'r') as algfile:
                 fdata = algfile.read()
             # WARNING! findall does not do full word match
             found = re.findall('|'.join(_alg_interface), fdata)  # FIX: weak matching
-            if len(found) < 4:
+            if len(found) < 3:
                 print found
                 print 'AlgorithmSyntaxError: {0} does not comply with code ' \
                       'requirements, skipping.'.format(fpath)
@@ -201,7 +202,8 @@ class ExtensionLoader:
         alg_meth_map = {}
         for ext in self.found_algs:
             imported = __import__(ext.split('.')[0])
-            alg_meth_map[imported] = getattr(imported, 'belongs')()
+            #alg_meth_map[imported] = getattr(imported, 'belongs')()
+            alg_meth_map[imported] = imported.__belongs__
         # create Step objects
         step_container = []
         for step in imported_steps:

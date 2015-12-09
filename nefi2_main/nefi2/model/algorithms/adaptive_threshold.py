@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Adaptive Threshold'
-__belongs2__ = 'Segmentation'
+__belongs__ = 'Segmentation'
 
 
-import _alg
-
-def adaptive_algorithm():
+def adaptive_algorithm(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, adaptive_algorithm)
+def process(image, settings):
+    adaptive_algorithm(image, settings)
 
 
 if __name__ == '__main__':

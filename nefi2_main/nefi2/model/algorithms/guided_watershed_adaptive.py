@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Guided Watershed with adaptive threshold'
-__belongs2__ = 'Segmentation'
+__belongs__ = 'Segmentation'
 
 
-import _alg
-
-def guided_watershed_adaptive():
+def guided_watershed_adaptive(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, guided_watershed_adaptive)
+def process(image, settings):
+    guided_watershed_adaptive(image, settings)
 
 
 if __name__ == '__main__':

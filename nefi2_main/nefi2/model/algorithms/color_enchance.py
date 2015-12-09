@@ -9,17 +9,15 @@ import cv2
 
 
 __algorithm__ = 'Color enhancement'
-__belongs2__ = 'Preprocessing'
+__belongs__ = 'Preprocessing'
 __settings__ = 'Left percentage, Right percentage'
 
 
-import _alg
-
-def bilateral():
+def bilateral(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, bilateral)
+def process(image, settings):
+    bilateral(image, settings)
 
 
 if __name__ == '__main__':

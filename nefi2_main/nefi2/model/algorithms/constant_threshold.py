@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Constant Threshold'
-__belongs2__ = 'Segmentation'
+__belongs__ = 'Segmentation'
 
 
-import _alg
-
-def constant_threshold():
+def constant_threshold(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, constant_threshold)
+def process(image, settings):
+    constant_threshold(image, settings)
 
 
 if __name__ == '__main__':

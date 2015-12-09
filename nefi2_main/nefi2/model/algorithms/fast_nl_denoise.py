@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Fast nl Means Denoising'
-__belongs2__ = 'Preprocessing'
+__belongs__ = 'Preprocessing'
 
 
-import _alg
-
-def fast_nl_denoise():
+def fast_nl_denoise(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, fast_nl_denoise)
+def process(image, settings):
+    fast_nl_denoise(image, settings)
 
 
 if __name__ == '__main__':

@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Smooth degree 2 nodes'
-__belongs2__ = 'Graph filtering'
+__belongs__ = 'Graph filtering'
 
 
-import _alg
-
-def smooth_degree_2_nodes():
+def smooth_degree_2_nodes(image, settings):
     pass
 
 def process(image):
-    _alg.Algorithm.process(image, __belongs2__, smooth_degree_2_nodes)
+    _smooth_degree_2_nodes(image, settings)
 
 
 if __name__ == '__main__':

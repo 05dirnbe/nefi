@@ -3,7 +3,7 @@
 import _step
 
 
-__meth_name__ = 'Preprocessing'
+__step_name__ = 'Preprocessing'
 
 
 def get_name():
@@ -12,7 +12,7 @@ def get_name():
     Args:
         __algorithm__ -- algorithm's name to be displayed in UI
     """
-    return __meth_name__
+    return __step_name__
 
 
 def new(stepmap):

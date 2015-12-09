@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Guided Watershed with distance transform'
-__belongs2__ = 'Segmentation'
+__belongs__ = 'Segmentation'
 
 
-import _alg
-
-def guided_watershed_dist_trans():
+def guided_watershed_dist_trans(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, guided_watershed_dist_trans)
+def process(image, settings):
+    guided_watershed_dist_trans(image, settings)
 
 
 if __name__ == '__main__':

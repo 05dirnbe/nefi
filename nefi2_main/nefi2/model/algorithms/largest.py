@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Keep only largest connected component'
-__belongs2__ = 'Graph filtering'
+__belongs__ = 'Graph filtering'
 
 
-import _alg
-
-def largest():
+def largest(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, largest)
+def process(image, settings):
+    largest(image, settings)
 
 
 if __name__ == '__main__':

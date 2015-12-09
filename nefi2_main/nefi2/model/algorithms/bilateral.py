@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Bilateral Filter'
-__belongs2__ = 'Preprocessing'
+__belongs__ = 'Preprocessing'
 
 
-import _alg
-
-def bilateral():
+def bilateral(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, bilateral)
+def process(image, settings):
+    bilateral(image, settings)
 
 
 if __name__ == '__main__':

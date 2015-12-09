@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Guo Hall graph detector'
-__belongs2__ = 'Graph detection'
+__belongs__ = 'Graph detection'
 
 
-import _alg
-
-def guohall():
+def guohall(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, guohall)
+def process(image, settings):
+    guohall(image, settings)
 
 
 if __name__ == '__main__':

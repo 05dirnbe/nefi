@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 
 __algorithm__ = 'Simple cycle filter'
-__belongs2__ = 'Graph filtering'
+__belongs__ = 'Graph filtering'
 
 
-import _alg
-
-def simple_cycle_filter():
+def simple_cycle_filter(image, settings):
     pass
 
-def process(image):
-    _alg.Algorithm.process(image, __belongs2__, simple_cycle_filter)
+def process(image, settings):
+    simple_cycle_filter(image, settings)
 
 
 if __name__ == '__main__':
