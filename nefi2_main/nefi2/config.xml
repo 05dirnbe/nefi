@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Application order of image processing steps, default algorithm settings-->
-<pipeline>
+<config>
     <order>
         <step>Preprocessing</step>
         <step>Segmentation</step>
         <step>Graph detection</step>
         <step>Graph filtering</step>
     </order>
-    <default>
+    <pipeline>
         <step name="Preprocessing">
             <alg name="Blur">
                 <param name="ksize">5</param>
@@ -25,6 +25,6 @@
         <step name="Graph filtering">
             <alg name="Keep only largest connected component"/>
         </step>
-    </default>
-</pipeline>
+    </pipeline>
+</config>
 

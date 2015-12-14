@@ -14,6 +14,9 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 import xml.etree.ElementTree as et
 
 
+__author__ = "p.shkadzko@gmail.com"
+
+
 def read_config(xml_path):
     """
     Parse config.xml, extract steps order and their default settings.
@@ -22,7 +25,7 @@ def read_config(xml_path):
         xml_path -- a path to config.xml
     Returns:
         order -- a list of steps order
-        settings -- a settings dictionary of {Step: {Algorithm: {Param: val}}}
+        settings -- settings dictionary {Step: {Algorithm: {Param: val}}}
     """
     tree = et.parse(xml_path)
     root = tree.getroot()
@@ -30,8 +33,8 @@ def read_config(xml_path):
         if elem.tag == 'order':
             # create steps order list
             order = [e.text for e in elem.iter('step')]
-        elif elem.tag == 'default':
-            # create a settings dictionary
+        elif elem.tag == 'pipeline':
+            # create settings dictionary
             settings = {}
             for step in elem.iter('step'):
                 step_name = step.attrib['name']
@@ -54,7 +57,6 @@ class ExtensionLoader:
     algorithm belongs to which method and creates a corresponding mapping that
     is used by Step class upon instantiating.
     """
-
     def __init__(self):
         """
         Constructor
@@ -71,40 +73,36 @@ class ExtensionLoader:
         """
         self.alg_dir = os.path.join('model', 'algorithms')
         self.step_dir = os.path.join('model', 'steps')
-        self.found_steps, self.found_algs = self._check(*self.scan_dirs())
-        # _alg_presenter<String, Presenter>
-        # _alg_view<String, View>
+        self.found_steps, self.found_algs = self._scan_model()
         _order, _settings = read_config('config.xml')
-        _loaded_steps = self.load_steps(_order)
-        _steps_container = self._create_steps_container(_loaded_steps)
+        _loaded_steps = self._load_steps(_order)
+        _steps_container = self._instantiate_steps(_loaded_steps)
+        # debug only
         print _settings
-        sys.exit()
-        self.pipeline = Pipeline(_steps_container, _default_config)
+        print _steps_container
 
-    def scan_dirs(self):
+    def _scan_model(self):
         """
-        Search for new files in model directory and check their interface
-        compliance. Incompatible files shall be not included into the pipeline
-        and registered with the UI!
+        Search for new files in model directory and return two lists of found
+        step and algorithm files.
         Vars:
             found_steps -- a filtered list of step file names
             found_algs -- a filtered list of algorithm file names
-        Private vars:
-            _step_files -- a list of algorithm file names
-            _alg_files -- a list of algorithm file names
-            _ignored -- a regex object, used to filter unnecessary files
+            step_files -- a list of algorithm file names
+            alg_files -- a list of algorithm file names
+            ignored -- a regex object, used to filter unnecessary files
         Returns:
             a list of steps that were checked for interface compliance
             a list of algorithms that were checked for interface compliance
         """
-        _step_files = os.listdir(self.step_dir)
-        _alg_files = os.listdir(self.alg_dir)
-        _ignored = re.compile(r'.*.pyc|__init__|_step.py|HOWTO.txt')
-        found_steps = filter(lambda x: not _ignored.match(x), _step_files)
-        found_algs = filter(lambda x: not _ignored.match(x), _alg_files)
+        step_files = os.listdir(self.step_dir)
+        alg_files = os.listdir(self.alg_dir)
+        ignored = re.compile(r'.*.pyc|__init__|_step.py|HOWTO.txt')
+        found_steps = filter(lambda x: not ignored.match(x), step_files)
+        found_algs = filter(lambda x: not ignored.match(x), alg_files)
         return found_steps, found_algs
 
-    def load_steps(self, ordering):
+    def _load_steps(self, ordering):
         """
         Import steps, sort them according to provided order list and return a
         list of imported step modules.
@@ -142,49 +140,7 @@ class ExtensionLoader:
         imported_steps.sort(key=lambda x: ordering.index(x.get_name()))
         return imported_steps
 
-    def _check(self, steps, algs):
-        """
-        Check extension's code compliance. If a file does not comply with the
-        interface a warning message will be send to std.out and the file will
-        be skipped (won't be listed in the program UI).
-        Params:
-            steps -- a filtered list of step file names
-            algs -- a filtered list of algorithm file names
-        Private vars:
-            _step_interface -- a list of required functions for steps
-            _alg_interface -- a list of required functions for algorithms
-        Returns:
-            a list of steps checked for interface compliance
-            a list of algorithms checked for interface compliance
-        """
-        # check algorithm files
-        _alg_interface = ('process', '__belongs__', '__algorithm__')
-        for alg in algs:
-            fpath = os.path.join(self.alg_dir, alg)
-            with open(fpath, 'r') as algfile:
-                fdata = algfile.read()
-            # WARNING! findall does not do full word match
-            found = re.findall('|'.join(_alg_interface), fdata)  # FIX: weak matching
-            if len(found) < 3:
-                print found
-                print 'AlgorithmSyntaxError: {0} does not comply with code ' \
-                      'requirements, skipping.'.format(fpath)
-                algs.remove(alg)
-        # check step files
-        _step_interface = ('new', 'get_name')
-        for step in steps:
-            fpath = os.path.join(self.step_dir, step)
-            with open(fpath, 'r') as stepfile:
-                fdata = stepfile.read()
-            # WARNING! findall does not do full word match
-            found = re.findall('|'.join(_step_interface), fdata)  # FIX: weak matching
-            if len(found) < 3:
-                print 'MethodSyntaxError: {0} does not comply with code ' \
-                      'requirements, skipping.'.format(fpath)
-                steps.remove(step)
-        return steps, algs
-
-    def _create_steps_container(self, imported_steps):
+    def _instantiate_steps(self, imported_steps):
         """
         Instantiate imported steps and return a list of instantiated steps.
         Create a list with methods that represent a pipeline with
@@ -196,7 +152,7 @@ class ExtensionLoader:
         Args:
             alg_meth_map -- a dictionary of algs where {Algorithm: Step}
         Returns:
-            step_container -- a list with Method instances
+            steps -- a list with Method instances
         """
         # to instantiate a step we need a mapping of {Algorithm: Step} first
         alg_meth_map = {}
@@ -205,11 +161,11 @@ class ExtensionLoader:
             #alg_meth_map[imported] = getattr(imported, 'belongs')()
             alg_meth_map[imported] = imported.__belongs__
         # create Step objects
-        step_container = []
+        steps = []
         for step in imported_steps:
             inst = getattr(step, 'new')(alg_meth_map)  # instantiating Steps
-            step_container.append(inst)
-        return step_container
+            steps.append(inst)
+        return steps
 
 
 if __name__ == '__main__':

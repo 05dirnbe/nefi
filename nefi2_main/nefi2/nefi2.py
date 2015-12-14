@@ -16,6 +16,7 @@ __version__ = 0.1
 def main():
     """Start the main pipeline and UI"""
     exloader = ExtensionLoader()
+    # pipeline = Pipeline(_steps_container, _default_config)
     # init_UI()  # not yet implemented!
 
 
