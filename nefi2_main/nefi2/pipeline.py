@@ -6,10 +6,10 @@ steps, handles processing results and works as an mediator between the
 algorithms and UI.
 """
 
-import xml.etree.ElementTree as et
-
-
 __author__ = "p.shkadzko@gmail.com"
+
+
+import xml.etree.ElementTree as et
 
 
 class Pipeline:

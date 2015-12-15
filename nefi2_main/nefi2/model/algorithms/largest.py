@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Keep only largest connected component'
-__belongs__ = 'Graph filtering'
+from _alg import Algorithm
 
 
-def largest(image, settings):
-    pass
+class Body(Algorithm):
+    """Keep only largest connected component algorithm implementation"""
+    def __init__(self):
+        self.name = "Keep only largest connected component"
+        self.parent = "Graph filtering"
 
-def process(image, settings):
-    largest(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+

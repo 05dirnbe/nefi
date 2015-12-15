@@ -6,15 +6,17 @@ It uses config.xml settings to initialize image processing steps accordingly.
 ExtensionLoader creates a collection of steps and algorithms ready to be
 loaded into the pipeline object.
 """
+
+__author__ = "p.shkadzko@gmail.com"
+
+
 import re
 import os
 import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'steps'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 import xml.etree.ElementTree as et
-
-
-__author__ = "p.shkadzko@gmail.com"
+from collections import OrderedDict as od
 
 
 def read_config(xml_path):
@@ -97,7 +99,7 @@ class ExtensionLoader:
         """
         step_files = os.listdir(self.step_dir)
         alg_files = os.listdir(self.alg_dir)
-        ignored = re.compile(r'.*.pyc|__init__|_step.py|HOWTO.txt')
+        ignored = re.compile(r'.*.pyc|__init__|_step.py|_alg.py')
         found_steps = filter(lambda x: not ignored.match(x), step_files)
         found_algs = filter(lambda x: not ignored.match(x), alg_files)
         return found_steps, found_algs
@@ -154,17 +156,15 @@ class ExtensionLoader:
         Returns:
             steps -- a list with Method instances
         """
-        # to instantiate a step we need a mapping of {Algorithm: Step} first
-        alg_meth_map = {}
-        for ext in self.found_algs:
-            imported = __import__(ext.split('.')[0])
-            #alg_meth_map[imported] = getattr(imported, 'belongs')()
-            alg_meth_map[imported] = imported.__belongs__
-        # create Step objects
-        steps = []
+        # import all available algorithm files as modules
+        algs = []
+        for alg in self.found_algs:
+            algs.append(__import__(alg.split('.')[0], fromlist=['Body']))
+        # create a dict of instantiated Step objects
+        steps = od()
         for step in imported_steps:
-            inst = getattr(step, 'new')(alg_meth_map)  # instantiating Steps
-            steps.append(inst)
+            inst = getattr(step, 'new')(algs)  # instantiating Steps
+            steps[step] = inst
         return steps
 
 

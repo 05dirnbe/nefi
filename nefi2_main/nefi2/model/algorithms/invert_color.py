@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Invert Color'
-__belongs__ = 'Preprocessing'
+from _alg import Algorithm
 
 
-def invert_color(image, settings):
-    pass
+class Body(Algorithm):
+    """Invert Color algorithm implementation"""
+    def __init__(self):
+        self.name = "Invert Color"
+        self.parent = "Preprocessing"
 
-def process(image, settings):
-    invert_color(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+
+
+

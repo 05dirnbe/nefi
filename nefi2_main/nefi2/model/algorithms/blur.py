@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Blur'
-__belongs__ = 'Preprocessing'
+from _alg import Algorithm
 
 
-def blur(image, settings):
-    pass
+class Body(Algorithm):
+    """Blur algorithm implementation"""
+    def __init__(self):
+        self.name = "Blur"
+        self.parent = "Preprocessing"
 
-def process(image, settings):
-    blur(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':

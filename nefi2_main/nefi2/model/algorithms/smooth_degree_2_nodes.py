@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Smooth degree 2 nodes'
-__belongs__ = 'Graph filtering'
+from _alg import Algorithm
 
 
-def smooth_degree_2_nodes(image, settings):
-    pass
+class Body(Algorithm):
+    """Smooth degree 2 nodes algorithm implementation"""
+    def __init__(self):
+        self.name = "Smooth degree 2 nodes"
+        self.parent = "Graph filtering"
 
-def process(image):
-    _smooth_degree_2_nodes(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+
+
+
+
+

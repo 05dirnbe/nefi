@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Gaussian Blur'
-__belongs__ = 'Preprocessing'
+from _alg import Algorithm
 
 
-def gauss_blur(image, settings):
-    pass
+class Body(Algorithm):
+    """Gaussian Blur algorithm implementation"""
+    def __init__(self):
+        self.name = "Gaussian Blur"
+        self.parent = "Preprocessing"
 
-def process(image, settings):
-    gauss_blur(image, settings)
+    def process(self, image):
+        pass
+
 
 if __name__ == '__main__':
     pass
+

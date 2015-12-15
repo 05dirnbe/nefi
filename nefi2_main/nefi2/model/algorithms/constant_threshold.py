@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Constant Threshold'
-__belongs__ = 'Segmentation'
+from _alg import Algorithm
 
 
-def constant_threshold(image, settings):
-    pass
+class Body(Algorithm):
+    """Constant Threshold algorithm implementation"""
+    def __init__(self):
+        self.name = "Constant Threshold"
+        self.parent = "Segmentation"
 
-def process(image, settings):
-    constant_threshold(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
