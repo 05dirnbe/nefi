@@ -31,12 +31,12 @@ class Step:
         self.modified = False
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
         # for debugging only
-        #print '> Step: I am "%s" step' % self.name
-        #print '> I have the following algorithms:'
-        #for a in self.available_algs.values():
-        #print a
-        #print len(self.available_algs.values()[0]), 'in total.'
-        #print ''
+        print '> Step: I am "%s" step' % self.name
+        print '> I have the following algorithms:'
+        for a in self.available_algs.values():
+            print a
+        print len(self.available_algs.values()[0]), 'in total.'
+        print ''
 
     def set_available_algorithms(self):
         pass
@@ -60,7 +60,7 @@ class Step:
         Params:
             alg_name -- algorithm's name that was selected in the UI
         """
-        #print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
+        print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
         self.active_algorithm = alg_name
 
     def get_active_algorithm(self):
@@ -80,7 +80,7 @@ class Step:
         Params:
             image -- a path to image file
         """
-        #print '> "%s" step: using "%s" algorithm' % (self.name, self.active_algorithm)
+        print '> "%s" step: using "%s" algorithm' % (self.name, self.active_algorithm)
         runalg = [alg for alg in self.available_algs.values()[0]
                   if self.active_algorithm.Body().name == alg.Body().name][0]
         results = runalg.Body().process(image)
