@@ -17,7 +17,7 @@ class Algorithm:
             self.modified -- True if Algorithm settings were modified
             self.belongs -- A step name to which current algorithm belongs
         """
-        self.modified = False
+        self.modified = True
 
         # for debugging only
         print '> Algorithm: I am "%s" algorithm' % self.name
