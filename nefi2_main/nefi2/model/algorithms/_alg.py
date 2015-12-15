@@ -29,6 +29,8 @@ class Algorithm:
     def process(self, image):
         """
         A user must override this method in order to comply with the interface.
+        Params:
+            image -- a path to image file
         """
         raise NotImplementedError
 

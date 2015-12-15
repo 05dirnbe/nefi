@@ -67,21 +67,18 @@ class ExtensionLoader:
             self.step_dir -- a directory path for steps
             self.loaded_algs -- a list of algorithm paths
             self.loaded_steps -- a list of step paths
+            self.steps_container -- a list with Step instances
         Private vars:
             _order -- a list of steps order in config.xml
             _settings -- a dictionary of config.xml settings
             _loaded_steps -- a sorted list of imported steps
-            _steps_container -- a list with Step instances
         """
         self.alg_dir = os.path.join('model', 'algorithms')
         self.step_dir = os.path.join('model', 'steps')
         self.found_steps, self.found_algs = self._scan_model()
         _order, _settings = read_config('config.xml')
         _loaded_steps = self._load_steps(_order)
-        _steps_container = self._instantiate_steps(_loaded_steps)
-        # debug only
-        print _settings
-        print _steps_container
+        self.steps_container = self._instantiate_steps(_loaded_steps)
 
     def _scan_model(self):
         """

@@ -13,13 +13,52 @@ import xml.etree.ElementTree as et
 
 
 class Pipeline:
-    def __init__(self, steps, default_settings):
+    def __init__(self, steps):
         """
         Pipeline constructor
         Params:
+            steps --
+
         Instance vars:
+            self.available_steps -- dict of {Step name: Step}
+            self.executed_steps -- a list of Steps
+            pipeline_path -- a path to a saved pipeline
+            image_path -- a path to an image file
         """
         pass
+
+    def new_step(self, position):
+        return False
+
+    def change_step(self, position, step_type):
+        return False
+
+    def move_step(self, origin_pos, destiantion_pos):
+        return False
+
+    def delete_step(self, position):
+        return False
+
+    def process(self):
+        pass
+
+    def change_algorithm(self, position, alg_type):
+        return False
+
+    def get_executed_steps(self):
+        """
+        Returns:
+            list of strings
+        """
+        pass
+
+    def get_algorithm_list(self, position):
+        """
+        Returns:
+            list of strings
+        """
+        pass
+
 
     def read_pipeline_xml(self, xml_file):
         """
@@ -47,6 +86,11 @@ class Pipeline:
                             settings[step_name][alg_name].update(params)
         return settings
 
+    def read_image(self, img_path):
+        pass
+
+    def save_pipeline_xml(self, save_path):
+        pass
 
 
 if __name__ == '__main__':
