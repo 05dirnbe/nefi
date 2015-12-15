@@ -1,14 +1,21 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Otsus Threshold'
-__belongs__ = 'Segmentation'
+from _alg import Algorithm
 
 
-def otsus(image, settings):
-    pass
+class Body(Algorithm):
+    """Otsus Threshold algorithm implementation"""
+    def __init__(self):
+        self.name = "Otsus Threshold"
+        self.parent = "Segmentation"
 
-def process(image, settings):
-    otsus(image, settings)
+    def process(self, image):
+        pass
+
 
 if __name__ == '__main__':
     pass
+
+
+
+

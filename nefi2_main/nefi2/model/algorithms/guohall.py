@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Guo Hall graph detector'
-__belongs__ = 'Graph detection'
+from _alg import Algorithm
 
 
-def guohall(image, settings):
-    pass
+class Body(Algorithm):
+    """Guo Hall graph detector algorithm implementation"""
+    def __init__(self):
+        self.name = "Guo Hall graph detector"
+        self.parent = "Graph detection"
 
-def process(image, settings):
-    guohall(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+
+

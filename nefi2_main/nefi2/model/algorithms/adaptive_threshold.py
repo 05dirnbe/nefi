@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Adaptive Threshold'
-__belongs__ = 'Segmentation'
+from _alg import Algorithm
 
 
-def adaptive_algorithm(image, settings):
-    pass
+class Body(Algorithm):
+    """Adaptive Threshold algorithm implementation"""
+    def __init__(self):
+        self.name = "Adaptive Threshold"
+        self.parent = "Segmentation"
 
-def process(image, settings):
-    adaptive_algorithm(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':

@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Fast nl Means Denoising Colored'
-__belongs__ = 'Preprocessing'
+from _alg import Algorithm
 
 
-def fast_nl_denoise_color(image, settings):
-    pass
+class Body(Algorithm):
+    """Fast nl Means Denoising Colored algorithm implementation"""
+    def __init__(self):
+        self.name = "Fast nl Means Denoising Colored"
+        self.parent = "Preprocessing"
 
-def process(image, settings):
-    fast_nl_denoise_color(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':

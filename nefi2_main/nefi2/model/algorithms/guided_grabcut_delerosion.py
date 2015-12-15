@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Guided Grabcut with deletion and erosion'
-__belongs__ = 'Segmentation'
+from _alg import Algorithm
 
 
-def guided_grabcut_delerosion(image, settings):
-    pass
+class Body(Algorithm):
+    """Guided Grabcut with deletion and erosion algorithm implementation"""
+    def __init__(self):
+        self.name = "Guided Grabcut with deletion and erosion"
+        self.parent = "Segmentation"
 
-def process(image, settings):
-    _alg.Algorithm.process(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+

@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Simple cycle filter'
-__belongs__ = 'Graph filtering'
+from _alg import Algorithm
 
 
-def simple_cycle_filter(image, settings):
-    pass
+class Body(Algorithm):
+    """Simple cycle filter algorithm implementation"""
+    def __init__(self):
+        self.name = "Simple cycle filter"
+        self.parent = "Graph filtering"
 
-def process(image, settings):
-    simple_cycle_filter(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+
+
+
+

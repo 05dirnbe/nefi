@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
-"""
-Actual algorithm implementation.
 
-:license: BSD
-"""
-
-import cv2
+from _alg import Algorithm
 
 
-__algorithm__ = 'Color enhancement'
-__belongs__ = 'Preprocessing'
-__settings__ = 'Left percentage, Right percentage'
+class Body(Algorithm):
+    """Color enhancement algorithm implementation"""
+    def __init__(self):
+        self.name = "Color enhancement"
+        self.parent = "Preprocessing"
 
-
-def bilateral(image, settings):
-    pass
-
-def process(image, settings):
-    bilateral(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':

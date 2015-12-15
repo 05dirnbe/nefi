@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Median Blur'
-__belongs__ = 'Preprocessing'
+from _alg import Algorithm
 
 
-def med_blur(image, settings):
-    pass
+class Body(Algorithm):
+    """Median Blur algorithm implementation"""
+    def __init__(self):
+        self.name = "Median Blur"
+        self.parent = "Preprocessing"
 
-def process(image, settings):
-    med_blur(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+
+

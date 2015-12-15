@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Guided Watershed with distance transform'
-__belongs__ = 'Segmentation'
+from _alg import Algorithm
 
 
-def guided_watershed_dist_trans(image, settings):
-    pass
+class Body(Algorithm):
+    """Guided Watershed with deletion and erosion algorithm implementation"""
+    def __init__(self):
+        self.name = "Guided Watershed with distance transform"
+        self.parent = "Segmentation"
 
-def process(image, settings):
-    guided_watershed_dist_trans(image, settings)
+    def process(self, image):
+        pass
 
 
 if __name__ == '__main__':
     pass
+
+

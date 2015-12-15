@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 
-__algorithm__ = 'Guided Grabcut with distance transform'
-__belongs__ = 'Segmentation'
+from _alg import Algorithm
 
 
-def guided_grabcut_dist_trans(image, settings):
-    pass
+class Body(Algorithm):
+    """Guided Grabcut with distance transform algorithm implementation"""
+    def __init__(self):
+        self.name = "Guided Grabcut with distance transform"
+        self.parent = "Segmentation"
 
-def process(image, settings):
-    guided_grabcut_dist_trans(image, settings)
+    def process(self, image):
+        pass
+
 
 if __name__ == '__main__':
     pass
+
