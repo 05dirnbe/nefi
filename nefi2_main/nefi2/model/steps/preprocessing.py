@@ -15,13 +15,13 @@ def get_name():
     return __step_name__
 
 
-def new(imported_algs):
+def new():
     """
     Create a new Method instance.
     Args:
         imported_algs -- a list of imported algorithm files
     """
-    return _step.Step(get_name(), imported_algs)
+    return _step.Step(get_name())
 
 
 if __name__ == '__main__':

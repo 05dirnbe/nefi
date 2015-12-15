@@ -10,22 +10,26 @@ __author__ = "p.shkadzko@gmail.com"
 
 
 import xml.etree.ElementTree as et
-
+from model.steps._step import Step
+import sys
 
 class Pipeline:
     def __init__(self, steps):
         """
         Pipeline constructor
         Params:
-            steps --
-
+            steps -- {Step name: Step}
         Instance vars:
             self.available_steps -- dict of {Step name: Step}
             self.executed_steps -- a list of Steps
-            pipeline_path -- a path to a saved pipeline
-            image_path -- a path to an image file
+            self.pipeline_path -- a path to a saved pipelines
+            self.image_path -- a path to an image file
         """
-        pass
+        self.available_steps = steps
+        self.executed_steps = None
+        self.pipeline_path = 'saved_pipelines'  # default dir
+        self.image_path = None
+        print(self.available_steps)
 
     def new_step(self, position):
         return False

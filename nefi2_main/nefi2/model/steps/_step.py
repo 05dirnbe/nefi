@@ -10,24 +10,28 @@ __author__ = "p.shkadzko@gmail.com"
 
 
 import random as rnd
+import re
+import os
 import sys
 
 
 class Step:
-    def __init__(self, name, imported_algs):
+    def __init__(self, name):
         """
         Step class
         Params:
             name -- Step name
-            imported_algs -- a list of imported algorithm files
+        Private vars:
+            _alg_dir -- a directory path for algorithms
         Instance vars:
             self.name -- Step name
             self.available_algs -- a dict of {Step: [alg, alg, ...]}
             self.modified -- True if Method's state has been modified
             self.active_algorithm -- Currently selected algorithm
         """
+        _alg_dir = os.path.join('model', 'algorithms')
         self.name = name
-        self.available_algs = self.get_available_algorithms(imported_algs)
+        self.available_algs = self.get_available_algorithms(_alg_dir)
         self.modified = False
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
@@ -42,16 +46,29 @@ class Step:
     def set_available_algorithms(self):
         pass
 
-    def get_available_algorithms(self, imported):
+    def get_available_algorithms(self, alg_dir):
         """
+        Create a new list of algorithms in model/algorithms dir.
         Create a dict of {Step: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current step.
         Params:
-            imported -- a list of imported algorithm files
+            alg_dir -- a directory path for algorithms
+        Vars:
+            found_algs -- a filtered list of algorithm file names
+            ignored -- a regex object, used to filter unnecessary files
+            imported_algs -- a list of imported algorithm files
         Returns:
             step_alg_map -- a dict of {Step: [alg, alg, ...]}
         """
-        step_alg_map = {self.name: [alg for alg in imported
+        alg_files = os.listdir(alg_dir)
+        ignored = re.compile(r'.*.pyc|__init__|_alg.py')
+        found_algs = filter(lambda x: not ignored.match(x), alg_files)
+        # import all available algorithm files as modules
+        imported_algs = []
+        for alg in found_algs:
+            imported_algs.append(__import__(alg.split('.')[0],
+                                            fromlist=['Body']))
+        step_alg_map = {self.name: [alg for alg in imported_algs
                         if self.name == alg.Body().belongs()]}
         return step_alg_map
 

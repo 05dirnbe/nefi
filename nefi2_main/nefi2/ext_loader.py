@@ -63,19 +63,18 @@ class ExtensionLoader:
         """
         Constructor
         Instance vars:
-            self.alg_dir -- a directory path for algorithms
             self.step_dir -- a directory path for steps
             self.loaded_algs -- a list of algorithm paths
             self.loaded_steps -- a list of step paths
-            self.steps_container -- a list with Step instances
+            self.steps_container -- a dict with Step names and Step instances
         Private vars:
             _order -- a list of steps order in config.xml
             _settings -- a dictionary of config.xml settings
             _loaded_steps -- a sorted list of imported steps
         """
-        self.alg_dir = os.path.join('model', 'algorithms')
+
         self.step_dir = os.path.join('model', 'steps')
-        self.found_steps, self.found_algs = self._scan_model()
+        self.found_steps = self._scan_model()
         _order, _settings = read_config('config.xml')
         _loaded_steps = self._load_steps(_order)
         self.steps_container = self._instantiate_steps(_loaded_steps)
@@ -95,11 +94,9 @@ class ExtensionLoader:
             a list of algorithms that were checked for interface compliance
         """
         step_files = os.listdir(self.step_dir)
-        alg_files = os.listdir(self.alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_step.py|_alg.py')
         found_steps = filter(lambda x: not ignored.match(x), step_files)
-        found_algs = filter(lambda x: not ignored.match(x), alg_files)
-        return found_steps, found_algs
+        return found_steps
 
     def _load_steps(self, ordering):
         """
@@ -153,14 +150,10 @@ class ExtensionLoader:
         Returns:
             steps -- a list with Method instances
         """
-        # import all available algorithm files as modules
-        algs = []
-        for alg in self.found_algs:
-            algs.append(__import__(alg.split('.')[0], fromlist=['Body']))
         # create a dict of instantiated Step objects
         steps = od()
         for step in imported_steps:
-            inst = getattr(step, 'new')(algs)  # instantiating Steps
+            inst = getattr(step, 'new')()  # instantiating Steps
             steps[step] = inst
         return steps
 
