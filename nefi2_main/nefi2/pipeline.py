@@ -9,16 +9,18 @@ algorithms and UI.
 __author__ = "p.shkadzko@gmail.com"
 
 
+import os
 import xml.etree.ElementTree as et
 from model.steps._step import Step
 import sys
+
 
 class Pipeline:
     def __init__(self, steps):
         """
         Pipeline constructor
         Params:
-            steps -- {Step name: Step}
+            steps -- OrderedDict of step names and their instances
         Instance vars:
             self.available_steps -- dict of {Step name: Step}
             self.executed_steps -- a list of Steps
@@ -26,18 +28,27 @@ class Pipeline:
             self.image_path -- a path to an image file
         """
         self.available_steps = steps
-        self.executed_steps = None
+        self.executed_steps = [v for v in self.available_steps.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
-        print(self.available_steps)
 
-    def new_step(self, position):
-        return False
+        ### debugging
+        # for k,v in self.available_steps.items():
+        #    print(k,v)
 
-    def change_step(self, position, step_type):
-        return False
+    def new_step(self, name, position):
+        """
+        Create an instance of a new Step.
+        Params:
+            name -- a step name
+            position -- a step index in self.executed_steps
+        Returns
+            True
+        """
+        self.executed_steps.insert(position, Step(name))
+        return True
 
-    def move_step(self, origin_pos, destiantion_pos):
+    def move_step(self, origin_pos, destination_pos):
         return False
 
     def delete_step(self, position):
@@ -46,8 +57,18 @@ class Pipeline:
     def process(self):
         pass
 
-    def change_algorithm(self, position, alg_type):
-        return False
+    def change_algorithm(self, position, alg_name):
+        """
+        Set the algorithm of the step in position to modified = True
+        Params:
+            position -- list index of the step in the pipeline
+            alg_name -- algorithm name
+        Returns True
+        """
+        for v in self.executed_steps[position].available_algs.values()[0]:
+            if alg_name == v.Body().get_name():
+                v.Body().set_modified()
+        return True
 
     def get_executed_steps(self):
         """
@@ -58,11 +79,11 @@ class Pipeline:
 
     def get_algorithm_list(self, position):
         """
+        Get names of all available algorithms for the step in position.
         Returns:
-            list of strings
+            alg_names -- a list of algorithm names
         """
         pass
-
 
     def read_pipeline_xml(self, xml_file):
         """

@@ -38,9 +38,13 @@ class Algorithm:
         return self.name
 
     def set_modified(self):
-        """Set True if method settings were modified."""
+        """Set True if algorithm settings were modified."""
         #print '> Algorithm: "%s" was modified.' % (self.name)
         self.modified = True
+
+    def unset_modified(self):
+        """Set modified to False, done after image processing."""
+        self.modified = False
 
     def get_modified(self):
         return self.modified

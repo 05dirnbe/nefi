@@ -154,7 +154,7 @@ class ExtensionLoader:
         steps = od()
         for step in imported_steps:
             inst = getattr(step, 'new')()  # instantiating Steps
-            steps[step] = inst
+            steps[step.get_name()] = inst
         return steps
 
 

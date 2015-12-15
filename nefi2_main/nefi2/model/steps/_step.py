@@ -26,29 +26,27 @@ class Step:
         Instance vars:
             self.name -- Step name
             self.available_algs -- a dict of {Step: [alg, alg, ...]}
-            self.modified -- True if Method's state has been modified
             self.active_algorithm -- Currently selected algorithm
         """
         _alg_dir = os.path.join('model', 'algorithms')
         self.name = name
-        self.available_algs = self.get_available_algorithms(_alg_dir)
-        self.modified = False
+        self.available_algs = self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
         # for debugging only
-        #print '> Step: I am "%s" step' % self.name
-        #print '> I have the following algorithms:'
-        #for a in self.available_algs.values():
-        #    print a
-        #print len(self.available_algs.values()[0]), 'in total.'
-        #print ''
+        # print '> Step: I am "%s" step' % self.name
+        # print '> I have the following algorithms:'
+        # for a in self.available_algs.values():
+        #   print a
+        # print len(self.available_algs.values()[0]), 'in total.'
+        # print ''
 
     def set_available_algorithms(self):
         pass
 
-    def get_available_algorithms(self, alg_dir):
+    def _get_available_algorithms(self, alg_dir):
         """
-        Create a new list of algorithms in model/algorithms dir.
+        Create a new list of algorithm files from model/algorithms dir.
         Create a dict of {Step: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current step.
         Params:
@@ -78,7 +76,7 @@ class Step:
         Params:
             alg_name -- algorithm's name that was selected in the UI
         """
-        #print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
+        # print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
         self.active_algorithm = alg_name
 
     def get_active_algorithm(self):
@@ -102,14 +100,11 @@ class Step:
         runalg = [alg for alg in self.available_algs.values()[0]
                   if self.active_algorithm.Body().name == alg.Body().name][0]
         results = runalg.Body().process(image)
-        self.modified = False  # reset modified variable after processing
+        runalg.Body().unset_modified()  # reset modified variable after processing
         return results
 
     def get_name(self):
         return self.name
-
-    def get_modified(self):
-        return self.modified
 
 
 if __name__ == '__main__':
