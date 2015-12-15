@@ -15,13 +15,13 @@ def get_name():
     return __step_name__
 
 
-def new(stepmap):
+def new(imported_algs):
     """
     Create a new Method instance.
     Args:
-        stepmap -- a simple dict mapping: algorithm --> method
+        imported_algs -- a simple dict mapping: algorithm --> method
     """
-    return _step.Step(get_name(), stepmap)
+    return _step.Step(get_name(), imported_algs)
 
 
 if __name__ == '__main__':

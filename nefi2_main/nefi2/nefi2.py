@@ -9,6 +9,7 @@ It also enables console batch processing mode.
 import argparse
 import os
 from ext_loader import ExtensionLoader
+from pipeline import Pipeline
 
 
 __author__ = "p.shkadzko@gmail.com"
@@ -25,9 +26,14 @@ def batch_mode():
 
 
 def main(args):
-    """Load all available steps and algorithms into the pipeline."""
-    exloader = ExtensionLoader()
-    # pipeline = Pipeline(_steps_container, _default_config)
+    """
+    Load all available steps and algorithms into the pipeline.
+    Params:
+        args -- a Namespace object of supplied command-line arguments
+    """
+    extloader = ExtensionLoader()
+    pipeline = Pipeline(extloader.steps_container)
+
     if len(vars(args)) > 3:
         batch_mode()
     else:

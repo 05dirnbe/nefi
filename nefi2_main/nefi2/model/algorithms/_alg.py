@@ -20,7 +20,7 @@ class Algorithm:
         self.modified = False
 
         # for debugging only
-        print '> Algorithm: I am "%s" algorithm' % self.name
+        #print '> Algorithm: I am "%s" algorithm' % self.name
 
     def belongs(self):
         """Return a step name to which current algorithm belongs."""
@@ -29,6 +29,8 @@ class Algorithm:
     def process(self, image):
         """
         A user must override this method in order to comply with the interface.
+        Params:
+            image -- a path to image file
         """
         raise NotImplementedError
 
@@ -37,7 +39,7 @@ class Algorithm:
 
     def set_modified(self):
         """Set True if method settings were modified."""
-        print '> Algorithm: "%s" was modified.' % (self.name)
+        #print '> Algorithm: "%s" was modified.' % (self.name)
         self.modified = True
 
     def get_modified(self):
