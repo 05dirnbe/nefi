@@ -9,9 +9,9 @@ class Algorithm(QObject):
             self.belongs -- A step name to which current algorithm belongs
         """
         self.modified = True
-        integer_sliders = None
-        float_sliders = None
-        checkboxes = None
+        self.integer_sliders = None
+        self.float_sliders = None
+        self.checkboxes = None
 
     def belongs(self):
         """Return a step name to which current algorithm belongs."""
