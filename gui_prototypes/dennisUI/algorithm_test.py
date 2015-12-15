@@ -14,7 +14,6 @@ class Algorithm(QObject):
         float_sliders = None
         checkboxes = None
 
-
     def belongs(self):
         """Return a step name to which current algorithm belongs."""
         raise NotImplementedError
@@ -22,6 +21,9 @@ class Algorithm(QObject):
     def process(self, image):
         """
         A user must override this method in order to comply with the interface.
+
+        Args:
+            image:
         """
         raise NotImplementedError
 
@@ -33,7 +35,7 @@ class Algorithm(QObject):
 
 
 class IntegerSlider:
-    def __init__(self, algorithm_instance: Algorithm, name: str, default: int, lower: int, upper: int):
+    def __init__(self, algorithm_instance, name, default, lower, upper):
         self.default = default
         self.value = default
         self.lower = lower
@@ -47,7 +49,7 @@ class IntegerSlider:
 
 
 class FloatSlider:
-    def __init__(self, algorithm_instance: Algorithm, name: str, default: float, lower: float, upper: float):
+    def __init__(self, algorithm_instance, name, default, lower, upper):
         self.default = default
         self.value = default
         self.lower = lower
@@ -61,7 +63,7 @@ class FloatSlider:
 
 
 class CheckBox:
-    def __init__(self, algorithm_instance: Algorithm, name: str, default: bool):
+    def __init__(self, algorithm_instance, name, default):
         self.default = default
         self.value = default
         self.name = name
