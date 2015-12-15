@@ -1,6 +1,5 @@
 from PyQt5.QtCore import QObject, pyqtSlot
 
-
 class Algorithm(QObject):
     def __init__(self):
         """
