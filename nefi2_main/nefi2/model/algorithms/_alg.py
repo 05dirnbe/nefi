@@ -17,10 +17,10 @@ class Algorithm:
             self.modified -- True if Algorithm settings were modified
             self.belongs -- A step name to which current algorithm belongs
         """
-        self.modified = True
+        self.modified = False
 
         # for debugging only
-        # print '> Algorithm: I am "%s" algorithm' % self.name
+        #print '> Algorithm: I am "%s" algorithm' % self.name
 
     def belongs(self):
         """Return a step name to which current algorithm belongs."""
@@ -39,7 +39,7 @@ class Algorithm:
 
     def set_modified(self):
         """Set True if method settings were modified."""
-        # print '> Algorithm: "%s" was modified.' % (self.name)
+        #print '> Algorithm: "%s" was modified.' % (self.name)
         self.modified = True
 
     def get_modified(self):
