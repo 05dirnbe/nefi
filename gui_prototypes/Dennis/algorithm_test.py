@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSlot
 
+
 class Algorithm(QObject):
     def __init__(self):
         """
@@ -7,11 +8,15 @@ class Algorithm(QObject):
         Instance vars:
             self.modified -- True if Algorithm settings were modified
             self.belongs -- A step name to which current algorithm belongs
+
+        Returns:
+            object:
         """
+        QObject.__init__(self)
         self.modified = True
-        self.integer_sliders = None
-        self.float_sliders = None
-        self.checkboxes = None
+        self.integer_sliders = []
+        self.float_sliders = []
+        self.checkboxes = []
 
     def belongs(self):
         """Return a step name to which current algorithm belongs."""
@@ -71,3 +76,9 @@ class CheckBox:
     @pyqtSlot(bool)
     def set_value(self, arg1):
         self.value = arg1
+
+
+MyAlgorithm = Algorithm()
+Slider1 = IntegerSlider(MyAlgorithm, "TestIntSlider", 10, -10, 20)
+Slider2 = FloatSlider(MyAlgorithm, "TestFloatSlider", 1.0, -1.0, 2.0)
+CheckBox1 = CheckBox(MyAlgorithm, "TestCheckbox", True)
