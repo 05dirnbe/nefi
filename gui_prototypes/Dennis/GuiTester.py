@@ -17,9 +17,10 @@ class GuiController:
 
         for item in algorithm.integer_sliders:
             slider = self.horizontal_sliders.add_slider(item.default, item.lower, item.upper)
+            SlidersGroup("test")
             slot = item.set_value
             signal = pyqtSignal()
-           # slider.connect(signal)
+            # slider.connect(signal)
 
         self.window.show()
         sys.exit(self.app.exec_())
@@ -61,10 +62,25 @@ class SlidersGroup(QGroupBox):
         return slider
 
 
+def createControls(self, title):
+    self.controlsGroup = QGroupBox(title)
+
+    valueLabel = QLabel("Current value:")
+
+    self.valueSpinBox = QSpinBox()
+    self.valueSpinBox.setRange(-100, 100)
+    self.valueSpinBox.setSingleStep(1)
+
+    controlsLayout = QGridLayout()
+    controlsLayout.addWidget(valueLabel, 2, 0)
+    controlsLayout.addWidget(self.valueSpinBox, 2, 1)
+    self.controlsGroup.setLayout(controlsLayout)
+
+
 MyAlgorithm = algorithm_test.MyAlgorithm
 Slider1 = algorithm_test.Slider1
-Slider1_1 = algorithm_test.Slider1_1
 Slider2 = algorithm_test.Slider2
+Slider3 = algorithm_test.Slider3
 CheckBox1 = algorithm_test.CheckBox1
 
 Controller = GuiController(MyAlgorithm)
