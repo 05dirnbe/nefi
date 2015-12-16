@@ -80,5 +80,6 @@ class CheckBox:
 
 MyAlgorithm = Algorithm()
 Slider1 = IntegerSlider(MyAlgorithm, "TestIntSlider", 10, -10, 20)
+Slider1_1 = IntegerSlider(MyAlgorithm, "TestIntSlider", 100, -100, 200)
 Slider2 = FloatSlider(MyAlgorithm, "TestFloatSlider", 1.0, -1.0, 2.0)
 CheckBox1 = CheckBox(MyAlgorithm, "TestCheckbox", True)

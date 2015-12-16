@@ -63,6 +63,7 @@ class SlidersGroup(QGroupBox):
 
 MyAlgorithm = algorithm_test.MyAlgorithm
 Slider1 = algorithm_test.Slider1
+Slider1_1 = algorithm_test.Slider1_1
 Slider2 = algorithm_test.Slider2
 CheckBox1 = algorithm_test.CheckBox1
 
