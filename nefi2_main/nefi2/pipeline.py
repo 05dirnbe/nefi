@@ -36,12 +36,12 @@ class Pipeline:
         # for k,v in self.available_steps.items():
         #    print(k,v)
 
-    def new_step(self, name, position):
+    def new_step(self, position, name=""):
         """
         Create an instance of a new Step.
         Params:
-            name -- a step name
             position -- a step index in self.executed_steps
+            name -- a step name
         Returns
             True
         """

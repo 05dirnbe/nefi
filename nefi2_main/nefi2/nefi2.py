@@ -33,7 +33,6 @@ def main(args):
     """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.steps_container)
-
     if len(vars(args)) > 3:
         batch_mode()
     else:
@@ -45,6 +44,9 @@ if __name__ == '__main__':
     extract networks from images. Given a suitable 2D image of a network as
     input, NEFI2 outputs a mathematical representation of the structure of the
     depicted network as a weighted undirected planar graph.""")
+    prs.add_argument('-p', '--pipeline',
+                     help='Specify a saved pipeline xml file.',
+                     required=False)
     prs.add_argument('-d', '--dir',
                      default=os.getcwd(),
                      help='Specify a directory with images '

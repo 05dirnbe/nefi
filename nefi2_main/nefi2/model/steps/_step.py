@@ -16,7 +16,7 @@ import sys
 
 
 class Step:
-    def __init__(self, name):
+    def __init__(self, name=""):
         """
         Step class
         Params:
