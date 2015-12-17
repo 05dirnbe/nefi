@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
-    QSpinBox
+    QSpinBox, QDoubleSpinBox
 
 import algorithm_test
 
@@ -12,39 +12,66 @@ class GroupOfSliders(QGroupBox):
         GroupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
 
         for slider in algorithm.integer_sliders:
-            GroupOfSliderssLayout.addWidget(SingleSlider(slider.name, slider.default, slider.lower, slider.upper))
+            GroupOfSliderssLayout.addWidget(
+                SingleIntegerSlider(slider.name, slider.lower, slider.upper, slider.step_size, slider.default))
 
         self.setLayout(GroupOfSliderssLayout)
 
 
-class SingleSlider(QGroupBox):
+class InterTextfield(QSpinBox):
+    pass
+
+class SingleIntegerSlider(QGroupBox):
     valueChanged = pyqtSignal()
 
-    def __init__(self, name, default, lower, upper):
-        super(SingleSlider, self).__init__()
+    def __init__(self, name, lower, upper, step_size, default):
+        super(SingleIntegerSlider, self).__init__()
+
+        self.internal_lower = 0
+        self.internal_upper = (upper - lower)/step_size
+        self.offset = lower
+        self.factor = (self.internal_upper - self.offset) / upper
+
+        def ExternalCoordinate2InternalCoordinate(self,value):
+
+            return self.factor * value + self.offset
+
+        def InternalCoordinate2ExternalCoordinate(self, value):
+
+            return (value - self.offset) / self.factor
 
         # Slider itself
         self.slider = QSlider(Qt.Horizontal)
+
         self.slider.setFocusPolicy(Qt.StrongFocus)
         self.slider.setTickPosition(QSlider.TicksBothSides)
-        self.slider.setRange(lower, upper)
-        self.slider.setValue(default)
-        # ?slider.setTickInterval(10)?
-        self.slider.setSingleStep(upper - lower)
+        self.slider.setTickInterval(1)
+
+        self.slider.setRange(0, self.internal_upper)
+        self.slider.setSingleStep(1)
+        self.slider.setValue(ExternalCoordinate2InternalCoordinate(self, default))
+        self.slider.setPageStep(1)
 
         # Textfield
         self.textfield = QSpinBox()
+
         self.textfield.setRange(lower, upper)
-        self.textfield.setSingleStep(1)
+        self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
 
         # Label
         self.label = QLabel()
         self.label.setText(name + ": ")
 
+        def textfield_value_changed(value):
+            self.slider.setValue(ExternalCoordinate2InternalCoordinate(self, value))
+
+        def slider_value_changed(value):
+            self.textfield.setValue(InternalCoordinate2ExternalCoordinate(self, value))
+
         # Connect Textfield with Slider
-        self.textfield.valueChanged.connect(self.slider.setValue)
-        self.slider.valueChanged.connect(self.textfield.setValue)
+        self.textfield.valueChanged.connect(textfield_value_changed)
+        self.slider.valueChanged.connect(slider_value_changed)
 
         self.SingleSlidersLayout = QBoxLayout(QBoxLayout.LeftToRight)
         self.SingleSlidersLayout.addWidget(self.label)
