@@ -26,10 +26,12 @@ class Category:
         Instance vars:
             self.name -- Category name
             self.available_algs -- a dict of {Category: [alg, alg, ...]}
+            self.alg_names (list) -- a list of algorithms for current category
             self.active_algorithm -- Currently selected algorithm
         """
         _alg_dir = os.path.join('model', 'algorithms')
-        self.available_algs = self._get_available_algorithms(_alg_dir)
+        self.available_algs, self.alg_names = \
+            self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
         # for debugging only
@@ -48,6 +50,7 @@ class Category:
         Create a new list of algorithm files from model/algorithms dir.
         Create a dict of {Category: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current category.
+        Create a list of algorithms available for current category.
         Params:
             alg_dir -- a directory path for algorithms
         Vars:
@@ -56,6 +59,7 @@ class Category:
             imported_algs -- a list of imported algorithm files
         Returns:
             category_alg_map -- a dict of {Category: [alg, alg, ...]}
+            alg_names -- a list of algorithms that belong to current category
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py')
@@ -66,8 +70,10 @@ class Category:
             imported_algs.append(__import__(alg.split('.')[0],
                                             fromlist=['AlgBody']))
         category_alg_map = {self.name: [alg for alg in imported_algs
-                        if self.name == alg.AlgBody().belongs()]}
-        return category_alg_map
+                            if self.name == alg.AlgBody().belongs()]}
+        alg_names = [alg.AlgBody().get_name() for alg in imported_algs
+                     if self.name == alg.AlgBody().belongs()]
+        return category_alg_map, alg_names
 
     def set_active_algorithm(self, alg_name):
         """

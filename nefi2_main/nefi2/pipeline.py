@@ -30,25 +30,36 @@ class Pipeline:
         self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
-        self.read_pipeline_json(os.path.join('saved_pipelines','default.json'))
 
-    def new_category(self, position, name=""):
+    def new_category(self, position):
         """
         Create an instance of a new Category.
         Params:
             position -- a category index in self.executed_cats
-            name -- a category name
-        Returns
-            True
         """
-        self.executed_cats.insert(position, Category(name))
+        self.executed_cats.insert(position, Category())
         return True
 
     def move_category(self, origin_pos, destination_pos):
-        return False
+        """
+        Move Category instance within the pipeline using indices.
+        Params:
+            origin_pos (int) -- Category index number
+            destination_pos (int) -- new position for Category
+        """
+        self.executed_cats.insert(destination_pos,
+                                  self.executed_cats[origin_pos])
+        del self.executed_cats[origin_pos]
+        return True
 
     def delete_category(self, position):
-        return False
+        """
+        Remove a Category from the pipeline.
+        Params:
+            position (int) -- Category index number
+        """
+        del self.executed_cats[position]
+        return True
 
     def process(self):
         pass
@@ -59,7 +70,6 @@ class Pipeline:
         Params:
             position -- list index of the category in the pipeline
             alg_name -- algorithm name
-        Returns True
         """
         for v in self.executed_cats[position].available_algs.values()[0]:
             if alg_name == v.Body().get_name():
@@ -79,10 +89,15 @@ class Pipeline:
     def get_algorithm_list(self, position):
         """
         Get names of all available algorithms for the category in position.
+        Sort the list and return.
+        Params:
+            position (int) -- Category index number
         Returns:
-            alg_names -- a list of algorithm names
+            alg_names (list) -- a sorted list of algorithm names
         """
-        pass
+        alg_names = self.available_cats.values()[position].alg_names
+        alg_names.sort()
+        return alg_names
 
     def read_pipeline_xml(self, xml_file):
         """
