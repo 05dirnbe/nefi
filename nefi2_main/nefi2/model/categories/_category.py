@@ -17,14 +17,14 @@ import sys
 class Category:
     def __init__(self):
         """
-        Step class
+        Category class
         Params:
-            name -- Step name
+            name -- Category name
         Private vars:
             _alg_dir -- a directory path for algorithms
         Instance vars:
-            self.name -- Step name
-            self.available_algs -- a dict of {Step: [alg, alg, ...]}
+            self.name -- Category name
+            self.available_algs -- a dict of {Category: [alg, alg, ...]}
             self.active_algorithm -- Currently selected algorithm
         """
         _alg_dir = os.path.join('model', 'algorithms')
@@ -32,7 +32,7 @@ class Category:
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
         # for debugging only
-        # print '> Step: I am "%s" category' % self.name
+        # print '> Category: I am "%s" category' % self.name
         # print '> I have the following algorithms:'
         # for a in self.available_algs.values():
         #   print a
@@ -45,7 +45,7 @@ class Category:
     def _get_available_algorithms(self, alg_dir):
         """
         Create a new list of algorithm files from model/algorithms dir.
-        Create a dict of {Step: [alg, alg, ...]} that will be used to
+        Create a dict of {Category: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current category.
         Params:
             alg_dir -- a directory path for algorithms
@@ -54,7 +54,7 @@ class Category:
             ignored -- a regex object, used to filter unnecessary files
             imported_algs -- a list of imported algorithm files
         Returns:
-            category_alg_map -- a dict of {Step: [alg, alg, ...]}
+            category_alg_map -- a dict of {Category: [alg, alg, ...]}
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py')
@@ -110,7 +110,7 @@ class Category:
         """
         Set a category name that will be displayed in UI.
         Params:
-            name -- a name of the Step
+            name -- a name of the Category
         """
         self.name = name
 
