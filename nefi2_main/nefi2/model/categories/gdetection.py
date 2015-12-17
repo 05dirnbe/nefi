@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from _step import Step
+from _category import Category
 
 
-class StepBody(Step):
+class CatBody(Category):
     def __init__(self):
         self.name = 'Graph detection'
         # we need Step to load its algorithms after self.name assignment
-        Step.__init__(self)
+        Category.__init__(self)
 
 
 if __name__ == '__main__':

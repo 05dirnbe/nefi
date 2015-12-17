@@ -4,9 +4,7 @@ This class represents an interface of an image processing algorithm.
 The class abstracts algorithm interface from user so he can fully focus on his
 algorithm implementation.
 """
-
-
-__author__ = "p.shkadzko@gmail.com"
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class Algorithm:

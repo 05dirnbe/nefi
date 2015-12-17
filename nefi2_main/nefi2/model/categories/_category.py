@@ -5,8 +5,7 @@ algorithms. Its main function is controlling an algorithm, collecting and
 transmitting the output to the pipeline. It serves as an intermediate layer
 between the algorithms and the pipeline.
 """
-
-__author__ = "p.shkadzko@gmail.com"
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 import random as rnd
@@ -15,7 +14,7 @@ import os
 import sys
 
 
-class Step:
+class Category:
     def __init__(self):
         """
         Step class
