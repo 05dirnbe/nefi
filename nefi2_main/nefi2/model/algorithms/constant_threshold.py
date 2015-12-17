@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Constant Threshold algorithm implementation"""
     def __init__(self):
         self.name = "Constant Threshold"

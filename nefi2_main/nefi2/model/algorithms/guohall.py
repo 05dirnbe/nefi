@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Guo Hall graph detector algorithm implementation"""
     def __init__(self):
         self.name = "Guo Hall graph detector"

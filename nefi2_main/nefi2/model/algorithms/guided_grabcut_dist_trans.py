@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Guided Grabcut with distance transform algorithm implementation"""
     def __init__(self):
         self.name = "Guided Grabcut with distance transform"

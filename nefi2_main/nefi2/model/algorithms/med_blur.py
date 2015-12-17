@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Median Blur algorithm implementation"""
     def __init__(self):
         self.name = "Median Blur"

@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Color enhancement algorithm implementation"""
     def __init__(self):
         self.name = "Color enhancement"

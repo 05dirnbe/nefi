@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Smooth degree 2 nodes algorithm implementation"""
     def __init__(self):
         self.name = "Smooth degree 2 nodes"

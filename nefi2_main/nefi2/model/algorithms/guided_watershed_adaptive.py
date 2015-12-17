@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Guided Watershed with adaptive threshold algorithm implementation"""
     def __init__(self):
         self.name = "Guided Watershed with adaptive threshold"
