@@ -5,7 +5,7 @@ from _category import Category
 class CatBody(Category):
     def __init__(self):
         self.name = 'Preprocessing'
-        # we need Step to load its algorithms after self.name assignment
+        # we need Category to load its algorithms after self.name assignment
         Category.__init__(self)
 
 

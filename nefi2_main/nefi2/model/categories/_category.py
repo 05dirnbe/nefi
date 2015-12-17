@@ -32,7 +32,7 @@ class Category:
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
         # for debugging only
-        # print '> Step: I am "%s" step' % self.name
+        # print '> Step: I am "%s" category' % self.name
         # print '> I have the following algorithms:'
         # for a in self.available_algs.values():
         #   print a
@@ -46,7 +46,7 @@ class Category:
         """
         Create a new list of algorithm files from model/algorithms dir.
         Create a dict of {Step: [alg, alg, ...]} that will be used to
-        instantiate a specific Algorithm for the current step.
+        instantiate a specific Algorithm for the current category.
         Params:
             alg_dir -- a directory path for algorithms
         Vars:
@@ -54,7 +54,7 @@ class Category:
             ignored -- a regex object, used to filter unnecessary files
             imported_algs -- a list of imported algorithm files
         Returns:
-            step_alg_map -- a dict of {Step: [alg, alg, ...]}
+            category_alg_map -- a dict of {Step: [alg, alg, ...]}
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py')
@@ -64,9 +64,9 @@ class Category:
         for alg in found_algs:
             imported_algs.append(__import__(alg.split('.')[0],
                                             fromlist=['AlgBody']))
-        step_alg_map = {self.name: [alg for alg in imported_algs
+        category_alg_map = {self.name: [alg for alg in imported_algs
                         if self.name == alg.AlgBody().belongs()]}
-        return step_alg_map
+        return category_alg_map
 
     def set_active_algorithm(self, alg_name):
         """
@@ -74,7 +74,6 @@ class Category:
         Params:
             alg_name -- algorithm's name that was selected in the UI
         """
-        # print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
         self.active_algorithm = alg_name
 
     def get_active_algorithm(self):
@@ -94,22 +93,22 @@ class Category:
         Params:
             image -- a path to image file
         """
-        # print '> "%s" step: using "%s" algorithm' % (self.name, self.active_algorithm)
-        runalg = [alg for alg in self.available_algs.values()[0]
-                  if self.active_algorithm.Body().name == alg.AlgBody().name][0]
-        results = runalg.AlgBody().process(image)
-        runalg.AlgBody().unset_modified()  # reset modified variable after processing
+        ralg = [alg for alg in self.available_algs.values()[0]
+                if self.active_algorithm.Body().name == alg.AlgBody().name][0]
+        results = ralg.AlgBody().process(image)
+        # reset modified variable after processing
+        ralg.AlgBody().unset_modified()
         return results
 
     def get_name(self):
         """
-        Return a step name that will be displayed in UI.
+        Return a category name that will be displayed in UI.
         """
         return self.name
 
     def set_name(self, name):
         """
-        Set a step name that will be displayed in UI.
+        Set a category name that will be displayed in UI.
         Params:
             name -- a name of the Step
         """
