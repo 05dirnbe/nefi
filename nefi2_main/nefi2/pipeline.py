@@ -31,10 +31,6 @@ class Pipeline:
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
 
-        ### debugging
-        # for k,v in self.available_cats.items():
-        #    print(k,v)
-
     def new_category(self, position, name=""):
         """
         Create an instance of a new Category.
@@ -71,10 +67,13 @@ class Pipeline:
 
     def get_executed_cats(self):
         """
+        Create and return a list of currently executed categories.
         Returns:
-            list of strings
+            executed_cat_names -- list of Category names
+        No cats are actually harmed during execution of this method >_<
         """
-        pass
+        executed_cat_names = [cat.get_name() for cat in self.executed_cats]
+        return executed_cat_names
 
     def get_algorithm_list(self, position):
         """

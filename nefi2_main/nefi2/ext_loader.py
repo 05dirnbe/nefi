@@ -19,19 +19,6 @@ import xml.etree.ElementTree as et
 from collections import OrderedDict as od
 
 
-def read_configs():
-    """
-    Parse config.xml, extract categories order.
-    Returns:
-        order -- a list of categories order
-    """
-    tree = et.parse('config.xml')  # categories order
-    root = tree.getroot()
-    # create categories order list
-    order = [e.text for elem in root for e in elem.iter('category')]
-    return order
-
-
 class ExtensionLoader:
     """
     A class that imports and initializes all available image processing
@@ -45,39 +32,46 @@ class ExtensionLoader:
         """
         Constructor
         Instance vars:
-            self.category_dir -- a directory path for categories
-            self.loaded_algs -- a list of algorithm paths
-            self.loaded_cats -- a list of category paths
             self.cats_container -- a dict with Step names and Step instances
         Private vars:
-            _order -- a list of categories order in config.xml
-            _loaded_cats -- a sorted list of imported categories
+            _category_dir -- a directory path for categories
+            _found_cats -- a list of category paths
+            _order -- a list of available categories taken from config
         """
-        self.category_dir = os.path.join('model', 'categories')
-        self.found_cats = self._scan_model()
-        _order = read_configs()
-        self.cats_container = self._instantiate_cats(_order)
+        _category_dir = os.path.join('model', 'categories')
+        _found_cats = self._scan_model(_category_dir)
+        _order = self._read_configs()
+        self.cats_container = self._instantiate_cats(_order, _found_cats)
 
-    def _scan_model(self):
+    def _scan_model(self, cat_dir):
         """
         Search for new files in model directory and return two lists of found
         category and algorithm files.
         Vars:
             found_cats -- a filtered list of category file names
-            found_algs -- a filtered list of algorithm file names
             category_files -- a list of algorithm file names
-            alg_files -- a list of algorithm file names
             ignored -- a regex object, used to filter unnecessary files
         Returns:
-            a list of categories that were checked for interface compliance
-            a list of algorithms that were checked for interface compliance
+            a list of categories that were found
         """
-        category_files = os.listdir(self.category_dir)
+        category_files = os.listdir(cat_dir)
         ignored = re.compile(r'.*.pyc|__init__|_category.py|_alg.py')
         found_cats = filter(lambda x: not ignored.match(x), category_files)
         return found_cats
 
-    def _instantiate_cats(self, ordering):
+    def _read_configs(self):
+        """
+        Parse config.xml, extract categories order.
+        Returns:
+            order -- a list of categories order
+        """
+        tree = et.parse('config.xml')  # categories order
+        root = tree.getroot()
+        # create categories order list
+        order = [e.text for elem in root for e in elem.iter('category')]
+        return order
+
+    def _instantiate_cats(self, ordering, found_cats):
         """
         Instantiate imported categories and return a list of instantiated
         categories.
@@ -89,6 +83,7 @@ class ExtensionLoader:
         creates a list of algorithms that belong to it>
         Params:
             ordering -- a list of categories order
+            found_cats -- a list of found category file names
         Vars:
             cats_inst -- a list of found and instantiated methods
             categories -- a dictionary of algs where {Algorithm: Step}
@@ -96,7 +91,7 @@ class ExtensionLoader:
             categories -- a list with Method instances
         """
         cats_inst = []
-        for category in self.found_cats:
+        for category in found_cats:
             imported = __import__(category.split('.')[0],
                                   fromlist=['CatBody'])  # import a category
             inst = imported.CatBody()
