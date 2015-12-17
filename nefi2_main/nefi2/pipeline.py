@@ -12,7 +12,7 @@ import os
 import xml.etree.ElementTree as et
 from model.categories._category import Category
 import sys
-
+#sys.path.insert(0, os.path.join(os.curdir, 'saved_pipelines'))
 
 class Pipeline:
     def __init__(self, categories):
@@ -30,6 +30,7 @@ class Pipeline:
         self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
+        self.read_pipeline_json(os.path.join('saved_pipelines','default.json'))
 
     def new_category(self, position, name=""):
         """
