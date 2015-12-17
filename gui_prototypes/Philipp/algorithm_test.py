@@ -32,7 +32,7 @@ class Algorithm(QObject):
         raise NotImplementedError
 
     def get_name(self):
-        raise NotImplementedError
+        return "Example Algorithm"
 
     def report_pip(self):
         raise NotImplementedError
@@ -82,9 +82,3 @@ MyAlgorithm = Algorithm()
 Slider1 = IntegerSlider(MyAlgorithm, "TestIntSlider", 10, -10, 20)
 Slider2 = IntegerSlider(MyAlgorithm, "TestIntSlider", 1, -10, 20)
 Slider3 = IntegerSlider(MyAlgorithm, "TestIntSlider", 100, -1, 200)
-
-
-
-
-Slider2 = FloatSlider(MyAlgorithm, "TestFloatSlider", 1.0, -1.0, 2.0)
-CheckBox1 = CheckBox(MyAlgorithm, "TestCheckbox", True)
