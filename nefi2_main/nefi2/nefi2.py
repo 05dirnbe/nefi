@@ -5,14 +5,13 @@ The main nefi2 startup script.
 It loads extension loader and initializes UI.
 It also enables console batch processing mode.
 """
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+
 
 import argparse
 import os
 from ext_loader import ExtensionLoader
 from pipeline import Pipeline
-
-
-__author__ = "p.shkadzko@gmail.com"
 
 
 def gui_mode():
@@ -27,13 +26,12 @@ def batch_mode():
 
 def main(args):
     """
-    Load all available steps and algorithms into the pipeline.
+    Load all available categories and algorithms into the pipeline.
     Params:
         args -- a Namespace object of supplied command-line arguments
     """
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.steps_container)
-
+    pipeline = Pipeline(extloader.cats_container)
     if len(vars(args)) > 3:
         batch_mode()
     else:
@@ -45,6 +43,9 @@ if __name__ == '__main__':
     extract networks from images. Given a suitable 2D image of a network as
     input, NEFI2 outputs a mathematical representation of the structure of the
     depicted network as a weighted undirected planar graph.""")
+    prs.add_argument('-p', '--pipeline',
+                     help='Specify a saved pipeline xml file.',
+                     required=False)
     prs.add_argument('-d', '--dir',
                      default=os.getcwd(),
                      help='Specify a directory with images '
