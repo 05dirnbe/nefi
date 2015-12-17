@@ -7,9 +7,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QObject, pyqtSignal
 
 
-def addslider(ty)
-
-closed = pyqtSignal()
+def addslider(ty):
+    closed = pyqtSignal()
 
 def buttonclick1():
     w.Label1.setText("depp")
