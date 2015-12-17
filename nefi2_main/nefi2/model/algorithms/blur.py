@@ -3,9 +3,13 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Blur algorithm implementation"""
     def __init__(self):
+        """
+        We are not calling super() here because we don't need anything
+        from Algorithm, yet.
+        """
         self.name = "Blur"
         self.parent = "Preprocessing"
 

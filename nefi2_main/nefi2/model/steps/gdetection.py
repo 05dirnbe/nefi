@@ -1,27 +1,12 @@
 # -*- coding: utf-8 -*-
-
-import _step
-
-
-__step_name__ = 'Graph detection'
+from _step import Step
 
 
-def get_name():
-    """
-    Return method name that will be displayed in UI.
-    Args:
-        __algorithm__ -- algorithm's name to be displayed in UI
-    """
-    return __step_name__
-
-
-def new():
-    """
-    Create a new Method instance.
-    Args:
-        imported_algs -- a list of imported algorithm files
-    """
-    return _step.Step(get_name())
+class StepBody(Step):
+    def __init__(self):
+        self.name = 'Graph detection'
+        # we need Step to load its algorithms after self.name assignment
+        Step.__init__(self)
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ import sys
 
 
 class Step:
-    def __init__(self, name):
+    def __init__(self):
         """
         Step class
         Params:
@@ -29,7 +29,6 @@ class Step:
             self.active_algorithm -- Currently selected algorithm
         """
         _alg_dir = os.path.join('model', 'algorithms')
-        self.name = name
         self.available_algs = self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
@@ -65,9 +64,9 @@ class Step:
         imported_algs = []
         for alg in found_algs:
             imported_algs.append(__import__(alg.split('.')[0],
-                                            fromlist=['Body']))
+                                            fromlist=['AlgBody']))
         step_alg_map = {self.name: [alg for alg in imported_algs
-                        if self.name == alg.Body().belongs()]}
+                        if self.name == alg.AlgBody().belongs()]}
         return step_alg_map
 
     def set_active_algorithm(self, alg_name):
@@ -96,15 +95,26 @@ class Step:
         Params:
             image -- a path to image file
         """
-        #print '> "%s" step: using "%s" algorithm' % (self.name, self.active_algorithm)
+        # print '> "%s" step: using "%s" algorithm' % (self.name, self.active_algorithm)
         runalg = [alg for alg in self.available_algs.values()[0]
-                  if self.active_algorithm.Body().name == alg.Body().name][0]
-        results = runalg.Body().process(image)
-        runalg.Body().unset_modified()  # reset modified variable after processing
+                  if self.active_algorithm.Body().name == alg.AlgBody().name][0]
+        results = runalg.AlgBody().process(image)
+        runalg.AlgBody().unset_modified()  # reset modified variable after processing
         return results
 
     def get_name(self):
+        """
+        Return a step name that will be displayed in UI.
+        """
         return self.name
+
+    def set_name(self, name):
+        """
+        Set a step name that will be displayed in UI.
+        Params:
+            name -- a name of the Step
+        """
+        self.name = name
 
 
 if __name__ == '__main__':

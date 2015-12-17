@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Simple cycle filter algorithm implementation"""
     def __init__(self):
         self.name = "Simple cycle filter"

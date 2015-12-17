@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Keep only largest connected component algorithm implementation"""
     def __init__(self):
         self.name = "Keep only largest connected component"

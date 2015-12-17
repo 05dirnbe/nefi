@@ -3,7 +3,7 @@
 from _alg import Algorithm
 
 
-class Body(Algorithm):
+class AlgBody(Algorithm):
     """Fast nl Means Denoising algorithm implementation"""
     def __init__(self):
         self.name = "Fast nl Means Denoising"
