@@ -24,6 +24,8 @@ class GuiController:
 
         self.window.show()
         sys.exit(self.app.exec_())
+        print
+        "test"
 
 
 class Window(QWidget):
