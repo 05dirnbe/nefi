@@ -33,7 +33,8 @@ class Category:
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
-        self.active_algorithm = rnd.choice(self.available_algs.values()[0])
+        self.active_algorithm = rnd.choice(list(
+                                            self.available_algs.values())[0])
         # for debugging only
         # print '> Category: I am "%s" category' % self.name
         # print '> I have the following algorithms:'

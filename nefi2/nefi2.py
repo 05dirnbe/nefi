@@ -10,8 +10,12 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 import argparse
 import os
-from ext_loader import ExtensionLoader
-from pipeline import Pipeline
+from model.ext_loader import ExtensionLoader
+from model.pipeline import Pipeline
+import sys
+sys.path.insert(0, os.path.join(os.curdir, 'model'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 
 def gui_mode():

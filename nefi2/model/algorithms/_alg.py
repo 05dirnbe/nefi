@@ -60,7 +60,7 @@ class Algorithm(QObject):
         Returns:
             The string identifier to which category this algorithm belongs to
         """
-        raise NotImplementedError
+        return self.parent
 
     def process(self, image):
         """
@@ -91,7 +91,7 @@ class Algorithm(QObject):
         Returns:
              The name of the algorithm specified in this implementation.
         """
-        raise NotImplementedError
+        return self.name
 
     def report_pip(self):
         #todo: implement method

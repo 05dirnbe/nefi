@@ -12,9 +12,6 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 import re
 import os
-import sys
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 import xml.etree.ElementTree as et
 from collections import OrderedDict as od
 
@@ -65,7 +62,7 @@ class ExtensionLoader:
         Returns:
             order -- a list of categories order
         """
-        tree = et.parse('config.xml')  # categories order
+        tree = et.parse(os.path.join('model', 'config.xml'))  # categories order
         root = tree.getroot()
         # create categories order list
         order = [e.text for elem in root for e in elem.iter('category')]
