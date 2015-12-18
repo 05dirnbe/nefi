@@ -5,8 +5,7 @@ algorithms. Its main function is controlling an algorithm, collecting and
 transmitting the output to the pipeline. It serves as an intermediate layer
 between the algorithms and the pipeline.
 """
-
-__author__ = "p.shkadzko@gmail.com"
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 import random as rnd
@@ -15,25 +14,28 @@ import os
 import sys
 
 
-class Step:
+class Category:
     def __init__(self):
         """
-        Step class
+        Category class that represents image processing method/category like
+        "Preprocessing" or "Graph detection".
         Params:
-            name -- Step name
+            name -- Category name
         Private vars:
             _alg_dir -- a directory path for algorithms
         Instance vars:
-            self.name -- Step name
-            self.available_algs -- a dict of {Step: [alg, alg, ...]}
+            self.name -- Category name
+            self.available_algs -- a dict of {Category: [alg, alg, ...]}
+            self.alg_names (list) -- a list of algorithms for current category
             self.active_algorithm -- Currently selected algorithm
         """
         _alg_dir = os.path.join('model', 'algorithms')
-        self.available_algs = self._get_available_algorithms(_alg_dir)
+        self.available_algs, self.alg_names = \
+            self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(self.available_algs.values()[0])
         # for debugging only
-        # print '> Step: I am "%s" step' % self.name
+        # print '> Category: I am "%s" category' % self.name
         # print '> I have the following algorithms:'
         # for a in self.available_algs.values():
         #   print a
@@ -46,8 +48,9 @@ class Step:
     def _get_available_algorithms(self, alg_dir):
         """
         Create a new list of algorithm files from model/algorithms dir.
-        Create a dict of {Step: [alg, alg, ...]} that will be used to
-        instantiate a specific Algorithm for the current step.
+        Create a dict of {Category: [alg, alg, ...]} that will be used to
+        instantiate a specific Algorithm for the current category.
+        Create a list of algorithms available for current category.
         Params:
             alg_dir -- a directory path for algorithms
         Vars:
@@ -55,7 +58,8 @@ class Step:
             ignored -- a regex object, used to filter unnecessary files
             imported_algs -- a list of imported algorithm files
         Returns:
-            step_alg_map -- a dict of {Step: [alg, alg, ...]}
+            category_alg_map -- a dict of {Category: [alg, alg, ...]}
+            alg_names -- a list of algorithms that belong to current category
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py')
@@ -65,9 +69,11 @@ class Step:
         for alg in found_algs:
             imported_algs.append(__import__(alg.split('.')[0],
                                             fromlist=['AlgBody']))
-        step_alg_map = {self.name: [alg for alg in imported_algs
-                        if self.name == alg.AlgBody().belongs()]}
-        return step_alg_map
+        category_alg_map = {self.name: [alg for alg in imported_algs
+                            if self.name == alg.AlgBody().belongs()]}
+        alg_names = [alg.AlgBody().get_name() for alg in imported_algs
+                     if self.name == alg.AlgBody().belongs()]
+        return category_alg_map, alg_names
 
     def set_active_algorithm(self, alg_name):
         """
@@ -75,7 +81,6 @@ class Step:
         Params:
             alg_name -- algorithm's name that was selected in the UI
         """
-        # print '> "%s" step: "%s" algorithm shall be used' % (self.name, alg_name)
         self.active_algorithm = alg_name
 
     def get_active_algorithm(self):
@@ -95,24 +100,24 @@ class Step:
         Params:
             image -- a path to image file
         """
-        # print '> "%s" step: using "%s" algorithm' % (self.name, self.active_algorithm)
-        runalg = [alg for alg in self.available_algs.values()[0]
-                  if self.active_algorithm.Body().name == alg.AlgBody().name][0]
-        results = runalg.AlgBody().process(image)
-        runalg.AlgBody().unset_modified()  # reset modified variable after processing
+        ralg = [alg for alg in self.available_algs.values()[0]
+                if self.active_algorithm.Body().name == alg.AlgBody().name][0]
+        results = ralg.AlgBody().process(image)
+        # reset modified variable after processing
+        ralg.AlgBody().unset_modified()
         return results
 
     def get_name(self):
         """
-        Return a step name that will be displayed in UI.
+        Return a category name that will be displayed in UI.
         """
         return self.name
 
     def set_name(self, name):
         """
-        Set a step name that will be displayed in UI.
+        Set a category name that will be displayed in UI.
         Params:
-            name -- a name of the Step
+            name -- a name of the Category
         """
         self.name = name
 

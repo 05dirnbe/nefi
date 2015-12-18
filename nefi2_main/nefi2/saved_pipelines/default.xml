@@ -2,22 +2,22 @@
 <!-- This pipeline contains default algorithm settings-->
 <config>
     <pipeline>
-        <step name="Preprocessing">
+        <category name="Preprocessing">
             <alg name="Blur">
                 <param name="ksize">5</param>
             </alg>
-        </step>
-        <step name="Segmentation">
+        </category>
+        <category name="Segmentation">
             <alg name="Adaptive Threshold">
                 <param name="block_size">11</param>
                 <param name="constant">2</param>
             </alg>
-        </step>
-        <step name="Graph detection">
+        </category>
+        <category name="Graph detection">
             <alg name="Guo Hall graph detector"/>
-        </step>
-        <step name="Graph filtering">
+        </category>
+        <category name="Graph filtering">
             <alg name="Keep only largest connected component"/>
-        </step>
+        </category>
     </pipeline>
 </config>

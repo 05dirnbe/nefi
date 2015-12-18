@@ -4,9 +4,7 @@ This class represents an interface of an image processing algorithm.
 The class abstracts algorithm interface from user so he can fully focus on his
 algorithm implementation.
 """
-
-
-__author__ = "p.shkadzko@gmail.com"
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class Algorithm:
@@ -15,7 +13,7 @@ class Algorithm:
         Algorithm class
         Instance vars:
             self.modified -- True if Algorithm settings were modified
-            self.belongs -- A step name to which current algorithm belongs
+            self.belongs -- A category name to which current algorithm belongs
         """
         self.modified = True
 
@@ -23,7 +21,7 @@ class Algorithm:
         #print '> Algorithm: I am "%s" algorithm' % self.name
 
     def belongs(self):
-        """Return a step name to which current algorithm belongs."""
+        """Return a category name to which current algorithm belongs."""
         return self.parent
 
     def process(self, image):

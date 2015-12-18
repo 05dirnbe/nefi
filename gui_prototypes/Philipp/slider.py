@@ -44,12 +44,11 @@
 
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtWidgets import (QApplication, QBoxLayout, QCheckBox, QComboBox,
-        QDial, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QScrollBar,
-        QSlider, QSpinBox, QStackedWidget, QWidget)
+                             QDial, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QScrollBar,
+                             QSlider, QSpinBox, QStackedWidget, QWidget)
 
 
 class SlidersGroup(QGroupBox):
-
     valueChanged = pyqtSignal(int)
 
     def __init__(self, orientation, title, parent=None):
@@ -72,7 +71,6 @@ class SlidersGroup(QGroupBox):
         self.slider3.setTickPosition(QSlider.TicksBothSides)
         self.slider3.setTickInterval(10)
         self.slider3.setSingleStep(1)
-
 
         self.scrollBar = QScrollBar(orientation)
         self.scrollBar.setFocusPolicy(Qt.StrongFocus)
@@ -127,7 +125,7 @@ class Window(QWidget):
         super(Window, self).__init__()
 
         self.horizontalSliders = SlidersGroup(Qt.Horizontal,
-                "Horizontal")
+                                              "Horizontal")
         self.verticalSliders = SlidersGroup(Qt.Vertical, "Vertical")
 
         self.stackedWidget = QStackedWidget()
@@ -201,7 +199,6 @@ class Window(QWidget):
 
 
 if __name__ == '__main__':
-
     import sys
 
     app = QApplication(sys.argv)
