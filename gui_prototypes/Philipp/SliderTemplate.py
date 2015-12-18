@@ -1,10 +1,9 @@
-from cmath import sqrt
-
 from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
-    QSpinBox, QDoubleSpinBox
+    QSpinBox, QDoubleSpinBox, QCheckBox
 
 import algorithm_test
+
 
 class GroupOfSliders(QGroupBox):
     def __init__(self, algorithm):
@@ -21,6 +20,10 @@ class GroupOfSliders(QGroupBox):
             GroupOfSliderssLayout.addWidget(
                     SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
                                  True))
+
+        for checkbox in algorithm.checkboxes:
+            GroupOfSliderssLayout.addWidget(
+                    CheckBoxWidget(checkbox.name, checkbox.default))
 
         self.setLayout(GroupOfSliderssLayout)
 
@@ -65,6 +68,34 @@ class Slider(QSlider):
         self.slider.setPageStep(step_size)
 
 
+class CheckBox(QCheckBox):
+    def __init__(self, default):
+        super(CheckBox, self).__init__()
+
+        self.checkbox = QCheckBox()
+        self.checkbox.setEnabled(default)
+
+
+class CheckBoxWidget(QGroupBox):
+    valueChanged = pyqtSignal()
+
+    def __init__(self, name, default):
+        super(CheckBoxWidget, self).__init__()
+
+        # CheckBox itself
+
+        self.checkbox = CheckBox(default).checkbox
+
+        # Label
+        self.label = QLabel()
+        self.label.setText(name + ": ")
+
+        self.SingleCheckBoxLayout = QBoxLayout(QBoxLayout.LeftToRight)
+        self.SingleCheckBoxLayout.addWidget(self.label)
+        self.SingleCheckBoxLayout.addWidget(self.checkbox)
+        self.setLayout(self.SingleCheckBoxLayout)
+
+
 class SliderWidget(QGroupBox):
     valueChanged = pyqtSignal()
 
@@ -102,8 +133,6 @@ class SliderWidget(QGroupBox):
 
         self.textfield.valueChanged.connect(textfield_value_changed)
         self.slider.valueChanged.connect(slider_value_changed)
-
-        # self.textfield.setValue(2)
 
         self.SingleSlidersLayout = QBoxLayout(QBoxLayout.LeftToRight)
         self.SingleSlidersLayout.addWidget(self.label)
