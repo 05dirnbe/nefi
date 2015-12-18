@@ -1,8 +1,8 @@
 from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QGroupBox, QBoxLayout, QGridLayout, QSlider, QSpinBox, \
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QGroupBox, \
+    QGridLayout, QSlider, QSpinBox, \
     QLabel, QStackedWidget
 
-from nefi2_main.nefi2.model.algorithms._alg import *
 
 class
 
