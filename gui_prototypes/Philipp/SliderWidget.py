@@ -62,7 +62,6 @@ class SettingsGroup(QWidget):
         textfield.setValue(default)
 
         # Label
-
         label = QLabel()
         label.setText(name + ": ")
 

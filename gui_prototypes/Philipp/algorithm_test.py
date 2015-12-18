@@ -79,6 +79,7 @@ class CheckBox:
 
 
 MyAlgorithm = Algorithm()
-Slider1 = IntegerSlider(MyAlgorithm, "TestIntSlider", 10, -10, 20)
-Slider2 = IntegerSlider(MyAlgorithm, "TestIntSlider", 1, -10, 20)
-Slider3 = IntegerSlider(MyAlgorithm, "TestIntSlider", 100, -1, 200)
+Slider1 = IntegerSlider(MyAlgorithm, "Setting 1", 10, -10, 20)
+Slider2 = IntegerSlider(MyAlgorithm, "Setting 2", 1, -10, 20)
+Slider3 = IntegerSlider(MyAlgorithm, "Setting 3", 100, -1, 200)
+Slider4 = IntegerSlider(MyAlgorithm, "Setting 4", 1.2, -2.1, 4.0)
