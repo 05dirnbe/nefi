@@ -283,4 +283,4 @@ MyAlgorithm = Algorithm()
 # name, lower, upper, step_size, default
 Slider1 = IntegerSlider(MyAlgorithm, "Setting 1", -10, 10, 1, 5)
 Slider2 = IntegerSlider(MyAlgorithm, "Setting 2",   0, 10, 2, 2)
-Slider4 = IntegerSlider(MyAlgorithm, "Setting 4", -1.2, 2.1, 1.0, 1.2)
+Slider4 = FloatSlider(MyAlgorithm, "Setting 4", -1.0, 2.0, 0.1, 1.2)

@@ -1,9 +1,10 @@
+from cmath import sqrt
+
 from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox
 
 import algorithm_test
-
 
 class GroupOfSliders(QGroupBox):
     def __init__(self, algorithm):
@@ -13,8 +14,13 @@ class GroupOfSliders(QGroupBox):
 
         for slider in algorithm.integer_sliders:
             GroupOfSliderssLayout.addWidget(
-                    SingleIntegerSlider(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
-                                        False))
+                    SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
+                                 False))
+
+        for slider in algorithm.float_sliders:
+            GroupOfSliderssLayout.addWidget(
+                    SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
+                                 True))
 
         self.setLayout(GroupOfSliderssLayout)
 
@@ -28,7 +34,7 @@ class IntegerTextfield(QSpinBox):
 
         self.textfield.setRange(lower, upper)
         self.textfield.setSingleStep(step_size)
-        self.textfield.setValue(2)
+        self.textfield.setValue(default)
 
 
 class DoubleTextfield(QDoubleSpinBox):
@@ -59,34 +65,29 @@ class Slider(QSlider):
         self.slider.setPageStep(step_size)
 
 
-class SingleIntegerSlider(QGroupBox):
+class SliderWidget(QGroupBox):
     valueChanged = pyqtSignal()
 
     def __init__(self, name, lower, upper, step_size, default, float_flag):
-        super(SingleIntegerSlider, self).__init__()
+        super(SliderWidget, self).__init__()
 
-        self.internal_lower = 0
-        self.internal_upper = (upper - lower) / step_size
-        self.offset = lower
-        self.factor = (self.internal_upper - self.offset) / upper
+        self.internal_steps = abs(upper - lower) / step_size
 
         def ExternalCoordinate2InternalCoordinate(self, value):
-            return self.factor * value + self.offset
+            return (self.internal_steps / (upper - lower)) * (value - lower)
 
         def InternalCoordinate2ExternalCoordinate(self, value):
-            return (value - self.offset) / self.factor
+            return lower + (value * (upper - lower)) / self.internal_steps
 
         # Slider itself
-        self.slider = Slider(self.internal_lower, self.internal_upper, 1,
+        self.slider = Slider(0, self.internal_steps, 1,
                              ExternalCoordinate2InternalCoordinate(self, default)).slider
 
         # Textfield
         if float_flag:
-            self.textfield = DoubleTextfield(lower, upper, step_size,
-                                             ExternalCoordinate2InternalCoordinate(self, default)).textfield
+            self.textfield = DoubleTextfield(lower, upper, step_size, default).textfield
         else:
-            self.textfield = IntegerTextfield(lower, upper, step_size,
-                                              ExternalCoordinate2InternalCoordinate(self, default)).textfield
+            self.textfield = IntegerTextfield(lower, upper, step_size, default).textfield
 
         # Label
         self.label = QLabel()
@@ -112,6 +113,10 @@ class SingleIntegerSlider(QGroupBox):
 
 
 class Window(QWidget):
+    """
+    This part can be removed for main window application
+    """
+
     def __init__(self):
         super(Window, self).__init__()
 
