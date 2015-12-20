@@ -60,7 +60,7 @@ class Algorithm(QObject):
         Returns:
             The string identifier to which category this algorithm belongs to
         """
-        raise NotImplementedError
+        return "Category_2"
 
     def process(self, image):
         """
@@ -91,7 +91,7 @@ class Algorithm(QObject):
         Returns:
              The name of the algorithm specified in this implementation.
         """
-        return "Example Algorithm"
+        return "Example Algorithm 2"
 
     def report_pip(self):
         #todo: implement method
@@ -278,11 +278,11 @@ class DropDown:
         self.value = arg1
 
 
-MyAlgorithm = Algorithm()
+MyAlgorithm_2 = Algorithm()
 
 # name, lower, upper, step_size, default
-Slider1 = IntegerSlider(MyAlgorithm, "Setting 1", -10, 10, 1, 5)
-Slider2 = IntegerSlider(MyAlgorithm, "Setting 2",   0, 10, 2, 2)
-Slider4 = FloatSlider(MyAlgorithm, "Setting 4", -1.0, 2.0, 0.1, 1.2)
-Checkbox1 = CheckBox(MyAlgorithm, "Checkbox1", True)
-DropDown1 = DropDown(MyAlgorithm, "DropDown1", ["bla", "blup"])
+Slider1a = IntegerSlider(MyAlgorithm_2, "Setting 1_A", -10, 10, 1, 5)
+Slider2a = IntegerSlider(MyAlgorithm_2, "Setting 2_A",   0, 10, 2, 2)
+Slider4a = FloatSlider(MyAlgorithm_2, "Setting 4_A", -1.0, 2.0, 0.1, 1.2)
+Checkbox1a = CheckBox(MyAlgorithm_2, "Checkbox1_A", True)
+DropDown1a = DropDown(MyAlgorithm_2, "DropDown1_A", ["bla", "blup"])

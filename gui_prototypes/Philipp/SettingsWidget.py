@@ -2,7 +2,8 @@ from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
-import algorithm_test
+import algorithm_1
+import algorithm_2
 
 
 class GroupOfSliders(QGroupBox):
@@ -179,27 +180,29 @@ class Window(QWidget):
     This part can be removed for main window application
     """
 
-    def __init__(self):
+    def __init__(self, algorithms):
         super(Window, self).__init__()
 
         self.stackedWidget = QStackedWidget()
-        self.stackedWidget.addWidget(GroupOfSliders(MyAlgorithm))
 
-        layout = QHBoxLayout()
-        layout.addWidget(self.stackedWidget)
-        self.setLayout(layout)
-
-        self.setWindowTitle(MyAlgorithm.get_name() + " Settings")
+        for algorithm in algorithms:
+            self.stackedWidget.addWidget(GroupOfSliders(algorithm))
+            layout = QHBoxLayout()
+            layout.addWidget(self.stackedWidget)
+            self.setLayout(layout)
+            self.setWindowTitle(algorithm.get_name() + " Settings")
 
 
 if __name__ == '__main__':
     import sys
 
     algorithms = []
-    MyAlgorithm = algorithm_test.MyAlgorithm
-    algorithms.append(MyAlgorithm)
+    MyAlgorithm_1 = algorithm_1.MyAlgorithm_1
+    MyAlgorithm_2 = algorithm_2.MyAlgorithm_2
+    algorithms.append(MyAlgorithm_1)
+    algorithms.append(MyAlgorithm_2)
 
     app = QApplication(sys.argv)
-    window = Window()
+    window = Window(algorithms)
     window.show()
     sys.exit(app.exec_())
