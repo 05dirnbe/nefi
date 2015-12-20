@@ -10,7 +10,7 @@ class GroupOfSliders(QGroupBox):
         super(GroupOfSliders, self).__init__()
 
         GroupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
-        GroupOfSliders.setFixedHeight(self, 250)
+        GroupOfSliders.setFixedHeight(self, 300)
 
         for slider in algorithm.integer_sliders:
             GroupOfSliderssLayout.addWidget(
