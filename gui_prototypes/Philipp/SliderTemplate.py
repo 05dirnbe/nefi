@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
-    QSpinBox, QDoubleSpinBox, QCheckBox
+    QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout
 
 import algorithm_test
 
@@ -10,6 +10,7 @@ class GroupOfSliders(QGroupBox):
         super(GroupOfSliders, self).__init__()
 
         GroupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
+        GroupOfSliders.setFixedHeight(self, 250)
 
         for slider in algorithm.integer_sliders:
             GroupOfSliderssLayout.addWidget(
@@ -90,9 +91,12 @@ class CheckBoxWidget(QGroupBox):
         self.label = QLabel()
         self.label.setText(name + ": ")
 
-        self.SingleCheckBoxLayout = QBoxLayout(QBoxLayout.LeftToRight)
-        self.SingleCheckBoxLayout.addWidget(self.label)
-        self.SingleCheckBoxLayout.addWidget(self.checkbox)
+        self.SingleCheckBoxLayout = QGridLayout()
+        self.SingleCheckBoxLayout.setAlignment(Qt.AlignLeft)
+        self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
+        self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
+        #self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
+        #self.SingleCheckBoxLayout.addWidget(self.checkbox)
         self.setLayout(self.SingleCheckBoxLayout)
 
 
