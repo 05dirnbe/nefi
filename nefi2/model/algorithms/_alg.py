@@ -91,7 +91,10 @@ class Algorithm(QObject):
         Returns:
              The name of the algorithm specified in this implementation.
         """
-        return self.name
+        if self.name:
+            return self.name
+        else:
+            raise NotImplementedError
 
     def report_pip(self):
         #todo: implement method

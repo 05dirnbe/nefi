@@ -22,7 +22,7 @@ class Pipeline:
             categories -- OrderedDict of category names and their instances
         Instance vars:
             self.available_cats -- dict of {Category name: Category}
-            self.executed_cats -- a list of Categories
+            self.executed_cats -- a list of Categories in UI pipeline
             self.pipeline_path -- a path to a saved pipelines
             self.image_path -- a path to an image file
         """
