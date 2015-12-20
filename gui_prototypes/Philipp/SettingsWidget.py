@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
-    QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout
+    QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
 import algorithm_test
 
@@ -25,6 +25,10 @@ class GroupOfSliders(QGroupBox):
         for checkbox in algorithm.checkboxes:
             GroupOfSliderssLayout.addWidget(
                     CheckBoxWidget(checkbox.name, checkbox.default))
+
+        for dropdown in algorithm.drop_downs:
+            GroupOfSliderssLayout.addWidget(
+                    ComboBoxWidget(dropdown.name, dropdown.options))
 
         self.setLayout(GroupOfSliderssLayout)
 
@@ -77,6 +81,34 @@ class CheckBox(QCheckBox):
         self.checkbox.setEnabled(default)
 
 
+class ComboBox(QComboBox):
+    def __init__(self, options):
+        super(ComboBox, self).__init__()
+
+        self.orientationCombo = QComboBox()
+        self.orientationCombo.addItems(options)
+
+
+class ComboBoxWidget(QGroupBox):
+    valueChanged = pyqtSignal()
+
+    def __init__(self, name, options):
+        super(ComboBoxWidget, self).__init__()
+
+        # ComboBox itself
+        self.combobox = ComboBox(options).orientationCombo
+
+        # Label
+        self.label = QLabel()
+        self.label.setText(name + ": ")
+
+        self.SingleCheckBoxLayout = QGridLayout()
+        self.SingleCheckBoxLayout.setAlignment(Qt.AlignLeft)
+        self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
+        self.SingleCheckBoxLayout.addWidget(self.combobox, 0, 1)
+        self.setLayout(self.SingleCheckBoxLayout)
+
+
 class CheckBoxWidget(QGroupBox):
     valueChanged = pyqtSignal()
 
@@ -84,7 +116,6 @@ class CheckBoxWidget(QGroupBox):
         super(CheckBoxWidget, self).__init__()
 
         # CheckBox itself
-
         self.checkbox = CheckBox(default).checkbox
 
         # Label
@@ -95,8 +126,6 @@ class CheckBoxWidget(QGroupBox):
         self.SingleCheckBoxLayout.setAlignment(Qt.AlignLeft)
         self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
         self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
-        #self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
-        #self.SingleCheckBoxLayout.addWidget(self.checkbox)
         self.setLayout(self.SingleCheckBoxLayout)
 
 
