@@ -1,22 +1,24 @@
+#!/usr/bin/env python3
+
+
 __author__ = 'martino'
 
 import unittest
-import sys
 import os
-from model.categories import preprocessing
-from model.categories import segmentation
-from model.categories import gdetection
-from model.categories import gfiltering
+from nefi2.model.categories import preprocessing
+from nefi2.model.categories import segmentation
+from nefi2.model.categories import gdetection
+from nefi2.model.categories import gfiltering
 from collections import OrderedDict as od
 
 
-from model.ext_loader import ExtensionLoader
 from collections import OrderedDict as od, OrderedDict
 
-sys.path.insert(0, os.path.join(os.curdir,'nefi2'))
-sys.path.insert(0, os.path.join(os.curdir,'nefi2', 'model'))
-sys.path.insert(0, os.path.join(os.curdir,'nefi2', 'model', 'categories'))
-sys.path.insert(0, os.path.join(os.curdir,'nefi2', 'model', 'algorithms'))
+from nefi2.model.ext_loader import ExtensionLoader
+import sys
+sys.path.insert(0, os.path.join('..','..', 'model'))
+sys.path.insert(0, os.path.join('..','..', 'model', 'categories'))
+sys.path.insert(0, os.path.join('..','..', 'model', 'algorithms'))
 
 class Test_Extension_Loader(unittest.TestCase):
 
@@ -26,13 +28,14 @@ class Test_Extension_Loader(unittest.TestCase):
         """
         The List standard will be the result of the method _scan_model(cat_dir) if the cat_dir is './model/categories'
         """
+        print (sys.path)
         ext_Loader = ExtensionLoader()
         standard = ['preprocessing.py', 'segmentation.py', 'gdetection.py', 'gfiltering.py']
         cat_dir = os.path.join(os.curdir, 'model', 'categories')
         self.assertEqual(self.ext_Loader._scan_model(cat_dir),standard)
 
     def test_read_config(self):
-
+        print (sys.path)
         ext_Loader = ExtensionLoader()
         standard = ['Preprocessing', 'Segmentation','Graph Detection', 'Graph Filtering']
         self.assertEqual(self.ext_Loader._read_configs(),standard)
@@ -62,4 +65,4 @@ class Test_Extension_Loader(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    Test_Extension_Loader.test_read_config()
