@@ -29,7 +29,9 @@ class Category:
             self.alg_names (list) -- a list of algorithms for current category
             self.active_algorithm -- Currently selected algorithm
         """
-        _alg_dir = os.path.join('model', 'algorithms')
+        for path in sys.path:
+            if path.endswith('algorithms'):
+                _alg_dir = path
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
