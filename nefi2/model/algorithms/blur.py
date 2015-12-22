@@ -5,8 +5,7 @@ This class represents the algorithm Blur from the opencv package
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
 import cv2
-from _alg import Algorithm
-from gui_prototypes.Philipp.algorithm_1 import IntegerSlider
+from _alg import Algorithm, IntegerSlider
 
 
 class AlgBody(Algorithm):
@@ -17,7 +16,7 @@ class AlgBody(Algorithm):
         Instance vars:
             self.name -- name of the algorithm
             self.parent -- name of the appropriated category
-            self.kernelsize -- kernelsize that will be used as slider for the UI
+            self.kernelsize -- blurring kernel size that will be used as slider for the UI
         """
         self.name = "Blur"
         self.parent = "Preprocessing"
@@ -25,14 +24,12 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the opencv package to blur the current image
+        Use the blur algorithm from the opencv package to the current image
         Args:
             image: image instance
 
-        Returns: the blured image
-
         """
-        return cv2.blur(image,(self.kernelsize.value*2+1,self.kernelsize.value*2+1))
+        self.result = cv2.blur(image,(self.kernelsize.value*2+1,self.kernelsize.value*2+1))
 
     def belongs(self):
         """
@@ -50,18 +47,18 @@ class AlgBody(Algorithm):
         """
         return self.name
 
-    def sign(self, image, settings):
+    def sign(self, image, kernelsize):
         """
         Save the name of the current algorithm and settings used to process
         the image in the image class
         Args:
             image: image instance
-            settings: dict of settings used by the algorithm
+            kernelsize: aperture linear size; it must be odd and greater than 1
 
-        Returns:
 
         """
-        image.sign(self.name, settings)
+        pass
+        #image.sign(self.name, kernelsize)
 
 if __name__ == '__main__':
     pass

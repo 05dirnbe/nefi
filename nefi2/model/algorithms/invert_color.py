@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-
+"""
+This class represents the algorithm Invert Color
+"""
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
 from _alg import Algorithm
@@ -8,19 +10,23 @@ from _alg import Algorithm
 class AlgBody(Algorithm):
     """Invert Color algorithm implementation"""
     def __init__(self):
+        """
+        Invert Color object constructor
+        Instance vars:
+            self.name -- name of the algorithm
+            self.parent -- name of the appropriated category
+        """
         self.name = "Invert Color"
         self.parent = "Preprocessing"
 
     def process(self, image):
         """
-        Invert the image
+        Invert the current image
         Args:
             image: image instance
 
-        Returns: inverted image
-
         """
-        return (255-image)
+        self.result =  (255-image)
 
 
     def belongs(self):
@@ -50,7 +56,8 @@ class AlgBody(Algorithm):
         Returns:
 
         """
-        image.sign(self.name, settings)
+        pass
+        #image.sign(self.name, settings)
 
 if __name__ == '__main__':
     pass
