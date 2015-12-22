@@ -26,7 +26,7 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        self.result =  (255-image)
+        self.result = (255-image)
 
 
     def belongs(self):

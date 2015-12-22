@@ -42,7 +42,8 @@ class AlgBody(Algorithm):
         Returns:
 
         """
-        image.sign(self.name, settings)
+        pass
+        #image.sign(self.name, settings)
 
 if __name__ == '__main__':
     pass

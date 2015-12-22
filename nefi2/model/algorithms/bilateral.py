@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This class represents the algorithm Bilateral filter from the opencv package
+This class represents the algorithm Bilateral Filter from the opencv package
 """
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
@@ -12,7 +12,7 @@ class AlgBody(Algorithm):
     """Bilateral Filter algorithm implementation"""
     def __init__(self):
         """
-        Bilateral filter object constructor
+        Bilateral Filter object constructor
         Instance vars:
             self.name -- name of the algorithm
             self.parent -- name of the appropriated category
@@ -31,7 +31,7 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the bilateral filter from the opencv package to the current image
+        Use the Bilateral Filter algorithm from the opencv package to the current image
         Args:
             image: image instance
 

@@ -24,7 +24,7 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the median blur algorithm from the opencv package to the current image
+        Use the Median Blur algorithm from the opencv package to the current image
         Args:
             image: image instance
 

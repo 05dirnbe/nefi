@@ -24,7 +24,7 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the blur algorithm from the opencv package to the current image
+        Use the Blur algorithm from the opencv package to the current image
         Args:
             image: image instance
 
