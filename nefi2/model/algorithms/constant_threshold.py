@@ -6,6 +6,7 @@ from _alg import Algorithm
 class AlgBody(Algorithm):
     """Constant Threshold algorithm implementation"""
     def __init__(self):
+        Algorithm.__init__(self)
         self.name = "Constant Threshold"
         self.parent = "Segmentation"
 

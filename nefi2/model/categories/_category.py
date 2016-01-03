@@ -103,8 +103,8 @@ class Category:
         Params:
             image -- a path to image file
         """
-        ralg = [alg for alg in self.available_algs.values()[0]
-                if self.active_algorithm.Body().name == alg.AlgBody().name][0]
+        ralg = [alg for alg in list(self.available_algs.values())[0]
+                if self.active_algorithm.AlgBody().name == alg.AlgBody().name][0]
         results = ralg.AlgBody().process(image)
         # reset modified variable after processing
         ralg.AlgBody().unset_modified()

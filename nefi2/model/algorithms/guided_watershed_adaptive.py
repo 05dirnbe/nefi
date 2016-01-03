@@ -6,6 +6,7 @@ from _alg import Algorithm
 class AlgBody(Algorithm):
     """Guided Watershed with adaptive threshold algorithm implementation"""
     def __init__(self):
+        Algorithm.__init__(self)
         self.name = "Guided Watershed with adaptive threshold"
         self.parent = "Segmentation"
 

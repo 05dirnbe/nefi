@@ -16,6 +16,7 @@ class AlgBody(Algorithm):
             self.name -- name of the algorithm
             self.parent -- name of the appropriated category
         """
+        Algorithm.__init__(self)
         self.name = "Invert Color"
         self.parent = "Preprocessing"
 

@@ -110,6 +110,18 @@ class Algorithm(QObject):
         """
         raise NotImplementedError
 
+    def unset_modified(self):
+        """
+        Set modified to False
+        """
+        self.modified = False
+
+    def set_modified(self):
+        """
+        Set modified to True
+        """
+        self.modified = True
+
 
 class IntegerSlider:
     """

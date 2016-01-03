@@ -8,6 +8,7 @@ from _alg import Algorithm
 class AlgBody(Algorithm):
     """Fast nl Means Denoising Colored algorithm implementation"""
     def __init__(self):
+        Algorithm.__init__(self)
         self.name = "Fast nl Means Denoising Colored"
         self.parent = "Preprocessing"
 
