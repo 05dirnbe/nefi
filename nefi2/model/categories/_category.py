@@ -29,7 +29,9 @@ class Category:
             self.alg_names (list) -- a list of algorithms for current category
             self.active_algorithm -- Currently selected algorithm
         """
-        _alg_dir = os.path.join('model', 'algorithms')
+        for path in sys.path:
+            if path.endswith('algorithms'):
+                _alg_dir = path
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use random choice for alg
@@ -101,8 +103,8 @@ class Category:
         Params:
             image -- a path to image file
         """
-        ralg = [alg for alg in self.available_algs.values()[0]
-                if self.active_algorithm.Body().name == alg.AlgBody().name][0]
+        ralg = [alg for alg in list(self.available_algs.values())[0]
+                if self.active_algorithm.AlgBody().name == alg.AlgBody().name][0]
         results = ralg.AlgBody().process(image)
         # reset modified variable after processing
         ralg.AlgBody().unset_modified()

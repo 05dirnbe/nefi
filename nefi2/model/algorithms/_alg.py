@@ -20,6 +20,7 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
 from PyQt5.QtCore import QObject, pyqtSlot
+import demjson
 
 
 class Algorithm(QObject):
@@ -37,6 +38,7 @@ class Algorithm(QObject):
             self.integer_sliders -- a list containing all InterSlider created by the user
             self.checkboxes -- a list containing all Checkboxes created by the user
             self.drop_downs --  a list containing all DropDowns created by the user
+            self.result -- a tuple containing all resulting data produced or modified by the algorithm
 
         Returns:
             object: instance of the algorithm object
@@ -47,6 +49,9 @@ class Algorithm(QObject):
         self.float_sliders = []
         self.checkboxes = []
         self.drop_downs = []
+        self.result = None
+        self.name = ""
+        self.parent = ""
 
     def belongs(self):
         """
@@ -62,7 +67,7 @@ class Algorithm(QObject):
         """
         return self.parent
 
-    def process(self, image):
+    def process(self, input_data):
         """
         Contains the logic of the implemented algorithm. While computing
         the pipeline each algorithm will be called with its process method giving the
@@ -74,10 +79,12 @@ class Algorithm(QObject):
         method.
 
         Args:
-            image: The input image from the previous category in the pipeline.
+            input_data: a tuple which contains all relevant arguments found in the results of the
+             previous processed algorithm. As common in the pipeline pattern, the successors always
+             get called with the information the predecessor created.
 
         Returns:
-            image: The result image of the process method
+
         """
         raise NotImplementedError
 
@@ -91,21 +98,54 @@ class Algorithm(QObject):
         Returns:
              The name of the algorithm specified in this implementation.
         """
-        return self.name
+        if self.name:
+            return self.name
+        else:
+            raise NotImplementedError
 
     def report_pip(self):
-        #todo: implement method
         """
-        This method creates a json representation of the implemented algorithm. Therefore it
-        looks into the lists containing information of the ui objects created and reports a
-        fragment for a json document.
-        This method must not be implemented by the contributor to add a new algorithm implementation.
-
+        This method returns a dictionary which contains all relevant algorithm information
+        and returns it to the pipeline along with the algorithm name.
+        The pipeline needs this information to create a json representation of the algorithm.
+        It will encode the dic as following:
+        E.g. blur : {"type" : "preprocessing", "kernelsize" : 2.5}
+        The encoding of the dic to a json will be done by the pipeline which gathers the dictionary
+        of each algorithm in the processing list.
         Returns:
-            A json document which contains the definitions of the implemented algorithm
-
+            A tuple consisting of the name of the algorithm and the dic containing all relevant
+            information about the algorithm which need to be stored on the filesystem for the
+            pipeline.json.
         """
-        raise NotImplementedError
+        dic = {"type": self.parent}
+
+        for int_slider in self.integer_sliders:
+            dic[int_slider.name] = int_slider.value()
+
+        for float_slider in self.float_slider:
+            dic[float_slider.name] = float_slider.value
+
+        for checkbox in self.checkboxes:
+            dic[checkbox.name] = checkbox.value
+
+        for dropdown in self.dropdowns:
+            dic[dropdown.name] = dropdown.value
+
+        return self.name, dic
+
+
+
+    def unset_modified(self):
+        """
+        Set modified to False
+        """
+        self.modified = False
+
+    def set_modified(self):
+        """
+        Set modified to True
+        """
+        self.modified = True
 
 
 class IntegerSlider:
@@ -114,11 +154,11 @@ class IntegerSlider:
     After calling the IntegerSlider constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this slider with the UI.
     """
-    def __init__(self, algorithm_instance, name, lower, upper, step_size, default):
+
+    def __init__(self, name, lower, upper, step_size, default):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name to be displayed in the UI - label of the slider
             lower: The lower bound of the slider in the UI
             upper: The upper bound of the slider in the UI
@@ -135,7 +175,7 @@ class IntegerSlider:
         self.lower = lower
         self.upper = upper
         self.name = name
-        algorithm_instance.integer_sliders.append(self)
+
 
     @pyqtSlot(int)
     def set_value(self, arg1):
@@ -160,11 +200,11 @@ class FloatSlider:
     After calling the FloatSlider constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this slider with the UI.
     """
-    def __init__(self, algorithm_instance, name, lower, upper, step_size, default):
+
+    def __init__(self, name, lower, upper, step_size, default):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name to be displayed in the UI - label of the slider
             lower: The lower bound of the slider in the UI
             upper: The upper bound of the slider in the UI
@@ -181,7 +221,6 @@ class FloatSlider:
         self.lower = lower
         self.upper = upper
         self.name = name
-        algorithm_instance.float_sliders.append(self)
 
     @pyqtSlot(float)
     def set_value(self, arg1):
@@ -206,11 +245,11 @@ class CheckBox:
     After calling the CheckBox constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this checkbox with the UI.
     """
-    def __init__(self, algorithm_instance, name, default):
+
+    def __init__(self, name, default):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name of the checkbox to be displayed in the ui
             default: The default value of the checkbox
 
@@ -220,7 +259,6 @@ class CheckBox:
         self.default = default
         self.value = default
         self.name = name
-        algorithm_instance.checkboxes.append(self)
 
     @pyqtSlot(bool)
     def set_value(self, arg1):
@@ -245,11 +283,11 @@ class DropDown:
     After calling the DropDown constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this DropDown with the UI.
     """
-    def __init__(self, algorithm_instance, name, options):
+
+    def __init__(self, name, options):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name of the DropDown menu to be displayed in the UI
             options: The list of string options a user can select in the Ui for the DropDown
 
@@ -259,7 +297,6 @@ class DropDown:
         self.name = name
         self.value = name
         self.options = options
-        algorithm_instance.drop_downs.append(self)
 
     @pyqtSlot(str)
     def set_value(self, arg1):

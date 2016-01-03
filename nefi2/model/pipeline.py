@@ -22,15 +22,15 @@ class Pipeline:
             categories -- OrderedDict of category names and their instances
         Instance vars:
             self.available_cats -- dict of {Category name: Category}
-            self.executed_cats -- a list of Categories
+            self.executed_cats -- a list of Categories in UI pipeline
             self.pipeline_path -- a path to a saved pipelines
             self.image_path -- a path to an image file
         """
         self.available_cats = categories
         self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
-        self.image_path = None
-        print(self.available_cats)
+        self.image_path = 'IMAGE'
+        self.process()
 
     def new_category(self, position):
         """
@@ -63,7 +63,27 @@ class Pipeline:
         return True
 
     def process(self):
-        pass
+        """
+        Execute current pipeline starting from the first modified image
+        processing category.
+
+        Returns:
+            results (list) -- a list of processing results
+
+        """
+        results = []
+        image = self.image_path
+        results.append(image)
+        # find the first category which contains modified algorithm
+        print(self.executed_cats)
+        for idx, cat in enumerate(self.executed_cats):
+            if cat.active_algorithm.AlgBody().modified:
+                start_from = idx, cat.name
+                break
+        # execute pipeline
+        for num, cat in enumerate(self.executed_cats[idx:]):
+            results.append(cat.process(results[num]))
+        return results
 
     def change_algorithm(self, position, alg_name):
         """
@@ -99,32 +119,6 @@ class Pipeline:
         alg_names = self.available_cats.values()[position].alg_names
         alg_names.sort()
         return alg_names
-
-    def read_pipeline_xml(self, xml_file):
-        """
-        Parse the xml file of a saved pipeline.
-        Create and return a dictionary representation of the xml file.
-        Params:
-            xml_file -- a path to an xml file of a saved pipeline
-        Returns:
-            settings dictionary {Category: {Algorithm: {Param: val}}}
-        """
-        tree = et.parse(xml_file)
-        root = tree.getroot()
-        for elem in root:
-            if elem.tag == 'pipeline':
-                # create settings dictionary
-                settings = {}
-                for category in elem.iter('category'):
-                    category_name = category.attrib['name']
-                    settings[category_name] = {}
-                    for alg in category.iter('alg'):
-                        alg_name = alg.attrib['name']
-                        settings[category_name].update({alg_name: {}})
-                        for param in alg.iter('param'):
-                            params = {param.attrib['name']: param.text}
-                            settings[category_name][alg_name].update(params)
-        return settings
 
     def read_image(self, img_path):
         pass

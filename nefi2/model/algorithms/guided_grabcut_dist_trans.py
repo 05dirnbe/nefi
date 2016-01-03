@@ -6,6 +6,7 @@ from _alg import Algorithm
 class AlgBody(Algorithm):
     """Guided Grabcut with distance transform algorithm implementation"""
     def __init__(self):
+        Algorithm.__init__(self)
         self.name = "Guided Grabcut with distance transform"
         self.parent = "Segmentation"
 

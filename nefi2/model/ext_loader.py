@@ -14,7 +14,7 @@ import re
 import os
 import xml.etree.ElementTree as et
 from collections import OrderedDict as od
-
+import sys
 
 class ExtensionLoader:
     """
@@ -32,12 +32,17 @@ class ExtensionLoader:
             self.cats_container -- a dict with Step names and Step instances
         Private vars:
             _category_dir -- a directory path for categories
+            _config_path -- a path to config.xml
             _found_cats -- a list of category paths
             _order -- a list of available categories taken from config
         """
-        _category_dir = os.path.join('model', 'categories')
+        for path in sys.path:
+            if path.endswith('categories'):
+                _category_dir = path
+            elif path.endswith('model'):
+                _config_path = os.path.join(path, 'config.xml')
         _found_cats = self._scan_model(_category_dir)
-        _order = self._read_configs()
+        _order = self._read_configs(_config_path)
         self.cats_container = self._instantiate_cats(_order, _found_cats)
 
     def _scan_model(self, cat_dir):
@@ -56,13 +61,15 @@ class ExtensionLoader:
         found_cats = filter(lambda x: not ignored.match(x), category_files)
         return found_cats
 
-    def _read_configs(self):
+    def _read_configs(self, config_path):
         """
         Parse config.xml, extract categories order.
+        Params:
+            config_path -- a path to config.xml
         Returns:
             order -- a list of categories order
         """
-        tree = et.parse(os.path.join('model', 'config.xml'))  # categories order
+        tree = et.parse(config_path)  # categories order
         root = tree.getroot()
         # create categories order list
         order = [e.text for elem in root for e in elem.iter('category')]
