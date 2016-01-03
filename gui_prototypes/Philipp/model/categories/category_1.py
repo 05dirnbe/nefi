@@ -69,7 +69,7 @@ class Category:
         imported_algs = []
         for alg in found_algs:
             imported_algs.append(__import__(alg.split('.')[0],
-                                            fromlist=['AlgBody']))
+                                            fromist=['AlgBody']))
         category_alg_map = {self.name: [alg for alg in imported_algs
                             if self.name == alg.AlgBody().belongs()]}
         alg_names = [alg.AlgBody().get_name() for alg in imported_algs

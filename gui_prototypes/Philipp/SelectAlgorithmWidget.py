@@ -1,9 +1,23 @@
-from PyQt5.QtWidgets import QWidget, QApplication, QHBoxLayout, QGroupBox, QComboBox
+from PyQt5.QtWidgets import QWidget, QApplication, QHBoxLayout, QGroupBox, QComboBox, QBoxLayout, QStackedWidget
 
-import algorithm_1
-import algorithm_2
-import category_1
-import category_2
+from gui_prototypes.Philipp.SettingsWidget import GroupOfSliders
+from gui_prototypes.Philipp.model.algorithms import algorithm_1
+from gui_prototypes.Philipp.model.algorithms import algorithm_2
+from gui_prototypes.Philipp.model.algorithms import category_1
+from gui_prototypes.Philipp.model.algorithms import category_2
+
+
+class ComboBoxWidget(QGroupBox):
+    def __init__(self, name, default):
+        super(ComboBoxWidget, self).__init__()
+
+        GroupOfComboBoxesLayout = QBoxLayout(QBoxLayout.TopToBottom)
+        GroupOfComboBoxesLayout.setFixedHeight(self, 300)
+
+        for category in categories:
+                GroupOfComboBoxesLayout.addWidget(ComboBox(category.get_name))
+
+         self.setLayout(GroupOfComboBoxesLayout)
 
 
 class ComboBox(QComboBox):
@@ -12,17 +26,6 @@ class ComboBox(QComboBox):
 
         self.orientationCombo = QComboBox()
         self.orientationCombo.addItems(options)
-
-
-class ComboBoxWidget(QGroupBox):
-    def __init__(self, name, default):
-        super(ComboBoxWidget, self).__init__()
-
-        for category in categories:
-
-
-
-
 
 
 class Window(QWidget):
