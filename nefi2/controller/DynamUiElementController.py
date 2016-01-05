@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QGroupBox, \
     QLabel, QStackedWidget
 
 
-class
+classg
 
 
 

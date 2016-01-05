@@ -47,6 +47,7 @@ class Algorithm(QObject):
         self.float_sliders = []
         self.checkboxes = []
         self.drop_downs = []
+        self.image_result = None
 
     def belongs(self):
         """
@@ -129,11 +130,10 @@ class IntegerSlider:
     After calling the IntegerSlider constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this slider with the UI.
     """
-    def __init__(self, algorithm_instance, name, lower, upper, step_size, default):
+    def __init__(self, name, lower, upper, step_size, default):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name to be displayed in the UI - label of the slider
             lower: The lower bound of the slider in the UI
             upper: The upper bound of the slider in the UI
@@ -150,7 +150,6 @@ class IntegerSlider:
         self.lower = lower
         self.upper = upper
         self.name = name
-        algorithm_instance.integer_sliders.append(self)
 
     @pyqtSlot(int)
     def set_value(self, arg1):
@@ -175,11 +174,10 @@ class FloatSlider:
     After calling the FloatSlider constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this slider with the UI.
     """
-    def __init__(self, algorithm_instance, name, lower, upper, step_size, default):
+    def __init__(self, name, lower, upper, step_size, default):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name to be displayed in the UI - label of the slider
             lower: The lower bound of the slider in the UI
             upper: The upper bound of the slider in the UI
@@ -196,7 +194,6 @@ class FloatSlider:
         self.lower = lower
         self.upper = upper
         self.name = name
-        algorithm_instance.float_sliders.append(self)
 
     @pyqtSlot(float)
     def set_value(self, arg1):
@@ -221,11 +218,10 @@ class CheckBox:
     After calling the CheckBox constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this checkbox with the UI.
     """
-    def __init__(self, algorithm_instance, name, default):
+    def __init__(self, name, default):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name of the checkbox to be displayed in the ui
             default: The default value of the checkbox
 
@@ -235,7 +231,6 @@ class CheckBox:
         self.default = default
         self.value = default
         self.name = name
-        algorithm_instance.checkboxes.append(self)
 
     @pyqtSlot(bool)
     def set_value(self, arg1):
@@ -260,11 +255,10 @@ class DropDown:
     After calling the DropDown constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this DropDown with the UI.
     """
-    def __init__(self, algorithm_instance, name, options):
+    def __init__(self, name, options):
         """
 
         Args:
-            algorithm_instance: The instance of the calling algorithm
             name: The name of the DropDown menu to be displayed in the UI
             options: The list of string options a user can select in the Ui for the DropDown
 
@@ -274,7 +268,6 @@ class DropDown:
         self.name = name
         self.value = name
         self.options = options
-        algorithm_instance.drop_downs.append(self)
 
     @pyqtSlot(str)
     def set_value(self, arg1):

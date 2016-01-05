@@ -2,11 +2,20 @@
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
-from _alg import Algorithm
+from nefi2.model.algorithms._alg import *
 
 
 class AlgBody(Algorithm):
     """Fast nl Means Denoising Colored algorithm implementation"""
+
+    def report_pip(self):
+        """
+        Todo: implement
+        Returns:
+
+        """
+        pass
+
     def __init__(self):
         Algorithm.__init__(self)
         self.name = "Fast nl Means Denoising Colored"
