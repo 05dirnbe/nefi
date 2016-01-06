@@ -2,14 +2,26 @@
 """
 This class represents the algorithm Bilateral Filter from the opencv package
 """
-__authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
+__authors__ = {
+    "Andreas Firczynski": "andreasfir91@googlemail.com",
+    "Dennis Groß": "gdennis91@googlemail.com"
+}
 
 import cv2
-from _alg import Algorithm, IntegerSlider, FloatSlider
+from nefi2.model.algorithms._alg import *
 
 
 class AlgBody(Algorithm):
     """Bilateral Filter algorithm implementation"""
+
+    def report_pip(self):
+        """
+        Todo: implement
+        Returns:
+
+        """
+        pass
+
     def __init__(self):
         """
         Bilateral Filter object constructor
@@ -25,9 +37,12 @@ class AlgBody(Algorithm):
         """
         self.name = "Bilateral Filter"
         self.parent = "Preprocessing"
-        self.diameter = IntegerSlider(self,"diameter",1,1,200)
-        self.sigmaColor = FloatSlider(self,"sigmaColor",0,0,255)
-        self.sigmaSpace = FloatSlider(self,"sigmaSpace",0,0,200)
+        self.diameter = IntegerSlider("diameter", 1, 1, 200)
+        self.integer_sliders.append(self.diameter)
+        self.sigmaColor = FloatSlider("sigmaColor", 0, 0, 255)
+        self.float_sliders.append(self.sigmaColor)
+        self.sigmaSpace = FloatSlider("sigmaSpace", 0, 0, 200)
+        self.float_sliders.append(self.sigmaSpace)
 
     def process(self, image):
         """
@@ -36,38 +51,8 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        self.result = cv2.bilateralFilter(image,self.diameter,self.sigmaColor,self.sigmaSpace)
+        self.image_result = cv2.bilateralFilter(image, self.diameter, self.sigmaColor, self.sigmaSpace)
 
-
-    def belongs(self):
-        """
-        Define method membership (category)
-        Returns: name of the appropriated category
-
-        """
-        return self.parent
-
-    def get_name(self):
-        """
-        Define algorithm name that will be displayed in UI
-        Returns: algorithm name
-
-        """
-        return self.name
-
-    def sign(self, image, settings):
-        """
-        Save the name of the current algorithm and settings used to process
-        the image in the image class
-        Args:
-            image: image instance
-            settings: dict of settings used by the algorithm
-
-        Returns:
-
-        """
-        pass
-        #image.sign(self.name, settings)
 
 if __name__ == '__main__':
     pass

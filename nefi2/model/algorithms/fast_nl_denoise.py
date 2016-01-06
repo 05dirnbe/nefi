@@ -4,11 +4,20 @@ This class represents the algorithm Fast nl Means Denoising from the opencv pack
 """
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
-from _alg import Algorithm, FloatSlider, IntegerSlider
+from nefi2.model.algorithms._alg import *
 
 
 class AlgBody(Algorithm):
     """Fast nl Means Denoising algorithm implementation"""
+
+    def report_pip(self):
+        """
+        Todo: implement
+        Returns:
+
+        """
+        pass
+
     def __init__(self):
         """
         Fast nl Means Denoising object constructor
@@ -23,9 +32,12 @@ class AlgBody(Algorithm):
         """
         self.name = "Fast nl Means Denoising"
         self.parent = "Preprocessing"
-        self.filterStrength = FloatSlider(self,"filter strength",0,0,100)
-        self.templateWindowSize = IntegerSlider(self,"template window size",0,0,100)
-        self.searchWindowSize = IntegerSlider(self,"search window size",0,0,200)
+        self.filterStrength = FloatSlider("filter strength", 0, 0, 100)
+        self.float_sliders.append(self.filterStrength)
+        self.templateWindowSize = IntegerSlider("template window size", 0, 0, 100)
+        self.integer_sliders.append(self.templateWindowSize)
+        self.searchWindowSize = IntegerSlider("search window size", 0, 0, 200)
+        self.integer_sliders.append(self.searchWindowSize)
 
     def process(self, image):
         """
@@ -34,38 +46,7 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        self.result = cv2.fastNlMeansDenoising(image,self.filterStrength,self.templateWindowSize,self.searchWindowSize)
-
-
-    def belongs(self):
-        """
-        Define method membership (category)
-        Returns: name of the appropriated category
-
-        """
-        return self.parent
-
-    def get_name(self):
-        """
-        Define algorithm name that will be displayed in UI
-        Returns: algorithm name
-
-        """
-        return self.name
-
-    def sign(self, image, settings):
-        """
-        Save the name of the current algorithm and settings used to process
-        the image in the image class
-        Args:
-            image: image instance
-            settings: dict of settings used by the algorithm
-
-        Returns:
-
-        """
-        pass
-        #image.sign(self.name, settings)
+        self.image_result = cv2.fastNlMeansDenoising(image,self.filterStrength,self.templateWindowSize,self.searchWindowSize)
 
 if __name__ == '__main__':
     pass

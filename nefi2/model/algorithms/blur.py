@@ -2,14 +2,24 @@
 """
 This class represents the algorithm Blur from the opencv package
 """
-__authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
+__authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
+               "Dennis Groß": "gdennis91@googlemail.com"}
 
 import cv2
-from _alg import Algorithm, IntegerSlider
+from nefi2.model.algorithms._alg import *
 
 
 class AlgBody(Algorithm):
     """Blur algorithm implementation"""
+
+    def report_pip(self):
+        """
+        Todo: implement
+        Returns:
+
+        """
+        pass
+
     def __init__(self):
         """
         Blur object constructor
@@ -20,7 +30,8 @@ class AlgBody(Algorithm):
         """
         self.name = "Blur"
         self.parent = "Preprocessing"
-        self.kernelsize = IntegerSlider(self,"kernelsize",1,1,20)
+        self.kernelsize = IntegerSlider("kernelsize",1,1,20)
+        self.integer_sliders.append(self.kernelsize)
 
     def process(self, image):
         """
@@ -29,36 +40,8 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        self.result = cv2.blur(image,(self.kernelsize.value*2+1,self.kernelsize.value*2+1))
+        self.image_result = cv2.blur(image,(self.kernelsize.value*2+1,self.kernelsize.value*2+1))
 
-    def belongs(self):
-        """
-        Define method membership (category)
-        Returns: name of the appropriated category
-
-        """
-        return self.parent
-
-    def get_name(self):
-        """
-        Define algorithm name that will be displayed in UI
-        Returns: algorithm name
-
-        """
-        return self.name
-
-    def sign(self, image, kernelsize):
-        """
-        Save the name of the current algorithm and settings used to process
-        the image in the image class
-        Args:
-            image: image instance
-            kernelsize: aperture linear size; it must be odd and greater than 1
-
-
-        """
-        pass
-        #image.sign(self.name, kernelsize)
 
 if __name__ == '__main__':
     pass
