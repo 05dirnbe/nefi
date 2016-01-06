@@ -37,6 +37,7 @@ class Algorithm(QObject):
             self.integer_sliders -- a list containing all InterSlider created by the user
             self.checkboxes -- a list containing all Checkboxes created by the user
             self.drop_downs --  a list containing all DropDowns created by the user
+            self.result -- a tuple containing all resulting data produced or modified by the algorithm
 
         Returns:
             object: instance of the algorithm object
@@ -47,7 +48,7 @@ class Algorithm(QObject):
         self.float_sliders = []
         self.checkboxes = []
         self.drop_downs = []
-        self.image_result = None
+        self.result = None
 
     def belongs(self):
         """
@@ -63,7 +64,7 @@ class Algorithm(QObject):
         """
         return self.parent
 
-    def process(self, image):
+    def process(self, input_data):
         """
         Contains the logic of the implemented algorithm. While computing
         the pipeline each algorithm will be called with its process method giving the
@@ -75,10 +76,12 @@ class Algorithm(QObject):
         method.
 
         Args:
-            image: The input image from the previous category in the pipeline.
+            input_data: a tuple which contains all relevant arguments found in the results of the
+             previous processed algorithm. As common in the pipeline pattern, the successors always
+             get called with the information the predecessor created.
 
         Returns:
-            image: The result image of the process method
+
         """
         raise NotImplementedError
 
