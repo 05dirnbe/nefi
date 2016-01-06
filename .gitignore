@@ -15,3 +15,7 @@
 /nefi2/install_scripts_win/*.whl
 /nefi2/install_scripts_win/*.exe
 /nefi2/install_scripts_win/*.tar.gz
+/nefi2/controller/__pycache__ 
+/nefi2/unittests/__pycache__ 
+/nefi2/unittests/unittest_model/__pycache__ 
+
