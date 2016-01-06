@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import random as rnd
+import re
+import os
+import sys
+
 """
 This class represents image processing method that contains its respective
 algorithms. Its main function is controlling an algorithm, collecting and
@@ -8,10 +13,7 @@ between the algorithms and the pipeline.
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
-import random as rnd
-import re
-import os
-import sys
+
 
 
 class Category:

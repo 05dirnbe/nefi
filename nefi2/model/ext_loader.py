@@ -5,28 +5,32 @@ import xml.etree.ElementTree as et
 from collections import OrderedDict as od
 import sys
 
-"""
-A class that works with "model" folder and is used to initialize the pipeline
-with all available image processing categories and their respective algorithms.
-It uses config.json settings to initialize image processing categories
-accordingly.
-ExtensionLoader creates a collection of categories and algorithms ready to be
-loaded into the pipeline object.
-"""
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class ExtensionLoader:
+    """
+    A class that works with "model" folder and is used to initialize the pipeline
+    with all available image processing categories and their respective algorithms.
+    It uses config.json settings to initialize image processing categories
+    accordingly.
+    ExtensionLoader creates a collection of categories and algorithms ready to be
+    loaded into the pipeline object.
+    """
+
     def __init__(self):
         """
-        Constructor
-        Instance vars:
-            self.cats_container -- a dict with Step names and Step instances
-        Private vars:
-            _category_dir -- a directory path for categories
-            _config_path -- a path to config.xml
-            _found_cats -- a list of category paths
-            _order -- a list of available categories taken from config
+        public Attributes:
+            cats_container: a dict with Step names and Step instances
+
+        private Attributes:
+            _category_dir: a directory path for categories
+            _config_path: a path to config.xml
+            _found_cats: a list of category paths
+            _order: a list of available categories taken from config
+
+        Returns:
+            instance of the ExtensionLoader object
         """
         for path in sys.path:
             if path.endswith('categories'):
