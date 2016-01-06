@@ -15,7 +15,7 @@ import sys
 
 
 class Category:
-    def __init__(self):
+    def __init__(self, name=""):
         """
         Category class that represents image processing method/category like
         "Preprocessing" or "Graph detection".
