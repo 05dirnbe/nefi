@@ -2,8 +2,10 @@ from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
-import algorithm_1
-import algorithm_2
+from model.algorithms import algorithm_1
+from model.algorithms import algorithm_2
+from model.categories import category_1
+from model.categories import category_2
 
 
 class GroupOfSliders(QGroupBox):
@@ -177,18 +179,35 @@ class SliderWidget(QGroupBox):
 
 class Window(QWidget):
     """
-    This part can be removed for main window application
+    This part might be removed or included for main window application
     """
 
     def __init__(self, algorithms):
         super(Window, self).__init__()
 
         self.stackedWidget = QStackedWidget()
+        self.orientationCombo = QComboBox()
+
+        for category in categories:
+            pass
+
+
 
         for algorithm in algorithms:
+            self.orientationCombo.addItem(algorithm.get_name())
             self.stackedWidget.addWidget(GroupOfSliders(algorithm))
-            layout = QHBoxLayout()
-            layout.addWidget(self.stackedWidget)
+
+            layout = QBoxLayout(QBoxLayout.TopToBottom)
+
+            settings_layout = QBoxLayout(QBoxLayout.TopToBottom)
+            settings_layout.addWidget(self.stackedWidget)
+
+            select_layout = QBoxLayout(QBoxLayout.TopToBottom)
+            select_layout.addWidget(self.orientationCombo)
+
+            layout.addItem(settings_layout)
+            layout.addItem(select_layout)
+
             self.setLayout(layout)
             self.setWindowTitle(algorithm.get_name() + " Settings")
 
@@ -201,6 +220,12 @@ if __name__ == '__main__':
     MyAlgorithm_2 = algorithm_2.MyAlgorithm_2
     algorithms.append(MyAlgorithm_1)
     algorithms.append(MyAlgorithm_2)
+
+    categories = []
+    MyCategory_1 = category_1.MyCategory_1
+    MyCategory_2 = category_2.MyCategory_2
+    categories.append(MyCategory_2)
+    categories.append(MyCategory_1)
 
     app = QApplication(sys.argv)
     window = Window(algorithms)
