@@ -20,6 +20,7 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
 from PyQt5.QtCore import QObject, pyqtSlot
+import demjson
 
 
 class Algorithm(QObject):
@@ -49,6 +50,8 @@ class Algorithm(QObject):
         self.checkboxes = []
         self.drop_downs = []
         self.result = None
+        self.name = ""
+        self.parent = ""
 
     def belongs(self):
         """
@@ -101,18 +104,36 @@ class Algorithm(QObject):
             raise NotImplementedError
 
     def report_pip(self):
-        #todo: implement method
         """
-        This method creates a json representation of the implemented algorithm. Therefore it
-        looks into the lists containing information of the ui objects created and reports a
-        fragment for a json document.
-        This method must not be implemented by the contributor to add a new algorithm implementation.
-
+        This method returns a dictionary which contains all relevant algorithm information
+        and returns it to the pipeline along with the algorithm name.
+        The pipeline needs this information to create a json representation of the algorithm.
+        It will encode the dic as following:
+        E.g. blur : {"type" : "preprocessing", "kernelsize" : 2.5}
+        The encoding of the dic to a json will be done by the pipeline which gathers the dictionary
+        of each algorithm in the processing list.
         Returns:
-            A json document which contains the definitions of the implemented algorithm
-
+            A tuple consisting of the name of the algorithm and the dic containing all relevant
+            information about the algorithm which need to be stored on the filesystem for the
+            pipeline.json.
         """
-        raise NotImplementedError
+        dic = {"type": self.parent}
+
+        for int_slider in self.integer_sliders:
+            dic[int_slider.name] = int_slider.value()
+
+        for float_slider in self.float_slider:
+            dic[float_slider.name] = float_slider.value
+
+        for checkbox in self.checkboxes:
+            dic[checkbox.name] = checkbox.value
+
+        for dropdown in self.dropdowns:
+            dic[dropdown.name] = dropdown.value
+
+        return self.name, dic
+
+
 
     def unset_modified(self):
         """
@@ -133,6 +154,7 @@ class IntegerSlider:
     After calling the IntegerSlider constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this slider with the UI.
     """
+
     def __init__(self, name, lower, upper, step_size, default):
         """
 
@@ -153,6 +175,7 @@ class IntegerSlider:
         self.lower = lower
         self.upper = upper
         self.name = name
+
 
     @pyqtSlot(int)
     def set_value(self, arg1):
@@ -177,6 +200,7 @@ class FloatSlider:
     After calling the FloatSlider constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this slider with the UI.
     """
+
     def __init__(self, name, lower, upper, step_size, default):
         """
 
@@ -221,6 +245,7 @@ class CheckBox:
     After calling the CheckBox constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this checkbox with the UI.
     """
+
     def __init__(self, name, default):
         """
 
@@ -258,6 +283,7 @@ class DropDown:
     After calling the DropDown constructor, the program automatically creates ui widgets as well
     as qt slots and signals to connect this DropDown with the UI.
     """
+
     def __init__(self, name, options):
         """
 
