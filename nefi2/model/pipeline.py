@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .categories._category import Category
+from categories._category import Category
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}

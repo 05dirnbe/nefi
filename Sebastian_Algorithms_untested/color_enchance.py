@@ -11,11 +11,11 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Color enhancement"
         self.parent = "Preprocessing"
-        self.left_percentage = FloatSlider(self, "left percentage", 0.0, 10.0, 0.1, 2.5)
-        self.right_percentage = FloatSlider(self, "right percentage", 0.0, 10.0, 0.1, 2.5)
-        self.channel1 = CheckBox(self, "channel1", True)
-        self.channel2 = CheckBox(self, "channel2", True)
-        self.channel3 = CheckBox(self, "channel3", True)
+        self.left_percentage = FloatSlider("left percentage", 0.0, 10.0, 0.1, 2.5)
+        self.right_percentage = FloatSlider("right percentage", 0.0, 10.0, 0.1, 2.5)
+        self.channel1 = CheckBox("channel1", True)
+        self.channel2 = CheckBox("channel2", True)
+        self.channel3 = CheckBox("channel3", True)
         self.float_sliders.append(self.left_percentage)
         self.float_sliders.append(self.right_percentage)
         self.checkboxes.append(self.channel1)

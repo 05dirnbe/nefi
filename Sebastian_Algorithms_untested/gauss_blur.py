@@ -22,11 +22,11 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Gaussian Blur"
         self.parent = "Preprocessing"
-        self.kernelsize = IntegerSlider(self,"kernelsize",1,20,1,1)
-        self.sigmaX = FloatSlider(self,"sigmaX",1.0,100.0,0.1,1.0)
-        self.channel1 = CheckBox(self, "channel1", True)
-        self.channel2 = CheckBox(self, "channel2", True)
-        self.channel3 = CheckBox(self, "channel3", True)
+        self.kernelsize = IntegerSlider("kernelsize",1,20,1,1)
+        self.sigmaX = FloatSlider("sigmaX",1.0,100.0,0.1,1.0)
+        self.channel1 = CheckBox("channel1", True)
+        self.channel2 = CheckBox("channel2", True)
+        self.channel3 = CheckBox("channel3", True)
         self.integer_sliders.append(self.kernelsize)
         self.float_sliders.append(self.sigmaX)
         self.checkboxes.append(self.channel1)
@@ -55,4 +55,3 @@ class AlgBody(Algorithm):
 
 if __name__ == '__main__':
     pass
-

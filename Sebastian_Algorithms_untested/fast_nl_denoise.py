@@ -26,12 +26,12 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Fast nl Means Denoising"
         self.parent = "Preprocessing"
-        self.filter_strength = FloatSlider(self, "filter strength", 1.0, 100.0, 0.1, 1.0)
-        self.template_window_size = IntegerSlider(self, "template window size", 1, 20, 1, 3)
-        self.search_window_size = IntegerSlider(self, "search window size", 1, 20, 1, 10)
-        self.channel1 = CheckBox(self, "channel1", True)
-        self.channel2 = CheckBox(self, "channel2", True)
-        self.channel3 = CheckBox(self, "channel3", True)
+        self.filter_strength = FloatSlider("filter strength", 1.0, 100.0, 0.1, 1.0)
+        self.template_window_size = IntegerSlider("template window size", 1, 20, 1, 3)
+        self.search_window_size = IntegerSlider("search window size", 1, 20, 1, 10)
+        self.channel1 = CheckBox("channel1", True)
+        self.channel2 = CheckBox("channel2", True)
+        self.channel3 = CheckBox("channel3", True)
         self.integer_sliders.append(self.template_window_size)
         self.integer_sliders.append(self.search_window_size)
         self.float_sliders.append(self.filter_strength)

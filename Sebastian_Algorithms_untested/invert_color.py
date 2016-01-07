@@ -20,9 +20,9 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Invert Color"
         self.parent = "Preprocessing"
-        self.channel1 = CheckBox(self, "channel1", True)
-        self.channel2 = CheckBox(self, "channel2", True)
-        self.channel3 = CheckBox(self, "channel3", True)
+        self.channel1 = CheckBox("channel1", True)
+        self.channel2 = CheckBox("channel2", True)
+        self.channel3 = CheckBox("channel3", True)
         self.checkboxes.append(self.channel1)
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
@@ -47,7 +47,4 @@ class AlgBody(Algorithm):
 
 if __name__ == '__main__':
     pass
-
-
-
 
