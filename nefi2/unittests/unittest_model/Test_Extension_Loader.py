@@ -11,7 +11,6 @@ from nefi2.model.categories import gdetection
 from nefi2.model.categories import gfiltering
 from collections import OrderedDict as od
 
-
 from collections import OrderedDict as od, OrderedDict
 
 from nefi2.model.ext_loader import ExtensionLoader

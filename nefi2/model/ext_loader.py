@@ -10,24 +10,24 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 class ExtensionLoader:
     """
-    A class that works with "model" folder and is used to initialize the pipeline
-    with all available image processing categories and their respective algorithms.
-    It uses config.json settings to initialize image processing categories
-    accordingly.
-    ExtensionLoader creates a collection of categories and algorithms ready to be
-    loaded into the pipeline object.
+    A class that works with "model" folder and is used to initialize the
+    pipeline with all available image processing categories and their
+    respective algorithms. It uses config.json settings to initialize image
+    processing categories accordingly.
+    ExtensionLoader creates a collection of categories and algorithms ready to
+    be loaded into the pipeline object.
     """
 
     def __init__(self):
         """
         public Attributes:
-            cats_container: a dict with Step names and Step instances
+            | *cats_container*: a dict with Step names and Step instances
 
         private Attributes:
-            _category_dir: a directory path for categories
-            _config_path: a path to config.xml
-            _found_cats: a list of category paths
-            _order: a list of available categories taken from config
+            | *_category_dir*: a directory path for categories
+            | *_config_path*: a path to config.xml
+            | *_found_cats*: a list of category paths
+            | *_order*: a list of available categories taken from config
 
         Returns:
             instance of the ExtensionLoader object
@@ -45,15 +45,15 @@ class ExtensionLoader:
     def _scan_model(cat_dir):
         """
         Args:
-            cat_dir: the directory of category's provided by the ext_loader
+            | *cat_dir*: the directory of category's provided by the ext_loader
 
         Vars:
-            found_cats: a filtered list of category file names
-            category_files: a list of algorithm file names
-            ignored: a regex object, used to filter unnecessary files
+            | *found_cats*: a filtered list of category file names
+            | *category_files*: a list of algorithm file names
+            | *ignored*: a regex object, used to filter unnecessary files
 
         Returns:
-            found_cats: a list of categories that were found
+            | *found_cats*: a list of categories that were found
         """
         category_files = os.listdir(cat_dir)
         ignored = re.compile(r'.*.pyc|__init__|_category.py|_alg.py')
@@ -64,10 +64,10 @@ class ExtensionLoader:
     def _read_configs(config_path):
         """
         Args:
-            config_path: a path to config.xml
+            | *config_path*: a path to config.xml
 
         Returns:
-            order: a list of categories order
+            | *order*: a list of categories order
         """
         tree = et.parse(config_path)  # categories order
         root = tree.getroot()
@@ -88,15 +88,15 @@ class ExtensionLoader:
         creates a list of algorithms that belong to it>
 
         Args:
-            ordering: a list of categories order
-            found_cats:a list of found category file names
+            | *ordering*: a list of categories order
+            | *found_cats*:a list of found category file names
 
         Vars:
-            cats_inst: a list of found and instantiated methods
-            categories: a dictionary of algs where {Algorithm: Step}
+            | *cats_inst*: a list of found and instantiated methods
+            | *categories*: a dictionary of algs where {Algorithm: Step}
 
         Returns:
-            categories: a list with Method instances
+            | *categories*: a list with Method instances
         """
         cats_inst = []
         for category in found_cats:
