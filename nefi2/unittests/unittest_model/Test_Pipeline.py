@@ -1,9 +1,15 @@
-__author__ = 'martino'
+#!/usr/bin/env python3
+
+
+__authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
+
 import unittest
 import sys
 import os
-from model.pipeline import Pipeline
-from model.ext_loader import ExtensionLoader
+from nefi2.model.pipeline import Pipeline
+from nefi2.model.ext_loader import ExtensionLoader
+from nefi2.model.categories._category import Category
+
 
 sys.path.insert(0, os.path.join(os.curdir,'nefi2'))
 sys.path.insert(0, os.path.join(os.curdir,'nefi2', 'model'))
@@ -14,27 +20,39 @@ class Test_Pipeline(unittest.TestCase):
 
     def test_new_Category(self):
         """
-        Method new_Category will return True after the creation of the instance of Category's object at position x
+        Testing if the new_category(position) method insert in the executed_cats list at that position a new Category object
         """
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
-        self.assertTrue(Pipeline.new_category(1))
+        pipeline.new_category(1)
+        standard = Category()
+        self.assertEqual(pipeline.executed_cats[1],standard)
 
     def test_move_category(self):
         """
-        Method move_Category will return True after the moving of Category's objects from position x to position y
+        Testing if after creating 2 categories in the pipeline and moving one in another position the executed_cats list is modified
         """
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
-        self.assertTrue(pipeline.move_category(1,1))
+        pipeline.new_category(1)
+        pipeline.new_category(2)
+        cat1 = pipeline.executed_cats[1]
+        cat2 = pipeline.executed_cats[2]
+        pipeline.move_category(1,2)
+        self.assertNotEqual(pipeline.executed_cats[1],cat1)
+        self.assertEqual(pipeline.executed_cats[2],cat1)
+        self.assertEqual(pipeline.executed_cats[3],cat2)
 
     def test_delete_category(self):
         """
-        Method delete_Category will return True after the deleting of Category's object at position x
+        Testing if after deleting an object from the pipeline that object is not in the executed_cats list
         """
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
-        self.assertTrue(pipeline.delete_category(0))
+        pipeline.new_category(1)
+        cat=pipeline.executed_cats[1]
+        pipeline.delete_category(1)
+        self.assertNotIn(cat,pipeline.executed_cats)
 
     def test_change_algorithm(self):
         """
@@ -62,10 +80,6 @@ class Test_Pipeline(unittest.TestCase):
         standard = ['Blur','Bilateral','Color enhancement','Fast nl Means Denoising','Fast nl Means Denoising Colored','Gaussian Blur','Invert Color','Median Blur']
         self.assertEqual(pipeline.get_algorithm_list(1),standard)
 
-    def test_read_pipeline_xml(self):
-        ""
-        extloader = ExtensionLoader()
-        pipeline = Pipeline(extloader.cats_container)
 
 if __name__ == '__main':
     unittest.main()

@@ -4,10 +4,6 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget, QGroupBox, \
     QLabel, QStackedWidget
 
 
-classg
-
-
-
 class GuiElement(QGroupBox):
     def __init__(self, algorithm):
         super(GuiElement, self).__init__()

@@ -1,30 +1,28 @@
 # -*- coding: utf-8 -*-
-"""
-This class represents a central control mechanism over a sequential
-image processing pipeline. It controls all the available image processing
-categories, handles processing results and works as an mediator between the
-algorithms and UI.
-"""
-__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+from categories._category import Category
 
-
-import os
-import xml.etree.ElementTree as et
-from .categories._category import Category
-import sys
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
+               "Dennis Groß": "gdennis91@googlemail.com"}
 
 
 class Pipeline:
+    """
+    This class represents a central control mechanism over a sequential
+    image processing pipeline. It controls all the available image processing
+    categories, handles processing results and works as an mediator between the
+    algorithms and UI.
+    """
+
     def __init__(self, categories):
         """
-        Pipeline constructor
-        Params:
-            categories -- OrderedDict of category names and their instances
-        Instance vars:
-            self.available_cats -- dict of {Category name: Category}
-            self.executed_cats -- a list of Categories in UI pipeline
-            self.pipeline_path -- a path to a saved pipelines
-            self.image_path -- a path to an image file
+        Args:
+            categories: OrderedDict of category names and their instances
+
+        public Attributes:
+            available_cats: dict of {Category name: Category}
+            executed_cats: a list of Categories in UI pipeline
+            pipeline_path: a path to a saved pipelines
+            image_path: a path to an image file
         """
         self.available_cats = categories
         self.executed_cats = [v for v in self.available_cats.values()]
@@ -35,8 +33,10 @@ class Pipeline:
     def new_category(self, position):
         """
         Create an instance of a new Category.
-        Params:
-            position -- a category index in self.executed_cats
+
+        Args:
+            position:
+                a category index in self.executed_cats
         """
         self.executed_cats.insert(position, Category())
         return True
@@ -44,9 +44,10 @@ class Pipeline:
     def move_category(self, origin_pos, destination_pos):
         """
         Move Category instance within the pipeline using indices.
-        Params:
-            origin_pos (int) -- Category index number
-            destination_pos (int) -- new position for Category
+
+        Args:
+            origin_pos (int): Category index number
+            destination_pos (int): new position for Category
         """
         self.executed_cats.insert(destination_pos,
                                   self.executed_cats[origin_pos])
@@ -56,8 +57,12 @@ class Pipeline:
     def delete_category(self, position):
         """
         Remove a Category from the pipeline.
-        Params:
-            position (int) -- Category index number
+
+        Args:
+            position (int): Category index number
+
+        Returns:
+
         """
         del self.executed_cats[position]
         return True
@@ -67,8 +72,7 @@ class Pipeline:
         Execute current pipeline starting from the first modified image
         processing category.
 
-        Returns:
-            results (list) -- a list of processing results
+        Returns (list): a list of processing results
 
         """
         results = []
@@ -88,9 +92,10 @@ class Pipeline:
     def change_algorithm(self, position, alg_name):
         """
         Set the algorithm of the category in position to modified = True
-        Params:
-            position -- list index of the category in the pipeline
-            alg_name -- algorithm name
+
+        Args:
+            position: list index of the category in the pipeline
+            alg_name: algorithm name
         """
         for v in self.executed_cats[position].available_algs.values()[0]:
             if alg_name == v.Body().get_name():
@@ -100,9 +105,10 @@ class Pipeline:
     def get_executed_cats(self):
         """
         Create and return a list of currently executed categories.
-        Returns:
-            executed_cat_names -- list of Category names
         No cats are actually harmed during execution of this method >_<
+
+        Returns:
+            executed_cat_names: list of Category names
         """
         executed_cat_names = [cat.get_name() for cat in self.executed_cats]
         return executed_cat_names
@@ -111,10 +117,12 @@ class Pipeline:
         """
         Get names of all available algorithms for the category in position.
         Sort the list and return.
-        Params:
-            position (int) -- Category index number
+
+        Args:
+            position (int): Category index number
+
         Returns:
-            alg_names (list) -- a sorted list of algorithm names
+            alg_names (list): a sorted list of algorithm names
         """
         alg_names = self.available_cats.values()[position].alg_names
         alg_names.sort()
