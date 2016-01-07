@@ -4,29 +4,38 @@ import re
 import os
 import sys
 
-"""
-This class represents image processing method that contains its respective
-algorithms. Its main function is controlling an algorithm, collecting and
-transmitting the output to the pipeline. It serves as an intermediate layer
-between the algorithms and the pipeline.
-"""
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class Category:
+    """
+    This class represents image processing method that contains its respective
+    algorithms. Its main function is controlling an algorithm, collecting and
+    transmitting the output to the pipeline. It serves as an intermediate layer
+    between the algorithms and the pipeline.
+    """
+
     def __init__(self, name=""):
         """
-        Category class that represents image processing method/category like
-        "Preprocessing" or "Graph detection".
-        Params:
-            name -- Category name
-        Private vars:
-            _alg_dir -- a directory path for algorithms
-        Instance vars:
-            self.name -- Category name
-            self.available_algs -- a dict of {Category: [alg, alg, ...]}
-            self.alg_names (list) -- a list of algorithms for current category
-            self.active_algorithm -- Currently selected algorithm
+        # for debugging only
+        # print '> Category: I am "%s" category' % self.name
+        # print '> I have the following algorithms:'
+        # for a in self.available_algs.values():
+        #   print a
+        # print len(self.available_algs.values()[0]), 'in total.'
+        # print ''
+
+        Args:
+            name: Category name
+
+        Private Attributes:
+            _alg_dir: a directory path for algorithms
+
+        Public Attributes:
+            name: Category name
+            available_algs: a dict of {Category: [alg, alg, ...]}
+            alg_names (list): a list of algorithms for current category
+            active_algorithm: Currently selected algorithm
         """
         for path in sys.path:
             if path.endswith('algorithms'):
@@ -36,13 +45,7 @@ class Category:
         # since no settings are implemented, use random choice for alg
         self.active_algorithm = rnd.choice(list(
                                             self.available_algs.values())[0])
-        # for debugging only
-        # print '> Category: I am "%s" category' % self.name
-        # print '> I have the following algorithms:'
-        # for a in self.available_algs.values():
-        #   print a
-        # print len(self.available_algs.values()[0]), 'in total.'
-        # print ''
+
 
     def set_available_algorithms(self):
         pass
@@ -53,15 +56,18 @@ class Category:
         Create a dict of {Category: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current category.
         Create a list of algorithms available for current category.
-        Params:
-            alg_dir -- a directory path for algorithms
+
+        Args:
+            alg_dir: a directory path for algorithms
+
         Vars:
-            found_algs -- a filtered list of algorithm file names
-            ignored -- a regex object, used to filter unnecessary files
-            imported_algs -- a list of imported algorithm files
+            found_algs: a filtered list of algorithm file names
+            ignored: a regex object, used to filter unnecessary files
+            imported_algs: a list of imported algorithm files
+
         Returns:
-            category_alg_map -- a dict of {Category: [alg, alg, ...]}
-            alg_names -- a list of algorithms that belong to current category
+            category_alg_map: a dict of {Category: [alg, alg, ...]}
+            alg_names: a list of algorithms that belong to current category
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py')
@@ -80,16 +86,18 @@ class Category:
     def set_active_algorithm(self, alg_name):
         """
         Explicitly set an algorithm for current method.
-        Params:
-            alg_name -- algorithm's name that was selected in the UI
+
+        Args:
+            alg_name: algorithm's name that was selected in the UI
         """
         self.active_algorithm = alg_name
 
     def get_active_algorithm(self):
         """
         Return the name of the currently set algorithm.
+
         Returns:
-            self.active_algorithm -- Currently selected algorithm
+            self.active_algorithm: Currently selected algorithm
         """
         return self.active_algorithm
 
@@ -99,8 +107,9 @@ class Category:
     def process(self, image):
         """
         Run a specific algorithm on the image.
-        Params:
-            image -- a path to image file
+
+        Args:
+            image: a path to image file
         """
         ralg = [alg for alg in list(self.available_algs.values())[0]
                 if self.active_algorithm.AlgBody().name == alg.AlgBody().name][0]
@@ -111,15 +120,17 @@ class Category:
 
     def get_name(self):
         """
-        Return a category name that will be displayed in UI.
+        Returns:
+            a category name that will be displayed in UI.
         """
         return self.name
 
     def set_name(self, name):
         """
         Set a category name that will be displayed in UI.
-        Params:
-            name -- a name of the Category
+
+        Args:
+            name: a name of the Category
         """
         self.name = name
 

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from PyQt5.QtCore import QObject, pyqtSlot
-import demjson
 
 """
 A module which contains all necessary information's and features to create
@@ -131,8 +130,6 @@ class Algorithm(QObject):
 
         return self.name, dic
 
-
-
     def unset_modified(self):
         """
         Set modified to False
@@ -155,7 +152,6 @@ class IntegerSlider:
 
     def __init__(self, name, lower, upper, step_size, default):
         """
-
         Args:
             name: The name to be displayed in the UI - label of the slider
             lower: The lower bound of the slider in the UI
@@ -165,7 +161,6 @@ class IntegerSlider:
 
         Returns:
             instance of an IntegerSlider object
-
         """
         self.step_size = step_size
         self.default = default
@@ -173,7 +168,6 @@ class IntegerSlider:
         self.lower = lower
         self.upper = upper
         self.name = name
-
 
     @pyqtSlot(int)
     def set_value(self, arg1):
@@ -185,9 +179,6 @@ class IntegerSlider:
 
         Args:
             arg1: the integer value selected in the ui or the pipeline in batch-mode
-
-        Returns:
-
         """
         self.value = arg1
 
@@ -201,7 +192,6 @@ class FloatSlider:
 
     def __init__(self, name, lower, upper, step_size, default):
         """
-
         Args:
             name: The name to be displayed in the UI - label of the slider
             lower: The lower bound of the slider in the UI
@@ -211,7 +201,6 @@ class FloatSlider:
 
         Returns:
             instance of an IntegerSlider object
-
         """
         self.step_size = step_size
         self.default = default
@@ -230,9 +219,6 @@ class FloatSlider:
 
         Args:
             arg1: the integer value selected in the ui or the pipeline in batch-mode
-
-        Returns:
-
         """
         self.value = arg1
 
@@ -246,13 +232,9 @@ class CheckBox:
 
     def __init__(self, name, default):
         """
-
         Args:
             name: The name of the checkbox to be displayed in the ui
             default: The default value of the checkbox
-
-        Returns:
-
         """
         self.default = default
         self.value = default
@@ -268,9 +250,6 @@ class CheckBox:
 
         Args:
             arg1: the boolean value selected in the ui or the pipeline in batch-mode
-
-        Returns:
-
         """
         self.value = arg1
 
@@ -284,13 +263,9 @@ class DropDown:
 
     def __init__(self, name, options):
         """
-
         Args:
             name: The name of the DropDown menu to be displayed in the UI
             options: The list of string options a user can select in the Ui for the DropDown
-
-        Returns:
-
         """
         self.name = name
         self.value = name
@@ -306,8 +281,5 @@ class DropDown:
 
         Args:
             arg1: the string value selected in the ui or the pipeline in batch-mode
-
-        Returns:
-
         """
         self.value = arg1
