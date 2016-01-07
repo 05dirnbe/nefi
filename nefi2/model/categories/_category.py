@@ -62,7 +62,7 @@ class Category:
             
         """
         alg_files = os.listdir(alg_dir)
-        ignored = re.compile(r'.*.pyc|__init__|_alg.py')
+        ignored = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__')
         found_algs = filter(lambda x: not ignored.match(x), alg_files)
         # import all available algorithm files as modules
         imported_algs = []

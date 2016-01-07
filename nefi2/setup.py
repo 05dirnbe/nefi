@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
 Setup script for NEFI2
+
 Usage:
-    python2 setup.py install
+    python setup.py install
+    
 """
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
@@ -72,8 +74,7 @@ setup(
         'License :: OSI Approved :: BSD License',
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 2 :: Only',
+        'Programming Language :: Python :: 3.4 :: Only'
     ],
 
     # What does your project relate to?
@@ -81,7 +82,7 @@ setup(
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+    packages=find_packages(exclude=['contrib', 'docs', 'unittests']),
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's

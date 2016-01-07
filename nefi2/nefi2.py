@@ -12,21 +12,36 @@ import argparse
 import os
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
-import sys
-sys.path.insert(0, os.path.join(os.curdir, 'model'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 
 def gui_mode():
     """Start NEFI2 GUI"""
-    pass
+    extloader = ExtensionLoader()
+    pipeline = Pipeline(extloader.cats_container)
 
 
-def batch_mode():
-    """Process images in console"""
-    pass
-
+def batch_mode(args):
+    """
+    Process images in console mode
+    
+    Args:
+        *args* (dict): argument dict returned by ArgumentParser
+        
+    """
+    extloader = ExtensionLoader()
+    pipeline = Pipeline(extloader.cats_container)
+    # processing args values
+    if args.pipeline:
+        # load the specified pipeline file
+        # pipeline.load_pipeline()
+        pass
+    if args.dir:
+        # load the images from the specified source dir
+        pipeline.set_input_dir(args.dir)
+    if args.out:
+        pipeline.set_output_dir(args.out)
+    pipeline.get_image(args.file)
+    # pipeline.process()
 
 def main(args):
     """
@@ -34,10 +49,8 @@ def main(args):
     Params:
         args -- a Namespace object of supplied command-line arguments
     """
-    extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container)
-    if len(vars(args)) > 3:
-        batch_mode()
+    if args.dir or args.file:
+        batch_mode(args)
     else:
         gui_mode()
 
@@ -51,10 +64,8 @@ if __name__ == '__main__':
                      help='Specify a saved pipeline xml file.',
                      required=False)
     prs.add_argument('-d', '--dir',
-                     default=os.getcwd(),
                      help='Specify a directory with images '
-                          'for batch processing. If not specified, current '
-                          'directory is used.',
+                          'for batch processing.',
                      required=False)
     prs.add_argument('-f', '--file',
                      help='Specify an image file to process.',

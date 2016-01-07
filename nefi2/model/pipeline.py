@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+import sys
+sys.path.insert(0, os.path.join(os.curdir, 'model'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 from categories._category import Category
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
@@ -76,13 +81,12 @@ class Pipeline:
         results = []
         image = self.image_path
         results.append(image)
-        # find the first category which contains modified algorithm
-        print(self.executed_cats)
+        # find the first category which contains the modified algorithm
         for idx, cat in enumerate(self.executed_cats):
             if cat.active_algorithm.AlgBody().modified:
                 start_from = idx, cat.name
                 break
-        # execute pipeline
+        # execute the pipeline from the category with the modified algorithm
         for num, cat in enumerate(self.executed_cats[idx:]):
             results.append(cat.process(results[num]))
         return results
@@ -129,11 +133,42 @@ class Pipeline:
         alg_names.sort()
         return alg_names
 
-    def read_image(self, img_path):
-        pass
+    def get_image(self, img_path):
+        """
+        Receive and save the path to the image which will be processed.
+        
+        Args:
+            *img_path* (str): image path
+            
+        """
+        self.image_path = img_path
 
     def save_pipeline_xml(self, save_path):
         pass
+    
+    def set_input_dir(self, dir_path):
+        """
+        Set the directory where original images are located.
+        <Used in console mode>.
+        
+        Args:
+            *dir_path* (str): directory path of original images
+        
+        """
+        self.input_dir = dir_path
+        
+    def set_output_dir(self, dir_path):
+        """
+        Create and set the directory where to save the results of processing.
+        <Used in console mode>.
+        
+        Args:
+            *dir_path* (str): directory path for processing results
+        
+        """
+        if not os.path.exists(dir_path):
+            os.mkdir(dir_path)
+        self.output_dir = dir_path
 
 
 if __name__ == '__main__':
