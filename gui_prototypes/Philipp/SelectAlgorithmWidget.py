@@ -56,8 +56,11 @@ if __name__ == '__main__':
     algorithms.append(MyAlgorithm_2)
 
     categories = []
-    MyCategory_1 = category_1.MyCategory_1
-    MyCategory_2 = category_2.MyCategory_2
+    MyCategory_1 = category_1.Category()
+    MyCategory_2 = category_2.Category()
+    MyCategory_1.set_name("Category_1")
+    MyCategory_2.set_name("Category_2")
+
     categories.append(MyCategory_1)
     categories.append(MyCategory_2)
 
