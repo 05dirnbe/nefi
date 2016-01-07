@@ -31,6 +31,7 @@ class ExtensionLoader:
 
         Returns:
             instance of the ExtensionLoader object
+            
         """
         for path in sys.path:
             if path.endswith('categories'):
@@ -54,6 +55,7 @@ class ExtensionLoader:
 
         Returns:
             | *found_cats*: a list of categories that were found
+            
         """
         category_files = os.listdir(cat_dir)
         ignored = re.compile(r'.*.pyc|__init__|_category.py|_alg.py')
@@ -68,6 +70,7 @@ class ExtensionLoader:
 
         Returns:
             | *order*: a list of categories order
+            
         """
         tree = et.parse(config_path)  # categories order
         root = tree.getroot()
@@ -97,6 +100,7 @@ class ExtensionLoader:
 
         Returns:
             | *categories*: a list with Method instances
+            
         """
         cats_inst = []
         for category in found_cats:

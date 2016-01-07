@@ -16,13 +16,14 @@ class Pipeline:
     def __init__(self, categories):
         """
         Args:
-            categories: OrderedDict of category names and their instances
+            *categories*: OrderedDict of category names and their instances
 
         public Attributes:
-            available_cats: dict of {Category name: Category}
-            executed_cats: a list of Categories in UI pipeline
-            pipeline_path: a path to a saved pipelines
-            image_path: a path to an image file
+            | *available_cats*: dict of {Category name: Category}
+            | *executed_cats*: a list of Categories in UI pipeline
+            | *pipeline_path*: a path to a saved pipelines
+            | *image_path*: a path to an image file
+            
         """
         self.available_cats = categories
         self.executed_cats = [v for v in self.available_cats.values()]
@@ -32,47 +33,44 @@ class Pipeline:
 
     def new_category(self, position):
         """
-        Create an instance of a new Category.
+        Create a new instance of Category.
 
         Args:
-            position:
-                a category index in self.executed_cats
+            *position*: a category index in self.executed_cats
+                
         """
         self.executed_cats.insert(position, Category())
-        return True
 
     def move_category(self, origin_pos, destination_pos):
         """
         Move Category instance within the pipeline using indices.
 
         Args:
-            origin_pos (int): Category index number
-            destination_pos (int): new position for Category
+            *origin_pos* (int): Category index number
+            *destination_pos* (int): new position for Category
+
         """
         self.executed_cats.insert(destination_pos,
                                   self.executed_cats[origin_pos])
         del self.executed_cats[origin_pos]
-        return True
 
     def delete_category(self, position):
         """
-        Remove a Category from the pipeline.
+        Remove Category from the pipeline.
 
         Args:
-            position (int): Category index number
-
-        Returns:
+            *position* (int): Category index number
 
         """
         del self.executed_cats[position]
-        return True
 
     def process(self):
         """
         Execute current pipeline starting from the first modified image
         processing category.
 
-        Returns (list): a list of processing results
+        Returns:
+            *results* (list): a list of processing results
 
         """
         results = []
@@ -91,24 +89,26 @@ class Pipeline:
 
     def change_algorithm(self, position, alg_name):
         """
-        Set the algorithm of the category in position to modified = True
+        Set the algorithm of the category in position to modified = *True*
 
         Args:
-            position: list index of the category in the pipeline
-            alg_name: algorithm name
+            | *position*: list index of the category in the pipeline
+            | *alg_name*: algorithm name
+            
         """
         for v in self.executed_cats[position].available_algs.values()[0]:
             if alg_name == v.Body().get_name():
                 v.Body().set_modified()
-        return True
 
     def get_executed_cats(self):
         """
         Create and return a list of currently executed categories.
-        No cats are actually harmed during execution of this method >_<
+        
+        *No cats are actually harmed during execution of this method >_<*
 
         Returns:
-            executed_cat_names: list of Category names
+            *executed_cat_names*: list of Category names
+            
         """
         executed_cat_names = [cat.get_name() for cat in self.executed_cats]
         return executed_cat_names
@@ -119,10 +119,11 @@ class Pipeline:
         Sort the list and return.
 
         Args:
-            position (int): Category index number
+            *position* (int): Category index number
 
         Returns:
-            alg_names (list): a sorted list of algorithm names
+            *alg_names* (list): a sorted list of algorithm names
+            
         """
         alg_names = self.available_cats.values()[position].alg_names
         alg_names.sort()
