@@ -13,9 +13,6 @@ between the algorithms and the pipeline.
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
-
-
-
 class Category:
     def __init__(self, name=""):
         """

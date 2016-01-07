@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from PyQt5.QtCore import QObject, pyqtSlot
+import demjson
+
 """
 A module which contains all necessary information's and features to create
 an additional implementation of algorithms.
@@ -15,18 +18,13 @@ by calling the constructor of IntegerSlider and binding it to slider1 with
 "slider1 = IntegerSlider(self, "slider1", 0, 10, 1, 0)" (see the IntegerSlider definition
 for further information)
 """
+
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Philipp Reichert": "prei@me.com"}
 
-from PyQt5.QtCore import QObject, pyqtSlot
-import demjson
-
 
 class Algorithm(QObject):
-    """
-
-    """
 
     def __init__(self):
         """
@@ -55,12 +53,12 @@ class Algorithm(QObject):
 
     def belongs(self):
         """
-        Identifies the category to which this algorithm implementation is associated with.
-        Therefore you the contributor returns a string yielding the name of the associated
-        category. E.g. we have an algorithm "blur" which is created through implementing
-        the abstract class Algorithm. In "blur" we override the belongs method to return
-        "preprocessing" to associate the "blur" algorithm instance with the category
-        "preprocessing".
+        Identifies the category to which this algorithm implementation is assoc
+        iated with. Therefore you the contributor returns a string yielding the
+        name of the associated category. E.g. we have an algorithm "blur" which
+        is created through implementing the abstract class Algorithm. In "blur"
+        we override the belongs method to return "preprocessing" to associate
+        the "blur" algorithm instance with the category "preprocessing".
 
         Returns:
             The string identifier to which category this algorithm belongs to

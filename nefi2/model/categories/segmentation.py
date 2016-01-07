@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from ._category import Category
+from _category import Category
 
 
 class CatBody(Category):
