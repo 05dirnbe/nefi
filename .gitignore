@@ -12,6 +12,10 @@
 /nefi2/model/algorithms/*.pyc
 /nefi2/model/categories/*.pyc
 /nefi2/model/categories/__pycache__/
-/nefi2/win_install/*.whl
-/nefi2/win_install/*.exe
-/nefi2/win_install/*.cfg
+/nefi2/install_scripts_win/*.whl
+/nefi2/install_scripts_win/*.exe
+/nefi2/install_scripts_win/*.tar.gz
+/nefi2/controller/__pycache__ 
+/nefi2/unittests/__pycache__ 
+/nefi2/unittests/unittest_model/__pycache__ 
+
