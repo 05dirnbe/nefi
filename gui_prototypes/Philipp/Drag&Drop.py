@@ -1,3 +1,5 @@
+# from http://stackoverflow.com/questions/16210226/how-to-sort-the-items-in-qlistwidget-by-drop-and-drag
+
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, \
     QVBoxLayout, QListWidget, QAbstractItemView
