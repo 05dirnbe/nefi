@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # -*- coding: utf-8 -*-
 """
 This class represents image processing method that contains its respective
@@ -128,3 +129,18 @@ if __name__ == '__main__':
 
 MyCategory_2 = Category()
 MyCategory_2.set_name("Category_2")
+=======
+# -*- coding: utf-8 -*-
+from model.categories._category import *
+
+
+class CatBody(Category):
+    def __init__(self):
+        self.name = 'EXAMPLE_CATEGORY_2'
+        # we need Category to load its algorithms after self.name assignment
+        Category.__init__(self)
+
+
+if __name__ == '__main__':
+    pass
+>>>>>>> aa8258dcb37ef294604cb514e42bc747555a26f0
