@@ -25,14 +25,6 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         self.channels = cv2.split(image)
         if self.channel1:

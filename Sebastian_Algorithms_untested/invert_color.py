@@ -29,14 +29,6 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         """
         Invert the current image

@@ -33,14 +33,6 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         """
         Use the Gaussian Blur algorithm from the opencv package to the current image

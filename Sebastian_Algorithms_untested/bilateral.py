@@ -30,7 +30,7 @@ class AlgBody(Algorithm):
         """
         self.name = "Bilateral Filter"
         self.parent = "Preprocessing"
-        self.diameter = IntegerSlider(self,"diameter",1,20,1,1)
+        self.diameter = IntegerSlider(self, "diameter", 1, 20, 1, 1)
         self.sigma_color = FloatSlider(self,"sigmaColor",0.0,255.0,0.1,30.0)
         self.sigma_space = FloatSlider(self,"sigmaSpace",0.0,255.0,0.1,30.0)
         self.channel1 = CheckBox(self, "channel1", True)
@@ -43,14 +43,6 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         """
         Use the Bilateral Filter algorithm from the opencv package to the current image
@@ -60,7 +52,7 @@ class AlgBody(Algorithm):
         """
         self.channels = cv2.split(image)
         if self.channel1:
-            self.channels[0] = cv2.bilateralFilter(self.channels[0],self.diameter*2+1,self.sigma_color,self.sigma_space)
+            self.channels[0] = cv2.bilateralFilter(self.channels[0], self.diameter*2+1,self.sigma_color,self.sigma_space)
         if self.channel2:
             self.channels[1] = cv2.bilateralFilter(self.channels[1],self.diameter*2+1,self.sigma_color,self.sigma_space)
         if self.channel3:

@@ -23,22 +23,11 @@ class AlgBody(Algorithm):
         self.float_sliders.append(self.filter_strength)
         self.float_sliders.append(self.filter_strength_color)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         self.image = cv2.fastNlMeansDenoisingColored(src=image, h=self.filter_strength.value,
                                                      hColor=self.filter_strength_color.value,
                                                      templateWindowSize= self.template_window_size.value*2+1,
                                                      searchWindowSize=self.search_window_size.value*2+1)
-
-
-
 
 
 if __name__ == '__main__':
