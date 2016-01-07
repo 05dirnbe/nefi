@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
+import cv2
+from nefi2.model.algorithms._alg import *
 """
 This class represents the algorithm Gaussian Blur from the opencv package
 """
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
-
-import cv2
-from nefi2.model.algorithms._alg import *
 
 
 class AlgBody(Algorithm):
@@ -20,6 +19,7 @@ class AlgBody(Algorithm):
             self.kernelsize -- blurring kernel size that will be used as slider for the UI
             self.sigmaX -- gaussian kernel standard deviation in X direction
         """
+        Algorithm.__init__(self)
         self.name = "Gaussian Blur"
         self.parent = "Preprocessing"
         self.kernelsize = IntegerSlider(self,"kernelsize",1,20,1,1)
@@ -33,14 +33,6 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         """
         Use the Gaussian Blur algorithm from the opencv package to the current image
@@ -48,14 +40,17 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        self.channels = cv2.split(image)
-        if self.channel1:
-            self.channels[0] =cv2.GaussianBlur(self.channels[0],(self.kernelsize.value*2+1,self.kernelsize.value*2+1),self.sigmaX)
-        if self.channel2:
-            self.channels[1] =cv2.GaussianBlur(self.channels[1],(self.kernelsize.value*2+1,self.kernelsize.value*2+1),self.sigmaX)
-        if self.channel3:
-            self.channels[2] =cv2.GaussianBlur(self.channels[2],(self.kernelsize.value*2+1,self.kernelsize.value*2+1),self.sigmaX)
-        self.result = cv2.merge(self.channels)
+        channels = cv2.split(image)
+        if self.channel1.value:
+            channels[0] = cv2.GaussianBlur(channels[0], (self.kernelsize.value*2+1, self.kernelsize.value*2+1),
+                                           self.sigmaX.value)
+        if self.channel2.value:
+            channels[1] = cv2.GaussianBlur(channels[1], (self.kernelsize.value*2+1, self.kernelsize.value*2+1),
+                                           self.sigmaX.value)
+        if self.channel3.value:
+            channels[2] = cv2.GaussianBlur(channels[2], (self.kernelsize.value*2+1,self.kernelsize.value*2+1),
+                                           self.sigmaX.value)
+        self.result = cv2.merge(channels)
 
 
 if __name__ == '__main__':

@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
+import cv2
+from nefi2.model.algorithms._alg import *
 """
 This class represents the algorithm Invert Color
 """
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
-
-import cv2
-from nefi2.model.algorithms._alg import *
-
 
 
 class AlgBody(Algorithm):
@@ -29,14 +27,6 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def report_pip(self):
-        """
-        Todo: implement
-        Returns:
-
-        """
-        pass
-
     def process(self, image):
         """
         Invert the current image
@@ -44,14 +34,14 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        self.channels = cv2.split(image)
-        if self.channel1:
-            self.channels[0] =(255-self.channels[0])
-        if self.channel2:
-            self.channels[1] =(255-self.channels[1])
-        if self.channel3:
-            self.channels[2] =(255-self.channels[2])
-        self.result = cv2.merge(self.channels)
+        channels = cv2.split(image)
+        if self.channel1.value:
+            channels[0] = (255-channels[0])
+        if self.channel2.value:
+            channels[1] = (255-channels[1])
+        if self.channel3.value:
+            channels[2] = (255-channels[2])
+        self.result = cv2.merge(channels)
 
 
 
