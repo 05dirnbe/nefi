@@ -12,11 +12,10 @@ auto generated comments from the nefi source code as well as additional tutorial
 Contents:
 
 .. toctree::
-   :maxdepth: 2
    
-   Installation
-   Technologies
-   Code
+   rst_files/Installation
+   rst_files/Technologies
+   rst_files/Code
 
 
 

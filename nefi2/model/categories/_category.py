@@ -14,28 +14,20 @@ class Category:
     transmitting the output to the pipeline. It serves as an intermediate layer
     between the algorithms and the pipeline.
     """
-
     def __init__(self, name=""):
         """
-        # for debugging only
-        # print '> Category: I am "%s" category' % self.name
-        # print '> I have the following algorithms:'
-        # for a in self.available_algs.values():
-        #   print a
-        # print len(self.available_algs.values()[0]), 'in total.'
-        # print ''
-
         Args:
-            name: Category name
+            *name* (str): Category name
 
         Private Attributes:
-            _alg_dir: a directory path for algorithms
+            *_alg_dir* (str): a directory path for algorithms
 
         Public Attributes:
-            name: Category name
-            available_algs: a dict of {Category: [alg, alg, ...]}
-            alg_names (list): a list of algorithms for current category
-            active_algorithm: Currently selected algorithm
+            | *name* (str): Category name
+            | *available_algs* (dict): a dict of {Category: [alg, alg, ...]}
+            | *alg_names* (list): a list of algorithms for current category
+            | *active_algorithm* (Algorithm): Currently selected algorithm
+            
         """
         for path in sys.path:
             if path.endswith('algorithms'):
@@ -46,7 +38,6 @@ class Category:
         self.active_algorithm = rnd.choice(list(
                                             self.available_algs.values())[0])
 
-
     def set_available_algorithms(self):
         pass
 
@@ -56,22 +47,28 @@ class Category:
         Create a dict of {Category: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current category.
         Create a list of algorithms available for current category.
+        Raise an error if no algorithm files were found.
 
         Args:
-            alg_dir: a directory path for algorithms
+            *alg_dir* (str): a directory path for algorithms
 
         Vars:
-            found_algs: a filtered list of algorithm file names
-            ignored: a regex object, used to filter unnecessary files
-            imported_algs: a list of imported algorithm files
+            | *found_algs* (list): a filtered list of algorithm file names
+            | *ignored*: a regex object, used to filter unnecessary files
+            | *imported_algs* (list): a list of imported algorithm files
 
         Returns:
-            category_alg_map: a dict of {Category: [alg, alg, ...]}
-            alg_names: a list of algorithms that belong to current category
+            | *category_alg_map* (dict): a dict of {Category: [alg, alg, ...]}
+            | *alg_names* (list): algorithm list of the current category
+            
         """
         alg_files = os.listdir(alg_dir)
-        ignored = re.compile(r'.*.pyc|__init__|_alg.py')
-        found_algs = filter(lambda x: not ignored.match(x), alg_files)
+        ignored = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__')
+        found_algs = list(filter(lambda x: not ignored.match(x), alg_files))
+        if not found_algs:
+            raise FileNotFoundError("No algorithm files were found in "
+                                    "./model/algorithms")
+            sys.exit(1)
         # import all available algorithm files as modules
         imported_algs = []
         for alg in found_algs:
@@ -88,7 +85,8 @@ class Category:
         Explicitly set an algorithm for current method.
 
         Args:
-            alg_name: algorithm's name that was selected in the UI
+            *alg_name* (str): algorithm's name that was selected in the UI
+            
         """
         self.active_algorithm = alg_name
 
@@ -97,7 +95,8 @@ class Category:
         Return the name of the currently set algorithm.
 
         Returns:
-            self.active_algorithm: Currently selected algorithm
+            *self.active_algorithm* (Algorithm): Currently selected algorithm
+            
         """
         return self.active_algorithm
 
@@ -109,19 +108,21 @@ class Category:
         Run a specific algorithm on the image.
 
         Args:
-            image: a path to image file
+            *image* (str): a path to image file
+            
         """
-        ralg = [alg for alg in list(self.available_algs.values())[0]
-                if self.active_algorithm.AlgBody().name == alg.AlgBody().name][0]
-        results = ralg.AlgBody().process(image)
+        al = [alg for alg in list(self.available_algs.values())[0]
+              if self.active_algorithm.AlgBody().name == alg.AlgBody().name][0]
+        results = al.AlgBody().process(image)
         # reset modified variable after processing
-        ralg.AlgBody().unset_modified()
+        al.AlgBody().unset_modified()
         return results
 
     def get_name(self):
         """
         Returns:
-            a category name that will be displayed in UI.
+            a *category name* that will be displayed in UI.
+            
         """
         return self.name
 
@@ -130,7 +131,8 @@ class Category:
         Set a category name that will be displayed in UI.
 
         Args:
-            name: a name of the Category
+            *name* (str): Category name
+            
         """
         self.name = name
 

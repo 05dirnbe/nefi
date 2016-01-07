@@ -1,41 +1,48 @@
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Bilateral Filter from the opencv package
-"""
-__authors__ = {
-    "Andreas Firczynski": "andreasfir91@googlemail.com",
-    "Dennis Groß": "gdennis91@googlemail.com",
-    "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"
-}
-
 import cv2
 from nefi2.model.algorithms._alg import *
 
+"""
+This class represents the algorithm Bilateral Filter from the opencv package
+"""
+
+__authors__ = {
+    "Andreas Firczynski": "andreasfir91@googlemail.com",
+    "Dennis Groß": "gdennis91@googlemail.com",
+    "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
+
 
 class AlgBody(Algorithm):
-    """Bilateral Filter algorithm implementation"""
+
+    """
+    Bilateral Filter algorithm implementation
+    """
 
     def __init__(self):
+        """Bilateral Filter object constructor
+            Instance vars:
+                | *name* : name of the algorithm
+                | *parent* : name of the appropriated category
+                | *diameter* : diameter of each pixel neighborhood that is used during filtering.
+                        If it is non-positive, it is computed from sigmaSpace.
+                | *sigma_color* : filter sigma in the color space. The more large the value,
+                        the farther colors within the pixel neighborhood will be mixed together
+                | *sigma_space* : filter sigma in the coordinate space. A larger value of the parameter means
+                        that farther pixels will influence each other as long as their colors are close enough
+                | *channel1* : checkbox if the first color channel will be computed
+                | *channel2* : checkbox if the second color channel will be computed
+                | *channel3* : checkbox if the third color channel will be computed
+
         """
-        Bilateral Filter object constructor
-        Instance vars:
-            self.name -- name of the algorithm
-            self.parent -- name of the appropriated category
-            self.diameter -- diameter of each pixel neighborhood that is used during filtering.
-                            if it is non-positive, it is computed from sigmaSpace.
-            self.sigmaColor -- filter sigma in the color space. The more large the value, the farther colors within
-                            the pixel neighborhood will be mixed together
-            self.sigmaSpace -- filter sigma in the coordinate space. A larger value of the parameter means
-                            that farther pixels will influence each other as long as their colors are close enough
-        """
+        Algorithm.__init__(self)
         self.name = "Bilateral Filter"
         self.parent = "Preprocessing"
-        self.diameter = IntegerSlider(self, "diameter", 1, 20, 1, 1)
-        self.sigma_color = FloatSlider(self,"sigmaColor",0.0,255.0,0.1,30.0)
-        self.sigma_space = FloatSlider(self,"sigmaSpace",0.0,255.0,0.1,30.0)
-        self.channel1 = CheckBox(self, "channel1", True)
-        self.channel2 = CheckBox(self, "channel2", True)
-        self.channel3 = CheckBox(self, "channel3", True)
+        self.diameter = IntegerSlider("diameter", 1, 20, 1, 1)
+        self.sigma_color = FloatSlider("sigmaColor", 0.0, 255.0, 0.1, 30.0)
+        self.sigma_space = FloatSlider("sigmaSpace", 0.0, 255.0, 0.1, 30.0)
+        self.channel1 = CheckBox("channel1", True)
+        self.channel2 = CheckBox("channel2", True)
+        self.channel3 = CheckBox("channel3", True)
         self.integer_sliders.append(self.diameter)
         self.float_sliders.append(self.sigma_color)
         self.float_sliders.append(self.sigma_space)
@@ -45,18 +52,21 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the Bilateral Filter algorithm from the opencv package to the current image
-        Args:
-            image: image instance
+        Use the Bilateral Filter algorithm from the opencv package to the selected color channels of the current image
 
+        Args:
+            | *image* : image instance
         """
-        self.channels = cv2.split(image)
-        if self.channel1:
-            self.channels[0] = cv2.bilateralFilter(self.channels[0], self.diameter*2+1,self.sigma_color,self.sigma_space)
-        if self.channel2:
-            self.channels[1] = cv2.bilateralFilter(self.channels[1],self.diameter*2+1,self.sigma_color,self.sigma_space)
-        if self.channel3:
-            self.channels[2] = cv2.bilateralFilter(self.channels[2],self.diameter*2+1,self.sigma_color,self.sigma_space)
-        self.result = cv2.merge(self.channels)
+        channels = cv2.split(image)
+        if self.channel1.value:
+            channels[0] = cv2.bilateralFilter(channels[0], self.diameter.value*2+1, self.sigma_color.value,
+                                              self.sigma_space.value)
+        if self.channel2.value:
+            channels[1] = cv2.bilateralFilter(channels[1], self.diameter.value*2+1, self.sigma_color.value,
+                                              self.sigma_space.value)
+        if self.channel3.value:
+            channels[2] = cv2.bilateralFilter(channels[2], self.diameter.value*2+1, self.sigma_color.value,
+                                              self.sigma_space.value)
+        self.result = cv2.merge(channels)
 if __name__ == '__main__':
     pass
