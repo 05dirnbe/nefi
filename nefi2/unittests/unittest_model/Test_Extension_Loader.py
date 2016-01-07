@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-__author__ = 'martino'
+__authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
 import unittest
 import os
@@ -16,9 +16,9 @@ from collections import OrderedDict as od, OrderedDict
 
 from nefi2.model.ext_loader import ExtensionLoader
 import sys
-sys.path.insert(0, os.path.join('..','..', 'model'))
-sys.path.insert(0, os.path.join('..','..', 'model', 'categories'))
-sys.path.insert(0, os.path.join('..','..', 'model', 'algorithms'))
+sys.path.insert(0, os.path.join(os.path.pardir,os.path.pardir, 'model'))
+sys.path.insert(0, os.path.join(os.path.pardir,os.path.pardir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.path.pardir,os.path.pardir, 'model', 'algorithms'))
 
 class Test_Extension_Loader(unittest.TestCase):
 
@@ -28,18 +28,19 @@ class Test_Extension_Loader(unittest.TestCase):
         """
         The List standard will be the result of the method _scan_model(cat_dir) if the cat_dir is './model/categories'
         """
-        print (sys.path)
         ext_Loader = ExtensionLoader()
         standard = ['preprocessing.py', 'segmentation.py', 'gdetection.py', 'gfiltering.py']
         cat_dir = os.path.join(os.curdir, 'model', 'categories')
         self.assertEqual(self.ext_Loader._scan_model(cat_dir),standard)
 
     def test_read_config(self):
-        print (sys.path)
+        """
+        The List standard will be the result of the method _read_configs() if the cat_dir is './model/categories'
+        """
         ext_Loader = ExtensionLoader()
         standard = ['Preprocessing', 'Segmentation','Graph Detection', 'Graph Filtering']
-        self.assertEqual(self.ext_Loader._read_configs(),standard)
-        self.ext_Loader._instantiate_cats()
+        config_path = os.path.join(os.curdir, 'model', 'config.xml')
+        self.assertEqual(self.ext_Loader._read_configs(config_path),standard)
 
 
 """
@@ -65,4 +66,4 @@ class Test_Extension_Loader(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    Test_Extension_Loader.test_read_config()
+    unittest.main()
