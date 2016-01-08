@@ -31,6 +31,7 @@ class ExtensionLoader:
 
         Returns:
             instance of the ExtensionLoader object
+            
         """
         for path in sys.path:
             if path.endswith('categories'):
@@ -44,30 +45,43 @@ class ExtensionLoader:
     @staticmethod
     def _scan_model(cat_dir):
         """
+        Check for any available category files in cat_dir.
+        Return found file names.
+        Raise an error is no file was found.
+
         Args:
-            | *cat_dir*: the directory of category's provided by the ext_loader
+            | *cat_dir* (str): category dir provided by the ext_loader
 
         Vars:
-            | *found_cats*: a filtered list of category file names
-            | *category_files*: a list of algorithm file names
+            | *found_cats* (list): a filtered list of category file names
+            | *category_files* (list): a list of algorithm file names
             | *ignored*: a regex object, used to filter unnecessary files
 
         Returns:
-            | *found_cats*: a list of categories that were found
+            | *found_cats* (list): a list of categories that were found
+            
         """
         category_files = os.listdir(cat_dir)
         ignored = re.compile(r'.*.pyc|__init__|_category.py|_alg.py')
-        found_cats = filter(lambda x: not ignored.match(x), category_files)
+        found_cats = list(filter(lambda x: not ignored.match(x),
+                                 category_files))
+        if not found_cats:
+            raise FileNotFoundError("No image processing categories "
+                                    "found in ./model/categories")
+            sys.exit(1)
         return found_cats
 
     @staticmethod
     def _read_configs(config_path):
         """
+        Read configuration file which contains category order.
+
         Args:
             | *config_path*: a path to config.xml
 
         Returns:
             | *order*: a list of categories order
+            
         """
         tree = et.parse(config_path)  # categories order
         root = tree.getroot()
@@ -97,6 +111,7 @@ class ExtensionLoader:
 
         Returns:
             | *categories*: a list with Method instances
+            
         """
         cats_inst = []
         for category in found_cats:
