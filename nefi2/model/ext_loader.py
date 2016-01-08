@@ -19,7 +19,6 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 class ExtensionLoader:
 
-
     def __init__(self):
         """
         public Attributes:

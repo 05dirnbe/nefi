@@ -154,6 +154,36 @@ class Algorithm(QObject):
         """
         self.modified = True
 
+    def find_ui_element(self, name):
+        """
+        This method helps the json parser to find the ui elements
+        with the given name
+
+        Args:
+            |name: name of the ui element we are looking for
+
+        Returns:
+
+        """
+        for int_slider in self.integer_sliders:
+            if int_slider.name == name:
+                return int_slider
+
+        for float_slider in self.float_sliders:
+            if float_slider.name == name:
+                return float_slider
+
+        for checkbox in self.checkboxes:
+            if checkbox.name == name:
+                return checkbox
+
+        for dropdown in self.drop_downs:
+            if dropdown.name == name:
+                return dropdown
+
+        raise FileNotFoundError("could not find ui element: " + name)
+
+
 
 class IntegerSlider:
     """

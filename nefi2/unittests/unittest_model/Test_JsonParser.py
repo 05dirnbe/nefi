@@ -2,6 +2,8 @@ import unittest
 from nefi2.model.algorithms._alg import *
 from collections import OrderedDict
 import demjson
+from nefi2.model.pipeline import *
+from nefi2.model.categories._category import Category
 
 __author__ = {'Dennis Groß': 'gdennis91@googlemail.com'}
 
@@ -36,6 +38,30 @@ class ParserTests(unittest.TestCase):
         should_be = demjson.encode({"hard alg": should_dic})
 
         self.assertEqual(was, should_be)
+
+    def test_save_pipeline_easy(self):
+
+        pipeline = Pipeline([])
+
+        prep = Category("pre-processing")
+        prep.active_algorithm = AlgSimple()
+
+        seg = Category("segmentation")
+        seg.active_algorithm = AlgSimple()
+
+        gdec = Category("graph-detection")
+        gdec.active_algorithm = AlgSimple()
+
+        gfil = Category("graph_filtering")
+        gfil.active_algorithm = AlgSimple
+
+
+        pipeline.executed_cats = [prep, seg, gdec, gfil]
+
+        was = pipeline.save_pipeline_json(os.path.abspath + "/test_assets")
+        print(was)
+
+
 
 
 class AlgHard(Algorithm):
