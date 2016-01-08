@@ -1,10 +1,75 @@
-# from https://github.com/baoboa/pyqt5/blob/master/examples/widgets/imageviewer.py
+#!/usr/bin/env python
+
+
+#############################################################################
+##
+## Copyright (C) 2013 Riverbank Computing Limited.
+## Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies).
+## All rights reserved.
+##
+## This file is part of the examples of PyQt.
+##
+## $QT_BEGIN_LICENSE:BSD$
+## You may use this file under the terms of the BSD license as follows:
+##
+## "Redistribution and use in source and binary forms, with or without
+## modification, are permitted provided that the following conditions are
+## met:
+##   * Redistributions of source code must retain the above copyright
+##     notice, this list of conditions and the following disclaimer.
+##   * Redistributions in binary form must reproduce the above copyright
+##     notice, this list of conditions and the following disclaimer in
+##     the documentation and/or other materials provided with the
+##     distribution.
+##   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+##     the names of its contributors may be used to endorse or promote
+##     products derived from this software without specific prior written
+##     permission.
+##
+## THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+## "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+## LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+## A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+## OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+## SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+## LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+## DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+## THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+## (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+## OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+## $QT_END_LICENSE$
+##
+#############################################################################
+
 
 from PyQt5.QtCore import QDir, Qt
 from PyQt5.QtGui import QImage, QPainter, QPalette, QPixmap
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
-                             QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy, QBoxLayout, QHBoxLayout)
+                             QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy, QBoxLayout, QGroupBox)
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
+
+
+class GroupOfImages(QGroupBox):
+    def __init__(self):
+        super(GroupOfImages, self).__init__()
+
+        self.GroupOfImagesLayout = QBoxLayout(QBoxLayout.TopToBottom)
+        GroupOfImages.setFixedHeight(self, 300)
+        GroupOfImages.setFixedWidth(self, 300)
+        self.height = 300
+
+    def addImage(self, image):
+        self.GroupOfImagesLayout.addWidget(image)
+        self.height += 300
+        GroupOfImages.setFixedHeight(self, self.height + 300)
+        self.setLayout(self.GroupOfImagesLayout)
+
+    def removeImage(self, image):
+        self.GroupOfImagesLayout.removeWidget(image)
+        self.setLayout(self.GroupOfImagesLayout)
+
+    def refreshView(self):
+        self.setLayout(self.GroupOfImagesLayout)
 
 
 class ImageViewer(QMainWindow):
@@ -14,17 +79,18 @@ class ImageViewer(QMainWindow):
         self.printer = QPrinter()
         self.scaleFactor = 0.0
 
-        self.hbox = QHBoxLayout(self)
-
         self.imageLabel = QLabel()
         self.imageLabel.setBackgroundRole(QPalette.Base)
         self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self.imageLabel.setScaledContents(True)
 
+        self.groupOfImages = GroupOfImages()
+        #self.groupOfImages.addImage(self.imageLabel)
+
         self.scrollArea = QScrollArea()
         self.scrollArea.setBackgroundRole(QPalette.Dark)
-        self.scrollArea.setWidget(self.imageLabel)
         self.setCentralWidget(self.scrollArea)
+        self.scrollArea.setWidget(self.groupOfImages)
 
         self.createActions()
         self.createMenus()
@@ -32,7 +98,7 @@ class ImageViewer(QMainWindow):
         self.setWindowTitle("Image Viewer")
         self.resize(500, 400)
 
-    def open(self):
+    def open(self, ImageLabel):
         fileName, _ = QFileDialog.getOpenFileName(self, "Open File",
                 QDir.currentPath())
         if fileName:
@@ -42,13 +108,7 @@ class ImageViewer(QMainWindow):
                         "Cannot load %s." % fileName)
                 return
 
-            #GroupOfImages = QBoxLayout(QBoxLayout.TopToBottom)
-
-            self.imageLabel.setPixmap(QPixmap.fromImage(image))
-            self.hbox.addWidget(self.imageLabel)
-            self.setLayout(self.hbox)
-            #self.GroupOfImages.addWidget(self.imageLabel)
-            #self.GroupOfImages.addWidget(self.imageLabel)
+            ImageLabel.setPixmap(QPixmap.fromImage(image))
             self.scaleFactor = 1.0
 
             self.printAct.setEnabled(True)
@@ -56,9 +116,7 @@ class ImageViewer(QMainWindow):
             self.updateActions()
 
             if not self.fitToWindowAct.isChecked():
-                self.imageLabel.adjustSize()
-
-            #self.setLayout(self.GroupOfImages)
+                ImageLabel.adjustSize()
 
     def print_(self):
         dialog = QPrintDialog(self.printer, self)
