@@ -51,8 +51,8 @@ class Pipeline:
         Move Category instance within the pipeline using indices.
 
         Args:
-            *origin_pos* (int): Category index number
-            *destination_pos* (int): new position for Category
+            | *origin_pos* (int): Category index number
+            | *destination_pos* (int): new position for Category
 
         """
         self.executed_cats.insert(destination_pos,

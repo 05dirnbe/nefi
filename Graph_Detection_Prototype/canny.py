@@ -7,6 +7,7 @@ __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 import cv2
 from nefi2.model.algorithms._alg import *
 
+
 class AlgBody(Algorithm):
     """Guo Hall algorithm implementation"""
 
@@ -21,9 +22,10 @@ class AlgBody(Algorithm):
         """
         self.name = "Canny graph detector"
         self.parent = "Graph detection"
-        self.threshold1 = IntegerSlider(self,"threshold1",1,100,1,1)
-        self.threshold2 = IntegerSlider(self,"threshold2",1,100,1,1)
-
+        self.threshold1 = IntegerSlider("threshold1", 1, 100, 1, 1)
+        self.integer_sliders.append(self.threshold1)
+        self.threshold2 = IntegerSlider("threshold2", 1, 100, 1, 1)
+        self.integer_sliders.append(self.threshold2)
 
     def process(self, image):
         """
@@ -35,4 +37,5 @@ class AlgBody(Algorithm):
             image: image instance
 
         """
-        skeleton = cv2.Canny(image,self.threshold1,self.threshold2)
+        skeleton = cv2.Canny(image, self.threshold1.value,
+                             self.threshold2.value)
