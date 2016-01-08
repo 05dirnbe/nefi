@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-The main nefi2 startup script.
-It loads extension loader and initializes UI.
-It also enables console batch processing mode.
-"""
-__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
-
 
 import argparse
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 
+"""
+The main nefi2 startup script.
+It loads extension loader and initializes UI.
+It also enables console batch processing mode.
+"""
+
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+
+
 
 def gui_mode():
-    """Start NEFI2 GUI"""
+    """
+    Start NEFI2 GUI
+    """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
 
@@ -24,7 +28,7 @@ def batch_mode(args):
     Process images in console mode
     
     Args:
-        *args* (dict): argument dict returned by ArgumentParser
+        | *args* (dict) : argument dict returned by ArgumentParser
         
     """
     extloader = ExtensionLoader()
@@ -45,8 +49,9 @@ def batch_mode(args):
 def main(args):
     """
     Load all available categories and algorithms into the pipeline.
-    Params:
-        args -- a Namespace object of supplied command-line arguments
+
+    Args:
+        | *args* : a Namespace object of supplied command-line arguments
     """
     if args.dir or args.file:
         batch_mode(args)
