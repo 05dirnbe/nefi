@@ -28,7 +28,8 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the Guo Hall thining algorithm from the thinning package to the current image
+        Use the Guo Hall thining algorithm from the thinning package to
+        the current image
 
         Args:
             | *image* : image instance

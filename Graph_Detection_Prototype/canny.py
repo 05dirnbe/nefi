@@ -26,9 +26,9 @@ class AlgBody(Algorithm):
         """
         self.name = "Canny graph detector"
         self.parent = "Graph detection"
-        self.threshold1 = IntegerSlider("threshold1", 1, 100, 1, 1)
+        self.threshold1 = FloatSlider("threshold1", 1.0, 100.0, 1.0, 1.0)
         self.integer_sliders.append(self.threshold1)
-        self.threshold2 = IntegerSlider("threshold2", 1, 100, 1, 1)
+        self.threshold2 = FloatSlider("threshold2", 1.0, 100.0, 1.0, 1.0)
         self.integer_sliders.append(self.threshold2)
 
     def process(self, image):
