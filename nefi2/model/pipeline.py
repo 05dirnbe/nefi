@@ -4,7 +4,9 @@ import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-from categories._category import Category
+from nefi2.model.categories._category import Category
+from collections import OrderedDict
+import demjson
 
 """
 This module contains the class Pipeline that represents a central control
@@ -34,11 +36,10 @@ class Pipeline:
             
         """
         self.available_cats = categories
-        self.executed_cats = [v for v in self.available_cats.values()]
+        self.executed_cats = [v for v in self.available_cats] #  self.executed_cats = [v for v in self.available_cats.values() bug??
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = 'IMAGE'
         self.out_dir = os.path.join(os.getcwd(), 'output')
-        self.process()
 
     def new_category(self, position):
         """
@@ -173,6 +174,50 @@ class Pipeline:
         if not os.path.exists(dir_path):
             os.mkdir(dir_path)
         self.output_dir = dir_path
+
+    def load_pipeline_json(self, url):
+        """
+        Loads the Pipeline from the url location and parses all data to
+        create the corresponding executed_cats
+
+        Args:
+            |url: location identifier for the pipeline.json
+        """
+        try:
+            json = demjson.decode_file(url, "UTF-8")
+        except:
+            e = sys.exc_info()[0]
+            print("unablo to parse " + url + " trace: " + e)
+
+        for alg in json.keys():
+            alg_json = json[alg]
+            cat = Category(alg_json["type"])
+            cat.active_algorithm = cat._get_available_algorithms()[alg]
+            self.executed_cats.append(cat)
+
+            for (name, value) in alg.keys():
+                cat.active_algorithm.find_ui_element(name).set_value(value)
+
+    def save_pipeline_json(self, name,  url):
+        """
+        Goes trough the list of executed_cats and calls for every
+        selected_algorithm its report_pip method. With the returned
+        dictionary's, it builds the pipeline.json file and stores it
+        at the given url location on the file system.
+
+        Args:
+            |url: location identifier for the pipeline.json
+        """
+        alg_reports = []
+
+        for cat in self.get_executed_cats():
+            alg = cat.active_algorithm
+            (name, alg_dic) = alg.report_pip()
+            alg_reports.append([name, alg_dic])
+
+        with open(url + name + ".txt", "wb+") as outfile:
+            outfile.write(bytes(demjson.encode(OrderedDict(alg_reports)), "UTF-8"))
+            outfile.close()
 
 
 if __name__ == '__main__':
