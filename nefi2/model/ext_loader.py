@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-import re
-import os
-import xml.etree.ElementTree as et
-from collections import OrderedDict as od
-import sys
-
 """
 This module contains the class ExtensionLoader that works with "model"
 folder and is used to initialize the pipeline with all available image
@@ -13,6 +7,12 @@ settings to initialize image processing categories accordingly.
 ExtensionLoader creates a collection of categories and algorithms ready to
 be loaded into the pipeline object.
 """
+import re
+import os
+import xml.etree.ElementTree as et
+from collections import OrderedDict as od
+import sys
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 

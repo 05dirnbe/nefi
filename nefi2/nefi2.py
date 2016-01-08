@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
-import argparse
-from model.ext_loader import ExtensionLoader
-from model.pipeline import Pipeline
-
 """
 The main nefi2 startup script.
 It loads extension loader and initializes UI.
 It also enables console batch processing mode.
 """
+import sys
+import argparse
+from model.ext_loader import ExtensionLoader
+from model.pipeline import Pipeline
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 

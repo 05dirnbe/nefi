@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+This module contains the class Pipeline that represents a central control
+mechanism over a sequential image processing pipeline. It controls all the
+available image processing categories, handles processing results and works
+as an mediator between the algorithms and UI.
+"""
 import os
 import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -7,13 +13,6 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 from _category import Category
 from collections import OrderedDict
 import demjson
-
-"""
-This module contains the class Pipeline that represents a central control
-mechanism over a sequential image processing pipeline. It controls all the
-available image processing categories, handles processing results and works
-as an mediator between the algorithms and UI.
-"""
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}
@@ -182,13 +181,14 @@ class Pipeline:
         create the corresponding executed_cats
 
         Args:
-            |url: location identifier for the pipeline.json
+            | *url*: location identifier for the pipeline.json
+            
         """
         try:
             json = demjson.decode_file(url, "UTF-8")
-        except:
+        except JSONError:
             e = sys.exc_info()[0]
-            print("unablo to parse " + url + " trace: " + e)
+            print("Unable to parse " + url + " trace: " + e)
 
         for alg in json.keys():
             alg_json = json[alg]
@@ -207,18 +207,19 @@ class Pipeline:
         at the given url location on the file system.
 
         Args:
-            |url: location identifier for the pipeline.json
+            | *url*: location identifier for the pipeline.json
+            
         """
         alg_reports = []
 
         for cat in self.get_executed_cats():
             alg = cat.active_algorithm
-            (name, alg_dic) = alg.report_pip()
+            name, alg_dic = alg.report_pip()
             alg_reports.append([name, alg_dic])
 
         with open(url + name + ".txt", "wb+") as outfile:
-            outfile.write(bytes(demjson.encode(OrderedDict(alg_reports)), "UTF-8"))
-            outfile.close()
+            ord_alg_reps = OrderedDict(alg_reports)
+            outfile.write(bytes(demjson.encode(ord_alg_reps), "UTF-8"))
 
 
 if __name__ == '__main__':

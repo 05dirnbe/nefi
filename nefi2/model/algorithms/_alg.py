@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import collections
-from PyQt5.QtCore import QObject, pyqtSlot
 """
 A module which contains all necessary information's and features to create
 an additional implementation of algorithms.
@@ -19,6 +17,9 @@ by calling the constructor of IntegerSlider and binding it to slider1 with
 "slider1 = IntegerSlider(self, "slider1", 0, 10, 1, 0)" (see the IntegerSlider
 definition for further information)
 """
+import collections
+from PyQt5.QtCore import QObject, pyqtSlot
+
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Pavel Shkadzko": "p.shkadzko@gmail.com",
@@ -49,6 +50,7 @@ class Algorithm(QObject):
 
         Returns:
             | *object*: instance of the algorithm object
+            
         """
         QObject.__init__(self)
         self.modified = True
@@ -117,13 +119,15 @@ class Algorithm(QObject):
         name. The pipeline needs this information to create a json
         representation of the algorithm. It will encode the dic as following:
         E.g. blur : {"type" : "preprocessing", "kernelsize" : 2.5}
-        The encoding of the dic to a json will be done by the pipeline which
-        gathers the dictionary of each algorithm in the processing list.
+        The encoding of the dic to json will be done by the pipeline which
+        collects the dictionary of each algorithm in the processing list.
+        
         Returns:
             | *self.name, collections.OrderedDict* (list): A tuple consisting
-            of the name of the algorithm and the dic containing all relevant
-            information about the algorithm which need to be stored on the
-            filesystem for the pipeline.json.
+              of the name of the algorithm and the dic containing all relevant
+              information about the algorithm which need to be stored on the
+              filesystem for the pipeline.json.
+        
         """
         list = [["type", self.parent]]
 
