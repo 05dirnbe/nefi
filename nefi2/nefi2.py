@@ -9,7 +9,6 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 import argparse
-import os
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 import sys
