@@ -6,17 +6,19 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 from categories._category import Category
 
+"""
+This module contains the class Pipeline that represents a central control
+mechanism over a sequential image processing pipeline. It controls all the
+available image processing categories, handles processing results and works
+as an mediator between the algorithms and UI.
+"""
+
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}
 
 
 class Pipeline:
-    """
-    This class represents a central control mechanism over a sequential
-    image processing pipeline. It controls all the available image processing
-    categories, handles processing results and works as an mediator between the
-    algorithms and UI.
-    """
+
 
     def __init__(self, categories):
         """

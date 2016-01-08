@@ -5,18 +5,20 @@ import xml.etree.ElementTree as et
 from collections import OrderedDict as od
 import sys
 
+"""
+This module contains the class ExtensionLoader that works with "model"
+folder and is used to initialize the pipeline with all available image
+processing categories and their respective algorithms. It uses config.json
+settings to initialize image processing categories accordingly.
+ExtensionLoader creates a collection of categories and algorithms ready to
+be loaded into the pipeline object.
+"""
+
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class ExtensionLoader:
-    """
-    A class that works with "model" folder and is used to initialize the
-    pipeline with all available image processing categories and their
-    respective algorithms. It uses config.json settings to initialize image
-    processing categories accordingly.
-    ExtensionLoader creates a collection of categories and algorithms ready to
-    be loaded into the pipeline object.
-    """
+
 
     def __init__(self):
         """
