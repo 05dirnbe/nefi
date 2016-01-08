@@ -1,21 +1,26 @@
 # -*- coding: utf-8 -*-
 import cv2
 from nefi2.model.algorithms._alg import *
+
 """
 This class represents the algorithm Invert Color
 """
+
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 
 
 class AlgBody(Algorithm):
-    """Invert Color algorithm implementation"""
+    """
+    Invert Color algorithm implementation
+    """
     def __init__(self):
         """
         Invert Color object constructor
-        Instance vars:
-            self.name -- name of the algorithm
-            self.parent -- name of the appropriated category
+            Instance vars:
+                | *name* : name of the algorithm
+                | *parent* : name of the appropriated category
+
         """
         Algorithm.__init__(self)
         self.name = "Invert Color"
@@ -30,8 +35,9 @@ class AlgBody(Algorithm):
     def process(self, image):
         """
         Invert the current image
+
         Args:
-            image: image instance
+            | *image* : image instance
 
         """
         channels = cv2.split(image)

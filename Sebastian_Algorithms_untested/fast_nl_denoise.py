@@ -9,19 +9,21 @@ __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
 
 
 class AlgBody(Algorithm):
-    """Fast nl Means Denoising algorithm implementation"""
+    """
+    Fast nl Means Denoising algorithm implementation
+    """
 
     def __init__(self):
         """
         Fast nl Means Denoising object constructor
-        Instance vars:
-            self.name -- name of the algorithm
-            self.parent -- name of the appropriated category
-            self.filterStrength -- Parameter regulating filter strength. A larger value of the parameter means
-                                that more noise and also more image details will be removed
-            self.templateWindowSize -- size in pixels of the template patch that is used to compute weights
-            self.searchWindowSize -- size in pixels of the window that is used to compute weighted average for
-                                given pixel. A larger value of the parameter means a larger denoising time
+            Instance vars:
+                | *name* : name of the algorithm
+                | *parent* : name of the appropriated category
+                | *filterStrength* : Parameter regulating filter strength. A larger value of the parameter means
+                    that more noise and also more image details will be removed
+                | *templateWindowSize* : size in pixels of the template patch that is used to compute weights
+                | *searchWindowSize* : size in pixels of the window that is used to compute weighted average for given pixel.
+                    A larger value of the parameter means a larger denoising time
         """
         Algorithm.__init__(self)
         self.name = "Fast nl Means Denoising"
@@ -42,8 +44,9 @@ class AlgBody(Algorithm):
     def process(self, image):
         """
         Use the Fast nl Means Denoising algorithm from the opencv package to the current image
+
         Args:
-            image: image instance
+            | *image* : image instance
 
         """
         channels = cv2.split(image)

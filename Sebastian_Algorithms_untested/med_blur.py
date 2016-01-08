@@ -1,22 +1,27 @@
 # -*- coding: utf-8 -*-
 import cv2
 from nefi2.model.algorithms._alg import *
+
 """
 This class represents the algorithm Median Blur from the opencv package
 """
+
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 
 
 class AlgBody(Algorithm):
-    """Median Blur algorithm implementation"""
+    """
+    Median Blur algorithm implementation
+    """
     def __init__(self):
         """
         Gaussian Blur object constructor
-        Instance vars:
-            self.name -- name of the algorithm
-            self.parent -- name of the appropriated category
-            self.kernelsize -- blurring kernel size that will be used as slider for the UI
+            Instance vars:
+                | *name* : name of the algorithm
+                | *parent* : name of the appropriated category
+                | *kernelsize* : blurring kernel size that will be used as slider for the UI
+
         """
         Algorithm.__init__(self)
         self.name = "Median Blur"
@@ -33,8 +38,9 @@ class AlgBody(Algorithm):
     def process(self, image):
         """
         Use the Median Blur algorithm from the opencv package to the current image
+
         Args:
-            image: image instance
+            | *image* : image instance
 
         """
         channels = cv2.split(image)
