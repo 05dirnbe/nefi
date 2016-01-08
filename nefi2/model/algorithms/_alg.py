@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from PyQt5.QtCore import QObject, pyqtSlot
 import collections
-
+from PyQt5.QtCore import QObject, pyqtSlot
 """
 A module which contains all necessary information's and features to create
 an additional implementation of algorithms.

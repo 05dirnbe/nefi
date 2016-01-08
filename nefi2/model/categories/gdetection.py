@@ -18,7 +18,7 @@ class CatBody(Category):
         """
         self.name = 'Graph detection'
         # we need Category to load its algorithms after self.name assignment
-        Category.__init__(self)
+        Category.__init__(self, self.name)
 
 
 if __name__ == '__main__':

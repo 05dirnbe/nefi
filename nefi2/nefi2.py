@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import sys
 import argparse
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline

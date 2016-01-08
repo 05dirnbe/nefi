@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-from nefi2.model.categories._category import Category
+from _category import Category
 from collections import OrderedDict
 import demjson
 
@@ -20,8 +20,6 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
 
 
 class Pipeline:
-
-
     def __init__(self, categories):
         """
         Args:
@@ -29,27 +27,30 @@ class Pipeline:
 
         public Attributes:
             | *available_cats* (dict): dict of {Category name: Category}
-            | *executed_cats* (list): a list of Categories in UI pipeline
+            | *executed_cats* (list): a list of Categories in the pipeline
             | *pipeline_path* (str): a path to a saved pipelines
             | *image_path* (str): a path to an image file
             | *out_dir* (str): a path where processing results are saved
             
         """
         self.available_cats = categories
-        self.executed_cats = [v for v in self.available_cats] #  self.executed_cats = [v for v in self.available_cats.values() bug??
+        self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = 'IMAGE'
         self.out_dir = os.path.join(os.getcwd(), 'output')
-
-    def new_category(self, position):
+        # debugging only
+        # print(self.executed_cats)
+        
+    def new_category(self, name, position):
         """
         Create a new instance of Category.
 
         Args:
-            *position*: a category index in self.executed_cats
+            | *name* (str): Category name
+            | *position* (int): a category index in self.executed_cats
                 
         """
-        self.executed_cats.insert(position, Category())
+        self.executed_cats.insert(position, Category(name))
 
     def move_category(self, origin_pos, destination_pos):
         """

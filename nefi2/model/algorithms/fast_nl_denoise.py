@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import cv2
-from nefi2.model.algorithms._alg import *
+from _alg import *
 """
 This class represents the algorithm Fast nl Means Denoising from the opencv package
 """
+
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 

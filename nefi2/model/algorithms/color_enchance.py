@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import cv2
-from nefi2.model.algorithms._alg import *
+from _alg import *
+
+
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 
 

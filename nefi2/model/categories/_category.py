@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import random as rnd
 import re
 import os
 import sys
@@ -14,7 +13,7 @@ class Category:
     transmitting the output to the pipeline. It serves as an intermediate layer
     between the algorithms and the pipeline.
     """
-    def __init__(self, name=""):
+    def __init__(self, name):
         """
         Args:
             *name* (str): Category name
@@ -32,11 +31,13 @@ class Category:
         for path in sys.path:
             if path.endswith('algorithms'):
                 _alg_dir = path
+        self.name = name
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
-        # since no settings are implemented, use random choice for alg
-        self.active_algorithm = rnd.choice(list(
-                                            self.available_algs.values())[0])
+        # since no settings are implemented, use [0] choice for alg
+        self.active_algorithm = list(self.available_algs.values())[0]
+        # debugging only
+        print(self.available_algs)
 
     def set_available_algorithms(self):
         pass
