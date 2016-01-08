@@ -9,11 +9,12 @@ class CatBody(Category):
 
     def __init__(self):
         """
-        public Attributes:
-            name (string): the name of the category
+        Public Attributes:
+            | *name* (str): the name of the category
 
         Returns:
-            instance of the gdetection object
+            | instance of the gdetection object
+
         """
         self.name = 'Graph detection'
         # we need Category to load its algorithms after self.name assignment
