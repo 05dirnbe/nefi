@@ -70,9 +70,7 @@ if __name__ == '__main__':
                      help='Specify an image file to process.',
                      required=False)
     prs.add_argument('-o', '--out',
-                     default=os.getcwd(),
-                     help='Specify output directory. If not specified current '
-                          'directory is used.',
+                     help='Specify output directory.',
                      required=False)
     arguments = prs.parse_args()
     main(arguments)
