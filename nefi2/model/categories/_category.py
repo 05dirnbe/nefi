@@ -47,6 +47,7 @@ class Category:
         Create a dict of {Category: [alg, alg, ...]} that will be used to
         instantiate a specific Algorithm for the current category.
         Create a list of algorithms available for current category.
+        Raise an error if no algorithm files were found.
 
         Args:
             *alg_dir* (str): a directory path for algorithms
@@ -63,7 +64,11 @@ class Category:
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__')
-        found_algs = filter(lambda x: not ignored.match(x), alg_files)
+        found_algs = list(filter(lambda x: not ignored.match(x), alg_files))
+        if not found_algs:
+            raise FileNotFoundError("No algorithm files were found in "
+                                    "./model/algorithms")
+            sys.exit(1)
         # import all available algorithm files as modules
         imported_algs = []
         for alg in found_algs:
