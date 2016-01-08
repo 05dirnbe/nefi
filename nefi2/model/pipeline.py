@@ -26,16 +26,18 @@ class Pipeline:
             *categories*: OrderedDict of category names and their instances
 
         public Attributes:
-            | *available_cats*: dict of {Category name: Category}
-            | *executed_cats*: a list of Categories in UI pipeline
-            | *pipeline_path*: a path to a saved pipelines
-            | *image_path*: a path to an image file
+            | *available_cats* (dict): dict of {Category name: Category}
+            | *executed_cats* (list): a list of Categories in UI pipeline
+            | *pipeline_path* (str): a path to a saved pipelines
+            | *image_path* (str): a path to an image file
+            | *out_dir* (str): a path where processing results are saved
             
         """
         self.available_cats = categories
         self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = 'IMAGE'
+        self.out_dir = os.path.join(os.getcwd(), 'output')
         self.process()
 
     def new_category(self, position):
