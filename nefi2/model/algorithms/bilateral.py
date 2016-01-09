@@ -68,5 +68,6 @@ class AlgBody(Algorithm):
             channels[2] = cv2.bilateralFilter(channels[2], self.diameter.value*2+1, self.sigma_color.value,
                                               self.sigma_space.value)
         self.result = cv2.merge(channels)
+        
 if __name__ == '__main__':
     pass

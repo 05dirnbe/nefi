@@ -58,9 +58,9 @@ class Algorithm(QObject):
         self.float_sliders = []
         self.checkboxes = []
         self.drop_downs = []
-        self.result = None
         self.name = ""
         self.parent = ""
+        self.result = None
         self.store_image = False
 
     def belongs(self):

@@ -35,9 +35,12 @@ class Category:
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use [0] choice for alg
-        self.active_algorithm = list(self.available_algs.values())[0]
+        algs = list(self.available_algs.values())
+        if algs[0]:
+            # set the default algorithm for the category
+            self.active_algorithm = algs[0][-1]
         # debugging only
-        print(self.available_algs)
+        # print(self.available_algs)
 
     def set_available_algorithms(self):
         pass
@@ -73,12 +76,12 @@ class Category:
         # import all available algorithm files as modules
         imported_algs = []
         for alg in found_algs:
-            imported_algs.append(__import__(alg.split('.')[0],
-                                            fromlist=['AlgBody']))
+            alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
+            imported_algs.append(alg.AlgBody())
         category_alg_map = {self.name: [alg for alg in imported_algs
-                            if self.name == alg.AlgBody().belongs()]}
-        alg_names = [alg.AlgBody().get_name() for alg in imported_algs
-                     if self.name == alg.AlgBody().belongs()]
+                            if self.name == alg.belongs()]}
+        alg_names = [alg.get_name() for alg in imported_algs
+                     if self.name == alg.belongs()]
         return category_alg_map, alg_names
 
     def set_active_algorithm(self, alg_name):
@@ -113,11 +116,10 @@ class Category:
             
         """
         al = [alg for alg in list(self.available_algs.values())[0]
-              if self.active_algorithm.AlgBody().name == alg.AlgBody().name][0]
-        results = al.AlgBody().process(image)
+              if self.active_algorithm.name == alg.name][0]
+        al.process(image)
         # reset modified variable after processing
-        al.AlgBody().unset_modified()
-        return results
+        al.unset_modified()
 
     def get_name(self):
         """

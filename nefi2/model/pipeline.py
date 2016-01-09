@@ -5,6 +5,7 @@ mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
+import cv2
 import os
 import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -35,10 +36,8 @@ class Pipeline:
         self.available_cats = categories
         self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
-        self.image_path = 'IMAGE'
+        self.image_path = None
         self.out_dir = os.path.join(os.getcwd(), 'output')
-        # debugging only
-        # print(self.executed_cats)
         
     def new_category(self, name, position):
         """
@@ -80,21 +79,23 @@ class Pipeline:
         processing category.
 
         Returns:
-            *results* (list): a list of processing results
+            *image* (ndarray): processed image
 
         """
-        results = []
-        image = self.image_path
-        results.append(image)
+        imagearr = cv2.imread(self.image_path)
+        img_name = os.path.basename(self.image_path)
         # find the first category which contains the modified algorithm
         for idx, cat in enumerate(self.executed_cats):
-            if cat.active_algorithm.AlgBody().modified:
+            if cat.active_algorithm.modified:
                 start_from = idx, cat.name
                 break
         # execute the pipeline from the category with the modified algorithm
         for num, cat in enumerate(self.executed_cats[idx:]):
-            results.append(cat.process(results[num]))
-        return results
+            cat.process(imagearr)
+            imagearr = cat.active_algorithm.result
+        # saving the results
+        cv2.imwrite(os.path.join(self.out_dir, img_name), imagearr)
+        print(img_name, 'successfully saved in', self.out_dir)
 
     def change_algorithm(self, position, alg_name):
         """
@@ -220,7 +221,13 @@ class Pipeline:
         with open(url + name + ".txt", "wb+") as outfile:
             ord_alg_reps = OrderedDict(alg_reports)
             outfile.write(bytes(demjson.encode(ord_alg_reps), "UTF-8"))
-
+    
+    def make_out_dir(self):
+        """
+        Creates output directory to keep the results of image processing.
+        """
+        if not os.path.exists(self.out_dir):
+            os.mkdir(self.out_dir)
 
 if __name__ == '__main__':
     pass

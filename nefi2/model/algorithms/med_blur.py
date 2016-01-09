@@ -51,6 +51,6 @@ class AlgBody(Algorithm):
         if self.channel3.value:
             channels[2] = cv2.medianBlur(channels[2], self.kernelsize.value*2+1)
         self.result = cv2.merge(channels)
-
+        
 if __name__ == '__main__':
     pass

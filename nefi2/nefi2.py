@@ -44,7 +44,17 @@ def batch_mode(args):
     if args.out:
         pipeline.set_output_dir(args.out)
     pipeline.get_image(args.file)
-    # pipeline.process()
+    
+    # just testing, safe to remove
+    pipeline.delete_category(3)
+    pipeline.delete_category(2)
+    pipeline.delete_category(1)
+    pipeline.new_category('Preprocessing', 1)
+    pipeline.new_category('Preprocessing', 1)
+    print('CURRENT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
+    pipeline.make_out_dir()
+    pipeline.process()
+
 
 def main(args):
     """
