@@ -7,6 +7,7 @@ as an mediator between the algorithms and UI.
 """
 import cv2
 import os
+import re
 import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
@@ -18,6 +19,17 @@ import demjson
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}
 
+
+def filter_images(file_list):
+    """
+    Remove all non-image files.
+    <This function is used to protect the pipeline from attempting to process
+    any non-image files existing in the input directory.>
+    """
+    valid_ext = ['.bmp', '.jpg', '.jpeg', '.jp2', '.jpx', '.j2k', '.j2c', 
+                 '.png', '.tif', '.tiff', '.gif', ]
+    return [f for f in file_list if os.path.splitext(f)[-1] in valid_ext]
+        
 
 class Pipeline:
     def __init__(self, categories):
@@ -31,13 +43,15 @@ class Pipeline:
             | *pipeline_path* (str): a path to a saved pipelines
             | *image_path* (str): a path to an image file
             | *out_dir* (str): a path where processing results are saved
+            | *input_dir_files* (list): a list of image files in the input dir
             
         """
         self.available_cats = categories
         self.executed_cats = [v for v in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
-        self.out_dir = os.path.join(os.getcwd(), 'output')
+        self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
+        self.input_dir_files = filter_images(os.listdir(os.getcwd()))
         
     def new_category(self, name, position):
         """
@@ -82,20 +96,25 @@ class Pipeline:
             *image* (ndarray): processed image
 
         """
-        imagearr = cv2.imread(self.image_path)
-        img_name = os.path.basename(self.image_path)
         # find the first category which contains the modified algorithm
         for idx, cat in enumerate(self.executed_cats):
             if cat.active_algorithm.modified:
                 start_from = idx, cat.name
                 break
-        # execute the pipeline from the category with the modified algorithm
-        for num, cat in enumerate(self.executed_cats[idx:]):
-            cat.process(imagearr)
-            imagearr = cat.active_algorithm.result
-        # saving the results
-        cv2.imwrite(os.path.join(self.out_dir, img_name), imagearr)
-        print(img_name, 'successfully saved in', self.out_dir)
+        # process all images in the input dir
+        for image_name in self.input_dir_files:
+            imagearr = cv2.imread(image_name)
+            # execute the pipeline from the category with the modified alg
+            for num, cat in enumerate(self.executed_cats[start_from[0]:]):
+                cat.process(imagearr)
+                imagearr = cat.active_algorithm.result
+            # creating a file name
+            alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
+            basename = os.path.basename(image_name)
+            img_name = '_'.join([cat.name.lower(), alg_name, basename])
+            # saving the results
+            cv2.imwrite(os.path.join(self.out_dir, img_name), imagearr)
+            print(img_name, 'successfully saved in', self.out_dir)
 
     def change_algorithm(self, position, alg_name):
         """
@@ -158,10 +177,11 @@ class Pipeline:
         <Used in console mode>.
         
         Args:
-            *dir_path* (str): directory path of original images
+            *dir_path* (str): directory path with original images
         
         """
-        self.input_dir = dir_path
+        files = filter_images(os.listdir(dir_path))
+        self.input_dir_files = [os.path.join(dir_path, f) for f in files]
         
     def set_output_dir(self, dir_path):
         """
@@ -174,7 +194,7 @@ class Pipeline:
         """
         if not os.path.exists(dir_path):
             os.mkdir(dir_path)
-        self.output_dir = dir_path
+        self.out_dir = dir_path
 
     def load_pipeline_json(self, url):
         """
@@ -222,12 +242,6 @@ class Pipeline:
             ord_alg_reps = OrderedDict(alg_reports)
             outfile.write(bytes(demjson.encode(ord_alg_reps), "UTF-8"))
     
-    def make_out_dir(self):
-        """
-        Creates output directory to keep the results of image processing.
-        """
-        if not os.path.exists(self.out_dir):
-            os.mkdir(self.out_dir)
 
 if __name__ == '__main__':
     pass
