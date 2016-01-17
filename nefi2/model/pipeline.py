@@ -9,10 +9,11 @@ import cv2
 import os
 import re
 import sys
+from nefi2.model.categories._category import Category
+
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-from _category import Category
 from collections import OrderedDict
 import demjson
 
