@@ -9,11 +9,10 @@ import cv2
 import os
 import re
 import sys
-from nefi2.model.categories._category import Category
-
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
+from _category import Category
 from collections import OrderedDict
 import demjson
 
@@ -74,9 +73,9 @@ class Pipeline:
             | *destination_pos* (int): new position for Category
 
         """
-        self.executed_cats.insert(destination_pos,
-                                  self.executed_cats[origin_pos])
+        origin = self.executed_cats[origin_pos]
         del self.executed_cats[origin_pos]
+        self.executed_cats.insert(destination_pos, origin)
 
     def delete_category(self, position):
         """
