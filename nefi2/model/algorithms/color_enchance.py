@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import cv2
 from _alg import *
@@ -8,18 +9,17 @@ __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 
 class AlgBody(Algorithm):
     """Color enhancement algorithm implementation"""
-
     def __init__(self):
         Algorithm.__init__(self)
         self.name = "Color enhancement"
         self.parent = "Preprocessing"
-        self.left_percentage = FloatSlider("left percentage", 0.0, 10.0, 0.1, 2.5)
-        self.right_percentage = FloatSlider("right percentage", 0.0, 10.0, 0.1, 2.5)
+        self.left_pct = FloatSlider("left percentage", 0.0, 10.0, 0.1, 2.5)
+        self.right_pct = FloatSlider("right percentage", 0.0, 10.0, 0.1, 2.5)
         self.channel1 = CheckBox("channel1", True)
         self.channel2 = CheckBox("channel2", True)
         self.channel3 = CheckBox("channel3", True)
-        self.float_sliders.append(self.left_percentage)
-        self.float_sliders.append(self.right_percentage)
+        self.float_sliders.append(self.left_pct)
+        self.float_sliders.append(self.right_pct)
         self.checkboxes.append(self.channel1)
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
@@ -41,13 +41,13 @@ class AlgBody(Algorithm):
         cdf = hist.cumsum()
 
         for i, e in list(enumerate(cdf)):
-            if e > image_channel.size * (self.left_percentage / 100):
+            if e > image_channel.size * (self.left_pct / 100):
                 if i != 0:
                     vmin = i-1
                 break
 
         for i, e in list(enumerate(cdf)):
-            if e > image_channel.size * (1 - (self.right_percentage / 100)):
+            if e > image_channel.size * (1 - (self.right_pct / 100)):
                 vmax = i
                 break
 
@@ -59,8 +59,10 @@ class AlgBody(Algorithm):
                         image_channel.itemset((i, j), vmin)
                     elif pix > vmax:
                         image_channel.itemset((i, j), vmax)
-                    image_channel.itemset((i, j), (image_channel.item(i, j) - vmin) * 255 / (vmax-vmin))
+                    vmin_ij = image_channel.item(i, j) - vmin
+                    image_channel.itemset((i, j), vmin_ij * 255 / (vmax-vmin))
         return image_channel
+
 
 if __name__ == '__main__':
     pass

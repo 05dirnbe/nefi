@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import cv2
-from _alg import *
-
 """
 This class represents the algorithm Median Blur from the opencv package
 """
+import cv2
+from _alg import *
+
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
@@ -12,15 +13,17 @@ __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
 
 class AlgBody(Algorithm):
     """
-    Median Blur algorithm implementation
+    Median Blur algorithm implementation.
     """
     def __init__(self):
         """
-        Gaussian Blur object constructor
-            Instance vars:
-                | *name* : name of the algorithm
-                | *parent* : name of the appropriated category
-                | *kernelsize* : blurring kernel size that will be used as slider for the UI
+        Gaussian Blur object constructor.
+
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriated category
+            | *kernelsize* : blurring kernel size that will be used as
+              slider for the UI
 
         """
         Algorithm.__init__(self)
@@ -37,7 +40,8 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the Median Blur algorithm from the opencv package to the current image
+        Use the Median Blur algorithm from the opencv package to the current
+        image.
 
         Args:
             | *image* : image instance
@@ -45,12 +49,16 @@ class AlgBody(Algorithm):
         """
         channels = cv2.split(image)
         if self.channel1.value:
-            channels[0] = cv2.medianBlur(channels[0], self.kernelsize.value*2+1)
+            channels[0] = cv2.medianBlur(channels[0],
+                                         self.kernelsize.value*2+1)
         if self.channel2.value:
-            channels[1] = cv2.medianBlur(channels[1], self.kernelsize.value*2+1)
+            channels[1] = cv2.medianBlur(channels[1],
+                                         self.kernelsize.value*2+1)
         if self.channel3.value:
-            channels[2] = cv2.medianBlur(channels[2], self.kernelsize.value*2+1)
+            channels[2] = cv2.medianBlur(channels[2],
+                                         self.kernelsize.value*2+1)
         self.result = cv2.merge(channels)
-        
+
+
 if __name__ == '__main__':
     pass

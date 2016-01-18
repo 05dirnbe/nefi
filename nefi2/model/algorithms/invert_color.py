@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import cv2
-from _alg import *
 """
 This class represents the algorithm Invert Color
 """
+import cv2
+from _alg import *
+
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
                "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
@@ -47,7 +49,6 @@ class AlgBody(Algorithm):
         if self.channel3.value:
             channels[2] = (255-channels[2])
         self.result = cv2.merge(channels)
-
 
 
 if __name__ == '__main__':

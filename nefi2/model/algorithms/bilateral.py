@@ -1,10 +1,11 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import cv2
-from _alg import *
-
 """
 This class represents the algorithm Bilateral Filter from the opencv package
 """
+import cv2
+from _alg import *
+
 
 __authors__ = {
     "Andreas Firczynski": "andreasfir91@googlemail.com",
@@ -13,25 +14,28 @@ __authors__ = {
 
 
 class AlgBody(Algorithm):
-
     """
     Bilateral Filter algorithm implementation
     """
-
     def __init__(self):
-        """Bilateral Filter object constructor
-            Instance vars:
-                | *name* : name of the algorithm
-                | *parent* : name of the appropriated category
-                | *diameter* : diameter of each pixel neighborhood that is used during filtering.
-                        If it is non-positive, it is computed from sigmaSpace.
-                | *sigma_color* : filter sigma in the color space. The more large the value,
-                        the farther colors within the pixel neighborhood will be mixed together
-                | *sigma_space* : filter sigma in the coordinate space. A larger value of the parameter means
-                        that farther pixels will influence each other as long as their colors are close enough
-                | *channel1* : checkbox if the first color channel will be computed
-                | *channel2* : checkbox if the second color channel will be computed
-                | *channel3* : checkbox if the third color channel will be computed
+        """
+        Bilateral Filter object constructor.
+
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriated category
+            | *diameter* : diameter of each pixel neighborhood that is used
+             during filtering. If it is non-positive, it is computed from
+             sigmaSpace
+            | *sigma_color* : filter sigma in the color space. The larger
+             the value, the further the colors within a pixel neighborhood
+             will be mixed together
+            | *sigma_space* : filter sigma in the coordinate space. A
+             larger value of the parameter means that distant pixels will
+             influence each other as long as their colors are close enough
+            | *channel1* : checkbox if computing the first color channel
+            | *channel2* : checkbox if computing the second color channel
+            | *channel3* : checkbox if computing the third color channel
 
         """
         Algorithm.__init__(self)
@@ -52,22 +56,31 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Use the Bilateral Filter algorithm from the opencv package to the selected color channels of the current image
+        Use the Bilateral Filter algorithm from the opencv package to the
+        selected color channels of the current image.
 
         Args:
             | *image* : image instance
+
         """
         channels = cv2.split(image)
         if self.channel1.value:
-            channels[0] = cv2.bilateralFilter(channels[0], self.diameter.value*2+1, self.sigma_color.value,
+            channels[0] = cv2.bilateralFilter(channels[0],
+                                              self.diameter.value*2+1,
+                                              self.sigma_color.value,
                                               self.sigma_space.value)
         if self.channel2.value:
-            channels[1] = cv2.bilateralFilter(channels[1], self.diameter.value*2+1, self.sigma_color.value,
+            channels[1] = cv2.bilateralFilter(channels[1],
+                                              self.diameter.value*2+1,
+                                              self.sigma_color.value,
                                               self.sigma_space.value)
         if self.channel3.value:
-            channels[2] = cv2.bilateralFilter(channels[2], self.diameter.value*2+1, self.sigma_color.value,
+            channels[2] = cv2.bilateralFilter(channels[2],
+                                              self.diameter.value*2+1,
+                                              self.sigma_color.value,
                                               self.sigma_space.value)
         self.result = cv2.merge(channels)
-        
+
+
 if __name__ == '__main__':
     pass
