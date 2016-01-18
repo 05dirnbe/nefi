@@ -35,8 +35,6 @@ class Test_Pipeline(unittest.TestCase):
     def test_move_category(self):
         """
         Testing if after creating 2 categories in the pipeline and moving one in another position the executed_cats list is modified
-        TEST FAIL REVIEW pipeline.move_category() methods
-
         """
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
@@ -90,12 +88,11 @@ class Test_Pipeline(unittest.TestCase):
     def test_get_algorithm_list(self):
         """
         Method get_algorithm_list will return the list of available algorithms the test will compare it wiht the algorithms available for the Preprocessing categories
-        TEST FAIL
         """
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
-        standard = ['Blur','Bilateral','Color enhancement','Fast nl Means Denoising','Fast nl Means Denoising Colored','Gaussian Blur','Invert Color','Median Blur']
-        self.assertEqual(pipeline.get_algorithm_list(1),standard)
+        standard = ['Bilateral Filter', 'Blur', 'Color enhancement', 'Fast nl Means Denoising', 'Fast nl Means Denoising Colored', 'Gaussian Blur', 'Invert Color', 'Median Blur']
+        self.assertEqual(pipeline.get_algorithm_list(0),standard)
 
 
 if __name__ == '__main':
