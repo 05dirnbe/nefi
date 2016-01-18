@@ -23,7 +23,7 @@ class AlgBody(Algorithm):
 
         Instance vars:
             | *name* : name of the algorithm
-            | *parent* : name of the appropriated category
+            | *parent* : name of the appropriate category
             | *filterStrength* : Parameter regulating filter strength.
               A larger value of the parameter means that more noise and also
               more image details will be removed

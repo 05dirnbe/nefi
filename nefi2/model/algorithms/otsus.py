@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+(from opencv docs)
+Otsu's binarization automatically calculates a threshold value from image 
+histogram for a bimodal image. (For images which are not bimodal, binarization 
+won’t be accurate.)
+For this, cv2.threshold() function is used with an extra flag, cv2.THRESH_OTSU. 
+For threshold value, simply pass zero. Then the algorithm finds the optimal 
+threshold value and returns you as the second output. If Otsu thresholding is 
+not used, the optimal threshold is same as the threshold value you used.
+"""
+import cv2
+from _alg import *
+
+
+__author__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+
+
+class AlgBody(Algorithm):
+    """
+    Otsu's threshold implementation.
+    """
+    def __init__(self):
+        """
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriate category
+                  
+        """
+        Algorithm.__init__(self)
+        self.name = "Otsu's Threshold"
+        self.parent = "Segmentation"
+
+    def process(self, image):
+        """
+        Otsu's thresholding as described in opencv docs.
+
+        Args:
+            | *image* : image instance
+
+        """
+        gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        self.result = cv2.threshold(gray_img, 0, 255, 
+                                    cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
+
+
+if __name__ == '__main__':
+    pass
+    

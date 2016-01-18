@@ -22,7 +22,7 @@ class AlgBody(Algorithm):
         
         Instance vars:
             | *name* : name of the algorithm
-            | *parent* : name of the appropriated category
+            | *parent* : name of the appropriate category
             | *kernelsize* : blurring kernel size that will be used as a slider
               for the UI
                   

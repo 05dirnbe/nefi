@@ -20,7 +20,7 @@ class AlgBody(Algorithm):
         Invert Color object constructor
             Instance vars:
                 | *name* : name of the algorithm
-                | *parent* : name of the appropriated category
+                | *parent* : name of the appropriate category
 
         """
         Algorithm.__init__(self)

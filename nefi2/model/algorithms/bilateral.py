@@ -23,7 +23,7 @@ class AlgBody(Algorithm):
 
         Instance vars:
             | *name* : name of the algorithm
-            | *parent* : name of the appropriated category
+            | *parent* : name of the appropriate category
             | *diameter* : diameter of each pixel neighborhood that is used
              during filtering. If it is non-positive, it is computed from
              sigmaSpace
