@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Extension Loader &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Code.html">CodeBase</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Extension Loader</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst_files/ExtensionLoader.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="extension-loader">
+<h1>Extension Loader<a class="headerlink" href="#extension-loader" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-model.ext_loader"></span><p>This module contains the class ExtensionLoader that works with &#8220;model&#8221;
+folder and is used to initialize the pipeline with all available image
+processing categories and their respective algorithms. It uses config.json
+settings to initialize image processing categories accordingly.
+ExtensionLoader creates a collection of categories and algorithms ready to
+be loaded into the pipeline object.</p>
+<dl class="class">
+<dt id="model.ext_loader.ExtensionLoader">
+<em class="property">class </em><code class="descclassname">model.ext_loader.</code><code class="descname">ExtensionLoader</code><a class="headerlink" href="#model.ext_loader.ExtensionLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="staticmethod">
+<dt id="model.ext_loader.ExtensionLoader._instantiate_cats">
+<em class="property">static </em><code class="descname">_instantiate_cats</code><span class="sig-paren">(</span><em>ordering</em>, <em>found_cats</em><span class="sig-paren">)</span><a class="headerlink" href="#model.ext_loader.ExtensionLoader._instantiate_cats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate imported categories and return a list of instantiated
+categories.
+Create a list with methods that represent a pipeline with selected
+algorithms and predefined settings.
+Sort the imported categories according to provided order list and
+return a list of imported category modules.
+&lt;When the Step object is instantiated it automatically imports and
+creates a list of algorithms that belong to it&gt;</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>ordering</em>: a list of categories order</div>
+<div class="line"><em>found_cats</em>:a list of found category file names</div>
+</div>
+</dd>
+<dt>Vars:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>cats_inst</em>: a list of found and instantiated methods</div>
+<div class="line"><em>categories</em>: a dictionary of algs where {Algorithm: Step}</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>categories</em>: a list with Method instances</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="model.ext_loader.ExtensionLoader._read_configs">
+<em class="property">static </em><code class="descname">_read_configs</code><span class="sig-paren">(</span><em>config_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.ext_loader.ExtensionLoader._read_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read configuration file which contains category order.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>config_path</em>: a path to config.xml</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>order</em>: a list of categories order</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="model.ext_loader.ExtensionLoader._scan_model">
+<em class="property">static </em><code class="descname">_scan_model</code><span class="sig-paren">(</span><em>cat_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#model.ext_loader.ExtensionLoader._scan_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for any available category files in cat_dir.
+Return found file names.
+Raise an error is no file was found.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>cat_dir</em> (str): category dir provided by the ext_loader</div>
+</div>
+</dd>
+<dt>Vars:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>found_cats</em> (list): a filtered list of category file names</div>
+<div class="line"><em>category_files</em> (list): a list of algorithm file names</div>
+<div class="line"><em>ignored</em>: a regex object, used to filter unnecessary files</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>found_cats</em> (list): a list of categories that were found</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
