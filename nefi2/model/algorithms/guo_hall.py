@@ -14,7 +14,7 @@ __author__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 class AlgBody(Algorithm):
     """
-    Adaptive threshold implementation.
+    Guo Hall thinning implementation.
     """
     def __init__(self):
         """
@@ -29,7 +29,7 @@ class AlgBody(Algorithm):
 
     def process(self, image):
         """
-        Adaptive thresholding as described in opencv docs.
+        Guo Hall thinning.
 
         Args:
             | *image* : image instance
