@@ -40,8 +40,8 @@ class AlgBody(Algorithm):
             | *image* : image instance
 
         """
-        gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        self.result = cv2.threshold(gray_img, 0, 255, 
+        # gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        self.result = cv2.threshold(image, 0, 255, 
                                     cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
 
 

@@ -46,7 +46,7 @@ class AlgBody(Algorithm):
             | *image* : image instance
 
         """
-        gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         # cv2.ADAPTIVE_THRESH_GAUSSIAN_C produces cleaner results, 
         # nefi1 uses ADAPTIVE_THRESH_MEAN_C however
         self.result = cv2.adaptiveThreshold(gray_img, 255,
