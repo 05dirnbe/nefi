@@ -58,7 +58,7 @@ class AlgBody(Algorithm):
         """
         size = np.size(image)
         #cv::Mat marker = cv::Mat::zeros(im.size(), CV_8UC1);
-        marker = cv2.Mat.zeros(size, cv2.CV_8UC1)   #Is this right?
+        marker = np.zeros(size)   #Is this right?
         weigth, height = image.shape
         item = image.item
         for i in xrange(1, weigth-1):
@@ -87,8 +87,8 @@ class AlgBody(Algorithm):
                     m2 = p2 * p6 * p8
                 if(A == 1 and (B>= 2 and B <= 6) and m1 == 0 and m2 == 0):
                     # marker.at<uchar>(i,j) = 1
-                    # how to do this?
-                    marker
+                    # Is this right?
+                    marker[i,j] = 1
         image = marker
 
 
@@ -104,7 +104,7 @@ class AlgBody(Algorithm):
         image /= 255
         size = np.size(image)
         #cv::Mat marker = cv::Mat::zeros(im.size(), CV_8UC1);
-        prev = cv2.Mat.zeros(size, cv2.CV_8UC1)   #Is this right?
+        prev = np.zeros(size)   #Is this right?
         diff = np.array(image.shape[0],image.shape[1])
         while cv2.countNonZero(diff) <= 0:
             self.thinningZhangSuenIteration(image,0)
