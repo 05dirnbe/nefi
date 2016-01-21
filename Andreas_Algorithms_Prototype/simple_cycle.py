@@ -9,6 +9,8 @@ articulation points, or cut vertices. The removal of articulation points will
 increase the number of connected components of the graph.
 """
 import networkx as nx
+import cv2 as cv
+import numpy as np
 from nefi2.model.algorithms._alg import Algorithm
 
 __author__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
@@ -29,7 +31,7 @@ class AlgBody(Algorithm):
         self.name = "Simple cycle filter"
         self.parent = "Graph filtering"
 
-    def process(self, graph):
+    def process(self, image, graph):
         """
         By using a generator of sets of nodes, one set for each biconnected
         component of the graph(biconnected_components) we remove all vertices
@@ -49,8 +51,46 @@ class AlgBody(Algorithm):
         # remove all nodes which are not in a biconnected component from
         # the graph
         graph.remove_nodes_from(nodes_not_in_a_cycle)
+        # draw edges into current image
+        tmp = self.draw_edges(image, graph)
+        # draw nodes into current image
+        drawn = self.draw_nodes(tmp, graph)
 
-        self.result = graph
+        self.result = drawn
+
+    @staticmethod
+    def draw_nodes(image, graph):
+        """
+        Draw nodes as rectangle into current image instance
+        Args:
+            image: current image instance
+            graph: current networkx graph instance
+        """
+        radius = 3
+        for x, y in graph.nodes():
+            cv.rectangle(image, (y-radius, x-radius),
+                         (y+radius, x+radius), (255, 0, 0), -1)
+
+    @staticmethod
+    def draw_edges(image, graph):
+        """
+        Draw edges into current image instance
+        Args:
+            image: current image instance
+            graph: current networkx graph instance
+        """
+        draw = np.copy(image)
+        color=(0, 0, 255)
+        for (x1, y1), (x2, y2) in graph.edges():
+            start = (y1, x1)
+            end = (y2, x2)
+            diam = graph[(x1, y1)][(x2, y2)]['width']
+            if diam == -1: diam = 2
+            diam = int(round(diam))
+            if diam > 255:
+                diam = 255
+            cv.line(draw, start, end, color, diam)
+        draw = cv.addWeighted(image, 0.5, draw, 0.5, 0)
 
 
 if __name__ == '__main__':
