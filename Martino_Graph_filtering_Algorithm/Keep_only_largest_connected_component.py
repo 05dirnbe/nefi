@@ -4,7 +4,7 @@ import networkx as nx
 from nefi2.model.algorithms._alg import *
 
 """
-This class represents the algorithm Smooth degree two nodes
+This class represents the algorithm Keep only largest connected component
 """
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -15,7 +15,7 @@ class AlgBody(Algorithm):
     Simple cycle filter algorithm implementation
     """
 
-    def __init__(self, largest_components_to_keep=1):
+    def __init__(self):
         """
         Simple cycle object constructor
             Instance vars:
@@ -25,7 +25,7 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Keep only largest component connected"
         self.parent = "Graph filtering"
-        self.largest_components_to_keep = largest_components_to_keep
+        self.largest_components_to_keep = 1
 
 
     def process(self, graph):
@@ -49,18 +49,23 @@ class AlgBody(Algorithm):
 
             if self.largest_components_to_keep < 0:
 
-                raise NegativeNumberError('Largest_Connected_Components_Filter: Filtering failed \
-                    because the number of components not to be removed is negative:',
+                raise NegativeNumberError(
+                    'Largest_Connected_Components_Filter: Filtering failed \
+                    because the number of components not to be removed is '
+                    'negative:',
                     self.largest_components_to_keep)
 
-            connected_components = sorted(list(nx.connected_component_subgraphs(graph)), key = lambda graph: graph.number_of_nodes(), reverse = True)
+            connected_components = sorted(list(
+                nx.connected_component_subgraphs(graph)),
+                key = lambda graph: graph.number_of_nodes(), reverse = True)
 
             to_be_removed = connected_components[self.largest_components_to_keep:]
 
             for subgraph in to_be_removed:
                 graph.remove_nodes_from(subgraph)
 
-            print 'discarding a total of', len(to_be_removed), 'connected components ...',
+            print 'discarding a total of', len(to_be_removed),\
+                'connected components ...',
 
         except NegativeNumberError as e:
 
