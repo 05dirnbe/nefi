@@ -53,7 +53,7 @@ class AlgBody(Algorithm):
                 graph.remove_nodes_from(subgraph)
         except ValueError as e:
             print('ValueError exception:', e)
-        return graph
+        self.result['graph'] = graph
 
 
 if __name__ == '__main__':
