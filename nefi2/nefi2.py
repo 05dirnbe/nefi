@@ -7,6 +7,7 @@ It also enables console batch processing mode.
 """
 import sys
 import argparse
+
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 

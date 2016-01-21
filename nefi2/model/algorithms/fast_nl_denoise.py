@@ -78,7 +78,7 @@ class AlgBody(Algorithm):
                                            self.templateWindowSize.value*2+1,
                                            self.searchWindowSize.value*2+1)
             channels[2] = val
-        self.result = cv2.merge(channels)
+        self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':

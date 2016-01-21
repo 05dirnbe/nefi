@@ -10,8 +10,10 @@ be loaded into the pipeline object.
 import re
 import os
 import xml.etree.ElementTree as et
-from collections import OrderedDict as od
 import sys
+
+from collections import OrderedDict as od
+
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}

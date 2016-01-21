@@ -8,6 +8,7 @@ import cv2
 import networkx as nx
 import numpy as np
 import thinning
+
 from _alg import *
 from collections import defaultdict
 from itertools import chain
@@ -48,7 +49,7 @@ class AlgBody(Algorithm):
         # detect edges
         graph = breadth_first_edge_detection(skeleton, gray_img, graph)
         skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
-        return graph, skeleton
+        self.result['graph'], self.result['img'] = graph, skeleton
 
 
 def zhang_suen_node_detection(self, skel):

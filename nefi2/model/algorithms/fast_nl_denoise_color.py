@@ -25,11 +25,12 @@ class AlgBody(Algorithm):
     def process(self, image):
         ts = self.template_size.value*2+1
         ss = self.search_size.value*2+1
-        self.result = cv2.fastNlMeansDenoisingColored(src=image,
-                                                      h=self.f_strength.value,
-                                                      hColor=self.f_col.value,
-                                                      templateWindowSize=ts,
-                                                      searchWindowSize=ss)
+        result = cv2.fastNlMeansDenoisingColored(src=image,
+                                                 h=self.f_strength.value,
+                                                 hColor=self.f_col.value,
+                                                 templateWindowSize=ts,
+                                                 searchWindowSize=ss)
+        self.result['img'] = result
 
 
 if __name__ == '__main__':

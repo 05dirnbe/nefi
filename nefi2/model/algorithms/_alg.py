@@ -60,7 +60,7 @@ class Algorithm(QObject):
         self.drop_downs = []
         self.name = ""
         self.parent = ""
-        self.result = None
+        self.result = {"img": None, "graph": None}
         self.store_image = False
 
     def belongs(self):

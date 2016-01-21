@@ -6,15 +6,18 @@ available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
 import cv2
+import demjson
+import networkx as nx
 import os
 import re
 import sys
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
+
 from _category import Category
 from collections import OrderedDict
-import demjson
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}
@@ -103,18 +106,38 @@ class Pipeline:
                 break
         # process all images in the input dir
         for image_name in self.input_dir_files:
-            imagearr = cv2.imread(image_name)
+            img_arr = cv2.imread(image_name)
             # execute the pipeline from the category with the modified alg
             for num, cat in enumerate(self.executed_cats[start_from[0]:]):
-                cat.process(imagearr)
-                imagearr = cat.active_algorithm.result
+                if cat.name == "Graph Filtering":
+                    # get image array
+                    img_arr = cat.active_algorithm.result['img']
+                    # get graph object
+                    graph = cat.active_algorithm.result['graph']
+                    cat.process(img_arr, graph)
+                    # now get the results of graph filtering
+                    img_arr = cat.active_algorithm.result['img']
+                    graph = cat.active_algorithm.result['graph']
+                else:
+                    cat.process(img_arr)
+                    img_arr = cat.active_algorithm.result['img']
+
+            # saving results
             # creating a file name
             alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
             basename = os.path.basename(image_name)
             img_name = '_'.join([cat.name.lower(), alg_name, basename])
-            # saving the results
-            cv2.imwrite(os.path.join(self.out_dir, img_name), imagearr)
+            # saving the processed image
+            cv2.imwrite(os.path.join(self.out_dir, img_name), img_arr)
             print(img_name, 'successfully saved in', self.out_dir)
+            # exporting graph object
+            if graph:
+                img_name = os.path.splitext(img_name)[0] + '.txt'
+                nx.write_multiline_adjlist(graph, os.path.join(self.out_dir,
+                                                               img_name),
+                                           delimiter = '|')
+                print(img_name, 'successfully saved in', self.out_dir)
+
 
     def change_algorithm(self, position, alg_name):
         """

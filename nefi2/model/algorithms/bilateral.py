@@ -79,7 +79,7 @@ class AlgBody(Algorithm):
                                               self.diameter.value*2+1,
                                               self.sigma_color.value,
                                               self.sigma_space.value)
-        self.result = cv2.merge(channels)
+        self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':

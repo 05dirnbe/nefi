@@ -49,11 +49,11 @@ class AlgBody(Algorithm):
         gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         # cv2.ADAPTIVE_THRESH_GAUSSIAN_C produces cleaner results, 
         # nefi1 uses ADAPTIVE_THRESH_MEAN_C however
-        self.result = cv2.adaptiveThreshold(gray_img, 255,
-                                            cv2.ADAPTIVE_THRESH_MEAN_C, 
-                                            cv2.THRESH_BINARY,
-                                            self.blocksize.default,
-                                            self.constant.default)
+        self.result['img'] = cv2.adaptiveThreshold(gray_img, 255,
+                                                   cv2.ADAPTIVE_THRESH_MEAN_C,
+                                                   cv2.THRESH_BINARY,
+                                                   self.blocksize.default,
+                                                   self.constant.default)
 
 
 if __name__ == '__main__':

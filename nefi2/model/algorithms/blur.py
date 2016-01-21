@@ -58,7 +58,7 @@ class AlgBody(Algorithm):
         if self.channel3.value:
             channels[2] = cv2.blur(channels[2], (self.kernelsize.value*2+1,
                                                  self.kernelsize.value*2+1))
-        self.result = cv2.merge(channels)
+        self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':
