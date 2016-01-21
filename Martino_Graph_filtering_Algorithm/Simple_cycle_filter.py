@@ -2,7 +2,7 @@
 import networkx as nx
 from nefi2.model.algorithms._alg import *
 """
-This class represents the algorithm Smooth degree two nodes
+This class represents the algorithm Simple cycle filter
 """
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
