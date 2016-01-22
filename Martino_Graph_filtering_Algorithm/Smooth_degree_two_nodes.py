@@ -104,7 +104,7 @@ class AlgBody(Algorithm):
 
             print "Unexpected error:", sys.exc_info()[0]
 
-        return graph
+        self.result['graph'] = graph
 
 if __name__ == '__main__':
     pass

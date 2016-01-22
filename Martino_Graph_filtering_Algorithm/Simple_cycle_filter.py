@@ -50,7 +50,7 @@ class AlgBody(Algorithm):
         print 'discarding a total of', len(vertices_not_in_a_cycle),
         print 'vertices which do not belong to any cycle ...',
 
-        return graph
+        self.result['graph'] = graph
 
 if __name__ == '__main__':
     pass

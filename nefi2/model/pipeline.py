@@ -109,18 +109,17 @@ class Pipeline:
             img_arr = cv2.imread(image_name)
             # execute the pipeline from the category with the modified alg
             for num, cat in enumerate(self.executed_cats[start_from[0]:]):
-                if cat.name == "Graph Filtering":
-                    # get image array
-                    img_arr = cat.active_algorithm.result['img']
-                    # get graph object
-                    graph = cat.active_algorithm.result['graph']
-                    cat.process(img_arr, graph)
+                if cat.name == "Graph filtering":
+                    cat.process( graph)
                     # now get the results of graph filtering
-                    img_arr = cat.active_algorithm.result['img']
                     graph = cat.active_algorithm.result['graph']
                 else:
                     cat.process(img_arr)
-                    img_arr = cat.active_algorithm.result['img']
+                    if cat.name == "Graph detection":
+                        graph = cat.active_algorithm.result['graph']
+                    else:
+                        img_arr = cat.active_algorithm.result['img']
+
 
             # saving results
             # creating a file name
