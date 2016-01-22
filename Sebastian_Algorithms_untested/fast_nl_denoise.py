@@ -52,19 +52,19 @@ class AlgBody(Algorithm):
         channels = cv2.split(image)
         if self.channel1.value:
             channels[0] = cv2.fastNlMeansDenoising(channels[0],
-                                                   self.filterStrength.value,
-                                                   self.templateWindowSize.value*2+1,
-                                                   self.searchWindowSize.value*2+1)
+                                                   self.filter_strength.value,
+                                                   self.template_window_size.value*2+1,
+                                                   self.search_window_size.value*2+1)
         if self.channel2.value:
             channels[1] = cv2.fastNlMeansDenoising(channels[1],
-                                                   self.filterStrength.value,
-                                                   self.templateWindowSize.value*2+1,
-                                                   self.searchWindowSize.value*2+1)
+                                                   self.filter_strength.value,
+                                                   self.template_window_size.value*2+1,
+                                                   self.search_window_size.value*2+1)
         if self.channel3.value:
             channels[2] = cv2.fastNlMeansDenoising(channels[2],
-                                                   self.filterStrength.value,
-                                                   self.templateWindowSize.value*2+1,
-                                                   self.searchWindowSize.value*2+1)
+                                                   self.filter_strength.value,
+                                                   self.template_window_size.value*2+1,
+                                                   self.search_window_size.value*2+1)
         self.result = cv2.merge(channels)
 if __name__ == '__main__':
     pass
