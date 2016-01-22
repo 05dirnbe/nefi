@@ -94,6 +94,8 @@ class Pipeline:
             for i, cat in enumerate(self.executed_cats):
                 if category == cat.name:
                     del self.executed_cats[i]
+        # debugging
+        print('>>> Deleted:', category)
 
     def process(self):
         """
@@ -110,6 +112,7 @@ class Pipeline:
                 start_from = idx, cat.name
                 break
         # process all images in the input dir
+        graph = None
         for image_name in self.input_dir_files:
             img_arr = cv2.imread(image_name)
             # execute the pipeline from the category with the modified alg
@@ -126,23 +129,35 @@ class Pipeline:
                 else:
                     cat.process(img_arr)
                     img_arr = cat.active_algorithm.result['img']
+                # creating a file name
+                alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
+                basename = os.path.basename(image_name)
+                img_name = '_'.join([cat.name.lower(), alg_name, basename])
+                # saving current algorithm results
+                self.save_results(img_name, [img_arr, graph])
+           
 
-            # saving results
-            # creating a file name
-            alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
-            basename = os.path.basename(image_name)
-            img_name = '_'.join([cat.name.lower(), alg_name, basename])
-            # saving the processed image
-            cv2.imwrite(os.path.join(self.out_dir, img_name), img_arr)
-            print(img_name, 'successfully saved in', self.out_dir)
-            # exporting graph object
-            if graph:
-                img_name = os.path.splitext(img_name)[0] + '.txt'
-                nx.write_multiline_adjlist(graph, os.path.join(self.out_dir,
-                                                               img_name),
-                                           delimiter = '|')
-                print(img_name, 'successfully saved in', self.out_dir)
-
+    def save_results(self, image_name, results):
+        """
+        Save the results of algorithm processing.
+        
+        Args:
+            | *image_name* (str): image name
+            | *results* (list): a list of image ndarray and Graph object
+            
+        """
+        img_arr, graph = results
+        # saving the processed image
+        cv2.imwrite(os.path.join(self.out_dir, image_name), img_arr)
+        print(image_name, 'successfully saved in', self.out_dir)
+        # exporting graph object
+        if graph:
+            image_name = os.path.splitext(img_name)[0] + '.txt'
+            nx.write_multiline_adjlist(graph, os.path.join(self.out_dir,
+                                                           image_name),
+                                       delimiter = '|')
+            print(image_name, 'successfully saved in', self.out_dir)
+        
 
     def change_algorithm(self, position, alg_name):
         """

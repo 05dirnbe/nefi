@@ -48,11 +48,16 @@ def batch_mode(args):
 
     ############################ DEBUGGING ####################################
     # just testing, safe to remove
+    print("########## TESTING ##########")
+    print('CURRENT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
     for cat in pipeline.executed_cats:
         if cat.name == 'Preprocessing':
-            cat.set_active_algorithm('Blur')
+            cat.set_active_algorithm('Invert Color')
+    pipeline.delete_category('Graph detection')
+    pipeline.delete_category('Graph filtering')
     print('CURRENT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
     pipeline.process()
+    print("########## FINISHED ##########")
     ############################ DEBUGGING ####################################
 
 

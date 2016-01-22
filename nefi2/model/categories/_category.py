@@ -40,7 +40,7 @@ class Category:
             # set the default algorithm for the category
             self.active_algorithm = algs[0][-1]
         # debugging only
-        print(self.available_algs)
+        #print(self.available_algs)
 
     def set_available_algorithms(self):
         pass
