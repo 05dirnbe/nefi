@@ -24,8 +24,8 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def process(self, image):
-        channels = cv2.split(image)
+    def process(self, args):
+        channels = cv2.split(args[0])
         if self.channel1.value:
             channels[0] = self.compute_channels(channels[0])
         if self.channel2.value:

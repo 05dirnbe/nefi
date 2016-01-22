@@ -25,7 +25,7 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
 
 def filter_images(file_list):
     """
-    Remove all non-image files.
+    Filter out all non-image files.
     <This function is used to protect the pipeline from attempting to process
     any non-image files existing in the input directory.>
     """
@@ -94,8 +94,6 @@ class Pipeline:
             for i, cat in enumerate(self.executed_cats):
                 if category == cat.name:
                     del self.executed_cats[i]
-        # debugging
-        print('>>> Deleted:', category)
 
     def process(self):
         """
@@ -122,7 +120,7 @@ class Pipeline:
                     cat.process(img_arr)
                     graph = cat.active_algorithm.result['graph']
                 elif cat.name == "Graph filtering":
-                    cat.process([img_arr, graph])
+                    cat.process(img_arr, graph)  # image array always first!
                     # now get the results of graph filtering
                     img_arr = cat.active_algorithm.result['img']
                     graph = cat.active_algorithm.result['graph']
@@ -134,26 +132,25 @@ class Pipeline:
                 basename = os.path.basename(image_name)
                 img_name = '_'.join([cat.name.lower(), alg_name, basename])
                 # saving current algorithm results
-                self.save_results(img_name, [img_arr, graph])
+                self.save_results(img_name, img_arr, graph)
            
 
-    def save_results(self, image_name, results):
+    def save_results(self, image_name, *results):
         """
         Save the results of algorithm processing.
         
         Args:
             | *image_name* (str): image name
-            | *results* (list): a list of image ndarray and Graph object
+            | *results* (list): a list of arguments to save
             
         """
-        img_arr, graph = results
         # saving the processed image
-        cv2.imwrite(os.path.join(self.out_dir, image_name), img_arr)
+        cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
         print(image_name, 'successfully saved in', self.out_dir)
         # exporting graph object
-        if graph:
-            image_name = os.path.splitext(img_name)[0] + '.txt'
-            nx.write_multiline_adjlist(graph, os.path.join(self.out_dir,
+        if results[1]:
+            image_name = os.path.splitext(image_name)[0] + '.txt'
+            nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
                                                            image_name),
                                        delimiter = '|')
             print(image_name, 'successfully saved in', self.out_dir)

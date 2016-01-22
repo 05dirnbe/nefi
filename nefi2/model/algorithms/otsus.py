@@ -32,15 +32,15 @@ class AlgBody(Algorithm):
         self.name = "Otsu's Threshold"
         self.parent = "Segmentation"
 
-    def process(self, image):
+    def process(self, args):
         """
         Otsu's thresholding as described in opencv docs.
 
         Args:
-            | *image* : image instance
+            | *args* : a list of arguments, e.g. image ndarray
 
         """
-        gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
         self.result['img'] = cv2.threshold(gray_img, 0, 255,
                                            cv2.THRESH_BINARY +
                                            cv2.THRESH_OTSU)[1]

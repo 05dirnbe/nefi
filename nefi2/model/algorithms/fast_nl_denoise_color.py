@@ -22,10 +22,10 @@ class AlgBody(Algorithm):
         self.float_sliders.append(self.f_strength)
         self.float_sliders.append(self.f_col)
 
-    def process(self, image):
+    def process(self, args):
         ts = self.template_size.value*2+1
         ss = self.search_size.value*2+1
-        result = cv2.fastNlMeansDenoisingColored(src=image,
+        result = cv2.fastNlMeansDenoisingColored(src=args[0],
                                                  h=self.f_strength.value,
                                                  hColor=self.f_col.value,
                                                  templateWindowSize=ts,

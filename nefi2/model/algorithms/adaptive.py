@@ -38,15 +38,15 @@ class AlgBody(Algorithm):
         self.integer_sliders.append(self.blocksize)
         self.integer_sliders.append(self.constant)
 
-    def process(self, image):
+    def process(self, args):
         """
         Adaptive thresholding as described in opencv docs.
 
         Args:
-            | *image* : image instance
+            | *args* : a list of arguments, e.g. image ndarray
 
         """
-        gray_img = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
         # cv2.ADAPTIVE_THRESH_GAUSSIAN_C produces cleaner results, 
         # nefi1 uses ADAPTIVE_THRESH_MEAN_C however
         self.result['img'] = cv2.adaptiveThreshold(gray_img, 255,

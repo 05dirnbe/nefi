@@ -54,7 +54,7 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def process(self, image):
+    def process(self, args):
         """
         Use the Bilateral Filter algorithm from the opencv package to the
         selected color channels of the current image.
@@ -63,7 +63,7 @@ class AlgBody(Algorithm):
             | *image* : image instance
 
         """
-        channels = cv2.split(image)
+        channels = cv2.split(args[0])
         if self.channel1.value:
             channels[0] = cv2.bilateralFilter(channels[0],
                                               self.diameter.value*2+1,

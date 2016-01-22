@@ -38,16 +38,16 @@ class AlgBody(Algorithm):
         self.checkboxes.append(self.channel2)
         self.checkboxes.append(self.channel3)
 
-    def process(self, image):
+    def process(self, args):
         """
         Use the Median Blur algorithm from the opencv package to the current
         image.
 
         Args:
-            | *image* : image instance
+            | *args* : a list of arguments, e.g. image ndarray
 
         """
-        channels = cv2.split(image)
+        channels = cv2.split(args[0])
         if self.channel1.value:
             channels[0] = cv2.medianBlur(channels[0],
                                          self.kernelsize.value*2+1)

@@ -31,23 +31,24 @@ class AlgBody(Algorithm):
         self.name = "Guo Hall Thinning"
         self.parent = "Graph detection"
 
-    def process(self, image):
+    def process(self, args):
         """
         Guo Hall thinning.
         Use ```zhang_suen_node_detection()``` for node detection.
         Use ```breadth_first_edge_detection()``` for edge detection.
 
         Args:
-            | *image* : image instance
+            | *args* : a list of arguments, e.g. image ndarray
 
         """
-        gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # nefi1 uses cvtColor transformation, here it crashes
+        #gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # create a skeleton
-        skeleton = thinning.guo_hall_thinning(gray_img.copy())
+        skeleton = thinning.guo_hall_thinning(args[0].copy())
         # detect nodes
         graph = zhang_suen_node_detection(skeleton)
         # detect edges
-        graph = breadth_first_edge_detection(skeleton, gray_img, graph)
+        graph = breadth_first_edge_detection(skeleton, args[0], graph)
         skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
         self.result['graph'], self.result['img'] = graph, skeleton
 
@@ -142,10 +143,12 @@ def breadth_first_edge_detection(skel, segmented, graph):
         width, height = skel.shape
         for dy in [-1, 0, 1]:
             for dx in [-1, 0, 1]:
-                cond_x = 0 <= x + dx < width
-                cond_y = 0 <= y + dy < height
-                cond_item = item(x + dx, y + dy) != 0
-                if (dx != 0 or dy != 0) and cond_x and cond_y and cond_item:
+                # the line below is ugly and is intended to be this way
+                # do not try to modify it unless you know what you're doing 
+                if (dx != 0 or dy != 0) and \
+                    0 <= x + dx < width and \
+                    0 <= y + dy < height and \
+                    item(x + dx, y + dy) != 0:
                     yield x + dx, y + dy
 
     def distance_transform_diameter(edge_trace, segmented):

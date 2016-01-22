@@ -45,12 +45,9 @@ class AlgBody(Algorithm):
         """
         image_arr, graph = args
         try:
-            connected = sorted(list(nx.connected_component_subgraphs(graph)),
-                               key=lambda x: x.number_of_nodes(),
-                               reverse=True)
-            to_be_removed = connected[self.largest_components_to_keep:]
-            for subgraph in to_be_removed:
-                graph.remove_nodes_from(subgraph)
+            graph = max(nx.connected_component_subgraphs(graph), key=len)
+            # supposedly slower
+            #graph = list(nx.connected_components(graph))[0]
         except ValueError as e:
             print('ValueError exception:', e)
         self.result['graph'], self.result['img'] = graph, image_arr
