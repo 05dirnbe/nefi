@@ -71,19 +71,7 @@ class AlgBody(Algorithm):
 
             print 'Exception caught in', e.msg, e.exp
 
-        return graph
-
-    """Exception class todo"""
-
-    def NegativeNumberError(self, msg, exp):
-        """Attempted improper operation on negative number."""
-        ArithmeticError.__init__(self)
-        self.msg = msg
-        self.exp = exp
-
-    def __str__(self):
-
-        return repr(self.parameter)
+        self.result['graph'] = graph
 
 if __name__ == '__main__':
     pass

@@ -77,8 +77,7 @@ class AlgBody(Algorithm):
 
             print 'Exception caught in', e.msg, e.exp
 
-        return graph
-
+        self.result['graph'] = graph
 if __name__ == '__main__':
     pass
 

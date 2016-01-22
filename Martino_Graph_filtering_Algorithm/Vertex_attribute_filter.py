@@ -68,7 +68,7 @@ class AlgBody(Algorithm):
                   'Filtering failed because', e,
             print 'is not present in the graph as a vertex attribute.'
 
-        return graph
+        self.result['graph'] = graph
 
 if __name__ == '__main__':
     pass
