@@ -24,7 +24,7 @@ class Category:
         Public Attributes:
             | *name* (str): Category name
             | *available_algs* (dict): a dict of {Category: [alg, alg, ...]}
-            | *alg_names* (list): a list of algorithms for current category
+            | *alg_names* (list): a list of alg names for current category
             | *active_algorithm* (Algorithm): Currently selected algorithm
             
         """
@@ -92,7 +92,9 @@ class Category:
             *alg_name* (str): algorithm's name that was selected in the UI
             
         """
-        self.active_algorithm = alg_name
+        for alg in self.available_algs[self.name]:
+            if alg.name == alg_name:
+                self.active_algorithm = alg
 
     def get_active_algorithm(self):
         """
@@ -107,17 +109,17 @@ class Category:
     def scan_algorithms(self):
         pass
 
-    def process(self, image):
+    def process(self, args):
         """
         Run a specific algorithm on the image.
 
         Args:
-            *image* (str): a path to image file
+            *args* (ndarray|list): ndarray or a list of ndarray and Graph
             
         """
         al = [alg for alg in list(self.available_algs.values())[0]
               if self.active_algorithm.name == alg.name][0]
-        al.process(image)
+        al.process(args)
         # reset modified variable after processing
         al.unset_modified()
 

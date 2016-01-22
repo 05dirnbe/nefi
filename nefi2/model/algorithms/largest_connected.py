@@ -6,7 +6,6 @@ Implementation of an algorithm which filters a graph for connected components
 and keeps only the largest of them, e.g remove all connected components except
 the 4 largest.
 """
-import cv2
 import networkx as nx
 from _alg import *
 
@@ -27,14 +26,14 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Keep only largest connected component"
-        self.parent = "Graph Filtering"
+        self.parent = "Graph filtering"
 
-    def process(self, graph):
+    def process(self, args):
         """
         Keep only largest connected component from nefi1.
 
         Args:
-            | *graph* : an undirected networkx Graph
+            | *args* : a list containing image array and Graph object
 
         Raises:
             | *ValueError* : means filtering failed due to the number
@@ -44,6 +43,7 @@ class AlgBody(Algorithm):
             | *graph* : a filtered networkx Graph
 
         """
+        image_arr, graph = args
         try:
             connected = sorted(list(nx.connected_component_subgraphs(graph)),
                                key=lambda x: x.number_of_nodes(),
@@ -53,7 +53,7 @@ class AlgBody(Algorithm):
                 graph.remove_nodes_from(subgraph)
         except ValueError as e:
             print('ValueError exception:', e)
-        self.result['graph'] = graph
+        self.result['graph'], self.result['img'] = graph, image_arr
 
 
 if __name__ == '__main__':

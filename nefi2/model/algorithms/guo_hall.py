@@ -29,7 +29,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Guo Hall Thinning"
-        self.parent = "Graph Detection"
+        self.parent = "Graph detection"
 
     def process(self, image):
         """
@@ -43,7 +43,7 @@ class AlgBody(Algorithm):
         """
         gray_img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # create a skeleton
-        skeleton = thinning.guo_hall_thinning(gray_img)
+        skeleton = thinning.guo_hall_thinning(gray_img.copy())
         # detect nodes
         graph = zhang_suen_node_detection(skeleton)
         # detect edges
@@ -52,7 +52,7 @@ class AlgBody(Algorithm):
         self.result['graph'], self.result['img'] = graph, skeleton
 
 
-def zhang_suen_node_detection(self, skel):
+def zhang_suen_node_detection(skel):
     """
     (from nefi1)
     Node detection based on criteria put forward in "A fast parallel algorithm 

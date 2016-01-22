@@ -80,15 +80,20 @@ class Pipeline:
         del self.executed_cats[origin_pos]
         self.executed_cats.insert(destination_pos, origin)
 
-    def delete_category(self, position):
+    def delete_category(self, category):
         """
         Remove Category from the pipeline.
 
         Args:
-            *position* (int): Category index number
+            *category* (int|str): Category position index or Category name
 
         """
-        del self.executed_cats[position]
+        if type(category) == int:
+            del self.executed_cats[category]
+        elif type(category) == str:
+            for i, cat in enumerate(self.executed_cats):
+                if category == cat.name:
+                    del self.executed_cats[i]
 
     def process(self):
         """
@@ -109,12 +114,12 @@ class Pipeline:
             img_arr = cv2.imread(image_name)
             # execute the pipeline from the category with the modified alg
             for num, cat in enumerate(self.executed_cats[start_from[0]:]):
-                if cat.name == "Graph Filtering":
-                    # get image array
-                    img_arr = cat.active_algorithm.result['img']
-                    # get graph object
+                if cat.name == "Graph detection":
+                    # get results of graph detection
+                    cat.process(img_arr)
                     graph = cat.active_algorithm.result['graph']
-                    cat.process(img_arr, graph)
+                elif cat.name == "Graph filtering":
+                    cat.process([img_arr, graph])
                     # now get the results of graph filtering
                     img_arr = cat.active_algorithm.result['img']
                     graph = cat.active_algorithm.result['graph']
