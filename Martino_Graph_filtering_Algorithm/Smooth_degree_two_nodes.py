@@ -25,7 +25,7 @@ class AlgBody(Algorithm):
         self.name = "Smooth degree 2 nodes"
         self.parent = "Graph filtering"
 
-    def process(self, graph):
+    def process(self, input_data):
 
         """
         Implements a filter which smooths nodes of degree two.
@@ -36,14 +36,14 @@ class AlgBody(Algorithm):
         mean of the individual widths.
 
         Args:
-            | *graph* : graph instance
+            | *input* : A list which contains the image and the graph
         Returns:
             | *graph* : A filtered networkx graph
         """
         try:
 
-            degree_two_nodes = [v for v in graph.nodes_iter()
-                                if graph.degree(v) == 2]
+            degree_two_nodes = [v for v in input_data[1].nodes_iter()
+                                if input_data[1].degree(v) == 2]
 
             nodes_removed = []
 
@@ -52,16 +52,16 @@ class AlgBody(Algorithm):
                 old_edges_data = []
                 new_edge_data = {}
 
-                neighbors = graph.neighbors(n)
+                neighbors = input_data[1].neighbors(n)
                 n1 = neighbors[0]
                 n2 = neighbors[1]
 
-                for e in graph.edges(n):
-                    old_edges_data.append(graph.get_edge_data(*e))
+                for e in input_data[1].edges(n):
+                    old_edges_data.append(input_data[1].get_edge_data(*e))
 
                 for d in old_edges_data:
 
-                    for key, value in d.iteritems():
+                    for key, value in d.items():
 
                         if key in ['length', 'pixels']:
 
@@ -92,19 +92,20 @@ class AlgBody(Algorithm):
                     / (sample_size_1 + sample_size_2 - 2)
 
                 # prevent smoothing if it results in parallel edges
-                if not graph.has_edge(n1, n2) and n not in nodes_removed:
-                    graph.add_edge(n1, n2, new_edge_data)
-                    graph.remove_node(n)
+                if not input_data[1].has_edge(n1, n2) and n not in nodes_removed:
+                    input_data[1].add_edge(n1, n2, new_edge_data)
+                    input_data[1].remove_node(n)
                     nodes_removed.append(n)
 
-            print 'Smoothed a total of', len(
-                nodes_removed), 'degree 2 nodes ...',
+            print ('Smoothed a total of', len(
+                nodes_removed), 'degree 2 nodes ...')
 
         except:
 
-            print "Unexpected error:", sys.exc_info()[0]
+            print ("Unexpected error:", sys.exc_info()[0])
 
-        self.result['graph'] = graph
+        self.result['img'] = input_data[0]
+        self.result['graph'] = input_data[1]
 
 if __name__ == '__main__':
     pass
