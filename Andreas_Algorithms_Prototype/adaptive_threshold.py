@@ -34,7 +34,7 @@ class AlgBody(Algorithm):
         self.integer_sliders.append(self.blockSize)
         self.integer_sliders.append(self.C)
 
-    def process(self, image):
+    def process(self, args):
         """
         Use the Adaptive Threshold algorithm from the opencv package
         to the selected color channels of the current image
@@ -42,9 +42,9 @@ class AlgBody(Algorithm):
         Args:
             | *image* : image instance
         """
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        image = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
         # else CV_8UC1 in function adaptiveThreshold
-        self.result = cv2.adaptiveThreshold(image, self.maxvalue,
+        self.result['img'] = cv2.adaptiveThreshold(image, self.maxvalue,
                                             cv2.ADAPTIVE_THRESH_MEAN_C,
                                             cv2.THRESH_BINARY, self.blockSize,
                                             self.C)
