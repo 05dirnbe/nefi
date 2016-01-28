@@ -2,9 +2,6 @@ from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
-from algorithms import _alg
-from categories import _category
-
 
 class GroupOfSliders(QGroupBox):
     def __init__(self, algorithm):
@@ -15,21 +12,21 @@ class GroupOfSliders(QGroupBox):
 
         for slider in algorithm.integer_sliders:
             GroupOfSliderssLayout.addWidget(
-                    SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
-                                 False))
+                SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
+                             False))
 
         for slider in algorithm.float_sliders:
             GroupOfSliderssLayout.addWidget(
-                    SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
-                                 True))
+                SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default,
+                             True))
 
         for checkbox in algorithm.checkboxes:
             GroupOfSliderssLayout.addWidget(
-                    CheckBoxWidget(checkbox.name, checkbox.default))
+                CheckBoxWidget(checkbox.name, checkbox.default))
 
         for dropdown in algorithm.drop_downs:
             GroupOfSliderssLayout.addWidget(
-                    ComboBoxWidget(dropdown.name, dropdown.options))
+                ComboBoxWidget(dropdown.name, dropdown.options))
 
         self.setLayout(GroupOfSliderssLayout)
 
@@ -181,6 +178,11 @@ class Settings(QWidget):
     """
 
     def __init__(self, pipeline):
+        """
+
+        Args:
+            pipeline (object): 
+        """
         super(Settings, self).__init__()
 
         layout = QBoxLayout(QBoxLayout.TopToBottom)
@@ -189,12 +191,15 @@ class Settings(QWidget):
         self.stackedWidgetAlgorithmsSettings = QStackedWidget()
         self.orientationComboCategories = QComboBox()
         self.orientationComboAlgorithms = dict()
+        # print("here")
 
-        for category in pipeline.executed_cats:
+        """
 
+        for category in pipeline.available_cats:
+
+            print(category)
             self.orientationComboCategories.addItem(category.get_name())
             tmp1 = QComboBox()
-
 
             for algorithm in category.available_algs[category.get_name()]:
                 tmp1.addItem(algorithm.get_name())
@@ -208,8 +213,10 @@ class Settings(QWidget):
         layout.addWidget(self.stackedWidgetAlgorithmsSettings)
 
         self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSelect.setCurrentIndex)
-        #self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
-        #self.stackedWidgetAlgorithmsSelect.currentWidget().activated.connect(
+        # self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
+        # self.stackedWidgetAlgorithmsSelect.currentWidget().activated.connect(
         #        self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
 
         self.setLayout(layout)
+
+        """
