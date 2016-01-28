@@ -133,7 +133,7 @@ class Pipeline:
             self.process_image(image_name, start_from)
 
     def process_image(self, image_name, start_from):
-        img_origin = cv2.imread(image_name)
+        img_origin = cv2.imread(image_name, cv2.IMREAD_COLOR)
         img_arr = img_origin
         # execute the pipeline from the category with the modified alg
         for _, cat in enumerate(self.executed_cats[start_from[0]:]):

@@ -61,7 +61,7 @@ class AlgBody(Algorithm):
         watershed_marker = self.watershed(image=args["img"], marker=marker)
         seg = self.apply_mask_to_image(watershed_marker, image=args["img"])
 
-        self.result['img'] = seg
+        self.result['img'] = cv2.cvtColor(seg, cv2.COLOR_RGB2GRAY)
 
     def apply_mask_to_image(self, mask, image):
         """

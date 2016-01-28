@@ -68,8 +68,8 @@ class AlgBody(Algorithm):
                                               threshold_strategy=self.adaptive_threshold)
         watershed_marker = self.watershed(image=args["img"], marker=marker)
         seg2 = self.apply_mask_to_image(watershed_marker,image=args["img"])
-
-        self.result['img'] = cv2.bitwise_or(seg1, seg2)
+        seg = cv2.bitwise_or(seg1, seg2)
+        self.result['img'] = cv2.cvtColor(seg, cv2.COLOR_RGB2GRAY)
 
     def apply_mask_to_image(self, mask, image):
         """
