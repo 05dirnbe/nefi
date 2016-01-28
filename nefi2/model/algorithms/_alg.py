@@ -187,7 +187,6 @@ class Algorithm(QObject):
         raise FileNotFoundError("could not find ui element: " + name)
 
 
-
 class IntegerSlider:
     """
     A class defining a slider of type int to display in the algorithm detail

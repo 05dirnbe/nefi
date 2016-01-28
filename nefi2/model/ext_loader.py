@@ -15,7 +15,6 @@ import sys
 from collections import OrderedDict as od
 
 
-
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 

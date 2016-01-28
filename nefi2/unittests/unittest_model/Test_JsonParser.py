@@ -42,25 +42,27 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(was, should_be)
 
     def test_save_pipeline_easy(self):
+
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
 
-        prep = Category("pre-processing")
-        prep.active_algorithm = AlgSimple()
+        pipeline.new_category("cat1", 0)
+        pipeline.new_category("cat2", 1)
+        pipeline.new_category("cat3", 2)
+        pipeline.new_category("cat4", 3)
 
-        seg = Category("segmentation")
-        seg.active_algorithm = AlgSimple()
-
-        gdec = Category("graph-detection")
-        gdec.active_algorithm = AlgSimple()
-
-        gfil = Category("graph_filtering")
-        gfil.active_algorithm = AlgSimple
+        pipeline.change_category("Segmentation", 0)
+        pipeline.change_category("Segmentation", 1)
+        pipeline.change_category("Segmentation", 2)
+        pipeline.change_category("Segmentation", 3)
 
 
-        pipeline.executed_cats = [prep, seg, gdec, gfil]
+        pipeline.change_algorithm(0, "Adaptive Threshold")
+        pipeline.change_algorithm(1, "Adaptive Threshold")
+        pipeline.change_algorithm(2, "Adaptive Threshold")
+        pipeline.change_algorithm(3, "Adaptive Threshold")
 
-        was = pipeline.save_pipeline_json(os.path.abspath + "/test_assets")
+        was = pipeline.save_pipeline_json("test", os.path.abspath("../test_assets/"))
         print(was)
 
 

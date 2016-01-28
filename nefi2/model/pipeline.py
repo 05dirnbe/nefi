@@ -6,20 +6,19 @@ available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
 import cv2
+from _category import Category
+from collections import OrderedDict
 import demjson
 import networkx as nx
 import os
 import re
 import sys
+import copy
+
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-
-
-from _category import Category
-from collections import OrderedDict
-import demjson
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
@@ -157,7 +156,11 @@ class Pipeline:
                                                            image_name),
                                        delimiter = '|')
             print(image_name, 'successfully saved in', self.out_dir)
-        
+
+    def change_category(self, cat_name, position):
+        for v in list(self.available_cats.values()):
+            if v.name == cat_name:
+                self.executed_cats[position] = copy.deepcopy(v)
 
     def change_algorithm(self, position, alg_name):
         """
@@ -168,7 +171,7 @@ class Pipeline:
             | *alg_name*: algorithm name
             
         """
-        for v in self.executed_cats[position].available_algs.values()[0]:
+        for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.Body().get_name():
                 v.Body().set_modified()
 
@@ -276,12 +279,12 @@ class Pipeline:
         """
         alg_reports = []
 
-        for cat in self.get_executed_cats():
-            alg = cat.active_algorithm
+        for cat in self.executed_cats:
+            alg = cat.get_active_algorithm()
             name, alg_dic = alg.report_pip()
             alg_reports.append([name, alg_dic])
 
-        with open(url + name + ".txt", "wb+") as outfile:
+        with open(url + name + ".json", "wb+") as outfile:
             ord_alg_reps = OrderedDict(alg_reports)
             outfile.write(bytes(demjson.encode(ord_alg_reps), "UTF-8"))
     
