@@ -209,7 +209,7 @@ class Settings(QWidget):
 
         self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSelect.setCurrentIndex)
         #self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
-        self.stackedWidgetAlgorithmsSelect.currentWidget().activated.connect(
-                self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
+        #self.stackedWidgetAlgorithmsSelect.currentWidget().activated.connect(
+        #        self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
 
         self.setLayout(layout)

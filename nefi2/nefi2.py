@@ -25,7 +25,7 @@ def gui_mode():
 
     app = QApplication(sys.argv)
     #window = Window(pipeline)
-    window = WindowTemplate()
+    window = WindowTemplate(pipeline)
 
     window.show()
     sys.exit(app.exec_())
