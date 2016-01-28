@@ -5,9 +5,9 @@ mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
-#import cv2
+import cv2
 import demjson
-#import networkx as nx
+import networkx as nx
 import os
 import re
 import sys
