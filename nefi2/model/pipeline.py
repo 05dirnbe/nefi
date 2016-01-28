@@ -11,12 +11,15 @@ import networkx as nx
 import os
 import re
 import sys
+sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
+
 from _category import Category
 from collections import OrderedDict
+import demjson
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
@@ -247,7 +250,7 @@ class Pipeline:
         """
         try:
             json = demjson.decode_file(url, "UTF-8")
-        except JSONError:
+        except demjson.JSONDecodeError as e:
             e = sys.exc_info()[0]
             print("Unable to parse " + url + " trace: " + e)
 
