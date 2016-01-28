@@ -11,7 +11,7 @@ import argparse
 from PyQt5.QtWidgets import QApplication
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
-from gui.mainwindow import Window
+from view.mainwindow import Window
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
