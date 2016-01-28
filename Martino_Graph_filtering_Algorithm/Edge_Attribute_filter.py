@@ -41,8 +41,6 @@ class AlgBody(Algorithm):
                                               "Greater or equal",
                                               "Strictly greater"})
         self.drop_downs.append(self.operator)
-        self.attribute.set_value("width")
-        self.operator.set_value("Smaller or equal")
 
     def checkOperator(self):
         if self.operator.value == "Strictly smaller":
@@ -55,8 +53,6 @@ class AlgBody(Algorithm):
             return op.ge
         if self.operator.value == "Strictly greater":
             return op.gt
-
-
 
     def process(self, input_data):
 

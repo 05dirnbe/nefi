@@ -1,9 +1,11 @@
 import unittest
-from nefi2.model.algorithms._alg import *
-from collections import OrderedDict
+import sys, os
+from _alg import *
+from pipeline import Pipeline
+from _category import Category
+from ext_loader import ExtensionLoader
 import demjson
-from nefi2.model.pipeline import *
-from nefi2.model.categories._category import Category
+import collections
 
 __author__ = {'Dennis Groß': 'gdennis91@googlemail.com'}
 
@@ -30,7 +32,7 @@ class ParserTests(unittest.TestCase):
                 ["checkbox1", True], ["drop_down1", "drop_down1"],
                 ["drop_down2", "drop_down2"]]
 
-        should_dic = OrderedDict(list)
+        should_dic = collections.OrderedDict(list)
 
         w_name, w_dic = alg.report_pip()
 
@@ -40,8 +42,8 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(was, should_be)
 
     def test_save_pipeline_easy(self):
-
-        pipeline = Pipeline([])
+        extloader = ExtensionLoader()
+        pipeline = Pipeline(extloader.cats_container)
 
         prep = Category("pre-processing")
         prep.active_algorithm = AlgSimple()
