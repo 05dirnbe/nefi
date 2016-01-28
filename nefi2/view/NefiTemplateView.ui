@@ -78,8 +78,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>160</width>
-            <height>80</height>
+            <width>241</width>
+            <height>611</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="Settings_Placeholder_layout"/>
@@ -121,8 +121,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>160</width>
-            <height>80</height>
+            <width>241</width>
+            <height>291</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="Pipeline_Order_Placeholder_layout"/>
