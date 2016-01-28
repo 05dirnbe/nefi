@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QMainWindow
 from PyQt5.uic.properties import QtGui
 from settings import Settings
+from pipeline_order import PipelinOrder
 from templateQt5 import *
 
 
@@ -25,4 +26,7 @@ class WindowTemplate(QMainWindow):
         self.ui.setupUi(self)
 
         self.Settings = Settings(pipeline)
-        #self.ui.CategoryDetails.addWidget(self.Settings)
+        self.ui.Settings_Placeholder_layout.addWidget(self.Settings)
+
+        self.PipelinOrder = PipelinOrder()
+        self.ui.Pipeline_Order_Placeholder_layout.addWidget(self.PipelinOrder)
