@@ -1,9 +1,8 @@
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QMainWindow
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QMainWindow, QLabel
 from PyQt5.uic.properties import QtGui
 from settings import Settings
 from pipeline_order import *
 from templateQt5 import *
-
 
 
 class Window(QWidget):
@@ -26,8 +25,20 @@ class WindowTemplate(QMainWindow):
         self.MainWindow.setupUi(self)
 
         self.Settings = Settings(pipeline)
-        self.MainWindow.Settings_Placeholder_layout.addWidget(self.Settings)
+        self.MainWindow.Settings_layout.addWidget(self.Settings)
 
         self.PipelinOrder = Ui_Pipeline_order()
         self.PipelinOrder.setupUi(self)
-        #self.MainWindow.Pipeline_Order_Placeholder_layout.addWidget(self.PipelinOrder)
+        #self.PipelineOrder = PiplineOrder()
+        #self.MainWindow.Pipeline_Order_layout.addWidget(self.PipelineOrder)
+
+
+class PiplineOrder(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+
+        # Set up the user interface from Designer.
+        self.PipelinOrder = Ui_Pipeline_order()
+        self.PipelinOrder.setupUi(self)
+        self.label = QLabel()
+        self.label.setText("bla")
