@@ -25,14 +25,15 @@ class Test_Edge_attribute (unittest.TestCase):
         seg_alg = adaptive_body()
         gd_alg = guo_body()
         img = cv2.imread("p_polycephalum.jpg")
-        pp_alg.process(img)
-        seg_alg.process(img)
-        gd_alg.process(seg_alg.result['img'])
-        img_array = gd_alg.result['img']
-        graph =gd_alg.result['graph']
+        graph = ""
+        pp_alg.process([img,graph])
+        seg_alg.process([pp_alg.result['img'],pp_alg.result['graph']])
+        gd_alg.process([seg_alg.result['img'],seg_alg.result['graph']])
 
-        alg.process([img_array,graph])
+        alg.process([gd_alg.result['img'],gd_alg.result['graph']])
 
+        #Should be
+        should_graph = gd_alg.result['graph']
         to_be_removed = [(u, v) for u, v, data in
                              graph.edges_iter(data=True)
                 if op.lt(data["width"],10.0)]
@@ -40,6 +41,8 @@ class Test_Edge_attribute (unittest.TestCase):
 
         self.assertEqual(alg.result['graph'],graph)
         self.assertEqual(alg.result['img'],img_array)
+
+    def should_alg(self):
 
 
 
