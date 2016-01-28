@@ -58,26 +58,18 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        adapt_thresh = self.adaptive_threshold(image=args["image"],
+        adapt_thresh = self.adaptive_threshold(image=args["img"],
                                                block_size=(self.block_size.value*2+1),
                                                constant=self.constant.value)
-        seg1 = self.apply_mask_to_image(adapt_thresh,image=args["image"])
-        marker = self.erosion_dilation_marker(image=args["image"],
+        seg1 = self.apply_mask_to_image(adapt_thresh,image=args["img"])
+        marker = self.erosion_dilation_marker(image=args["img"],
                                               erosion_iterations=self.fg_iter.value,
                                               dilation_iterations=self.bg_iter.value,
                                               threshold_strategy=self.adaptive_threshold)
-        watershed_marker = self.watershed(image=args["image"], marker=marker)
-        seg2 = self.apply_mask_to_image(watershed_marker,image=args["image"])
+        watershed_marker = self.watershed(image=args["img"], marker=marker)
+        seg2 = self.apply_mask_to_image(watershed_marker,image=args["img"])
 
-        self.result['image'] = cv2.bitwise_or(seg1, seg2)
-
-
-    ''' def segment(image, marker_strategy, masking_strategy):
-        marker = marker_strategy(image=image)
-        mask = masking_strategy(image=image, marker=marker)
-        return apply_mask_to_image(mask, image)
-
-    get_strategy = partial'''
+        self.result['img'] = cv2.bitwise_or(seg1, seg2)
 
     def apply_mask_to_image(self, mask, image):
         """
@@ -93,29 +85,6 @@ class AlgBody(Algorithm):
         res[mask == THRESHOLD_FG_COLOR] = [THRESHOLD_FG_COLOR]*3
 
         return res
-
-    #threshold strategies
-    # these functions have an **_ argument that is unused so that they can
-    # accomodate a marker keyword argument should they be used to as a masking strategy
-
-    '''def otsus_threshold(image, threshold_value=0, threshold_type=cv.THRESH_BINARY_INV, **_):
-        threshold_type += cv.THRESH_OTSU
-        return constant_threshold(image, threshold_value, threshold_type)
-
-    def constant_threshold(image, threshold_value=0, threshold_type=cv.THRESH_BINARY_INV, **_):
-        """
-        Computes a threshold image of the source image using a constant threshold value.
-
-        Args:
-            Image: An input image which will not be changed
-
-        Returns:
-            A threshold image
-        """
-        grayscale_image = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
-        threshold_image = cv.threshold(grayscale_image, threshold_value, THRESHOLD_FG_COLOR, threshold_type)[1]
-
-        return threshold_image'''
 
     def adaptive_threshold(self,
         image,
@@ -161,7 +130,6 @@ class AlgBody(Algorithm):
         marker = cv2.add(foreground_image, background_image)
 
         return marker
-
 
     def watershed(self,image, marker):
         """
