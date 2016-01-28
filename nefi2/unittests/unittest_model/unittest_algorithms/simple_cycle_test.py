@@ -2,16 +2,17 @@
 """
 Tests for the simple cycle algorithm
 """
-from nefi2.model.algorithms.simple_cycle import *
-from nefi2.model.algorithms.guo_hall import AlgBody as guo_body
-from nefi2.model.algorithms.blur import AlgBody as blur_body
-from nefi2.model.algorithms.adaptive import AlgBody as adaptive_body
+from simple_cycle import *
+from guo_hall import AlgBody as guo_body
+from blur import AlgBody as blur_body
+from adaptive import AlgBody as adaptive_body
+import networkx as nx
 import cv2
 import unittest
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
-class GuoHallTest(unittest.TestCase):
+class Symple_cycle_test(unittest.TestCase):
 
     def test_instantiation(self):
         """
@@ -40,6 +41,18 @@ class GuoHallTest(unittest.TestCase):
         graph = self.should_alg(gd_alg.result['graph'])
 
         self.assertEqual(alg.result['graph'],graph)
+
+    def should_alg(self,arg):
+
+        nodes_not_in_a_cycle = set(arg.nodes())
+        # filter all nodes which are not in a biconnected component
+        for component in nx.biconnected_components(arg):
+            if len(component) > 2:
+                nodes_not_in_a_cycle -= component
+        # remove all nodes which are not in a biconnected component from
+        # the graph
+        arg.remove_nodes_from(nodes_not_in_a_cycle)
+        return arg
 
 
 if __name__ == '__main__':
