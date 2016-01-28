@@ -183,17 +183,24 @@ class Settings(QWidget):
     def __init__(self, pipeline):
         super(Settings, self).__init__()
 
+        layout = QBoxLayout(QBoxLayout.TopToBottom)
+
         self.stackedWidgetAlgorithms = QStackedWidget()
         self.orientationComboCategories = QComboBox()
+        self.orientationComboAlgorithms = dict()
 
         for category in pipeline.executed_cats:
 
             self.orientationComboCategories.addItem(category.get_name())
+            tmp = QComboBox()
 
             for algorithm in category.available_algs[category.get_name()]:
-                pass
 
-        layout = QBoxLayout(QBoxLayout.TopToBottom)
+                tmp.addItem(algorithm.get_name())
+                self.orientationComboAlgorithms[category.get_name()] = tmp
+
+            self.stackedWidgetAlgorithms.addWidget(tmp)
+
         layout.addWidget(self.orientationComboCategories)
         layout.addWidget(self.stackedWidgetAlgorithms)
 
