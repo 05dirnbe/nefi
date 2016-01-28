@@ -195,6 +195,7 @@ class Settings(QWidget):
             self.orientationComboCategories.addItem(category.get_name())
             tmp1 = QComboBox()
 
+
             for algorithm in category.available_algs[category.get_name()]:
                 tmp1.addItem(algorithm.get_name())
                 self.orientationComboAlgorithms[category.get_name()] = tmp1
@@ -207,6 +208,7 @@ class Settings(QWidget):
         layout.addWidget(self.stackedWidgetAlgorithmsSettings)
 
         self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSelect.setCurrentIndex)
+        #self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
         self.stackedWidgetAlgorithmsSelect.currentWidget().activated.connect(
                 self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
 
