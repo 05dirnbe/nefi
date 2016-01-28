@@ -2,10 +2,8 @@ from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
-from model.algorithms import algorithm_1
-from model.algorithms import algorithm_2
-from model.categories import category_1
-from model.categories import category_2
+from model.algorithms import _alg
+from model.categories import _category
 
 
 class GroupOfSliders(QGroupBox):
@@ -177,57 +175,45 @@ class SliderWidget(QGroupBox):
         self.setLayout(self.SingleSlidersLayout)
 
 
-class Window(QWidget):
+class Settings(QWidget):
     """
-    This part might be removed or included for main window application
+    Creates a widget with all the sliders and checkboxes for all available algorithms.
     """
 
-    def __init__(self, algorithms):
-        super(Window, self).__init__()
+    def __init__(self, pipeline):
+        super(Settings, self).__init__()
 
         self.stackedWidget = QStackedWidget()
         self.orientationCombo = QComboBox()
+        self.testslider = QSlider(Qt.Horizontal)
+        self.stackedWidget.addWidget(self.testslider)
 
-        for category in categories:
-            pass
+        count = 0
+
+        for category in pipeline.executed_cats:
+            print(category.get_name())
+            count += 1
+
+            for algorithm in category.available_algs[category.get_name()]:
+
+                print(algorithm.get_name())
+
+                self.orientationCombo.addItem(algorithm.get_name())
+                self.stackedWidget.addWidget(GroupOfSliders(algorithm))
+
+                layout = QBoxLayout(QBoxLayout.TopToBottom)
+
+                settings_layout = QBoxLayout(QBoxLayout.TopToBottom)
+                settings_layout.addWidget(self.stackedWidget)
+
+                select_layout = QBoxLayout(QBoxLayout.TopToBottom)
+                select_layout.addWidget(self.orientationCombo)
+
+                layout.addItem(settings_layout)
+                layout.addItem(select_layout)
+
+                self.setLayout(layout)
+                self.setWindowTitle(algorithm.get_name() + " Settings")
 
 
 
-        for algorithm in algorithms:
-            self.orientationCombo.addItem(algorithm.get_name())
-            self.stackedWidget.addWidget(GroupOfSliders(algorithm))
-
-            layout = QBoxLayout(QBoxLayout.TopToBottom)
-
-            settings_layout = QBoxLayout(QBoxLayout.TopToBottom)
-            settings_layout.addWidget(self.stackedWidget)
-
-            select_layout = QBoxLayout(QBoxLayout.TopToBottom)
-            select_layout.addWidget(self.orientationCombo)
-
-            layout.addItem(settings_layout)
-            layout.addItem(select_layout)
-
-            self.setLayout(layout)
-            self.setWindowTitle(algorithm.get_name() + " Settings")
-
-
-if __name__ == '__main__':
-    import sys
-
-    algorithms = []
-    MyAlgorithm_1 = algorithm_1.Algorithm()
-    MyAlgorithm_2 = algorithm_2.Algorithm()
-    algorithms.append(MyAlgorithm_1)
-    algorithms.append(MyAlgorithm_2)
-
-    categories = []
-    MyCategory_1 = category_1.Category()
-    MyCategory_2 = category_2.Category()
-    categories.append(MyCategory_2)
-    categories.append(MyCategory_1)
-
-    app = QApplication(sys.argv)
-    window = Window(algorithms)
-    window.show()
-    sys.exit(app.exec_())

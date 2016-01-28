@@ -8,12 +8,12 @@ It also enables console batch processing mode.
 import sys
 import argparse
 
+from PyQt5.QtWidgets import QApplication
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
-
+from gui.mainwindow import Window
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
-
 
 
 def gui_mode():
@@ -22,6 +22,11 @@ def gui_mode():
     """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
+
+    app = QApplication(sys.argv)
+    window = Window(pipeline)
+    window.show()
+    sys.exit(app.exec_())
 
 
 def batch_mode(args):
@@ -53,8 +58,8 @@ def batch_mode(args):
     for cat in pipeline.executed_cats:
         if cat.name == 'Preprocessing':
             cat.set_active_algorithm('Invert Color')
-    #pipeline.delete_category('Graph detection')
-    #pipeline.delete_category('Graph filtering')
+    # pipeline.delete_category('Graph detection')
+    # pipeline.delete_category('Graph filtering')
     print('CURRENT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
     pipeline.process()
     print("########## FINISHED ##########")

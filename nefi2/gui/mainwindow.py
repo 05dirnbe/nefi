@@ -1,18 +1,17 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QStackedWidget, QApplication, QComboBox
+from PyQt5.QtWidgets import QWidget, QStackedWidget, QApplication, QComboBox, QHBoxLayout
+
+from gui.settings import Settings
 
 
 class Window(QWidget):
-
-
-    def __init__(self):
+    def __init__(self, pipeline):
         super(Window, self).__init__()
 
-        self.stackedWidget = QStackedWidget()
-        self.orientationCombo = QComboBox()
+        self.Settings = Settings(pipeline)
 
+        layout = QHBoxLayout()
+        layout.addWidget(self.Settings)
+        self.setLayout(layout)
 
-app = QApplication(sys.argv)
-window = Window()
-window.show()
-sys.exit(app.exec_())
+        self.setWindowTitle("NEFI 2.0")
