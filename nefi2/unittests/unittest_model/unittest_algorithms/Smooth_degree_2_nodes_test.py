@@ -2,10 +2,10 @@
 import unittest
 import networkx as nx
 import cv2
-from Martino_Graph_filtering_Algorithm.Smooth_degree_two_nodes import AlgBody as Smooth_body
-from nefi2.model.algorithms.guo_hall import AlgBody as guo_body
-from nefi2.model.algorithms.blur import AlgBody as blur_body
-from nefi2.model.algorithms.adaptive import AlgBody as adaptive_body
+from Smooth_degree_two_nodes import AlgBody as Smooth_body
+from guo_hall import AlgBody as guo_body
+from blur import AlgBody as blur_body
+from adaptive import AlgBody as adaptive_body
 import operator as op
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}

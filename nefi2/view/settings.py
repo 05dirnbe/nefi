@@ -183,19 +183,31 @@ class Settings(QWidget):
     def __init__(self, pipeline):
         super(Settings, self).__init__()
 
-        self.stackedWidgetAlgorithms = QStackedWidget()
+        layout = QBoxLayout(QBoxLayout.TopToBottom)
+
+        self.stackedWidgetAlgorithmsSelect = QStackedWidget()
+        self.stackedWidgetAlgorithmsSettings = QStackedWidget()
         self.orientationComboCategories = QComboBox()
+        self.orientationComboAlgorithms = dict()
 
         for category in pipeline.executed_cats:
 
             self.orientationComboCategories.addItem(category.get_name())
+            tmp1 = QComboBox()
 
             for algorithm in category.available_algs[category.get_name()]:
-                pass
+                tmp1.addItem(algorithm.get_name())
+                self.orientationComboAlgorithms[category.get_name()] = tmp1
+                self.stackedWidgetAlgorithmsSettings.addWidget(GroupOfSliders(algorithm))
 
-        layout = QBoxLayout(QBoxLayout.TopToBottom)
+            self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+
         layout.addWidget(self.orientationComboCategories)
-        layout.addWidget(self.stackedWidgetAlgorithms)
+        layout.addWidget(self.stackedWidgetAlgorithmsSelect)
+        layout.addWidget(self.stackedWidgetAlgorithmsSettings)
+
+        self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSelect.setCurrentIndex)
+        self.stackedWidgetAlgorithmsSelect.currentWidget().activated.connect(
+                self.stackedWidgetAlgorithmsSettings.setCurrentIndex)
 
         self.setLayout(layout)
-
