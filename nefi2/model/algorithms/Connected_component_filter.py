@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import networkx as nx
 import operator as op
-from Martino_Graph_filtering_Algorithm.ExceptionCollection import \
-    NegativeNumberError
-from nefi2.model.algorithms._alg import *
+from _alg import *
 """
 This class represents the algorithm Connected component filter
 """
@@ -102,6 +100,19 @@ class AlgBody(Algorithm):
 
         self.result['img'] = input_data[0]
         self.result['graph'] = input_data[1]
+
+class NegativeNumberError(ArithmeticError):
+
+    """Attempted improper operation on negative number."""
+
+    def __init__(self, msg, exp):
+        ArithmeticError.__init__(self)
+        self.msg = msg
+        self.exp = exp
+
+    def __str__(self):
+
+        return repr(self.parameter)
 
 if __name__ == '__main__':
     pass

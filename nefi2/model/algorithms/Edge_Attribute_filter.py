@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import networkx as nx
 import operator as op
-from nefi2.model.algorithms._alg import *
+from _alg import *
 
 """
 This class represents the algorithm Edge attribute filter

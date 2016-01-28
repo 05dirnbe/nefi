@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import networkx as nx
-from nefi2.model.algorithms._alg import *
+from _alg import *
 """
 This class represents the algorithm Smooth degree two nodes
 """
