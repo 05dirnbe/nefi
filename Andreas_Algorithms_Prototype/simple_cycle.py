@@ -31,7 +31,7 @@ class AlgBody(Algorithm):
         self.name = "Simple cycle filter"
         self.parent = "Graph filtering"
 
-    def process(self, image, graph):
+    def process(self, args):
         """
         By using a generator of sets of nodes, one set for each biconnected
         component of the graph(biconnected_components) we remove all vertices
@@ -39,9 +39,10 @@ class AlgBody(Algorithm):
         a graph including only biconnected components.
 
         Args:
-            | *graph* : networkx graph instance
+            | *args* : a list containing image array and Graph object
 
         """
+        image, graph = args
         # create a set of all nodes
         nodes_not_in_a_cycle = set(graph.nodes())
         # filter all nodes which are not in a biconnected component
@@ -51,34 +52,39 @@ class AlgBody(Algorithm):
         # remove all nodes which are not in a biconnected component from
         # the graph
         graph.remove_nodes_from(nodes_not_in_a_cycle)
+        self.result['graph'] = graph
         # draw edges into current image
         tmp = self.draw_edges(image, graph)
         # draw nodes into current image
         drawn = self.draw_nodes(tmp, graph)
 
-        self.result = drawn
+        self.result['img'] = drawn
 
     @staticmethod
-    def draw_nodes(image, graph):
+    def draw_nodes(args):
         """
         Draw nodes as rectangle into current image instance
+
         Args:
-            image: current image instance
-            graph: current networkx graph instance
+            | *args* : a list containing image array and Graph object
         """
+        image, graph = args
         radius = 3
         for x, y in graph.nodes():
             cv.rectangle(image, (y-radius, x-radius),
                          (y+radius, x+radius), (255, 0, 0), -1)
 
+        return image
+
     @staticmethod
-    def draw_edges(image, graph):
+    def draw_edges(args):
         """
         Draw edges into current image instance
+
         Args:
-            image: current image instance
-            graph: current networkx graph instance
+            | *args* : a list containing image array and Graph object
         """
+        image, graph = args
         draw = np.copy(image)
         color=(0, 0, 255)
         for (x1, y1), (x2, y2) in graph.edges():
@@ -92,6 +98,7 @@ class AlgBody(Algorithm):
             cv.line(draw, start, end, color, diam)
         draw = cv.addWeighted(image, 0.5, draw, 0.5, 0)
 
+        return image
 
 if __name__ == '__main__':
     pass

@@ -36,18 +36,19 @@ class AlgBody(Algorithm):
         self.integer_sliders.append(self.maxvalue)
 
 
-    def process(self, image):
+    def process(self, args):
         """
         Use the Threshold algorithm from the opencv package
         to the selected color channels of the current image
 
         Args:
-            image:
-            | *image* : image instance
+            | *args* : a list containing image array and Graph object
+
         """
+        image = args[0]
         retval, tres = cv2.threshold(image, self.threshold,
                                      self.maxvalue, cv2.THRESH_BINARY)
-        self.result = tres
+        self.result['img'] = tres
 
 
 if __name__ == '__main__':
