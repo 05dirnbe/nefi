@@ -98,3 +98,4 @@ class Test_Edge_attribute (unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
