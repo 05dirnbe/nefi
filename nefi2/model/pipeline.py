@@ -11,9 +11,11 @@ import demjson
 import os
 import re
 import sys
+sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
+
 
 from _category import Category
 from collections import OrderedDict

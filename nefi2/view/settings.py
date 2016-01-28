@@ -2,8 +2,8 @@ from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
-from model.algorithms import _alg
-from model.categories import _category
+from algorithms import _alg
+from categories import _category
 
 
 class GroupOfSliders(QGroupBox):

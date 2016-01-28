@@ -1,7 +1,6 @@
-import sys
-from PyQt5.QtWidgets import QWidget, QStackedWidget, QApplication, QComboBox, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QHBoxLayout
+from settings import Settings
 
-from gui.settings import Settings
 
 
 class Window(QWidget):
