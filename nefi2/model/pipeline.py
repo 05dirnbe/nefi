@@ -12,6 +12,7 @@ import os
 import re
 import sys
 import copy
+from algorithms import _utility
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -130,18 +131,22 @@ class Pipeline:
             self.process_image(image_name, start_from)
 
     def process_image(self, image_name, start_from):
-        img_arr = cv2.imread(image_name)
+        img_origin = cv2.imread(image_name)
+        img_arr = img_origin
         # execute the pipeline from the category with the modified alg
         for _, cat in enumerate(self.executed_cats[start_from[0]:]):
             if cat.name == "Graph detection":
                 # get results of graph detection
                 cat.process(img_arr)
                 graph = cat.active_algorithm.result['graph']
+                # draw the graph into the original image
+                img_arr = _utility.draw_graph(img_origin, graph)
             elif cat.name == "Graph filtering":
                 cat.process(img_arr, graph)  # image array always first!
                 # now get the results of graph filtering
-                img_arr = cat.active_algorithm.result['img']
                 graph = cat.active_algorithm.result['graph']
+                # draw the graph into the original image
+                img_arr = _utility.draw_graph(img_origin, graph)
             else:
                 cat.process(img_arr)
                 img_arr = cat.active_algorithm.result['img']
