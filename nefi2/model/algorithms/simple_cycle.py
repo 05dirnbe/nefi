@@ -98,7 +98,7 @@ class AlgBody(Algorithm):
             cv.line(draw, start, end, color, diam)
         draw = cv.addWeighted(image, 0.5, draw, 0.5, 0)
 
-        return image
+        return draw
 
 if __name__ == '__main__':
     pass

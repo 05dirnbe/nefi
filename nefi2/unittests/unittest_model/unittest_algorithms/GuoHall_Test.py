@@ -20,10 +20,9 @@ class GuoHallTest(unittest.TestCase):
 
     def test_use(self):
         alg = AlgBody()
-        test_image =cv2.imread("nefi2.unittests.test_images.guohall_input.jpg")
+        test_image =cv2.imread("guohall_input.jpg")
         output = alg.process(test_image)
-        self.assertEqual(output
-                         ,"nefi2.unittests.test_images.guohall_output.jpg")
+        self.assertEqual(output,"guohall_output.jpg")
 
 if __name__ == '__main__':
     unittest.main()
