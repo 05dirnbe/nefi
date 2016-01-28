@@ -183,37 +183,19 @@ class Settings(QWidget):
     def __init__(self, pipeline):
         super(Settings, self).__init__()
 
-        self.stackedWidget = QStackedWidget()
-        self.orientationCombo = QComboBox()
-        self.testslider = QSlider(Qt.Horizontal)
-        self.stackedWidget.addWidget(self.testslider)
-
-        count = 0
+        self.stackedWidgetAlgorithms = QStackedWidget()
+        self.orientationComboCategories = QComboBox()
 
         for category in pipeline.executed_cats:
-            print(category.get_name())
-            count += 1
+
+            self.orientationComboCategories.addItem(category.get_name())
 
             for algorithm in category.available_algs[category.get_name()]:
+                pass
 
-                print(algorithm.get_name())
+        layout = QBoxLayout(QBoxLayout.TopToBottom)
+        layout.addWidget(self.orientationComboCategories)
+        layout.addWidget(self.stackedWidgetAlgorithms)
 
-                self.orientationCombo.addItem(algorithm.get_name())
-                self.stackedWidget.addWidget(GroupOfSliders(algorithm))
-
-                layout = QBoxLayout(QBoxLayout.TopToBottom)
-
-                settings_layout = QBoxLayout(QBoxLayout.TopToBottom)
-                settings_layout.addWidget(self.stackedWidget)
-
-                select_layout = QBoxLayout(QBoxLayout.TopToBottom)
-                select_layout.addWidget(self.orientationCombo)
-
-                layout.addItem(settings_layout)
-                layout.addItem(select_layout)
-
-                self.setLayout(layout)
-                self.setWindowTitle(algorithm.get_name() + " Settings")
-
-
+        self.setLayout(layout)
 
