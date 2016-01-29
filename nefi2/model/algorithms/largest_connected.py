@@ -10,7 +10,9 @@ import networkx as nx
 from _alg import *
 
 
-__author__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+__author__ = {
+    "Andreas Firczynski": "andreasfir91@googlemail.com",
+    "Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class AlgBody(Algorithm):
