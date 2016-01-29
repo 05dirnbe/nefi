@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the class ExtensionLoader that works with "model"
+This module contains ExtensionLoader class that works with "model"
 folder and is used to initialize the pipeline with all available image
 processing categories and their respective algorithms. It uses config.json
 settings to initialize image processing categories accordingly.
@@ -11,9 +11,7 @@ import re
 import os
 import xml.etree.ElementTree as et
 import sys
-
 from collections import OrderedDict as od
-
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
@@ -24,7 +22,7 @@ class ExtensionLoader:
     def __init__(self):
         """
         public Attributes:
-            | *cats_container*: a dict with Step names and Step instances
+            | *cats_container*: a dict with Category names and instances
 
         private Attributes:
             | *_category_dir*: a directory path for categories
@@ -34,7 +32,7 @@ class ExtensionLoader:
 
         Returns:
             instance of the ExtensionLoader object
-            
+
         """
         for path in sys.path:
             if path.endswith('categories'):
@@ -44,7 +42,7 @@ class ExtensionLoader:
         _found_cats = self._scan_model(_category_dir)
         _order = self._read_configs(_config_path)
         self.cats_container = self._instantiate_cats(_order, _found_cats)
-        
+
 
     @staticmethod
     def _scan_model(cat_dir):
@@ -63,7 +61,7 @@ class ExtensionLoader:
 
         Returns:
             | *found_cats* (list): a list of categories that were found
-            
+
         """
         category_files = os.listdir(cat_dir)
         ignored = re.compile(r'.*.pyc|__init__|_category.py|_alg.py')
@@ -85,7 +83,7 @@ class ExtensionLoader:
 
         Returns:
             | *order*: a list of categories order
-            
+
         """
         tree = et.parse(config_path)  # categories order
         root = tree.getroot()
@@ -102,7 +100,7 @@ class ExtensionLoader:
         algorithms and predefined settings.
         Sort the imported categories according to provided order list and
         return a list of imported category modules.
-        <When the Step object is instantiated it automatically imports and
+        <When the Category object is instantiated it automatically imports and
         creates a list of algorithms that belong to it>
 
         Args:
@@ -111,22 +109,22 @@ class ExtensionLoader:
 
         Vars:
             | *cats_inst*: a list of found and instantiated methods
-            | *categories*: a dictionary of algs where {Algorithm: Step}
+            | *categories*: a dictionary of algs where {Algorithm: Category}
 
         Returns:
             | *categories*: a list with Method instances
-            
+
         """
         cats_inst = []
         for category in found_cats:
             imported = __import__(category.split('.')[0],
                                   fromlist=['CatBody'])  # import a category
             inst = imported.CatBody()
-            # create a dict of instantiated Step objects
+            # create a dict of instantiated Category objects
             cats_inst.append(inst)
         # sort methods according to ordering
         cats_inst.sort(key=lambda x: ordering.index(x.get_name()))
-        # create an ordered dict of {Step name: Step instance}
+        # create an ordered dict of {Category name: Category instance}
         cats = od()
         for category in cats_inst:
             cats[category.get_name()] = category
