@@ -11,7 +11,7 @@ increase the number of connected components of the graph.
 import networkx as nx
 import cv2 as cv
 import numpy as np
-from nefi2.model.algorithms._alg import Algorithm
+from _alg import *
 
 __author__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
@@ -102,4 +102,3 @@ class AlgBody(Algorithm):
 
 if __name__ == '__main__':
     pass
-
