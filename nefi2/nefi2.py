@@ -88,12 +88,6 @@ if __name__ == '__main__':
     extract networks from images. Given a suitable 2D image of a network as
     input, NEFI2 outputs a mathematical representation of the structure of the
     depicted network as a weighted undirected planar graph.""")
-<<<<<<< HEAD
-    prs.add_argument('-p', '--pipeline',
-                     help='specify an pipeline.json to process.',
-                     required=False)
-=======
->>>>>>> 904203bfcc74932e0bdf3ae2693efe660522894e
     prs.add_argument('-d', '--dir',
                      help='Specify a directory with images '
                           'for batch processing.',

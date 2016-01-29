@@ -126,7 +126,7 @@ class Pipeline:
                 start_from = idx, cat.name
                 break
         # process all images in the input dir
-        graph = None
+
         if len(self.input_dir_files) != 0:
             for image_name in self.input_dir_files:
                 self.process_image(image_name, start_from)
@@ -172,7 +172,6 @@ class Pipeline:
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
-            print(os.path.join(self.out_dir, image_name))
             nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
                                                                 image_name),
                                        delimiter='|')
