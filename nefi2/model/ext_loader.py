@@ -64,8 +64,8 @@ class ExtensionLoader:
 
         """
         category_files = os.listdir(cat_dir)
-        ignored = re.compile(r'.*.pyc|__init__|_category.py|_alg.py')
-        found_cats = list(filter(lambda x: not ignored.match(x),
+        ign = re.compile(r'.*.pyc|__init__|_category.py|_alg.py|_utility.py)')
+        found_cats = list(filter(lambda x: not ign.match(x),
                                  category_files))
         if not found_cats:
             raise FileNotFoundError("No image processing categories "
