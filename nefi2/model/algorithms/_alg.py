@@ -129,7 +129,7 @@ class Algorithm(QObject):
               filesystem for the pipeline.json.
         
         """
-        list = [["type", self.parent]]
+        list = [["type", self.parent],["store_image", self.store_image]]
 
         for int_slider in self.integer_sliders:
             list.append([int_slider.name, int_slider.value])
@@ -185,7 +185,6 @@ class Algorithm(QObject):
                 return dropdown
 
         raise FileNotFoundError("could not find ui element: " + name)
-
 
 
 class IntegerSlider:

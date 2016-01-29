@@ -32,6 +32,7 @@ class Category:
             if path.endswith('algorithms'):
                 _alg_dir = path
         self.name = name
+        self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
         # since no settings are implemented, use [0] choice for alg
@@ -96,6 +97,7 @@ class Category:
             if alg.name == alg_name:
                 self.active_algorithm = alg
 
+    #redundand? todo:
     def get_active_algorithm(self):
         """
         Return the name of the currently set algorithm.

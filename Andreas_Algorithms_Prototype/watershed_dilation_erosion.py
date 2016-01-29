@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import cv2
-import numpy as np
-from nefi2.model.algorithms._alg import *
 
 """
 This class represents the algorithm Watershed from the opencv package
 """
+import cv2
+import numpy as np
+from nefi2.model.algorithms._alg import *
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
@@ -32,27 +32,36 @@ class AlgBody(Algorithm):
         self.integer_sliders.append(self.fgiter)
         self.integer_sliders.append(self.bgiter)
 
-    def process(self, image):
+    def process(self, args):
         """
         Use the Watershed algorithm from the opencv package
-        to the selected color channels of the current image
+        to the selected color channels of the current image.
 
         Args:
-            | *image* : image instance
+            | *args* : a list containing image array and Graph object
         """
+        # convert image to grayscale and threshold it with the best threshold
+        # value usinf otsu binarization
+        image = args[0]
         im_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         ret, thresh = cv2.threshold(im_gray, 0, 255,
                                     cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        # erode will be used to create the foreground region (marked with 255)
         fg = cv2.erode(thresh, None, iterations=self.fgiter)
+        # dilate will be used to reduce the background region. Black region
+        # will be set to 128 and is marked as background
         bgt = cv2.dilate(thresh, None, iterations=self.bgiter)
         ret, bg = cv2.threshold(bgt, 1, 128, 1)
+        # create marker with foreground and background region
         marker = cv2.add(fg, bg)
         marker32 = np.int32(marker)
+        # use watershed and convert result back
         cv2.watershed(image, marker32)
         m = cv2.convertScaleAbs(marker32)
+        # threshold to get the mask
         ret, thresh = cv2.threshold(m, 0, 255,
                                     cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        self.result = cv2.bitwise_and(image, image, mask=thresh)
+        self.result['img'] = cv2.bitwise_and(image, image, mask=thresh)
 
 
 if __name__ == '__main__':

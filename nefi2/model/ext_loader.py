@@ -49,7 +49,7 @@ class ExtensionLoader:
         """
         Check for any available category files in cat_dir.
         Return found file names.
-        Raise an error is no file was found.
+        Raise an error if no file was found.
 
         Args:
             | *cat_dir* (str): category dir provided by the ext_loader

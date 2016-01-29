@@ -35,7 +35,7 @@ class AlgBody(Algorithm):
         self.threshold2 = FloatSlider("threshold2", 1.0, 100.0, 1.0, 1.0)
         self.integer_sliders.append(self.threshold2)
 
-    def auto_canny(self, image):
+    def auto_canny(self, args):
         """
         Use Canny edge algorithm without providing threshold values.
         It takes the median of the image, and then constructs upper and
@@ -47,10 +47,10 @@ class AlgBody(Algorithm):
 
         """
         sigma = 0.33
-        v = np.median(image)
+        v = np.median(args[0])
         lower = int(max(0, (1.0 - sigma) * v))
         upper = int(min(255, (1.0 + sigma) * v))
-        image = cv2.Canny(image, lower, upper)
+        args[0] = cv2.Canny(args[0], lower, upper)
 
     def node_detection(self, skeleton):
         """
@@ -87,7 +87,7 @@ class AlgBody(Algorithm):
 
         return graph
 
-    def process(self, image):
+    def process(self, args):
         """
         Use the Canny algorithm from the opencv package to the current image.
         The function finds edges in the input image image and marks them in
@@ -99,6 +99,6 @@ class AlgBody(Algorithm):
             | *image* : image instance
 
         """
-        skeleton = cv2.Canny(image, self.threshold1.value,
+        skeleton = cv2.Canny(args[0], self.threshold1.value,
                              self.threshold2.value)
         graph = self.node_detection(skeleton)
