@@ -2,7 +2,7 @@
 import unittest
 import networkx as nx
 import cv2
-from Connected_component_filter import AlgBody as Connected_Body
+from connected_component_filter import AlgBody as Connected_Body
 from guo_hall import AlgBody as guo_body
 from invert_color import AlgBody as invert_body
 from adaptive import AlgBody as adaptive_body
@@ -44,12 +44,12 @@ class Test_Edge_attribute (unittest.TestCase):
         alg.operator.set_value("Strictly greater")
         self.assertEqual(alg.operator.value, "Strictly greater")
 
-        alg.component_size.set_value(0.0)
-        self.assertEqual(alg.component_size.value,0.0)
-        alg.component_size.set_value(5.0)
-        self.assertEqual(alg.component_size.value,5.0)
-        alg.component_size.set_value(20.0)
-        self.assertEqual(alg.component_size.value,20.0)
+        alg.compnt_size.set_value(0.0)
+        self.assertEqual(alg.compnt_size.value,0.0)
+        alg.compnt_size.set_value(5.0)
+        self.assertEqual(alg.compnt_size.value,5.0)
+        alg.compnt_size.set_value(20.0)
+        self.assertEqual(alg.compnt_size.value,20.0)
 
     def test_process(self):
         alg=Connected_Body()
