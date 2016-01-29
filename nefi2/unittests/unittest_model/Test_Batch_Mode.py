@@ -10,27 +10,41 @@ __author__ = {'Dennis Groß': 'gdennis91@googlemail.com'}
 sys.path.insert(0, os.path.join(os.curdir, '../nefi2'))
 
 
-def get_assets_resource_path(name):
-    return os.path.join(os.path.abspath("../../assets/"), name)
+def get_assets_resource_path_image(name):
+    return os.path.join(os.path.abspath("../../assets/images/"), name)
+
+
+def get_assets_resource_path_pipelines(name):
+    return os.path.join(os.path.abspath("../../assets/pipelines/"), name)
 
 
 def get_batch_mode_output_path():
     return os.path.abspath("../batch_mode_output/")
 
 
-def run_batch_mode(pipepline_name, image_name):
-    extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container)
+def run_batch_mode(pipeline_name, image_name):
+    ext_loader = ExtensionLoader()
+    pipeline = Pipeline(ext_loader.cats_container)
 
-    pipeline.load_pipeline_json(get_assets_resource_path(pipepline_name))
-    pipeline.set_output_dir(get_batch_mode_output_path())
-    pipeline.get_image(get_assets_resource_path(image_name))
+    pipeline_url = get_assets_resource_path_pipelines(pipeline_name)
+    image_url = get_assets_resource_path_image(image_name)
+    directory = os.path.join(get_batch_mode_output_path(),
+                             image_name.split(".")[0] + "_" + pipeline_name.split(".")[0])
+
+    pipeline.load_pipeline_json(pipeline_url)
+
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        pipeline.set_output_dir(directory)
+
+    pipeline.get_image(image_url)
     pipeline.process()
 
 
 class ParserTests(unittest.TestCase):
     def test_batch_easy(self):
         run_batch_mode("pip1.json", "input.jpeg")
+
 
 if __name__ == '__main__':
     pass
