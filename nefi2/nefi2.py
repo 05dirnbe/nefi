@@ -46,27 +46,13 @@ def batch_mode(args):
         pipeline.load_pipeline_json(args.pipeline)
     if args.dir:
         # load the images from the specified source dir
-        pipeline.set_input_dir(args.dir)
+        pipeline.set_input(args.dir)
     if args.file:
         # load the a single image from the sepecified resource
-        pipeline.image_path = args.file
+        pipeline.set_input(args.file)
     if args.out:
         pipeline.set_output_dir(args.out)
-    pipeline.get_image(args.file)
-
-    ############################ DEBUGGING ####################################
-    # just testing, safe to remove
-    print("########## TESTING ##########")
-    print('DEFAULT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
-    for cat in pipeline.executed_cats:
-        if cat.name == 'Preprocessing':
-            cat.set_active_algorithm('Invert Color')
-    # pipeline.delete_category('Graph detection')
-    # pipeline.delete_category('Graph filtering')
-    print('CURRENT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
     pipeline.process()
-    print("########## FINISHED ##########")
-    ############################ DEBUGGING ####################################
 
 
 def main(args):
@@ -77,8 +63,16 @@ def main(args):
         | *args* : a Namespace object of supplied command-line arguments
 
     """
+    # check if user provided both args.dir and args.file
+    if args.dir and args.file:
+        msg = "You cannot use both '-f' and '-d' options!"
+        raise ValueError(msg)
     if args.dir or args.file:
         batch_mode(args)
+    # check if user provided pipeline or out dir but forgot file or input dir
+    elif not args.dir and not args.file and args.pipeline or args.out:
+        msg = "Please provide an image file path or a directory with images!"
+        raise ValueError(msg)
     else:
         gui_mode()
 

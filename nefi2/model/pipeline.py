@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 from _category import Category
 
+
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}
 
@@ -45,18 +46,15 @@ class Pipeline:
             | *available_cats* (dict): dict of {Category name: Category}
             | *executed_cats* (list): a list of Categories in the pipeline
             | *pipeline_path* (str): a path to a saved pipelines
-            | *image_path* (str): a path to an image file
             | *out_dir* (str): a path where processing results are saved
-            | *input_dir_files* (list): a list of image files in the input dir
+            | *input_files* (list): a list of image files in the input dir
 
         """
         self.available_cats = categories
-        #[cat for cat in self.available_cats.values()]
-        self.executed_cats = []
+        self.executed_cats = [cat for cat in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
-        self.image_path = None
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
-        self.input_dir_files = filter_images(os.listdir(os.getcwd()))
+        self.input_files = None
 
     def new_category(self, position, cat_name=None, alg_name=None, ):
         """
@@ -126,13 +124,9 @@ class Pipeline:
             if cat.active_algorithm.modified:
                 start_from = idx, cat.name
                 break
-        # process all images in the input dir
-
-        if len(self.input_dir_files) != 0:
-            for image_name in self.input_dir_files:
-                self.process_image(image_name, start_from)
-        elif self.image_path is not None:
-            self.process_image(self.image_path, start_from)
+        # process all images in the input
+        for image_name in self.input_files:
+            self.process_image(image_name, start_from)
 
     def process_image(self, image_name, start_from):
         img_arr = cv2.imread(image_name)
@@ -240,28 +234,21 @@ class Pipeline:
         alg_names.sort()
         return alg_names
 
-    def get_image(self, img_path):
-        #todo: i think it should be save_image_path since you dont return an image
+    def set_input(self, input_source):
         """
-        Receive and save the path to the image which will be processed.
-
-        Args:
-            *img_path* (str): image path
-
-        """
-        self.image_path = img_path
-
-    def set_input_dir(self, dir_path):
-        """
-        Set the directory where original images are located.
+        Set the directory where original images are located or set a file path.
         <Used in console mode>.
 
         Args:
-            *dir_path* (str): directory path with original images
+            *input_source* (str): directory path with original images or a
+            single file path
 
         """
-        files = filter_images(os.listdir(dir_path))
-        self.input_dir_files = [os.path.join(dir_path, f) for f in files]
+        if os.path.isdir(input_source):
+            files = filter_images(os.listdir(input_source))
+            self.input_files = [os.path.join(input_source, f) for f in files]
+        elif os.path.isfile(input_source):
+            self.input_files = [input_source]
 
     def set_output_dir(self, dir_path):
         """
