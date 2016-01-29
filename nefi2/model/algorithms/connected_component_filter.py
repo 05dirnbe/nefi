@@ -69,7 +69,7 @@ class AlgBody(Algorithm):
                                       failed because the threshold connected \
                                       component size is negative:",
                                       self.compnt_size.value)
-            self.operator.value = checkOperator(self.operator)
+            self.operator.value = check_ operator(self.operator)
             connected_components = sorted(
                 list(nx.connected_component_subgraphs(input_data[1])),
                 key=lambda graph: graph.number_of_nodes())

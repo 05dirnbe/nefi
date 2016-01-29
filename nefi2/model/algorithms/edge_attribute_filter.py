@@ -69,7 +69,7 @@ class AlgBody(Algorithm):
 
         """
         try:
-            self.operator.value = checkOperator(self.operator)
+            self.operator.value = check_operator(self.operator)
             to_be_removed = [(u, v) for u, v, data in
                              input_data[1].edges_iter(data=True)
                 if self.operator.value(data[self.attribute.value],
