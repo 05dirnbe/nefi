@@ -6,7 +6,6 @@ import networkx as nx
 import operator as op
 from _alg import Algorithm, IntegerSlider, DropDown
 from _utility import check_operator, draw_graph
-import _utility
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -85,7 +84,8 @@ class AlgBody(Algorithm):
                    'connected components ...')
         except ArithmeticError as ex:
             print ('Exception caught in', ex)
-                img = _utility.draw_graph(input_data[0],input_data[1])
+
+        img = _utility.draw_graph(input_data[0],input_data[1])
         self.result['img'] = img
         self.result['graph'] = input_data[1]
 
