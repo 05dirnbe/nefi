@@ -4,7 +4,7 @@
 This class represents the algorithm Blur from the opencv package.
 """
 import cv2
-from _alg import *
+from _alg import Algorithm, IntegerSlider, CheckBox
 
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
@@ -19,13 +19,13 @@ class AlgBody(Algorithm):
     def __init__(self):
         """
         Blur object constructor.
-        
+
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
             | *kernelsize* : blurring kernel size that will be used as a slider
               for the UI
-                  
+
         """
         Algorithm.__init__(self)
         self.name = "Blur"
@@ -41,7 +41,7 @@ class AlgBody(Algorithm):
 
     def process(self, args):
         """
-        Use the Blur algorithm from the opencv package to the chosen colour 
+        Use the Blur algorithm from the opencv package to the chosen colour
         channels of the current image.
 
         Args:

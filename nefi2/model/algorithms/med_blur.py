@@ -4,7 +4,7 @@
 This class represents the algorithm Median Blur from the opencv package
 """
 import cv2
-from _alg import *
+from _alg import Algorithm, IntegerSlider, CheckBox
 
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",

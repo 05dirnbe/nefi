@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import cv2
-from _alg import *
+from _alg import Algorithm, FloatSlider, IntegerSlider
 
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-import networkx as nx
-import operator as op
-from _alg import *
-
 """
 This class represents the algorithm Edge attribute filter
 """
+import networkx as nx
+import operator as op
+from _alg import Algorithm, DropDown, FloatSlider
+
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
