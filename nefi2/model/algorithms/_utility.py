@@ -29,7 +29,7 @@ def draw_graph(image, graph):
     """
     tmp = draw_edges(image, graph)
     node_size = int(np.ceil((max(image.shape) / float(NODESIZESCALING))))
-    return draw_nodes(tmp, graph, max(node_size,3))
+    return draw_nodes(tmp, graph, max(node_size, 3))
 
 def draw_nodes(img, graph, radius=3):
     """
@@ -73,7 +73,8 @@ def draw_edges(img, graph, col=(0, 0, 255)):
         diam = int(round(diam))
         if diam > 255:
             print ('Warning: edge diameter too large for display. Diameter has been reset.')
-            diam = 255
+            #diam = 255
+            diam = 100
         cv.line(edg_img, start, end, col, diam)
     edg_img = cv.addWeighted(img, 0.5, edg_img, 0.5, 0)
     return edg_img
