@@ -7,7 +7,7 @@ and keeps only the largest of them, e.g remove all connected components except
 the 4 largest.
 """
 import networkx as nx
-from _alg import *
+from _alg import Algorithm
 
 
 __author__ = {

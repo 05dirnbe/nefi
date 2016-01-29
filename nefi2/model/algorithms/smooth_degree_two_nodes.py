@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-import sys
-import networkx as nx
-from _alg import *
 """
 This class represents the algorithm Smooth degree two nodes
 """
+import sys
+import networkx as nx
+from _alg import Algorithm
+
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 

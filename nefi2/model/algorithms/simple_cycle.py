@@ -11,7 +11,7 @@ increase the number of connected components of the graph.
 import networkx as nx
 import cv2 as cv
 import numpy as np
-from _alg import *
+from _alg import Algorithm
 
 __author__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 

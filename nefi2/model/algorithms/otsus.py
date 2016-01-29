@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 """
 (from opencv docs)
-Otsu's binarization automatically calculates a threshold value from image 
-histogram for a bimodal image. (For images which are not bimodal, binarization 
+Otsu's binarization automatically calculates a threshold value from image
+histogram for a bimodal image. (For images which are not bimodal, binarization
 won’t be accurate.)
-For this, cv2.threshold() function is used with an extra flag, cv2.THRESH_OTSU. 
-For threshold value, simply pass zero. Then the algorithm finds the optimal 
-threshold value and returns you as the second output. If Otsu thresholding is 
+For this, cv2.threshold() function is used with an extra flag, cv2.THRESH_OTSU.
+For threshold value, simply pass zero. Then the algorithm finds the optimal
+threshold value and returns you as the second output. If Otsu thresholding is
 not used, the optimal threshold is same as the threshold value you used.
 """
 import cv2
-from _alg import *
+from _alg import Algorithm
 
 
 __author__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
@@ -26,7 +26,7 @@ class AlgBody(Algorithm):
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
-                  
+
         """
         Algorithm.__init__(self)
         self.name = "Otsu's Threshold"
@@ -48,4 +48,3 @@ class AlgBody(Algorithm):
 
 if __name__ == '__main__':
     pass
-    

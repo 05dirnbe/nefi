@@ -4,7 +4,7 @@
 This class represents the algorithm Invert Color
 """
 import cv2
-from _alg import *
+from _alg import Algorithm, CheckBox
 
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
@@ -53,4 +53,3 @@ class AlgBody(Algorithm):
 
 if __name__ == '__main__':
     pass
-

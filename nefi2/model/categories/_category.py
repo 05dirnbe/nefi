@@ -26,7 +26,7 @@ class Category:
             | *available_algs* (dict): a dict of {Category: [alg, alg, ...]}
             | *alg_names* (list): a list of alg names for current category
             | *active_algorithm* (Algorithm): Currently selected algorithm
-            
+
         """
         for path in sys.path:
             if path.endswith('algorithms'):
@@ -65,7 +65,7 @@ class Category:
         Returns:
             | *category_alg_map* (dict): a dict of {Category: [alg, alg, ...]}
             | *alg_names* (list): algorithm list of the current category
-            
+
         """
         alg_files = os.listdir(alg_dir)
         ignored = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__')
@@ -91,7 +91,7 @@ class Category:
 
         Args:
             *alg_name* (str): algorithm's name that was selected in the UI
-            
+
         """
         for alg in self.available_algs[self.name]:
             if alg.name == alg_name:
@@ -104,7 +104,7 @@ class Category:
 
         Returns:
             *self.active_algorithm* (Algorithm): Currently selected algorithm
-            
+
         """
         return self.active_algorithm
 
@@ -117,7 +117,7 @@ class Category:
 
         Args:
             *args* (ndarray|list): ndarray or a list of ndarray and Graph
-            
+
         """
         al = [alg for alg in list(self.available_algs.values())[0]
               if self.active_algorithm.name == alg.name][0]
@@ -129,7 +129,7 @@ class Category:
         """
         Returns:
             a *category name* that will be displayed in UI.
-            
+
         """
         return self.name
 
@@ -139,7 +139,7 @@ class Category:
 
         Args:
             *name* (str): Category name
-            
+
         """
         self.name = name
 

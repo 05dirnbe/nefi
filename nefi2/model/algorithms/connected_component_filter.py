@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-import networkx as nx
-import operator as op
-from Martino_Graph_filtering_Algorithm.ExceptionCollection import \
-    NegativeNumberError
-from nefi2.model.algorithms._alg import *
 """
 This class represents the algorithm Connected component filter
 """
+import networkx as nx
+import operator as op
+from _alg import Algorithm, IntegerSlider, DropDown
+
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
@@ -18,20 +17,22 @@ class AlgBody(Algorithm):
 
     def __init__(self):
         """
-        Connected component object constructor
-            Instance vars:
-                | *name* : name of the algorithm
-                | *parent* : name of the appropriated category
-                | *component_size* : A threshold value for the size of
-                 the connected components
-                | *operator* : A logical python operator.
-                 See python module operator
+        Connected component object constructor.
+
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriated category
+            | *compnt_size* : A threshold value for the size of
+             the connected components
+            | *operator* : A logical python operator.
+             See python module operator
+
         """
         Algorithm.__init__(self)
         self.name = "Connected component filter"
         self.parent = "Graph filtering"
-        self.component_size = IntegerSlider("Component Size",0.0,20.0,1.0,10)
-        self.integer_sliders.append(self.component_size)
+        self.compnt_size = IntegerSlider("Component Size", 0.0, 20.0, 1.0, 10)
+        self.integer_sliders.append(self.compnt_size)
         self.operator = DropDown("Operator", {"Strictly smaller",
                                               "Smaller or equal",
                                               "Equal",
@@ -71,38 +72,31 @@ class AlgBody(Algorithm):
              threshold connected component size is negative
         Returns:
             | *graph* : A filtered networkx graph
+
         """
-
         try:
-
-            if self.component_size.value < 0:
-
-                raise NegativeNumberError('Connected_Components_Filter:'
-                                          ' Filtering failed because the \
-                    threshold connected component size is negative:',
-                                          self.component_size.value)
-
-            self.operator.value=self.checkOperator()
+            if self.compnt_size.value < 0:
+                raise ArithmeticError("Connected_Components_Filter: Filtering \
+                                      failed because the threshold connected \
+                                      component size is negative:",
+                                      self.compnt_size.value)
+            self.operator.value = self.checkOperator()
             connected_components = sorted(
                 list(nx.connected_component_subgraphs(input_data[1])),
-                key = lambda graph: graph.number_of_nodes())
+                key=lambda graph: graph.number_of_nodes())
             to_be_removed = [subgraph for subgraph in connected_components
-                if self.operator.value(subgraph.number_of_nodes(),
-                                 self.component_size.value)]
+                             if self.operator.value(subgraph.number_of_nodes(),
+                                                    self.compnt_size.value)]
 
             for subgraph in to_be_removed:
                 input_data[1].remove_nodes_from(subgraph)
-
-            print ('discarding a total of', len(to_be_removed),\
-                'connected components ...')
-
-        except NegativeNumberError as e:
-
-            print ('Exception caught in', e.msg, e.exp)
-
+            print ('discarding a total of', len(to_be_removed),
+                   'connected components ...')
+        except ArithmeticError as ex:
+            print ('Exception caught in', ex)
         self.result['img'] = input_data[0]
         self.result['graph'] = input_data[1]
 
+
 if __name__ == '__main__':
     pass
-

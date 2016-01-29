@@ -51,8 +51,7 @@ class Pipeline:
 
         """
         self.available_cats = categories
-        #[v for v in self.available_cats.values()] todo: pavel why did you initialize executed_cats like this?
-        self.executed_cats = []
+        self.executed_cats = [cat for cat in self.available_cats.values()]
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir

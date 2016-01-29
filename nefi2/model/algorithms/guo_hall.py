@@ -9,7 +9,7 @@ import networkx as nx
 import numpy as np
 import thinning
 
-from _alg import *
+from _alg import Algorithm
 from collections import defaultdict
 from itertools import chain
 
@@ -25,7 +25,7 @@ class AlgBody(Algorithm):
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
-            
+
         """
         Algorithm.__init__(self)
         self.name = "Guo Hall Thinning"
@@ -56,41 +56,41 @@ class AlgBody(Algorithm):
 def zhang_suen_node_detection(skel):
     """
     (from nefi1)
-    Node detection based on criteria put forward in "A fast parallel algorithm 
-    for thinning digital patterns" by T. Y. Zhang and C. Y. Suen. Pixels p of 
-    the skeleton are categorized as nodes/non-nodes based on the value of a 
-    function A(p) depending on the pixel neighborhood of p. Please check the 
+    Node detection based on criteria put forward in "A fast parallel algorithm
+    for thinning digital patterns" by T. Y. Zhang and C. Y. Suen. Pixels p of
+    the skeleton are categorized as nodes/non-nodes based on the value of a
+    function A(p) depending on the pixel neighborhood of p. Please check the
     above paper for details.
 
-    A(p1) == 1: The pixel p1 sits at the end of a skeleton line, thus a node 
+    A(p1) == 1: The pixel p1 sits at the end of a skeleton line, thus a node
     of degree 1 has been found.
-    A(p1) == 2: The pixel p1 sits in the middel of a skeleton line but not at 
-    a branching point, thus a node of degree 2 has been found. Such nodes are 
+    A(p1) == 2: The pixel p1 sits in the middel of a skeleton line but not at
+    a branching point, thus a node of degree 2 has been found. Such nodes are
     ignored and not introduced to the graph.
-    A(p1) >= 3: The pixel p1 belongs to a branching point of a skeleton line, 
+    A(p1) >= 3: The pixel p1 belongs to a branching point of a skeleton line,
     thus a node of degree >=3 has been found.
 
     Args:
-        *skel* : Skeletonised source image. The skeleton must be exactly 1 
+        *skel* : Skeletonised source image. The skeleton must be exactly 1
          pixel wide.
 
     Returns:
         *graph* : networkx Graph object with detected nodes.
-        
+
     """
     def check_pixel_neighborhood(x, y, skel):
         """
         Check the number of components around a pixel.
         If it is either 1 or more than 3, it is a node.
-        
+
         Args:
             | *x* : pixel location value
             | *y* : pixel location value
             | *skel* : skeleton Graph object
-        
+
         Returns:
             *accept_pixel_as_node* : boolean value
-            
+
         """
         accept_pixel_as_node = False
         item = skel.item
@@ -103,7 +103,7 @@ def zhang_suen_node_detection(skel):
         p8 = item(x, y - 1) / 255
         p9 = item(x - 1, y - 1) / 255
 
-        # The function A(p1), 
+        # The function A(p1),
         # where p1 is the pixel whose neighborhood is beeing checked
         components = (p2 == 0 and p3 == 1) + (p3 == 0 and p4 == 1) + \
                      (p4 == 0 and p5 == 1) + (p5 == 0 and p6 == 1) + \
@@ -120,22 +120,22 @@ def zhang_suen_node_detection(skel):
         for y in range(1, h - 1):
             if item(x, y) != 0 and check_pixel_neighborhood(x, y, skel):
                 graph.add_node((x, y))
-    return graph  
+    return graph
 
 
 def breadth_first_edge_detection(skel, segmented, graph):
     """
     (from nefi1)
-    Detect edges in the skeletonized image. 
+    Detect edges in the skeletonized image.
     Also compute the following edge properties:
-    
+
         | *pixels* : number of pixels on the edge in the skeleton
-        | *length* : length in pixels, horizontal/vertikal steps count 1, 
+        | *length* : length in pixels, horizontal/vertikal steps count 1,
            diagonal steps count sqrt 2
         | *width* : the mean diameter of the edge
         | *width_var* : the variance of the width along the edge
 
-    The runtime is linear in the number of pixels. 
+    The runtime is linear in the number of pixels.
     White pixels are **much more** expensive though.
     """
     def neighbors(x, y):
@@ -144,7 +144,7 @@ def breadth_first_edge_detection(skel, segmented, graph):
         for dy in [-1, 0, 1]:
             for dx in [-1, 0, 1]:
                 # the line below is ugly and is intended to be this way
-                # do not try to modify it unless you know what you're doing 
+                # do not try to modify it unless you know what you're doing
                 if (dx != 0 or dy != 0) and \
                     0 <= x + dx < width and \
                     0 <= y + dy < height and \

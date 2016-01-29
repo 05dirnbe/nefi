@@ -5,7 +5,7 @@ This class represents the algorithm Fast nl Means Denoising from the opencv
 package.
 """
 import cv2
-from _alg import *
+from _alg import Algorithm, FloatSlider, IntegerSlider, CheckBox
 
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",
