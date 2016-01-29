@@ -19,7 +19,10 @@ class Window(QWidget):
 
 
 class WindowTemplate(QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, pipeline):
         super(WindowTemplate, self).__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.Settings = Settings(pipeline)
+        #self.ui.CategoryDetails.addWidget(self.Settings)
