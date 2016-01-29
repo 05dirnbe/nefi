@@ -2,7 +2,7 @@
 import unittest
 import networkx as nx
 import cv2
-from Smooth_degree_two_nodes import AlgBody as Smooth_body
+from smooth_degree_two_nodes import AlgBody as Smooth_body
 from guo_hall import AlgBody as guo_body
 from blur import AlgBody as blur_body
 from adaptive import AlgBody as adaptive_body

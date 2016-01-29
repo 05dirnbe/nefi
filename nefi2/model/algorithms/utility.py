@@ -6,6 +6,8 @@ is to provide the user with a toolbox of methods and
 don't force him to copy and paste methods from other algorithm
 sections.
 """
+import operator as op
+
 
 def draw_graph(image, graph):
     """
@@ -18,6 +20,18 @@ def draw_graph(image, graph):
     Returns:
 
     """
+
+def checkOperator(operator):
+        if operator.value == "Strictly smaller":
+            return op.lt
+        if operator.value == "Smaller or equal":
+            return op.le
+        if operator.value == "Equal":
+            return op.eq
+        if operator.value == "Greater or equal":
+            return op.ge
+        if operator.value == "Strictly greater":
+            return op.gt
 
 if __name__ == '__main__':
     pass
