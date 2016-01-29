@@ -6,8 +6,6 @@ available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
 import cv2
-from _category import Category
-from collections import OrderedDict
 import demjson
 import networkx as nx
 import os
@@ -20,6 +18,7 @@ sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
+from _category import Category
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com"}
@@ -31,10 +30,10 @@ def filter_images(file_list):
     <This function is used to protect the pipeline from attempting to process
     any non-image files existing in the input directory.>
     """
-    valid_ext = ['.bmp', '.jpg', '.jpeg', '.jp2', '.jpx', '.j2k', '.j2c', 
+    valid_ext = ['.bmp', '.jpg', '.jpeg', '.jp2', '.jpx', '.j2k', '.j2c',
                  '.png', '.tif', '.tiff', '.gif', ]
     return [f for f in file_list if os.path.splitext(f)[-1] in valid_ext]
-        
+
 
 class Pipeline:
     def __init__(self, categories):
@@ -49,7 +48,7 @@ class Pipeline:
             | *image_path* (str): a path to an image file
             | *out_dir* (str): a path where processing results are saved
             | *input_dir_files* (list): a list of image files in the input dir
-            
+
         """
         self.available_cats = categories
         #[v for v in self.available_cats.values()] todo: pavel why did you initialize executed_cats like this?
@@ -132,7 +131,7 @@ class Pipeline:
         for image_name in self.input_dir_files:
             img_arr = cv2.imread(image_name)
             # execute the pipeline from the category with the modified alg
-            for num, cat in enumerate(self.executed_cats[start_from[0]:]):
+            for _, cat in enumerate(self.executed_cats[start_from[0]:]):
                 if cat.name == "Graph detection":
                     # get results of graph detection
                     cat.process(img_arr)
@@ -155,11 +154,11 @@ class Pipeline:
     def save_results(self, image_name, *results):
         """
         Save the results of algorithm processing.
-        
+
         Args:
             | *image_name* (str): image name
             | *results* (list): a list of arguments to save
-            
+
         """
         # saving the processed image
         cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
@@ -168,8 +167,8 @@ class Pipeline:
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
             nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
-                                                           image_name),
-                                       delimiter = '|')
+                                                                image_name),
+                                       delimiter='|')
             print(image_name, 'successfully saved in', self.out_dir)
 
     def change_category(self, cat_name, position):
@@ -195,7 +194,7 @@ class Pipeline:
         Args:
             | *position*: list index of the category in the pipeline
             | *alg_name*: algorithm name
-            
+
         """
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
@@ -207,12 +206,12 @@ class Pipeline:
 
         """
         Create and return a list of currently executed categories.
-        
+
         *No cats are actually harmed during execution of this method >_<*
 
         Returns:
             *executed_cat_names*: list of Category names
-            
+
         """
         executed_cat_names = [cat.get_name() for cat in self.executed_cats]
         return executed_cat_names
@@ -228,7 +227,7 @@ class Pipeline:
 
         Returns:
             *alg_names* (list): a sorted list of algorithm names
-            
+
         """
         alg_names = self.available_cats.values()[position].alg_names
         alg_names.sort()
@@ -238,33 +237,33 @@ class Pipeline:
         #todo: i think it should be save_image_path since you dont return an image
         """
         Receive and save the path to the image which will be processed.
-        
+
         Args:
             *img_path* (str): image path
-            
+
         """
         self.image_path = img_path
-    
+
     def set_input_dir(self, dir_path):
         """
         Set the directory where original images are located.
         <Used in console mode>.
-        
+
         Args:
             *dir_path* (str): directory path with original images
-        
+
         """
         files = filter_images(os.listdir(dir_path))
         self.input_dir_files = [os.path.join(dir_path, f) for f in files]
-        
+
     def set_output_dir(self, dir_path):
         """
         Create and set the directory where to save the results of processing.
         <Used in console mode>.
-        
+
         Args:
             *dir_path* (str): directory path for processing results
-        
+
         """
         if not os.path.exists(dir_path):
             os.mkdir(dir_path)
@@ -277,7 +276,7 @@ class Pipeline:
 
         Args:
             | *url*: location identifier for the pipeline.json
-            
+
         """
         try:
             json = demjson.decode_file(url, "UTF-8")
@@ -304,7 +303,7 @@ class Pipeline:
                 active_alg.find_ui_element(name).set_value(value)
             position += 1
 
-    def save_pipeline_json(self, name,  url):
+    def save_pipeline_json(self, name, url):
         """
         Goes trough the list of executed_cats and calls for every
         selected_algorithm its report_pip method. With the returned
@@ -313,7 +312,7 @@ class Pipeline:
 
         Args:
             | *url*: location identifier for the pipeline.json
-            
+
         """
         alg_reports = []
 
@@ -325,7 +324,7 @@ class Pipeline:
         with open(os.path.join(url, name + ".json"), "wb+") as outfile:
             #ord_alg_reps = OrderedDict(alg_reports)
             outfile.write(bytes(demjson.encode(alg_reports), "UTF-8"))
-    
+
 
 if __name__ == '__main__':
     pass

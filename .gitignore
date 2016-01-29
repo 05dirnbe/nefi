@@ -1,5 +1,7 @@
 .gitignore
 .idea
+nefi2.komodoproject
+/nefi2/output
 /nefi2_prototype/*.pyc
 /nefi2_prototype/model/*.pyc
 /nefi2_prototype/model/algorithms/*.pyc

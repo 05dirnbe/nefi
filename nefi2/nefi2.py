@@ -32,10 +32,10 @@ def gui_mode():
 def batch_mode(args):
     """
     Process images in console mode
-    
+
     Args:
         | *args* (dict) : argument dict returned by ArgumentParser
-        
+
     """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
