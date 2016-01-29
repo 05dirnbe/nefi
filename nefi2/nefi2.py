@@ -23,10 +23,10 @@ def gui_mode():
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
 
-    app = QApplication(sys.argv)
-    window = Window(pipeline)
-    window.show()
-    sys.exit(app.exec_())
+    #app = QApplication(sys.argv)
+    #window = Window(pipeline)
+    #window.show()
+    #sys.exit(app.exec_())
 
 
 def batch_mode(args):
