@@ -15,7 +15,7 @@ class ParserTests(unittest.TestCase):
     def test_report_pip_simple(self):
         alg = AlgSimple()
 
-        should_list = [["type", "preprocessing"], ["int_slider1", 5],
+        should_list = [["type", "preprocessing"], ["store_image", False], ["int_slider1", 5],
                       ["float_slider1", 5.0]]
         should_be = ("simple alg", collections.OrderedDict(should_list))
 
@@ -26,7 +26,7 @@ class ParserTests(unittest.TestCase):
     def test_report_pip_hard(self):
         alg = AlgHard()
 
-        list = [["type", "preprocessing"], ["int_slider1", 5],
+        list = [["type", "preprocessing"], ["store_image", False], ["int_slider1", 5],
                 ["int_slider2", 5], ["int_slider3", 5], ["int_slider4", 5],
                 ["float_slider1", 5.0], ["float_slider2", 5.0],
                 ["checkbox1", True], ["drop_down1", "drop_down1"],
@@ -46,27 +46,63 @@ class ParserTests(unittest.TestCase):
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
 
-        pipeline.new_category("cat1", 0)
-        pipeline.new_category("cat2", 1)
-        pipeline.new_category("cat3", 2)
-        pipeline.new_category("cat4", 3)
+        pipeline.new_category(0)
+        pipeline.new_category(1)
+        pipeline.new_category(2)
+        pipeline.new_category(3)
 
         pipeline.change_category("Segmentation", 0)
         pipeline.change_category("Segmentation", 1)
         pipeline.change_category("Segmentation", 2)
         pipeline.change_category("Segmentation", 3)
 
+        pipeline.change_algorithm("Adaptive Threshold", 0)
+        pipeline.change_algorithm("Adaptive Threshold", 1)
+        pipeline.change_algorithm("Adaptive Threshold", 2)
+        pipeline.change_algorithm("Adaptive Threshold", 3)
 
-        pipeline.change_algorithm(0, "Adaptive Threshold")
-        pipeline.change_algorithm(1, "Adaptive Threshold")
-        pipeline.change_algorithm(2, "Adaptive Threshold")
-        pipeline.change_algorithm(3, "Adaptive Threshold")
+        pipeline.save_pipeline_json("test", os.path.abspath("../test_assets/"))
 
-        was = pipeline.save_pipeline_json("test", os.path.abspath("../test_assets/"))
-        print(was)
+    def test_save_pipeline_order(self):
 
+        extloader = ExtensionLoader()
+        pipeline = Pipeline(extloader.cats_container)
 
+        pipeline.new_category(0)
+        pipeline.new_category(1)
+        pipeline.new_category(2)
+        pipeline.new_category(3)
 
+        pipeline.change_category("Preprocessing", 0)
+        pipeline.change_category("Segmentation", 1)
+        pipeline.change_category("Graph detection", 2)
+        pipeline.change_category("Graph filtering", 3)
+
+        pipeline.change_algorithm("Bilateral Filter", 0)
+        pipeline.change_algorithm("Adaptive Threshold", 1)
+        pipeline.change_algorithm("Guo Hall Thinning", 2)
+        pipeline.change_algorithm("Keep only largest connected component", 3)
+
+        pipeline.save_pipeline_json("test_order", os.path.abspath("../test_assets/"))
+
+    def test_load_json_easy(self):
+        extloader = ExtensionLoader()
+        pipeline = Pipeline(extloader.cats_container)
+
+        pipeline.load_pipeline_json(os.path.abspath('../test_assets/test.json'))
+
+    def test_load_json_hard(self):
+        extloader = ExtensionLoader()
+        pipeline = Pipeline(extloader.cats_container)
+
+        pipeline.load_pipeline_json(os.path.abspath('../test_assets/test_order.json'))
+
+    def test_load_json_non_default(self):
+        extloader = ExtensionLoader()
+        pipeline = Pipeline(extloader.cats_container)
+
+        pipeline.load_pipeline_json(os.path.abspath('../test_assets/test_order_non_default.json'))
+        print('test')
 
 class AlgHard(Algorithm):
 

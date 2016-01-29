@@ -1,0 +1,1 @@
+{"Guo Hall Thinning":{"type":"Graph detection"},"Median Blur":{"channel1":true,"channel2":true,"channel3":true,"kernelsize":1,"type":"Preprocessing"},"Otsu's Threshold":{"type":"Segmentation"},"Smooth degree 2 nodes":{"type":"Graph filtering"}}

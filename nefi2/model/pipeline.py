@@ -52,22 +52,38 @@ class Pipeline:
             
         """
         self.available_cats = categories
-        self.executed_cats = [v for v in self.available_cats.values()]
+        #[v for v in self.available_cats.values()] todo: pavel why did you initialize executed_cats like this?
+        self.executed_cats = []
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.image_path = None
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
         self.input_dir_files = filter_images(os.listdir(os.getcwd()))
-        
-    def new_category(self, name, position):
+
+    def new_category(self, position, cat_name=None, alg_name=None, ):
         """
-        Create a new instance of Category.
+        This method is used by the json parser to create a category.
+        The parser knows already the cat type and alg type as well
+        as the position. So it doesnt make sense to create a blank and
+        change it.
 
         Args:
-            | *name* (str): Category name
-            | *position* (int): a category index in self.executed_cats
-                
+            | *cat_name* (str): name of the category also indicating its cat type
+            | *alg_name* (str): name of the active algoirthm indicating its alg type
+            | *position* (int): position in the executed_cats
+
         """
-        self.executed_cats.insert(position, Category(name))
+        if cat_name is None:
+            self.executed_cats.insert(position, Category("blank"))
+            return
+
+        for v in list(self.available_cats.values()):
+            if v.name == cat_name:
+                self.executed_cats.insert(position, copy.copy(v))
+
+        for v in list(self.executed_cats[position].available_algs.values())[0]:
+            if alg_name == v.name:
+                v.set_modified()
+                self.executed_cats[position].set_active_algorithm(alg_name)
 
     def move_category(self, origin_pos, destination_pos):
         """
@@ -78,9 +94,9 @@ class Pipeline:
             | *destination_pos* (int): new position for Category
 
         """
-        origin = self.executed_cats[origin_pos]
-        del self.executed_cats[origin_pos]
-        self.executed_cats.insert(destination_pos, origin)
+        buf = self.executed_cats[origin_pos]
+        self.executed_cats[origin_pos] = self.executed_cats[destination_pos]
+        self.executed_cats[destination_pos] = buf
 
     def delete_category(self, category):
         """
@@ -135,7 +151,6 @@ class Pipeline:
                 img_name = '_'.join([cat.name.lower(), alg_name, basename])
                 # saving current algorithm results
                 self.save_results(img_name, img_arr, graph)
-           
 
     def save_results(self, image_name, *results):
         """
@@ -158,13 +173,24 @@ class Pipeline:
             print(image_name, 'successfully saved in', self.out_dir)
 
     def change_category(self, cat_name, position):
+        """
+        Change the type of the category at position in the executed_cats.
+        This is needed for the ui since the categorys in the executed_cats
+        need to be changed because of the dropdown menus.
+
+        Args:
+            | *cat_name*: the name of the category as it should be
+            | *position*: the position in the executed_cats
+
+        """
         for v in list(self.available_cats.values()):
             if v.name == cat_name:
-                self.executed_cats[position] = copy.deepcopy(v)
+                self.executed_cats[position] = copy.copy(v)
 
-    def change_algorithm(self, position, alg_name):
+    def change_algorithm(self, alg_name, position):
         """
-        Set the algorithm of the category in position to modified = *True*
+        Set the algorithm of the category in position to modified = *True*.
+        Also change the selected algorithm of the category in position.
 
         Args:
             | *position*: list index of the category in the pipeline
@@ -172,10 +198,13 @@ class Pipeline:
             
         """
         for v in list(self.executed_cats[position].available_algs.values())[0]:
-            if alg_name == v.Body().get_name():
-                v.Body().set_modified()
+            if alg_name == v.name:
+                v.set_modified()
+                self.executed_cats[position].set_active_algorithm(alg_name)
 
     def get_executed_cats(self):
+        #todo: if you call get_executed_cats you dont expect a list of string -> remove method?
+
         """
         Create and return a list of currently executed categories.
         
@@ -189,6 +218,7 @@ class Pipeline:
         return executed_cat_names
 
     def get_algorithm_list(self, position):
+        #todo: some like get_executed_cats thats confusing
         """
         Get names of all available algorithms for the category in position.
         Sort the list and return.
@@ -205,6 +235,7 @@ class Pipeline:
         return alg_names
 
     def get_image(self, img_path):
+        #todo: i think it should be save_image_path since you dont return an image
         """
         Receive and save the path to the image which will be processed.
         
@@ -213,9 +244,6 @@ class Pipeline:
             
         """
         self.image_path = img_path
-
-    def save_pipeline_xml(self, save_path):
-        pass
     
     def set_input_dir(self, dir_path):
         """
@@ -257,14 +285,24 @@ class Pipeline:
             e = sys.exc_info()[0]
             print("Unable to parse " + url + " trace: " + e)
 
-        for alg in json.keys():
-            alg_json = json[alg]
-            cat = Category(alg_json["type"])
-            cat.active_algorithm = cat._get_available_algorithms()[alg]
-            self.executed_cats.append(cat)
+        position = 0
+        for alg in json:
+            alg_name = alg[0]
+            alg_attributes = alg[1]
 
-            for (name, value) in alg.keys():
-                cat.active_algorithm.find_ui_element(name).set_value(value)
+            cat_name = alg_attributes["type"]
+            self.new_category(position, cat_name, alg_name)
+
+            active_alg = self.executed_cats[position].active_algorithm
+            active_alg.store_image = alg_attributes["store_image"]
+
+            for name in alg_attributes.keys():
+                if name == "type" or name == "store_image":
+                    continue
+
+                value = alg_attributes[name]
+                active_alg.find_ui_element(name).set_value(value)
+            position += 1
 
     def save_pipeline_json(self, name,  url):
         """
@@ -281,12 +319,12 @@ class Pipeline:
 
         for cat in self.executed_cats:
             alg = cat.get_active_algorithm()
-            name, alg_dic = alg.report_pip()
-            alg_reports.append([name, alg_dic])
+            cat_name, alg_dic = alg.report_pip()
+            alg_reports.append([cat_name, alg_dic])
 
-        with open(url + name + ".json", "wb+") as outfile:
-            ord_alg_reps = OrderedDict(alg_reports)
-            outfile.write(bytes(demjson.encode(ord_alg_reps), "UTF-8"))
+        with open(os.path.join(url, name + ".json"), "wb+") as outfile:
+            #ord_alg_reps = OrderedDict(alg_reports)
+            outfile.write(bytes(demjson.encode(alg_reports), "UTF-8"))
     
 
 if __name__ == '__main__':
