@@ -51,7 +51,8 @@ class Pipeline:
 
         """
         self.available_cats = categories
-        self.executed_cats = [cat for cat in self.available_cats.values()]
+        #[cat for cat in self.available_cats.values()]
+        self.executed_cats = []
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
         self.input_files = None

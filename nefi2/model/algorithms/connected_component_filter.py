@@ -6,6 +6,7 @@ import networkx as nx
 import operator as op
 from _alg import Algorithm, IntegerSlider, DropDown
 from _utility import check_operator, draw_graph
+import _utility
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -69,7 +70,8 @@ class AlgBody(Algorithm):
                                       failed because the threshold connected \
                                       component size is negative:",
                                       self.compnt_size.value)
-            self.operator.value = check_ operator(self.operator)
+
+            self.operator.value = _utility.check_operator(self.operator)
             connected_components = sorted(
                 list(nx.connected_component_subgraphs(input_data[1])),
                 key=lambda graph: graph.number_of_nodes())
@@ -83,7 +85,7 @@ class AlgBody(Algorithm):
                    'connected components ...')
         except ArithmeticError as ex:
             print ('Exception caught in', ex)
-                img = draw_graph(input_data[0],input_data[1])
+                img = _utility.draw_graph(input_data[0],input_data[1])
         self.result['img'] = img
         self.result['graph'] = input_data[1]
 
