@@ -15,7 +15,7 @@ def get_assets_resource_path_image(name):
 
 
 def get_assets_resource_path_pipelines(name):
-    return os.path.join(os.path.abspath("../../assets/pipelines/"), name)
+    return os.path.join(os.path.abspath("../../assets/json/"), name)
 
 
 def get_batch_mode_output_path():
@@ -33,11 +33,13 @@ def run_batch_mode(pipeline_name, image_name):
 
     pipeline.load_pipeline_json(pipeline_url)
 
+    pipeline.set_input(image_url)
+
     if not os.path.exists(directory):
         os.makedirs(directory)
-        pipeline.set_output_dir(directory)
 
-    pipeline.get_image(image_url)
+    pipeline.set_output_dir(directory)
+
     pipeline.process()
 
 
