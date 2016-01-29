@@ -5,7 +5,7 @@ This class represents the algorithm Connected component filter
 import networkx as nx
 import operator as op
 from _alg import Algorithm, IntegerSlider, DropDown
-from utility import checkOperator
+from _utility import checkOperator
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}

@@ -5,7 +5,7 @@ This class represents the algorithm Edge attribute filter
 import networkx as nx
 import operator as op
 from _alg import Algorithm, DropDown, FloatSlider
-from utility import checkOperator
+from _utility import checkOperator
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -19,14 +19,16 @@ class AlgBody(Algorithm):
     def __init__(self):
         """
         Edge attribute object constructor
-            Instance vars:
-                | *name* : name of the algorithm
-                | *parent* : name of the appropriated category
-                | *attribute* :  A valid edge attribute present in the graph.
-                | *attribute_threshold_value* : A threshold value for
-                 the given attribute
-                | *operator* : A logical python operator.
-                 See python module operator
+
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriated category
+            | *attribute* :  A valid edge attribute present in the graph.
+            | *attribute_threshold_value* : A threshold value for
+             the given attribute
+            | *operator* : A logical python operator.
+             See python module operator
+
         """
         Algorithm.__init__(self)
         self.name = "Edge attribute filter"
@@ -57,11 +59,14 @@ class AlgBody(Algorithm):
 
         Args:
             | *input* : a list which contains the image and the graph
+
         Raises:
             | *KeyError* : Filtering failed because attribute is not present
              in the graph as an edge attribute
+
         Returns:
             | *graph* : A filtered networkx graph
+
         """
         try:
             self.operator.value = checkOperator(self.operator)
@@ -80,6 +85,7 @@ class AlgBody(Algorithm):
             print ('is not present in the graph as an edge attribute.')
 
         self.result['graph'] = input_data[1]
+
 
 if __name__ == '__main__':
     pass
