@@ -94,6 +94,9 @@ if __name__ == '__main__':
     prs.add_argument('-f', '--file',
                      help='Specify an image file to process.',
                      required=False)
+    prs.add_argument('-p', '--pipeline',
+                     help='Specify a saved pipeline.',
+                     required=False)
     prs.add_argument('-o', '--out',
                      help='Specify output directory.',
                      required=False)
