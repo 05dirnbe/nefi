@@ -68,8 +68,8 @@ class Category:
 
         """
         alg_files = os.listdir(alg_dir)
-        ignored = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__')
-        found_algs = list(filter(lambda x: not ignored.match(x), alg_files))
+        ign = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__|_utility.py')
+        found_algs = list(filter(lambda x: not ign.match(x), alg_files))
         if not found_algs:
             raise FileNotFoundError("No algorithm files were found in "
                                     "./model/algorithms")

@@ -5,6 +5,7 @@ This class represents the algorithm Connected component filter
 import networkx as nx
 import operator as op
 from _alg import Algorithm, IntegerSlider, DropDown
+from _utility import checkOperator
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -40,18 +41,6 @@ class AlgBody(Algorithm):
                                               "Strictly greater"})
         self.drop_downs.append(self.operator)
 
-    def checkOperator(self):
-        if self.operator.value == "Strictly smaller":
-            return op.lt
-        if self.operator.value == "Smaller or equal":
-            return op.le
-        if self.operator.value == "Equal":
-            return op.eq
-        if self.operator.value == "Greater or equal":
-            return op.ge
-        if self.operator.value == "Strictly greater":
-            return op.gt
-
     def process(self, input_data):
 
         """
@@ -80,7 +69,7 @@ class AlgBody(Algorithm):
                                       failed because the threshold connected \
                                       component size is negative:",
                                       self.compnt_size.value)
-            self.operator.value = self.checkOperator()
+            self.operator.value = checkOperator(self.operator)
             connected_components = sorted(
                 list(nx.connected_component_subgraphs(input_data[1])),
                 key=lambda graph: graph.number_of_nodes())
