@@ -5,6 +5,7 @@ This class represents the algorithm Smooth degree two nodes
 import sys
 import networkx as nx
 from _alg import Algorithm
+from _utility import draw_graph
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -105,7 +106,8 @@ class AlgBody(Algorithm):
 
             print ("Unexpected error:", sys.exc_info()[0])
 
-        self.result['img'] = input_data[0]
+        img = draw_graph(input_data[0],input_data[1])
+        self.result['img'] = img
         self.result['graph'] = input_data[1]
 
 if __name__ == '__main__':

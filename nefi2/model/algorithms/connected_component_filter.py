@@ -5,7 +5,7 @@ This class represents the algorithm Connected component filter
 import networkx as nx
 import operator as op
 from _alg import Algorithm, IntegerSlider, DropDown
-from _utility import checkOperator
+from _utility import check_operator, draw_graph
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -83,7 +83,8 @@ class AlgBody(Algorithm):
                    'connected components ...')
         except ArithmeticError as ex:
             print ('Exception caught in', ex)
-        self.result['img'] = input_data[0]
+                img = draw_graph(input_data[0],input_data[1])
+        self.result['img'] = img
         self.result['graph'] = input_data[1]
 
 

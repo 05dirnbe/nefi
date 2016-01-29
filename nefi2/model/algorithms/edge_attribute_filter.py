@@ -5,7 +5,7 @@ This class represents the algorithm Edge attribute filter
 import networkx as nx
 import operator as op
 from _alg import Algorithm, DropDown, FloatSlider
-from _utility import checkOperator
+from _utility import check_operator, draw_graph
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -84,6 +84,8 @@ class AlgBody(Algorithm):
                   ' Filtering failed because', e)
             print ('is not present in the graph as an edge attribute.')
 
+        img = draw_graph(input_data[0],input_data[1])
+        self.result['img'] = img
         self.result['graph'] = input_data[1]
 
 
