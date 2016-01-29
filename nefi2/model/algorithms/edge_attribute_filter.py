@@ -5,6 +5,7 @@ This class represents the algorithm Edge attribute filter
 import networkx as nx
 import operator as op
 from _alg import Algorithm, DropDown, FloatSlider
+from utility import checkOperator
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -42,18 +43,6 @@ class AlgBody(Algorithm):
                                               "Strictly greater"})
         self.drop_downs.append(self.operator)
 
-    def checkOperator(self):
-        if self.operator.value == "Strictly smaller":
-            return op.lt
-        if self.operator.value == "Smaller or equal":
-            return op.le
-        if self.operator.value == "Equal":
-            return op.eq
-        if self.operator.value == "Greater or equal":
-            return op.ge
-        if self.operator.value == "Strictly greater":
-            return op.gt
-
     def process(self, input_data):
 
         """
@@ -75,7 +64,7 @@ class AlgBody(Algorithm):
             | *graph* : A filtered networkx graph
         """
         try:
-            self.operator.value = self.checkOperator()
+            self.operator.value = checkOperator(self.operator)
             to_be_removed = [(u, v) for u, v, data in
                              input_data[1].edges_iter(data=True)
                 if self.operator.value(data[self.attribute.value],

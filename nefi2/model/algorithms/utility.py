@@ -6,6 +6,8 @@ is to provide the user with a toolbox of methods and
 don't force him to copy and paste methods from other algorithm
 sections.
 """
+import operator as op
+
 
 def draw_graph(image, graph):
     """
@@ -18,6 +20,30 @@ def draw_graph(image, graph):
     Returns:
 
     """
+
+def checkOperator(operator):
+    """
+    Converts the string value of the DropDown element in operator object
+
+    Args:
+        | *operator* : DropDown object from the algorithm class
+
+    Returns:
+        | *op_object*: operator object converted
+    """
+    op_object = None
+
+    if operator.value == "Strictly smaller":
+        op_object = op.lt
+    if operator.value == "Smaller or equal":
+        op_object = op.le
+    if operator.value == "Equal":
+        op_object = op.eq
+    if operator.value == "Greater or equal":
+        op_object = op.ge
+    if operator.value == "Strictly greater":
+        op_object = op.gt
+    return op_object
 
 if __name__ == '__main__':
     pass
