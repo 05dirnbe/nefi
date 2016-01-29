@@ -42,11 +42,13 @@ def batch_mode(args):
     # processing args values
     if args.pipeline:
         # load the specified pipeline file
-        # pipeline.load_pipeline()
-        pass
+        pipeline.load_pipeline_json(args.pipeline)
     if args.dir:
         # load the images from the specified source dir
         pipeline.set_input_dir(args.dir)
+    if args.file:
+        # load the a single image from the sepecified resource
+        pipeline.image_path = args.file
     if args.out:
         pipeline.set_output_dir(args.out)
     pipeline.get_image(args.file)
@@ -85,7 +87,7 @@ if __name__ == '__main__':
     input, NEFI2 outputs a mathematical representation of the structure of the
     depicted network as a weighted undirected planar graph.""")
     prs.add_argument('-p', '--pipeline',
-                     help='Specify a saved pipeline xml file.',
+                     help='specify an pipeline.json to process.',
                      required=False)
     prs.add_argument('-d', '--dir',
                      help='Specify a directory with images '

@@ -128,28 +128,35 @@ class Pipeline:
                 break
         # process all images in the input dir
         graph = None
-        for image_name in self.input_dir_files:
-            img_arr = cv2.imread(image_name)
-            # execute the pipeline from the category with the modified alg
-            for _, cat in enumerate(self.executed_cats[start_from[0]:]):
-                if cat.name == "Graph detection":
-                    # get results of graph detection
-                    cat.process(img_arr)
-                    graph = cat.active_algorithm.result['graph']
-                elif cat.name == "Graph filtering":
-                    cat.process(img_arr, graph)  # image array always first!
-                    # now get the results of graph filtering
-                    img_arr = cat.active_algorithm.result['img']
-                    graph = cat.active_algorithm.result['graph']
-                else:
-                    cat.process(img_arr)
-                    img_arr = cat.active_algorithm.result['img']
-                # creating a file name
-                alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
-                basename = os.path.basename(image_name)
-                img_name = '_'.join([cat.name.lower(), alg_name, basename])
-                # saving current algorithm results
-                self.save_results(img_name, img_arr, graph)
+        if len(self.input_dir_files) != 0:
+            for image_name in self.input_dir_files:
+                self.process_image(image_name, start_from)
+        elif self.image_path is not None:
+            self.process_image(self.image_path, start_from)
+
+    def process_image(self, image_name, start_from):
+        img_arr = cv2.imread(image_name)
+        # execute the pipeline from the category with the modified alg
+        for _, cat in enumerate(self.executed_cats[start_from[0]:]):
+            if cat.name == "Graph detection":
+                # get results of graph detection
+                cat.process(img_arr)
+                graph = cat.active_algorithm.result['graph']
+            elif cat.name == "Graph filtering":
+                cat.process(img_arr, graph)  # image array always first!
+                # now get the results of graph filtering
+                img_arr = cat.active_algorithm.result['img']
+                graph = cat.active_algorithm.result['graph']
+            else:
+                cat.process(img_arr)
+                img_arr = cat.active_algorithm.result['img']
+                graph = None
+            # creating a file name
+            alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
+            basename = os.path.basename(image_name)
+            img_name = '_'.join([cat.name.lower(), alg_name, basename])
+            # saving current algorithm results
+            self.save_results(img_name, img_arr, graph)
 
     def save_results(self, image_name, *results):
         """
@@ -166,6 +173,7 @@ class Pipeline:
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
+            print(os.path.join(self.out_dir, image_name))
             nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
                                                                 image_name),
                                        delimiter='|')
