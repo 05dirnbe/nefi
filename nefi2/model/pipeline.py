@@ -12,7 +12,7 @@ import os
 import re
 import sys
 import copy
-from algorithms import _utility
+
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 from _category import Category
+from algorithms import _utility
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
@@ -53,6 +54,7 @@ class Pipeline:
         """
         self.available_cats = categories
         #[cat for cat in self.available_cats.values()]
+        #self.executed_cats = []
         self.executed_cats = []
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir

@@ -34,38 +34,27 @@ def gui_mode():
 def batch_mode(args):
     """
     Process images in console mode
-    
+
     Args:
         | *args* (dict) : argument dict returned by ArgumentParser
-        
+
     """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
     # processing args values
     if args.pipeline:
         # load the specified pipeline file
-        # pipeline.load_pipeline()
-        pass
+        # default url
+        pipeline.load_pipeline_json(args.pipeline)
     if args.dir:
         # load the images from the specified source dir
-        pipeline.set_input_dir(args.dir)
+        pipeline.set_input(args.dir)
+    elif args.file:
+        # load a single image
+        pipeline.set_input(args.file)
     if args.out:
         pipeline.set_output_dir(args.out)
-    pipeline.get_image(args.file)
-
-    ############################ DEBUGGING ####################################
-    # just testing, safe to remove
-    print("########## TESTING ##########")
-    print('DEFAULT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
-    for cat in pipeline.executed_cats:
-        if cat.name == 'Preprocessing':
-            cat.set_active_algorithm('Invert Color')
-    # pipeline.delete_category('Graph detection')
-    # pipeline.delete_category('Graph filtering')
-    print('CURRENT PIPELINE:', [(c.name, c.active_algorithm.name) for c in pipeline.executed_cats])
     pipeline.process()
-    print("########## FINISHED ##########")
-    ############################ DEBUGGING ####################################
 
 
 def main(args):
