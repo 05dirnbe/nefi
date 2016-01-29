@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 import networkx as nx
 import operator as op
-from Martino_Graph_filtering_Algorithm.ExceptionCollection import \
-    NegativeNumberError
 from nefi2.model.algorithms._alg import *
 """
 This class represents the algorithm Connected component filter
