@@ -51,7 +51,8 @@ class Pipeline:
 
         """
         self.available_cats = categories
-        self.executed_cats = [cat for cat in self.available_cats.values()]
+        #[cat for cat in self.available_cats.values()]
+        self.executed_cats = []
         self.pipeline_path = 'saved_pipelines'  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
         self.input_files = None
@@ -167,7 +168,6 @@ class Pipeline:
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
-            print(os.path.join(self.out_dir, image_name))
             nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
                                                                 image_name),
                                        delimiter='|')

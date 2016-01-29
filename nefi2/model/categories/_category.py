@@ -78,7 +78,10 @@ class Category:
         imported_algs = []
         for alg in found_algs:
             alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
-            imported_algs.append(alg.AlgBody())
+            try:
+                imported_algs.append(alg.AlgBody())
+            except AttributeError as ex:
+                continue
         category_alg_map = {self.name: [alg for alg in imported_algs
                             if self.name == alg.belongs()]}
         alg_names = [alg.get_name() for alg in imported_algs
