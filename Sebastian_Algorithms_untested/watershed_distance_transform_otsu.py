@@ -37,16 +37,12 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Watershed - Dilation Erosion Adaptive Threshold"
+        self.name = "Watershed - Distance Transform Otsu"
         self.parent = "Segmentation"
         self.fg_iter = IntegerSlider("Foreground Iteration", 1,10, 1, 2)
         self.bg_iter = IntegerSlider("Background Iteration", 1, 10, 1, 1)
-        self.block_size = IntegerSlider("Threshold Block Size", 1,20, 1, 5)
-        self.constant = IntegerSlider("Threshold Constant", -10, 10, 1, 2)
         self.integer_sliders.append(self.fg_iter)
         self.integer_sliders.append(self.bg_iter)
-        self.integer_sliders.append(self.block_size)
-        self.integer_sliders.append(self.constant)
 
     def process(self, args):
         """
@@ -58,18 +54,14 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        adapt_thresh = self.adaptive_threshold(image=args["img"],
-                                               block_size=(self.block_size.value*2+1),
-                                               constant=self.constant.value)
-        seg1 = self.apply_mask_to_image(adapt_thresh,image=args["img"])
-        marker = self.erosion_dilation_marker(image=args["img"],
-                                              erosion_iterations=self.fg_iter.value,
-                                              dilation_iterations=self.bg_iter.value,
-                                              threshold_strategy=self.adaptive_threshold)
+        marker = self.distance_transform_dilation_marker(image=args["img"],
+                                                         opening_iterations=self.fg_iter.value,
+                                                         dilation_iterations=self.bg_iter.value,
+                                                         threshold_strategy=self.otsus_threshold)
         watershed_marker = self.watershed(image=args["img"], marker=marker)
-        seg2 = self.apply_mask_to_image(watershed_marker,image=args["img"])
+        seg = self.apply_mask_to_image(watershed_marker, image=args["img"])
 
-        self.result['img'] = cv2.bitwise_or(seg1, seg2)
+        self.result['img'] = seg
 
     def apply_mask_to_image(self, mask, image):
         """
@@ -86,31 +78,24 @@ class AlgBody(Algorithm):
 
         return res
 
-    def adaptive_threshold(self,
-        image,
-        threshold_value=255,
-        threshold_type=cv2.THRESH_BINARY_INV,
-        adaptive_type=cv2.ADAPTIVE_THRESH_MEAN_C,
-        block_size=11,
-        constant=2,
-        **_):
+    def otsus_threshold(self, image, threshold_value=0, threshold_type=cv2.THRESH_BINARY_INV, **_):
+        greyscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        threshold_type += cv2.THRESH_OTSU
+        threshold_image = cv2.threshold(greyscale_image, threshold_value, THRESHOLD_FG_COLOR, threshold_type)[1]
+        return threshold_image
 
-        grayscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-        result = cv2.adaptiveThreshold(grayscale_image, threshold_value, adaptive_type,
-            threshold_type, block_size, constant)
-
-        return result
-
-    def erosion_dilation_marker(self,
-        image,
-        erosion_iterations=2,
+    def distance_transform_dilation_marker(self,image,
+        opening_iterations=2,
         dilation_iterations=1,
-        threshold_strategy=adaptive_threshold):
+        kernel=np.ones((3, 3), np.uint8),
+        distance_factor=0.7,
+        threshold_strategy=otsus_threshold):
+
         """
-        Applies morphological transformations to obtain the marker. The areas likely to be foreground
-        are obtained by erosion. The areas likely to be background are obtained by dilation.
-        The final marker is obtained by adding likely background to likely foreground where areas
-        not part of either are considered undecided.
+        Applies morphological transformation, i.e. morphological opening using a kernel to obtain the areas
+        of the image likely to be foreground. The areas likely to be background are obtained by dilation.
+        The final marker is obtained by adding likely background to likely foreground where areas not part of
+        either are considered undecided.
 
         Args:
             threshold_image: A properly thresholded image
@@ -118,18 +103,29 @@ class AlgBody(Algorithm):
         Returns:
             A marker subdividing image regions into likely foreground, likely background and undecided pixels
         """
+
         threshold_image = threshold_strategy(image)
-        # determine likely foreground by erosion
-        foreground_image = cv2.erode(threshold_image, None, iterations=erosion_iterations)
+
+        # noise removal by morphological opening. This removes stray white pixels from the image
+        morphological_opening = cv2.morphologyEx(threshold_image, cv2.MORPH_OPEN, kernel,
+                                                iterations=opening_iterations)
+
+        # determine likely foreground by distance transform. Regions near the center of objects
+        # are most likely foreground.
+        distance_transformation = cv2.distanceTransform(morphological_opening, cv2.DIST_L2, 5)
+        foreground_image = np.uint8(
+            cv2.threshold(
+                distance_transformation,
+                distance_factor*distance_transformation.max(),
+                FG_MARKER,
+                cv2.THRESH_BINARY)[1])
 
         # determine likely background by dilation
-        background_image_tmp = cv2.dilate(threshold_image, None, iterations=dilation_iterations)
-        background_image = cv2.threshold(background_image_tmp, 0, BG_MARKER, cv2.THRESH_BINARY_INV)[1]
+        background_image = cv2.dilate(morphological_opening, kernel, iterations=dilation_iterations)
+        background_image = cv2.threshold(background_image, 0, BG_MARKER, cv2.THRESH_BINARY_INV)[1]
 
         # regions not part of either likely foreground nor likely background are considered undecided
-        marker = cv2.add(foreground_image, background_image)
-
-        return marker
+        return cv2.add(foreground_image, background_image)
 
     def watershed(self,image, marker):
         """
@@ -164,7 +160,6 @@ class AlgBody(Algorithm):
         mask_watershed = cv2.convertScaleAbs(marker)
 
         return mask_watershed
-
 
 if __name__ == '__main__':
     pass

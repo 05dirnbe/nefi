@@ -37,16 +37,12 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Watershed - Dilation Erosion Adaptive Threshold"
+        self.name = "Watershed - Dilation Erosion Otsu"
         self.parent = "Segmentation"
         self.fg_iter = IntegerSlider("Foreground Iteration", 1,10, 1, 2)
         self.bg_iter = IntegerSlider("Background Iteration", 1, 10, 1, 1)
-        self.block_size = IntegerSlider("Threshold Block Size", 1,20, 1, 5)
-        self.constant = IntegerSlider("Threshold Constant", -10, 10, 1, 2)
         self.integer_sliders.append(self.fg_iter)
         self.integer_sliders.append(self.bg_iter)
-        self.integer_sliders.append(self.block_size)
-        self.integer_sliders.append(self.constant)
 
     def process(self, args):
         """
@@ -58,18 +54,14 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        adapt_thresh = self.adaptive_threshold(image=args["img"],
-                                               block_size=(self.block_size.value*2+1),
-                                               constant=self.constant.value)
-        seg1 = self.apply_mask_to_image(adapt_thresh,image=args["img"])
         marker = self.erosion_dilation_marker(image=args["img"],
                                               erosion_iterations=self.fg_iter.value,
                                               dilation_iterations=self.bg_iter.value,
-                                              threshold_strategy=self.adaptive_threshold)
+                                              threshold_strategy=self.otsus_threshold)
         watershed_marker = self.watershed(image=args["img"], marker=marker)
-        seg2 = self.apply_mask_to_image(watershed_marker,image=args["img"])
+        seg = self.apply_mask_to_image(watershed_marker, image=args["img"])
 
-        self.result['img'] = cv2.bitwise_or(seg1, seg2)
+        self.result['img'] = seg
 
     def apply_mask_to_image(self, mask, image):
         """
@@ -86,26 +78,17 @@ class AlgBody(Algorithm):
 
         return res
 
-    def adaptive_threshold(self,
-        image,
-        threshold_value=255,
-        threshold_type=cv2.THRESH_BINARY_INV,
-        adaptive_type=cv2.ADAPTIVE_THRESH_MEAN_C,
-        block_size=11,
-        constant=2,
-        **_):
-
-        grayscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-        result = cv2.adaptiveThreshold(grayscale_image, threshold_value, adaptive_type,
-            threshold_type, block_size, constant)
-
-        return result
+    def otsus_threshold(self,image, threshold_value=0, threshold_type=cv2.THRESH_BINARY_INV, **_):
+        greyscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        threshold_type += cv2.THRESH_OTSU
+        threshold_image = cv2.threshold(greyscale_image, threshold_value, THRESHOLD_FG_COLOR, threshold_type)[1]
+        return threshold_image
 
     def erosion_dilation_marker(self,
         image,
         erosion_iterations=2,
         dilation_iterations=1,
-        threshold_strategy=adaptive_threshold):
+        threshold_strategy=otsus_threshold):
         """
         Applies morphological transformations to obtain the marker. The areas likely to be foreground
         are obtained by erosion. The areas likely to be background are obtained by dilation.
