@@ -29,9 +29,9 @@ def draw_graph(image, graph):
     """
     tmp = draw_edges(image, graph)
     node_size = int(np.ceil((max(image.shape) / float(NODESIZESCALING))))
-    return draw_nodes(tmp, graph, max(node_size, 3))
+    return draw_nodes(tmp, graph, max(node_size, 1))
 
-def draw_nodes(img, graph, radius=3):
+def draw_nodes(img, graph, radius=1):
     """
     Draws all nodes into an input image
 
@@ -47,7 +47,7 @@ def draw_nodes(img, graph, radius=3):
     """
 
     for x, y in graph.nodes_iter():
-        cv.rectangle(img, (y-radius, x-radius), (y+radius, x+radius), (0, 255, 0), -1)
+        cv.rectangle(img, (y-radius, x-radius), (y+radius, x+radius), (255, 0, 0), -1)
 
     return img
 
@@ -68,7 +68,7 @@ def draw_edges(img, graph, col=(0, 0, 255)):
     for (x1, y1), (x2, y2) in graph.edges_iter():
         start = (y1, x1)
         end = (y2, x2)
-        diam = graph[(x1, y1)][(x2, y2)]['width']
+        diam = 2 #graph[(x1, y1)][(x2, y2)]['width']
         if diam == -1: diam = 2
         diam = int(round(diam))
         if diam > 255:

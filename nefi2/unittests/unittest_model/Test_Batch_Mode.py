@@ -47,8 +47,11 @@ class ParserTests(unittest.TestCase):
     #def test_batch_easy(self):
     #    run_batch_mode("pip1.json", "input.jpeg")
 
-    def test_batch_easy(self):
-        run_batch_mode("pip1.json", "input2.jpeg")
+    #def test_batch_easy(self):
+    #    run_batch_mode("pip1.json", "input2.jpeg")
+
+    def test_batch_a_junius(self):
+        run_batch_mode("a_junius.json", "input2.jpeg")
 
 
 if __name__ == '__main__':
