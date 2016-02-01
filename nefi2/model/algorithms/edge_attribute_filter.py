@@ -84,8 +84,7 @@ class AlgBody(Algorithm):
                   ' Filtering failed because', e)
             print ('is not present in the graph as an edge attribute.')
 
-        img = draw_graph(input_data[0],input_data[1])
-        self.result['img'] = img
+        self.result['img'] = input_data[0]
         self.result['graph'] = input_data[1]
 
 
