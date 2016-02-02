@@ -41,6 +41,18 @@ class GuoHallTest(unittest.TestCase):
 
         self.assertEqual(alg.result['graph'],graph)
 
+    def should_alg(self,arg):
+
+        nodes_not_in_a_cycle = set(arg.nodes())
+        # filter all nodes which are not in a biconnected component
+        for component in nx.biconnected_components(arg):
+            if len(component) > 2:
+                nodes_not_in_a_cycle -= component
+        # remove all nodes which are not in a biconnected component from
+        # the graph
+        arg.remove_nodes_from(nodes_not_in_a_cycle)
+        return arg
+
 
 if __name__ == '__main__':
     unittest.main()
