@@ -6,6 +6,7 @@ from simple_cycle import *
 from guo_hall import AlgBody as guo_body
 from blur import AlgBody as blur_body
 from adaptive import AlgBody as adaptive_body
+import networkx as nx
 import cv2
 import unittest
 
