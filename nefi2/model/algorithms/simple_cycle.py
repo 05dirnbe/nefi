@@ -52,13 +52,9 @@ class AlgBody(Algorithm):
         # remove all nodes which are not in a biconnected component from
         # the graph
         graph.remove_nodes_from(nodes_not_in_a_cycle)
+        print ('discarding a total of', len(nodes_not_in_a_cycle), 'edges ...')
         self.result['graph'] = graph
-        # draw edges into current image
-        tmp = self.draw_edges(image, graph)
-        # draw nodes into current image
-        drawn = self.draw_nodes(tmp, graph)
-
-        self.result['img'] = drawn
+        self.result['img'] = image
 
     @staticmethod
     def draw_nodes(args):
@@ -98,7 +94,7 @@ class AlgBody(Algorithm):
             cv.line(draw, start, end, color, diam)
         draw = cv.addWeighted(image, 0.5, draw, 0.5, 0)
 
-        return image
+        return draw
 
 if __name__ == '__main__':
     pass

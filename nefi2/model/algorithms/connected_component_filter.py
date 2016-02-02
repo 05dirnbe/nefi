@@ -70,7 +70,7 @@ class AlgBody(Algorithm):
                                       component size is negative:",
                                       self.compnt_size.value)
 
-            self.operator.value = _utility.check_operator(self.operator)
+            self.operator.value = check_operator(self.operator)
             connected_components = sorted(
                 list(nx.connected_component_subgraphs(input_data[1])),
                 key=lambda graph: graph.number_of_nodes())
@@ -85,8 +85,7 @@ class AlgBody(Algorithm):
         except ArithmeticError as ex:
             print ('Exception caught in', ex)
 
-        img = _utility.draw_graph(input_data[0],input_data[1])
-        self.result['img'] = img
+        self.result['img'] = input_data[0]
         self.result['graph'] = input_data[1]
 
 

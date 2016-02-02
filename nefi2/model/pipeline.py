@@ -60,7 +60,7 @@ class Pipeline:
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
         self.input_files = None
 
-    def new_category(self, position, cat_name=None, alg_name=None, ):
+    def new_category(self, position, cat_name=None, alg_name=None):
         """
         This method is used by the json parser to create a category.
         The parser knows already the cat type and alg type as well

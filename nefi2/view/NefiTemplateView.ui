@@ -29,6 +29,17 @@
         <height>16777215</height>
        </size>
       </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>241</width>
+         <height>941</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout"/>
+      </widget>
      </widget>
     </item>
     <item row="0" column="3">
@@ -39,6 +50,17 @@
         <height>0</height>
        </size>
       </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>801</width>
+         <height>941</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2"/>
+      </widget>
      </widget>
     </item>
     <item row="0" column="4">
@@ -63,39 +85,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QWidget" name="CategoryDetails" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>200</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>250</width>
-           <height>200</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget" native="true">
+        <widget class="QWidget" name="Settings_Placeholder" native="true">
          <property name="minimumSize">
           <size>
            <width>250</width>
@@ -105,6 +95,17 @@
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
+         <widget class="QWidget" name="horizontalLayoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>241</width>
+            <height>611</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="Settings_Placeholder_layout"/>
+         </widget>
         </widget>
        </item>
        <item>
@@ -124,7 +125,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QWidget" name="AlgorithmDetails" native="true">
+        <widget class="QWidget" name="Pipeline_Order_Placeholder" native="true">
          <property name="minimumSize">
           <size>
            <width>250</width>
@@ -137,6 +138,17 @@
            <height>300</height>
           </size>
          </property>
+         <widget class="QWidget" name="horizontalLayoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>241</width>
+            <height>291</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="Pipeline_Order_Placeholder_layout"/>
+         </widget>
         </widget>
        </item>
       </layout>

@@ -106,8 +106,7 @@ class AlgBody(Algorithm):
 
             print ("Unexpected error:", sys.exc_info()[0])
 
-        img = draw_graph(input_data[0],input_data[1])
-        self.result['img'] = img
+        self.result['img'] = input_data[0]
         self.result['graph'] = input_data[1]
 
 if __name__ == '__main__':

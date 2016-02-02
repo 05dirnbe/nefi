@@ -2,7 +2,7 @@
 import unittest
 import networkx as nx
 import cv2
-from edge_Attribute_filter import AlgBody as Edge_Body
+from edge_attribute_filter import AlgBody as Edge_Body
 from guo_hall import AlgBody as guo_body
 from invert_color import AlgBody as invert_body
 from adaptive import AlgBody as adaptive_body

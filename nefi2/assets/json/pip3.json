@@ -1,0 +1,19 @@
+[
+ ["Bilateral Filter",{"channel1":true,
+                      "channel2":true,
+                      "channel3":true,
+                      "diameter":20,
+                      "sigmaColor":50.0,
+                      "sigmaSpace":20.0,
+                      "store_image":false,
+                      "type":"Preprocessing"}],
+
+  ["Otsus Threshold",{"store_image":false,
+                      "type":"Segmentation"}],
+
+  ["Guo Hall Thinning",{"store_image":false,
+                      "type":"Graph detection"}],
+
+  ["Keep only largest connected component",{"store_image":false,
+                                            "type":"Graph filtering"}]
+]
