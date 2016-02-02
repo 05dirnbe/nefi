@@ -53,12 +53,7 @@ class AlgBody(Algorithm):
         # the graph
         graph.remove_nodes_from(nodes_not_in_a_cycle)
         self.result['graph'] = graph
-        # draw edges into current image
-        tmp = self.draw_edges(image, graph)
-        # draw nodes into current image
-        drawn = self.draw_nodes(tmp, graph)
-
-        self.result['img'] = drawn
+        self.result['img'] = image
 
     @staticmethod
     def draw_nodes(args):

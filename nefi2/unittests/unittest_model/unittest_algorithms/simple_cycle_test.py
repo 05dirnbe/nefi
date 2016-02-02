@@ -2,10 +2,10 @@
 """
 Tests for the simple cycle algorithm
 """
-from nefi2.model.algorithms.simple_cycle import *
-from nefi2.model.algorithms.guo_hall import AlgBody as guo_body
-from nefi2.model.algorithms.blur import AlgBody as blur_body
-from nefi2.model.algorithms.adaptive import AlgBody as adaptive_body
+from simple_cycle import *
+from guo_hall import AlgBody as guo_body
+from blur import AlgBody as blur_body
+from adaptive import AlgBody as adaptive_body
 import cv2
 import unittest
 
