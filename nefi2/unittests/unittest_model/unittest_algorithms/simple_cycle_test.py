@@ -11,7 +11,7 @@ import unittest
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
-class GuoHallTest(unittest.TestCase):
+class Symple_Cycle_Test(unittest.TestCase):
 
     def test_instantiation(self):
         """
