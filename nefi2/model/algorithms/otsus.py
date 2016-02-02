@@ -11,6 +11,7 @@ threshold value and returns you as the second output. If Otsu thresholding is
 not used, the optimal threshold is same as the threshold value you used.
 """
 import cv2
+import numpy as np
 from _alg import Algorithm
 
 
@@ -41,10 +42,12 @@ class AlgBody(Algorithm):
 
         """
         gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
-        self.result['img'] = cv2.threshold(gray_img, 0, 255,
-                                           cv2.THRESH_BINARY +
-                                           cv2.THRESH_OTSU)[1]
-
+        processed_img = cv2.threshold(gray_img, 0, 255,
+                                      cv2.THRESH_BINARY_INV +
+                                      cv2.THRESH_OTSU)[1]
+        zero_img_arr = np.zeros_like(args[0])
+        zero_img_arr[processed_img == 255] = [255] * 3
+        self.result['img'] = zero_img_arr
 
 if __name__ == '__main__':
     pass
