@@ -65,7 +65,7 @@ class AlgBody(Algorithm):
                                      grabcut_iterations=self.gc_iter.value)
         seg = self.apply_mask_to_image(grabcut_marker, image=args["img"])
 
-        self.result['img'] = seg
+        self.result['img'] = cv2.cvtColor(seg, cv2.COLOR_RGB2GRAY)
 
     def apply_mask_to_image(self, mask, image):
         """

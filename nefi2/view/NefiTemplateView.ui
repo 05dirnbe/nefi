@@ -16,7 +16,7 @@
   <widget class="QWidget" name="CentralView">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="2">
-     <widget class="QWidget" name="LeftView" native="true">
+     <widget class="QWidget" name="Images_Pipeline_Placeholder" native="true">
       <property name="minimumSize">
        <size>
         <width>250</width>
@@ -29,6 +29,17 @@
         <height>16777215</height>
        </size>
       </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>241</width>
+         <height>941</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="Images_Pipeline_layout"/>
+      </widget>
      </widget>
     </item>
     <item row="0" column="3">
@@ -39,6 +50,17 @@
         <height>0</height>
        </size>
       </property>
+      <widget class="QWidget" name="horizontalLayoutWidget_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>801</width>
+         <height>941</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="Images_layout"/>
+      </widget>
      </widget>
     </item>
     <item row="0" column="4">
@@ -82,7 +104,7 @@
             <height>611</height>
            </rect>
           </property>
-          <layout class="QHBoxLayout" name="Settings_Placeholder_layout"/>
+          <layout class="QHBoxLayout" name="Settings_layout"/>
          </widget>
         </widget>
        </item>
@@ -125,7 +147,7 @@
             <height>291</height>
            </rect>
           </property>
-          <layout class="QHBoxLayout" name="Pipeline_Order_Placeholder_layout"/>
+          <layout class="QHBoxLayout" name="Pipeline_Order_layout"/>
          </widget>
         </widget>
        </item>

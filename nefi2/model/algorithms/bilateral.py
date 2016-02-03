@@ -63,23 +63,32 @@ class AlgBody(Algorithm):
             | *image* : image instance
 
         """
+        def bilateral(chnls):
+            """
+            Bilateral cv2 filter function
+
+            Args:
+                *chnls* (ndarray) -- image array
+
+            Returns:
+                result of cv2.bilateralFilter
+
+            """
+            return cv2.bilateralFilter(chnls, self.diameter.value*2+1,
+                                              self.sigma_color.value,
+                                              self.sigma_space.value)
+
         channels = cv2.split(args[0])
-        if self.channel1.value:
-            channels[0] = cv2.bilateralFilter(channels[0],
-                                              self.diameter.value*2+1,
-                                              self.sigma_color.value,
-                                              self.sigma_space.value)
-        if self.channel2.value:
-            channels[1] = cv2.bilateralFilter(channels[1],
-                                              self.diameter.value*2+1,
-                                              self.sigma_color.value,
-                                              self.sigma_space.value)
-        if self.channel3.value:
-            channels[2] = cv2.bilateralFilter(channels[2],
-                                              self.diameter.value*2+1,
-                                              self.sigma_color.value,
-                                              self.sigma_space.value)
-        self.result['img'] = cv2.merge(channels)
+        if any([self.channel.value, self.channel2.value, self.channel3.value]):
+            self.result['img'] = bilateral(channels)
+        else:
+            if self.channel1.value:
+                channels[0] = bilateral(channels[0])
+            if self.channel2.value:
+                channels[1] = bilateral(channels[1])
+            if self.channel3.value:
+                channels[2] = bilateral(channels[2])
+            self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':

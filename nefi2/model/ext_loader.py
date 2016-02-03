@@ -43,7 +43,6 @@ class ExtensionLoader:
         _order = self._read_configs(_config_path)
         self.cats_container = self._instantiate_cats(_order, _found_cats)
 
-
     @staticmethod
     def _scan_model(cat_dir):
         """
