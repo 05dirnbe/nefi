@@ -5,7 +5,7 @@ This class represents the algorithm Watershed from the opencv package.
 """
 import cv2
 import numpy as np
-from nefi2.model.algorithms._alg import *
+from _alg import *
 
 
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
