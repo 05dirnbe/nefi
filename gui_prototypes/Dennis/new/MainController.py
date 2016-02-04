@@ -1,29 +1,33 @@
-import PyQt5
+# -*- coding: utf-8 -*-
+"""
+This is nefi's main view. Currently we deployed all controls of the
+GUI in the MainView.ui. Static changes to the GUI should always been
+done by the Qt designer since this reduces the amount of code dramatically.
+To draw the complete UI the controllers are invoked and the draw_ui function is
+called
+"""
 from PyQt5 import QtCore, QtGui, QtWidgets, uic, Qt
 import sys
 import qdarkstyle
 from settings import *
 
+__authors__ = {"Dennis Groß": "gdennis91@googlemail.com"}
 
-class RightControlbarController():
-    def __init__(self):
-        pass
-
-
-class SceneGraphModel(QtCore.QAbstractItemModel):
-    def __init__(self):
-        self.setu
-        pass
+base, form = uic.loadUiType("MainView.ui")
 
 
-base2, form2 = uic.loadUiType("NefiTemplateView2.ui")
+class MainView(base, form):
 
-
-class MainView(base2, form2):
     def __init__(self, parent=None):
-        super(base2, self).__init__(parent)
+        super(base, self).__init__(parent)
         self.setupUi(self)
+        self.draw_ui()
 
+    def draw_ui(self):
+        """
+        This function is concerned with drawing all non static elements  into the
+        GUI.
+        """
         self.set_pip_title("A. Junius2", self.current_pip_label)
 
         self.set_preset(["A.Junius", "test", "test", "test"], self.fav_pips_combo_box)
