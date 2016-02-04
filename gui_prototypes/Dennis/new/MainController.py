@@ -187,6 +187,15 @@ class MainView(base, form):
         parent_vbox_layout.addWidget(image_widget)
 
 
+class LeftImageCustomWidget(QtWidgets.QWidget):
+    def __init__(self, main_image_label):
+        self.main_image_label = main_image_label
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            self.main_image_label.setPixmap(QtGui.QPixmap(self.pixmap))
+
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
