@@ -58,16 +58,16 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        adapt_thresh = self.adaptive_threshold(image=args["img"],
+        adapt_thresh = self.adaptive_threshold(image=args[0],
                                                block_size=(self.block_size.value*2+1),
                                                constant=self.constant.value)
-        seg1 = self.apply_mask_to_image(adapt_thresh,image=args["img"])
-        marker = self.erosion_dilation_marker(image=args["img"],
+        seg1 = self.apply_mask_to_image(adapt_thresh,image=args[0])
+        marker = self.erosion_dilation_marker(image=args[0],
                                               erosion_iterations=self.fg_iter.value,
                                               dilation_iterations=self.bg_iter.value,
                                               threshold_strategy=self.adaptive_threshold)
-        watershed_marker = self.watershed(image=args["img"], marker=marker)
-        seg2 = self.apply_mask_to_image(watershed_marker,image=args["img"])
+        watershed_marker = self.watershed(image=args[0], marker=marker)
+        seg2 = self.apply_mask_to_image(watershed_marker,image=args[0])
         seg = cv2.bitwise_or(seg1, seg2)
         self.result['img'] = cv2.cvtColor(seg, cv2.COLOR_RGB2GRAY)
 
