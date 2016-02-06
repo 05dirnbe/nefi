@@ -24,12 +24,12 @@ class AlgBody(Algorithm):
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
-            | *filterStrength* : Parameter regulating filter strength.
+            | *f_strength* : Parameter regulating filter strength.
               A larger value of the parameter means that more noise and also
               more image details will be removed
-            | *templateWindowSize* : size in pixels of the template patch that
+            | *template_size* : size in pixels of the template patch that
               is used to compute weights
-            | *searchWindowSize* : size in pixels of the window that is used
+            | *search_size* : size in pixels of the window that is used
               to compute weighted average for given pixel.
               A larger value of the parameter means a larger denoising time
 
@@ -59,26 +59,45 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
+        def fastNLMeans(chnls):
+            """
+            Fast NL-Means Denoising cv2 filter function
+
+            Args:
+                *chnls* (ndarray) -- image array
+
+            Returns:
+                result of cv2.fastNLMeansDenoising
+
+            """
+            return cv2.fastNlMeansDenoising(chnls,
+                                            self.f_strength.value,
+                                            self.template_size.value*2+1,
+                                            self.search_size.value*2+1)
         channels = cv2.split(args[0])
-        if self.channel1.value:
-            val = cv2.fastNlMeansDenoising(channels[0],
-                                           self.filterStrength.value,
-                                           self.templateWindowSize.value*2+1,
-                                           self.searchWindowSize.value*2+1)
-            channels[0] = val
-        if self.channel2.value:
-            val = cv2.fastNlMeansDenoising(channels[1],
-                                           self.filterStrength.value,
-                                           self.templateWindowSize.value*2+1,
-                                           self.searchWindowSize.value*2+1)
-            channels[1] = val
-        if self.channel3.value:
-            val = cv2.fastNlMeansDenoising(channels[2],
-                                           self.filterStrength.value,
-                                           self.templateWindowSize.value*2+1,
-                                           self.searchWindowSize.value*2+1)
-            channels[2] = val
-        self.result['img'] = cv2.merge(channels)
+
+        if all([self.channel1.value, self.channel2.value, self.channel3.value]):
+            self.result['img'] = fastNLMeans(args[0])
+        else:
+            if self.channel1.value:
+                val = cv2.fastNlMeansDenoising(channels[0],
+                                           self.f_strength.value,
+                                           self.template_size.value*2+1,
+                                           self.search_size.value*2+1)
+                channels[0] = val
+            if self.channel2.value:
+                val = cv2.fastNlMeansDenoising(channels[1],
+                                           self.f_strength.value,
+                                           self.template_size.value*2+1,
+                                           self.search_size.value*2+1)
+                channels[1] = val
+            if self.channel3.value:
+                val = cv2.fastNlMeansDenoising(channels[2],
+                                           self.f_strength.value,
+                                           self.template_size.value*2+1,
+                                           self.search_size.value*2+1)
+                channels[2] = val
+            self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':
