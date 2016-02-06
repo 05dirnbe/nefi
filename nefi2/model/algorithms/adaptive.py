@@ -16,7 +16,9 @@ from _alg import Algorithm, IntegerSlider
 
 __author__ = {
     "Andreas Firczynski": "andreasfir91@googlemail.com",
-    "Pavel Shkadzko": "p.shkadzko@gmail.com"}
+    "Pavel Shkadzko": "p.shkadzko@gmail.com",
+    "Sebastian Schattner": "s9sescat@stud.uni-saarland.de"
+}
 
 
 class AlgBody(Algorithm):
@@ -35,7 +37,7 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Adaptive Threshold"
         self.parent = "Segmentation"
-        self.blocksize = IntegerSlider("Threshold Blocksize", 3, 23, 1, 11)
+        self.blocksize = IntegerSlider("Threshold Blocksize", 1, 20, 1, 5)
         self.constant = IntegerSlider("Threshold Constant", -10, 10, 1, 2)
         self.integer_sliders.append(self.blocksize)
         self.integer_sliders.append(self.constant)
@@ -49,13 +51,11 @@ class AlgBody(Algorithm):
 
         """
         gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
-        # cv2.ADAPTIVE_THRESH_GAUSSIAN_C produces cleaner results,
-        # nefi1 uses ADAPTIVE_THRESH_MEAN_C however
         self.result['img'] = cv2.adaptiveThreshold(gray_img, 255,
                                                    cv2.ADAPTIVE_THRESH_MEAN_C,
-                                                   cv2.THRESH_BINARY,
-                                                   self.blocksize.default,
-                                                   self.constant.default)
+                                                   cv2.THRESH_BINARY_INV,
+                                                   self.blocksize.value*2+1,
+                                                   self.constant.value)
 
 
 if __name__ == '__main__':
