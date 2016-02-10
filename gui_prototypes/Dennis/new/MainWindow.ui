@@ -51,7 +51,15 @@
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <layout class="QVBoxLayout" name="intermediate_results"/>
+              <layout class="QVBoxLayout" name="intermediate_results">
+               <item>
+                <widget class="QPushButton" name="pushButton">
+                 <property name="text">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -286,13 +294,6 @@
      </layout>
     </item>
    </layout>
-   <zorder>horizontalLayoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>groupBox_2</zorder>
-   <zorder>groupBox</zorder>
-   <zorder>center_display_group</zorder>
-   <zorder>immediate_results_group</zorder>
-   <zorder>groupBox_2</zorder>
   </widget>
   <action name="PipelineMenu">
    <property name="text">
