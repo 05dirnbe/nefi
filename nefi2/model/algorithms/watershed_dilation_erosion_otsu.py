@@ -54,12 +54,12 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        marker = self.erosion_dilation_marker(image=args["img"],
+        marker = self.erosion_dilation_marker(image=args[0],
                                               erosion_iterations=self.fg_iter.value,
                                               dilation_iterations=self.bg_iter.value,
                                               threshold_strategy=self.otsus_threshold)
-        watershed_marker = self.watershed(image=args["img"], marker=marker)
-        seg = self.apply_mask_to_image(watershed_marker, image=args["img"])
+        watershed_marker = self.watershed(image=args[0], marker=marker)
+        seg = self.apply_mask_to_image(watershed_marker, image=args[0])
 
         self.result['img'] = cv2.cvtColor(seg, cv2.COLOR_RGB2GRAY)
 

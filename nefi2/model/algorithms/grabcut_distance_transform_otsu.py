@@ -56,14 +56,14 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        marker = self.distance_transform_dilation_marker(image=args["img"],
+        marker = self.distance_transform_dilation_marker(image=args[0],
                                                          opening_iterations=self.fg_iter.value,
                                                          dilation_iterations=self.bg_iter.value,
                                                          threshold_strategy=self.otsus_threshold)
-        grabcut_marker = self.grabcut(image=args["img"],
+        grabcut_marker = self.grabcut(image=args[0],
                                      marker=marker,
                                      grabcut_iterations=self.gc_iter.value)
-        seg = self.apply_mask_to_image(grabcut_marker, image=args["img"])
+        seg = self.apply_mask_to_image(grabcut_marker, image=args[0])
 
         self.result['img'] = cv2.cvtColor(seg, cv2.COLOR_RGB2GRAY)
 

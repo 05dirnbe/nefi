@@ -79,8 +79,8 @@ class AlgBody(Algorithm):
                                               self.sigma_space.value)
 
         channels = cv2.split(args[0])
-        if any([self.channel.value, self.channel2.value, self.channel3.value]):
-            self.result['img'] = bilateral(channels)
+        if all([self.channel1.value, self.channel2.value, self.channel3.value]):
+            self.result['img'] = bilateral(args[0])
         else:
             if self.channel1.value:
                 channels[0] = bilateral(channels[0])
