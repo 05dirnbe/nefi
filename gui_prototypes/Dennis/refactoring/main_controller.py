@@ -20,23 +20,6 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com"}
 base, form = uic.loadUiType("MainView.ui")
 
 
-class Foo(QObject):
-    # Define a new signal called 'trigger' that has no arguments.
-    trigger = pyqtSignal()
-
-    def connect_and_emit_trigger(self):
-        # Connect the trigger signal to a slot.
-        self.trigger.connect(self.handle_trigger)
-
-        # Emit the signal.
-        self.trigger.emit()
-
-    def handle_trigger(self):
-        # Show that the slot has been called.
-
-        print("trigger signal received")
-
-
 class MainView(base, form):
     def __init__(self, parent=None):
         super(base, self).__init__(parent)
@@ -48,9 +31,6 @@ class MainView(base, form):
         This function is concerned with drawing all non static elements  into the
         GUI.
         """
-
-        foo = Foo()
-        foo.connect_and_emit_trigger()
 
         self.set_pip_title("A. Junius2")
 
@@ -126,7 +106,7 @@ class MainView(base, form):
             | *title*: the title of the pipeline
             | *label_ref*: the reference to the label.
         """
-        self.current_pip_label.setText("Current Pipeline " + title)
+        self.current_pip_label.setText(title)
 
     def add_pip_entry(self, icon_url, label):
         """
@@ -503,7 +483,7 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    #app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
     wnd2 = MainView()
     wnd2.show()
