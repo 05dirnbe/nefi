@@ -1,0 +1,189 @@
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.find_ui_element:5: WARNING: Inline substitution_reference start-string without end-string.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.process:13: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.CheckBox.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.DropDown.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.FloatSlider.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.IntegerSlider.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/ExtensionLoader.rst:2: WARNING: Title underline too short.
+
+Extension Loader
+----
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Pipeline.rst:2: WARNING: Title underline too short.
+
+Pipeline
+----
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:7: WARNING: autodoc: failed to import module 'model.algorithms.edge_attribute_filter'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/edge_attribute_filter.py", line 7, in <module>
+    from _alg import Algorithm, DropDown, FloatSlider
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:15: WARNING: autodoc: failed to import module 'model.algorithms.grabcut_dilation_erosion_otsu'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/grabcut_dilation_erosion_otsu.py", line 8, in <module>
+    from _alg import *
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:23: WARNING: autodoc: failed to import module 'model.algorithms.watershed_distance_transform_otsu'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/watershed_distance_transform_otsu.py", line 8, in <module>
+    from _alg import *
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_utility.py:docstring of model.algorithms._utility.draw_graph:5: WARNING: Inline emphasis start-string without end-string.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:39: WARNING: autodoc: failed to import module 'model.algorithms.watershed_dilation_erosion_otsu'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/watershed_dilation_erosion_otsu.py", line 8, in <module>
+    from _alg import *
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:47: WARNING: autodoc: failed to import module 'model.algorithms.fast_nl_denoise_color'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/fast_nl_denoise_color.py", line 4, in <module>
+    from _alg import Algorithm, FloatSlider, IntegerSlider
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:55: WARNING: autodoc: failed to import module 'model.algorithms.color_enchance'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/color_enchance.py", line 4, in <module>
+    from _alg import Algorithm, FloatSlider, CheckBox
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.belongs:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.belongs, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.find_ui_element:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.find_ui_element, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.find_ui_element:5: WARNING: Inline substitution_reference start-string without end-string.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.get_name:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.get_name, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.process:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.process, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.process:13: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.report_pip:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.report_pip, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.set_modified:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.set_modified, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.Algorithm.unset_modified:0: WARNING: duplicate object description of model.algorithms._alg.Algorithm.unset_modified, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.CheckBox:0: WARNING: duplicate object description of model.algorithms._alg.CheckBox, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.CheckBox.set_value:0: WARNING: duplicate object description of model.algorithms._alg.CheckBox.set_value, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.CheckBox.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.DropDown:0: WARNING: duplicate object description of model.algorithms._alg.DropDown, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.DropDown.set_value:0: WARNING: duplicate object description of model.algorithms._alg.DropDown.set_value, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.DropDown.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.FloatSlider:0: WARNING: duplicate object description of model.algorithms._alg.FloatSlider, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.FloatSlider.set_value:0: WARNING: duplicate object description of model.algorithms._alg.FloatSlider.set_value, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.FloatSlider.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.IntegerSlider:0: WARNING: duplicate object description of model.algorithms._alg.IntegerSlider, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.IntegerSlider.set_value:0: WARNING: duplicate object description of model.algorithms._alg.IntegerSlider.set_value, other instance in /home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst, use :noindex: for one of them
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/_alg.py:docstring of model.algorithms._alg.IntegerSlider.set_value:9: WARNING: Line block ends without a blank line.
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:79: WARNING: autodoc: failed to import module 'model.algorithms.constant_threshold'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/constant_threshold.py", line 7, in <module>
+    from _alg import Algorithm, IntegerSlider
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:87: WARNING: autodoc: failed to import module 'model.algorithms.guo_hall'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/guo_hall.py", line 12, in <module>
+    from _alg import Algorithm
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:95: WARNING: autodoc: failed to import module 'model.algorithms.med_blur'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/med_blur.py", line 7, in <module>
+    from _alg import Algorithm, IntegerSlider, CheckBox
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:103: WARNING: autodoc: failed to import module 'model.algorithms.invert_color'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/invert_color.py", line 7, in <module>
+    from _alg import Algorithm, CheckBox
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:111: WARNING: autodoc: failed to import module 'model.algorithms.gauss_blur'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/gauss_blur.py", line 7, in <module>
+    from _alg import Algorithm, IntegerSlider, FloatSlider, CheckBox
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:119: WARNING: autodoc: failed to import module 'model.algorithms.otsus'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/otsus.py", line 15, in <module>
+    from _alg import Algorithm
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:127: WARNING: autodoc: failed to import module 'model.algorithms.watershed_dilation_erosion_adaptiveThresh'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/watershed_dilation_erosion_adaptiveThresh.py", line 8, in <module>
+    from _alg import *
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:135: WARNING: autodoc: failed to import module 'model.algorithms.blur'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/blur.py", line 7, in <module>
+    from _alg import Algorithm, IntegerSlider, CheckBox
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:143: WARNING: autodoc: failed to import module 'model.algorithms.connected_component_filter'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/connected_component_filter.py", line 7, in <module>
+    from _alg import Algorithm, IntegerSlider, DropDown
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:159: WARNING: autodoc: failed to import module 'model.algorithms.adaptive'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/adaptive.py", line 14, in <module>
+    from _alg import Algorithm, IntegerSlider
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:167: WARNING: autodoc: failed to import module 'model.algorithms.fast_nl_denoise'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/fast_nl_denoise.py", line 8, in <module>
+    from _alg import Algorithm, FloatSlider, IntegerSlider, CheckBox
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:175: WARNING: autodoc: failed to import module 'model.algorithms.bilateral'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/bilateral.py", line 7, in <module>
+    from _alg import *
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:183: WARNING: autodoc: failed to import module 'model.algorithms.largest_connected'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/largest_connected.py", line 10, in <module>
+    from _alg import Algorithm
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:191: WARNING: autodoc: failed to import module 'model.algorithms.grabcut_distance_transform_otsu'; the following exception was raised:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.4/dist-packages/sphinx/ext/autodoc.py", line 385, in import_object
+    __import__(self.modname)
+  File "/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/model/algorithms/grabcut_distance_transform_otsu.py", line 8, in <module>
+    from _alg import *
+ImportError: No module named '_alg'
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Algorithms.rst:: WARNING: document isn't included in any toctree
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/ExtensionLoader.rst:: WARNING: document isn't included in any toctree
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Pipeline.rst:: WARNING: document isn't included in any toctree
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection0.rst:: WARNING: document isn't included in any toctree
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection1.rst:: WARNING: document isn't included in any toctree
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection2.rst:: WARNING: document isn't included in any toctree
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/subsection3.rst:: WARNING: document isn't included in any toctree
+None:None: WARNING: toctree contains reference to document 'rst_files/Autogen' that doesn't have a title: no link will be generated
+None:None: WARNING: toctree contains reference to document 'rst_files/Autogen' that doesn't have a title: no link will be generated
+/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/rst_files/Code.rst:4: WARNING: toctree contains reference to document 'rst_files/Autogen' that doesn't have a title: no link will be generated
+None:None: WARNING: toctree contains reference to document 'rst_files/Autogen' that doesn't have a title: no link will be generated
+WARNING: html_static_path entry '/home/martino/Scrivania/SE/Nefi2/towards-nefi-2-0/nefi2/doc/documentation/_static' does not exist

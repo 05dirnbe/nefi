@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Algorithms Contribution &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
+        <link rel="prev" title="&lt;no title&gt;" href="Autogen.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Code.html">CodeBase</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Algorithms Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algbody-class">AlgBody Class</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Algorithms Contribution</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst_files/Algorithms_Contribution.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="algorithms-contribution">
+<h1>Algorithms Contribution<a class="headerlink" href="#algorithms-contribution" title="Permalink to this headline">¶</a></h1>
+<p>This document is a guide to add your own new algorithm in Nefi 2.0.
+The guide provides you all the step to be done for allow the users of Nefi 2.0 to use the new algorithm.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>First of all you have to create a <strong>.py</strong> file in the folder <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms</span></code>.
+This file will contain the algorithm that you want to add.
+As convention of Nefi 2.0, the name of the file will be the name of the algorithm,
+for example if the new algorithm is <strong>Blur</strong> the file&#8217;s name will be &#8220;<strong>blur.py</strong>&#8221;.
+The main structure of the file will be a main class <code class="xref py py-class docutils literal"><span class="pre">AlgBody</span></code> and its main methods <code class="xref py py-func docutils literal"><span class="pre">AlgBody.__init__()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">AlgBody.process()</span></code>.</p>
+</div>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<p>You have to import from <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms._alg</span></code> the class <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a>.
+Also you have to import, if the algorithm needs it, the UI widgets that allow the user to select the input values of the algorithm.
+The UI widgets that Nefi 2.0 provides are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.IntegerSlider" title="model.algorithms._alg.IntegerSlider"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.IntegerSlider</span></code></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.FloatSlider" title="model.algorithms._alg.FloatSlider"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.FloatSlider</span></code></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.CheckBox" title="model.algorithms._alg.CheckBox"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.CheckBox</span></code></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.DropDown" title="model.algorithms._alg.DropDown"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.DropDown</span></code></a>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="algbody-class">
+<h2>AlgBody Class<a class="headerlink" href="#algbody-class" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref py py-class docutils literal"><span class="pre">AlgBody</span></code> class will contain all the methods that you need to implement your algorithm and the methods <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">process()</span></code>.</p>
+<p>The <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> method is necessary to set the name of the algorithm, to link the algorithm at its category and to set the UI widgets.</p>
+<blockquote>
+<div><p>The <strong>name</strong> of the algorithm is defined by the attribute <code class="docutils literal"><span class="pre">self.name</span></code>.</p>
+<p>The <strong>parent category</strong> of the algorithm is defined by the attribute <code class="docutils literal"><span class="pre">self.parent</span></code>.</p>
+<p>To add the <strong>UI widgets</strong> create an UI object and then append it to the list <code class="docutils literal"><span class="pre">self.integer_sliders</span></code>, <code class="docutils literal"><span class="pre">self.float_sliders</span></code>, <code class="docutils literal"><span class="pre">self.checkboxes</span></code> or <code class="docutils literal"><span class="pre">self.drop_downs</span></code>.</p>
+</div></blockquote>
+<p>The <code class="xref py py-func docutils literal"><span class="pre">process()</span></code> is the main method that contains the logic of the algorithm.</p>
+<blockquote>
+<div>The <strong>results</strong> of the algorithm must be saved in the object <code class="docutils literal"><span class="pre">self.result['img']</span></code>, if it is an image, and/or in <code class="docutils literal"><span class="pre">self.result['graph']</span></code>, if it is a graph.</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="Autogen.html" class="btn btn-neutral" title="&lt;no title&gt;" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
