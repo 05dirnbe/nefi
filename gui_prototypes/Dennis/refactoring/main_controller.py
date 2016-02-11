@@ -503,7 +503,7 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    #app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
     wnd2 = MainView()
     wnd2.show()
