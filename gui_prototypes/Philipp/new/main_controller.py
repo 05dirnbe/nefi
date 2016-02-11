@@ -17,8 +17,8 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout
 
-
-__authors__ = {"Dennis Groß": "gdennis91@googlemail.com"}
+__authors__ = {"Dennis Groß":       "gdennis91@googlemail.com",
+               "Philipp Reichert":  "prei@me.com"}
 
 base, form = uic.loadUiType("MainView.ui")
 
@@ -75,19 +75,19 @@ class MainView(base, form):
         self.main_image_label.setPixmap(QtGui.QPixmap("wing.jpeg"))
 
         category_combo_box = ComboBoxWidget("type")
-        category_combo_box.add_item("Preprocessing",    "P.png")
-        category_combo_box.add_item("Segmentation",     "S.png")
-        category_combo_box.add_item("Graph Detection",  "D.png")
-        category_combo_box.add_item("Graph Filtering",  "F.png")
+        category_combo_box.add_item("Preprocessing", "P.png")
+        category_combo_box.add_item("Segmentation", "S.png")
+        category_combo_box.add_item("Graph Detection", "D.png")
+        category_combo_box.add_item("Graph Filtering", "F.png")
 
         alg_combo_box = ComboBoxWidget("algorithm")
         alg_combo_box.add_item("Otsus")
         alg_combo_box.add_item("Guo Hall")
         alg_combo_box.add_item("Adaptive Treshold")
 
-        slider_1   = SliderWidget("slider1das", 0, 10, 1, 4, False)
-        slider_2   = SliderWidget("slider1", 0, 10, 2, 4, False)
-        slider_3   = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
+        slider_1 = SliderWidget("slider1das", 0, 10, 1, 4, False)
+        slider_2 = SliderWidget("slider1", 0, 10, 2, 4, False)
+        slider_3 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
         checkbox_1 = CheckBoxWidget("checkbox1", True)
 
         self.setting_widget_vbox_layout.addWidget(category_combo_box)
@@ -97,7 +97,6 @@ class MainView(base, form):
         self.setting_widget_vbox_layout.addWidget(slider_3)
         self.setting_widget_vbox_layout.addWidget(checkbox_1)
         self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)
-
 
     def set_preset(self, options):
         """
@@ -286,6 +285,7 @@ class PipCustomWidget(QtWidgets.QWidget):
     This Widget is used for the entry's in the pipeline of thr right
     GUI panel.
     """
+
     def __init__(self, parent=None):
         PyQt5.QtWidgets.QWidget.__init__(self, parent)
         self.main_image_label = parent
@@ -323,7 +323,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.setLayout(self.SingleCheckBoxLayout)
         self.setFixedHeight(50)
 
-    def add_item(self, option, image = None):
+    def add_item(self, option, image=None):
         """
 
         Args:
@@ -334,7 +334,6 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
             self.combobox.addItem(option)
         else:
             self.combobox.addItem(QIcon(image), option)
-
 
 
 class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
@@ -509,7 +508,7 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    #app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
     wnd2 = MainView()
     wnd2.show()
