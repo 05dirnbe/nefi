@@ -9,11 +9,14 @@ called
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys
 import qdarkstyle
+from PyQt5.QtGui import QIcon
 from settings import *
 # cus widgets
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QBoxLayout
+
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com"}
 
@@ -52,14 +55,14 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.new_btn.setIcon(q_icon)
 
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("seg_fav_scaled.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("P.png", "Preprocessing - adaptive trehsold watershed")
 
         self.add_cat_image("seg_fav.jpeg", "Preprocessing")
         self.add_cat_image("wing.jpeg", "Preprocessing")
@@ -71,19 +74,30 @@ class MainView(base, form):
 
         self.main_image_label.setPixmap(QtGui.QPixmap("wing.jpeg"))
 
-        self.setting_widget_vbox_layout.addWidget(ComboBoxWidget("type", ["Please Select",
-                                                                          "Preprocessing",
-                                                                          "Segmentation",
-                                                                          "Graph Detection",
-                                                                          "Graph Filtering"]))
-        self.setting_widget_vbox_layout.addWidget(ComboBoxWidget("algorithm", ["Please Select",
-                                                                               "Otsus",
-                                                                               "Guo Hall",
-                                                                               "Adaptive Treshold"]))
-        self.setting_widget_vbox_layout.addWidget(SliderWidget("slider1", 0, 10, 1, 4, False))
-        self.setting_widget_vbox_layout.addWidget(SliderWidget("slider1", 0, 10, 2, 4, False))
-        self.setting_widget_vbox_layout.addWidget(SliderWidget("slider1", 0, 10, 1, 4, True))
-        self.setting_widget_vbox_layout.addWidget(CheckBoxWidget("checkbox1", True))
+        category_combo_box = ComboBoxWidget("type")
+        category_combo_box.add_item("Preprocessing",    "P.png")
+        category_combo_box.add_item("Segmentation",     "S.png")
+        category_combo_box.add_item("Graph Detection",  "D.png")
+        category_combo_box.add_item("Graph Filtering",  "F.png")
+
+        alg_combo_box = ComboBoxWidget("algorithm")
+        alg_combo_box.add_item("Otsus")
+        alg_combo_box.add_item("Guo Hall")
+        alg_combo_box.add_item("Adaptive Treshold")
+
+        slider_1   = SliderWidget("slider1das", 0, 10, 1, 4, False)
+        slider_2   = SliderWidget("slider1", 0, 10, 2, 4, False)
+        slider_3   = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
+        checkbox_1 = CheckBoxWidget("checkbox1", True)
+
+        self.setting_widget_vbox_layout.addWidget(category_combo_box)
+        self.setting_widget_vbox_layout.addWidget(alg_combo_box)
+        self.setting_widget_vbox_layout.addWidget(slider_1)
+        self.setting_widget_vbox_layout.addWidget(slider_2)
+        self.setting_widget_vbox_layout.addWidget(slider_3)
+        self.setting_widget_vbox_layout.addWidget(checkbox_1)
+        self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)
+
 
     def set_preset(self, options):
         """
@@ -106,7 +120,7 @@ class MainView(base, form):
             | *title*: the title of the pipeline
             | *label_ref*: the reference to the label.
         """
-        self.current_pip_label.setText(title)
+        self.current_pip_label.setText("Current Pipeline " + title)
 
     def add_pip_entry(self, icon_url, label):
         """
@@ -225,7 +239,7 @@ class PipelineEntry:
 
 class LeftCustomWidget(QtWidgets.QWidget):
     """
-    this widget is used in the left panel of the GUI. All indermediate
+    this widget is used in the left panel of the GUI. All intermediate
     result images are packed into a LeftCustomWidget and appended to the
     according vbox_layout of the Mainview.ui
     """
@@ -285,31 +299,42 @@ class PipCustomWidget(QtWidgets.QWidget):
 class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
     """
     This is the combobox widget as it is shown in the settings
-    panel of the GUI. It gets initialized with a name and a list
-    of string options. Those options refer to a list of strings which can
-    be selected in the combobox later.
+    panel of the GUI. It gets initialized with a name
     With self.valueChanged on can connect a pyqt slot with the
     combobox pyqtSignal.
     """
 
-    def __init__(self, name, options):
+    def __init__(self, name):
         super(ComboBoxWidget, self).__init__()
         self.valueChanged = pyqtSignal()
 
         # ComboBox itself
         self.combobox = QtWidgets.QComboBox()
         self.combobox.orientationCombo = PyQt5.QtWidgets.QComboBox()
-        self.combobox.orientationCombo.addItems(options)
+        self.combobox.setFixedWidth(220)
 
         # Label
         self.label = PyQt5.QtWidgets.QLabel()
         self.label.setText(name + ": ")
 
-        self.SingleCheckBoxLayout = PyQt5.QtWidgets.QGridLayout()
-        self.SingleCheckBoxLayout.setAlignment(Qt.AlignLeft)
-        self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
-        self.SingleCheckBoxLayout.addWidget(self.combobox, 0, 1)
+        self.SingleCheckBoxLayout = QBoxLayout(QBoxLayout.LeftToRight)
+        self.SingleCheckBoxLayout.addWidget(self.label)
+        self.SingleCheckBoxLayout.addWidget(self.combobox, Qt.AlignRight)
         self.setLayout(self.SingleCheckBoxLayout)
+        self.setFixedHeight(50)
+
+    def add_item(self, option, image = None):
+        """
+
+        Args:
+            | *option*: A string option refers to an entry which can be selected in the combobox later.
+            | *image*: An optional icon that can be shown combobox.
+        """
+        if image is None:
+            self.combobox.addItem(option)
+        else:
+            self.combobox.addItem(QIcon(image), option)
+
 
 
 class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
@@ -338,6 +363,7 @@ class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
         self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
         self.setLayout(self.SingleCheckBoxLayout)
+        self.setFixedHeight(50)
 
 
 class IntegerSliderWidget(PyQt5.QtWidgets.QGroupBox):
@@ -483,7 +509,7 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    #app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
     wnd2 = MainView()
     wnd2.show()

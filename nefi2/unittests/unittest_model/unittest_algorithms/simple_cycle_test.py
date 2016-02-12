@@ -12,7 +12,8 @@ import unittest
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 
-class Symple_cycle_test(unittest.TestCase):
+
+class simple_cycle_test(unittest.TestCase):
 
     def test_instantiation(self):
         """
