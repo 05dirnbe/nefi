@@ -322,6 +322,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.combobox, Qt.AlignRight)
         self.setLayout(self.SingleCheckBoxLayout)
         self.setFixedHeight(50)
+        self.setFlat(True)
 
     def add_item(self, option, image=None):
         """
@@ -363,6 +364,7 @@ class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
         self.setLayout(self.SingleCheckBoxLayout)
         self.setFixedHeight(50)
+        self.setFlat(True)
 
 
 class IntegerSliderWidget(PyQt5.QtWidgets.QGroupBox):

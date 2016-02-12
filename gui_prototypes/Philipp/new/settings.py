@@ -178,6 +178,7 @@ class SliderWidget(QGroupBox):
         self.SingleSlidersLayout.addWidget(self.textfield)
         self.setLayout(self.SingleSlidersLayout)
         self.setFixedHeight(50)
+        self.setFlat(True)
 
 
 """class Settings(QWidget):
