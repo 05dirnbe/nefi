@@ -13,9 +13,6 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">margin 10px</string>
-  </property>
   <widget class="QWidget" name="CentralView">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
@@ -51,8 +48,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>350</width>
-              <height>1096</height>
+              <width>354</width>
+              <height>1093</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -91,50 +88,11 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>859</width>
-              <height>1096</height>
+              <width>869</width>
+              <height>1093</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QWidget" name="zoombar_widget" native="true">
-               <property name="minimumSize">
-                <size>
-                 <width>200</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_2">
-                <item>
-                 <widget class="QPushButton" name="pushButton">
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
              <item>
               <widget class="QLabel" name="main_image_label">
                <property name="text">
@@ -159,7 +117,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>370</width>
+          <width>300</width>
           <height>16777215</height>
          </size>
         </property>
@@ -167,23 +125,53 @@
          <string>Details</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="0">
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
+         <item row="0" column="0">
+          <widget class="QLabel" name="fav_label">
+           <property name="minimumSize">
             <size>
-             <width>20</width>
-             <height>10</height>
+             <width>60</width>
+             <height>0</height>
             </size>
            </property>
-          </spacer>
+           <property name="maximumSize">
+            <size>
+             <width>80</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Preset</string>
+           </property>
+          </widget>
          </item>
-         <item row="3" column="1">
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="custom_line_edit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>
@@ -199,7 +187,209 @@
            </property>
           </spacer>
          </item>
-         <item row="4" column="0" colspan="2">
+         <item row="0" column="1" colspan="2">
+          <widget class="QComboBox" name="fav_pips_combo_box">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="custom_label">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>80</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Custom</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" rowspan="2" colspan="6">
+          <widget class="QGroupBox" name="pip_collapsable">
+           <property name="minimumSize">
+            <size>
+             <width>350</width>
+             <height>300</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>300</height>
+            </size>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="pip_collapse_button">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Pipeline</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="delete_btn">
+                <property name="minimumSize">
+                 <size>
+                  <width>31</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>31</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_collapse_pipe">
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../assets/images/down.png</normaloff>
+                  <normalon>../assets/images/up.png</normalon>../assets/images/down.png</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QScrollArea" name="pip_scroll">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="pip_scroll_vbox_layout">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>338</width>
+                 <height>244</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <layout class="QVBoxLayout" name="pip_widget_vbox_layout">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <widget class="QWidget" name="widget" native="true">
+                    <property name="font">
+                     <font>
+                      <underline>false</underline>
+                     </font>
+                    </property>
+                    <layout class="QHBoxLayout" name="horizontalLayout">
+                     <item>
+                      <widget class="QLabel" name="current_pip_label">
+                       <property name="font">
+                        <font>
+                         <pointsize>10</pointsize>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>[Current_Pip_Name]</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="add_btn">
+                       <property name="minimumSize">
+                        <size>
+                         <width>31</width>
+                         <height>31</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>31</width>
+                         <height>31</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="Line" name="line">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="6">
           <widget class="QGroupBox" name="settings_collapsable">
            <property name="enabled">
             <bool>true</bool>
@@ -233,71 +423,51 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QWidget" name="settings_header_widget" native="true">
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QPushButton" name="cloase_settings_btn">
-                 <property name="minimumSize">
-                  <size>
-                   <width>1</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>25</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string notr="true"/>
-                 </property>
-                 <property name="icon">
-                  <iconset>
-                   <normaloff>../assets/images/down.png</normaloff>
-                   <normalon>../assets/images/up.png</normalon>../assets/images/down.png</iconset>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                 <property name="default">
-                  <bool>false</bool>
-                 </property>
-                 <property name="flat">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="settings_label">
-                 <property name="font">
-                  <font>
-                   <pointsize>11</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Settings</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-              <zorder>settings_label</zorder>
-              <zorder></zorder>
-              <zorder>cloase_settings_btn</zorder>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="settings_collapse_button"/>
-            </item>
-            <item>
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="settings_collapse_button">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Settings</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_collapse_settings">
+                <property name="minimumSize">
+                 <size>
+                  <width>1</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../assets/images/down.png</normaloff>
+                  <normalon>../assets/images/up.png</normalon>../assets/images/down.png</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="QScrollArea" name="setting_scroll">
@@ -312,8 +482,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>330</width>
-                 <height>553</height>
+                 <width>338</width>
+                 <height>651</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -330,334 +500,42 @@
            </layout>
           </widget>
          </item>
-         <item row="2" column="0" rowspan="2" colspan="2">
-          <widget class="QGroupBox" name="pip_collapsable">
+         <item row="0" column="3">
+          <widget class="QPushButton" name="save_btn">
            <property name="minimumSize">
             <size>
-             <width>350</width>
-             <height>300</height>
+             <width>31</width>
+             <height>31</height>
             </size>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>300</height>
-            </size>
-           </property>
-           <property name="title">
+           <property name="text">
             <string/>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_2">
-            <item>
-             <layout class="QHBoxLayout" name="pip_collapse_button">
-              <item>
-               <widget class="QPushButton" name="pushButton_collapse_pipe">
-                <property name="maximumSize">
-                 <size>
-                  <width>25</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../assets/images/down.png</normaloff>
-                  <normalon>../assets/images/up.png</normalon>../assets/images/down.png</iconset>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <property name="flat">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="current_pip_label">
-                <property name="maximumSize">
-                 <size>
-                  <width>16777215</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>11</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>Pipeline</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="add_btn">
-                <property name="minimumSize">
-                 <size>
-                  <width>31</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>31</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="delete_btn">
-                <property name="minimumSize">
-                 <size>
-                  <width>31</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>31</width>
-                  <height>31</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QScrollArea" name="pip_scroll">
-              <property name="frameShape">
-               <enum>QFrame::NoFrame</enum>
-              </property>
-              <property name="widgetResizable">
-               <bool>true</bool>
-              </property>
-              <widget class="QWidget" name="pip_scroll_vbox_layout">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>330</width>
-                 <height>232</height>
-                </rect>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <layout class="QVBoxLayout" name="pip_widget_vbox_layout">
-                  <property name="spacing">
-                   <number>2</number>
-                  </property>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-           </layout>
           </widget>
          </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QGroupBox" name="groupBox">
+         <item row="1" column="3">
+          <widget class="QPushButton" name="new_btn">
            <property name="minimumSize">
             <size>
-             <width>350</width>
-             <height>130</height>
+             <width>31</width>
+             <height>31</height>
             </size>
            </property>
-           <layout class="QGridLayout" name="gridLayout_2">
-            <item row="0" column="0">
-             <widget class="QLabel" name="custom_label">
-              <property name="minimumSize">
-               <size>
-                <width>60</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>80</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Input</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="input_line_edit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="input_btn">
-              <property name="minimumSize">
-               <size>
-                <width>31</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="fav_label">
-              <property name="minimumSize">
-               <size>
-                <width>60</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>80</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Pipeline</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QComboBox" name="fav_pips_combo_box">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QPushButton" name="save_btn">
-              <property name="minimumSize">
-               <size>
-                <width>31</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="output_label">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Output</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QLineEdit" name="output_line_edit">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="QPushButton" name="output_btn">
-              <property name="minimumSize">
-               <size>
-                <width>31</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>31</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-           </layout>
-           <zorder>output_btn</zorder>
-           <zorder>fav_label</zorder>
-           <zorder>output_line_edit</zorder>
-           <zorder>input_line_edit</zorder>
-           <zorder>save_btn</zorder>
-           <zorder>input_btn</zorder>
-           <zorder>output_label</zorder>
-           <zorder>fav_pips_combo_box</zorder>
-           <zorder>custom_label</zorder>
-           <zorder>main_image_label</zorder>
+           <property name="text">
+            <string/>
+           </property>
           </widget>
          </item>
         </layout>
+        <zorder>custom_line_edit</zorder>
+        <zorder>custom_label</zorder>
+        <zorder>fav_label</zorder>
+        <zorder>fav_pips_combo_box</zorder>
         <zorder>settings_collapsable</zorder>
         <zorder>pip_collapsable</zorder>
         <zorder>verticalSpacer</zorder>
-        <zorder>verticalSpacer_2</zorder>
-        <zorder>groupBox</zorder>
+        <zorder>new_btn</zorder>
+        <zorder>save_btn</zorder>
        </widget>
       </item>
      </layout>
@@ -730,5 +608,22 @@
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_collapse_settings</sender>
+   <signal>clicked()</signal>
+   <receiver>setting_scroll</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1614</x>
+     <y>451</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1458</x>
+     <y>800</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
