@@ -523,22 +523,6 @@
              </layout>
             </item>
             <item>
-             <spacer name="verticalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Expanding</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>0</width>
-                <height>10</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
              <widget class="QScrollArea" name="setting_scroll">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
@@ -555,7 +539,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>338</width>
-                 <height>322</height>
+                 <height>651</height>
                 </rect>
                </property>
                <property name="sizePolicy">
