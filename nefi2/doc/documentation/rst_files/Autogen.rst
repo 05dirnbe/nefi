@@ -5,10 +5,6 @@ model
 
 	subsection1
 
-.. toctree::
-
-	subsection2
-
 ext_loader
 ----------
 
@@ -16,6 +12,14 @@ ext_loader
 	:members:
 	:undoc-members:
 	:show-inheritance:
+
+.. toctree::
+
+	subsection2
+
+.. toctree::
+
+	subsection3
 
 pipeline
 --------
@@ -25,24 +29,41 @@ pipeline
 	:undoc-members:
 	:show-inheritance:
 
-.. toctree::
-
-	subsection3
-
 view
 ====
 
-controller
-==========
+templateQt5
+-----------
 
-DynamUiElementController
-------------------------
-
-.. automodule:: controllers.DynamUiElementController
+.. automodule:: view.templateQt5
 	:members:
 	:undoc-members:
 	:show-inheritance:
 
-Sebastian_Algorithms_untested
-=============================
+mainwindow
+----------
+
+.. automodule:: view.mainwindow
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
+pipeline_order
+--------------
+
+.. automodule:: view.pipeline_order
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
+settings
+--------
+
+.. automodule:: view.settings
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
+controller
+==========
 

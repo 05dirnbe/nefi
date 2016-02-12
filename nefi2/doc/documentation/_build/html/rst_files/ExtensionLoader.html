@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Code.html">CodeBase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Contribution</a></li>
 </ul>
 
             
@@ -129,7 +130,7 @@
             
   <div class="section" id="extension-loader">
 <h1>Extension Loader<a class="headerlink" href="#extension-loader" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-model.ext_loader"></span><p>This module contains the class ExtensionLoader that works with &#8220;model&#8221;
+<span class="target" id="module-model.ext_loader"></span><p>This module contains ExtensionLoader class that works with &#8220;model&#8221;
 folder and is used to initialize the pipeline with all available image
 processing categories and their respective algorithms. It uses config.json
 settings to initialize image processing categories accordingly.
@@ -148,7 +149,7 @@ Create a list with methods that represent a pipeline with selected
 algorithms and predefined settings.
 Sort the imported categories according to provided order list and
 return a list of imported category modules.
-&lt;When the Step object is instantiated it automatically imports and
+&lt;When the Category object is instantiated it automatically imports and
 creates a list of algorithms that belong to it&gt;</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -160,7 +161,7 @@ creates a list of algorithms that belong to it&gt;</p>
 <dt>Vars:</dt>
 <dd><div class="first last line-block">
 <div class="line"><em>cats_inst</em>: a list of found and instantiated methods</div>
-<div class="line"><em>categories</em>: a dictionary of algs where {Algorithm: Step}</div>
+<div class="line"><em>categories</em>: a dictionary of algs where {Algorithm: Category}</div>
 </div>
 </dd>
 <dt>Returns:</dt>
@@ -194,7 +195,7 @@ creates a list of algorithms that belong to it&gt;</p>
 <em class="property">static </em><code class="descname">_scan_model</code><span class="sig-paren">(</span><em>cat_dir</em><span class="sig-paren">)</span><a class="headerlink" href="#model.ext_loader.ExtensionLoader._scan_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check for any available category files in cat_dir.
 Return found file names.
-Raise an error is no file was found.</p>
+Raise an error if no file was found.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
