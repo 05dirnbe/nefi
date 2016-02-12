@@ -11,7 +11,7 @@ import argparse
 from PyQt5.QtWidgets import QApplication
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
-# from view.mainwindow import *
+from view.main_controller import *
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
@@ -25,10 +25,11 @@ def gui_mode():
     pipeline = Pipeline(extloader.cats_container)
 
     app = QApplication(sys.argv)
-    #window = Window(pipeline)
-    window = WindowTemplate(pipeline)
 
-    window.show()
+    wnd2 = MainView()
+    wnd2.load_white_theme(app)
+    wnd2.show()
+
     sys.exit(app.exec_())
     """
 
