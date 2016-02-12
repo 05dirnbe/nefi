@@ -267,7 +267,7 @@
           </widget>
          </item>
          <item row="2" column="0" rowspan="2" colspan="6">
-          <widget class="QGroupBox" name="pip_group">
+          <widget class="QGroupBox" name="pip_collapsable">
            <property name="minimumSize">
             <size>
              <width>350</width>
@@ -281,9 +281,53 @@
             </size>
            </property>
            <property name="title">
-            <string>Pipeline</string>
+            <string/>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="pip_collapse_button">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Pipeline</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_collapse_pipe">
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>down.png</normaloff>
+                  <normalon>up.png</normalon>down.png</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <widget class="QScrollArea" name="pip_scroll">
               <property name="frameShape">
@@ -298,7 +342,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>338</width>
-                 <height>258</height>
+                 <height>244</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -323,7 +367,7 @@
                         </font>
                        </property>
                        <property name="text">
-                        <string>Current Pipeline: A.Junius</string>
+                        <string>[Current_Pip_Name]</string>
                        </property>
                       </widget>
                      </item>
@@ -366,7 +410,7 @@
           </widget>
          </item>
          <item row="4" column="0" colspan="6">
-          <widget class="QGroupBox" name="settings_group">
+          <widget class="QGroupBox" name="settings_collapsable">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -399,7 +443,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <layout class="QHBoxLayout" name="settings_collapse_button">
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
@@ -411,7 +455,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton">
+               <widget class="QPushButton" name="pushButton_collapse_settings">
                 <property name="minimumSize">
                  <size>
                   <width>1</width>
@@ -481,8 +525,8 @@
         <zorder>custom_label</zorder>
         <zorder>fav_label</zorder>
         <zorder>fav_pips_combo_box</zorder>
-        <zorder>settings_group</zorder>
-        <zorder>pip_group</zorder>
+        <zorder>settings_collapsable</zorder>
+        <zorder>pip_collapsable</zorder>
         <zorder>verticalSpacer</zorder>
         <zorder>new_btn</zorder>
         <zorder>save_btn</zorder>
