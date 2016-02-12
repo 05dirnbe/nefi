@@ -2,7 +2,7 @@ from PyQt5.QtCore import QObject, pyqtSlot, Qt, pyqtSignal
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QStackedWidget, QSlider, QBoxLayout, QHBoxLayout, QLabel, \
     QSpinBox, QDoubleSpinBox, QCheckBox, QFormLayout, QGridLayout, QComboBox
 
-
+"""
 class GroupOfSliders(QGroupBox):
     def __init__(self, algorithm):
         super(GroupOfSliders, self).__init__()
@@ -29,7 +29,7 @@ class GroupOfSliders(QGroupBox):
                 ComboBoxWidget(dropdown.name, dropdown.options))
 
         self.setLayout(GroupOfSliderssLayout)
-
+"""
 
 class IntegerTextfield(QSpinBox):
     def __init__(self, lower, upper, step_size, default):
@@ -41,6 +41,7 @@ class IntegerTextfield(QSpinBox):
         self.textfield.setRange(lower, upper)
         self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
+        self.textfield.setFixedWidth(75)
 
 
 class DoubleTextfield(QDoubleSpinBox):
@@ -53,6 +54,7 @@ class DoubleTextfield(QDoubleSpinBox):
         self.textfield.setRange(lower, upper)
         self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
+        self.textfield.setFixedWidth(75)
 
 
 class Slider(QSlider):
@@ -135,21 +137,26 @@ class SliderWidget(QGroupBox):
 
         self.internal_steps = abs(upper - lower) / step_size
 
-        def ExternalCoordinate2InternalCoordinate(self, value):
+        def to_internal_coordinate(self, value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
 
-        def InternalCoordinate2ExternalCoordinate(self, value):
+        def to_external_coordinate(self, value):
             return lower + (value * (upper - lower)) / self.internal_steps
 
         # Slider itself
-        self.slider = Slider(0, self.internal_steps, 1,
-                             ExternalCoordinate2InternalCoordinate(self, default)).slider
+        self.slider = \
+            Slider(0, self.internal_steps, 1, to_internal_coordinate(self, default)) \
+            .slider
 
         # Textfield
         if float_flag:
-            self.textfield = DoubleTextfield(lower, upper, step_size, default).textfield
+            self.textfield = \
+                DoubleTextfield(lower, upper, step_size, default) \
+                .textfield
         else:
-            self.textfield = IntegerTextfield(lower, upper, step_size, default).textfield
+            self.textfield = \
+                IntegerTextfield(lower, upper, step_size, default)\
+                .textfield
 
         # Label
         self.label = QLabel()
@@ -157,10 +164,10 @@ class SliderWidget(QGroupBox):
 
         # Connect Textfield with Slider
         def textfield_value_changed(value):
-            self.slider.setValue(ExternalCoordinate2InternalCoordinate(self, value))
+            self.slider.setValue(to_internal_coordinate(self, value))
 
         def slider_value_changed(value):
-            self.textfield.setValue(InternalCoordinate2ExternalCoordinate(self, value))
+            self.textfield.setValue(to_external_coordinate(self, value))
 
         self.textfield.valueChanged.connect(textfield_value_changed)
         self.slider.valueChanged.connect(slider_value_changed)
@@ -170,19 +177,21 @@ class SliderWidget(QGroupBox):
         self.SingleSlidersLayout.addWidget(self.slider)
         self.SingleSlidersLayout.addWidget(self.textfield)
         self.setLayout(self.SingleSlidersLayout)
+        self.setFixedHeight(50)
+        self.setFlat(True)
 
 
-class Settings(QWidget):
-    """
+"""class Settings(QWidget):
+
     Creates a widget with all the sliders and checkboxes for all available algorithms.
-    """
+
 
     def __init__(self, pipeline):
-        """
+
 
         Args:
             pipeline (object): 
-        """
+
         super(Settings, self).__init__()
 
         layout = QBoxLayout(QBoxLayout.TopToBottom)
@@ -193,7 +202,6 @@ class Settings(QWidget):
         self.orientationComboAlgorithms = dict()
         # print("here")
 
-        """
 
         for category in pipeline.available_cats:
 
@@ -219,4 +227,4 @@ class Settings(QWidget):
 
         self.setLayout(layout)
 
-        """
+"""
