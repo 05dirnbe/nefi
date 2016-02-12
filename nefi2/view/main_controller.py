@@ -131,11 +131,11 @@ class MainView(base, form):
 
         pixmap_icon = QtGui.QPixmap("../assets/images/load.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        self.input_btn.setIcon(q_icon)
+        #self.input_btn.setIcon(q_icon)
 
         pixmap_icon = QtGui.QPixmap("../assets/images/folder.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        self.output_btn.setIcon(q_icon)
+        #self.output_btn.setIcon(q_icon)
 
     def add_pip_entry(self, icon_url, label):
         """

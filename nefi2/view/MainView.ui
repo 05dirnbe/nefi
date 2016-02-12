@@ -125,52 +125,6 @@
          <string>Details</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="0" column="0">
-          <widget class="QLabel" name="fav_label">
-           <property name="minimumSize">
-            <size>
-             <width>60</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Preset</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1" colspan="2">
-          <widget class="QLineEdit" name="custom_line_edit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
          <item row="3" column="2">
           <spacer name="verticalSpacer">
            <property name="orientation">
@@ -227,6 +181,52 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="custom_line_edit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="fav_label">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>80</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Preset</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="0" rowspan="2" colspan="6">
           <widget class="QGroupBox" name="pip_collapsable">
            <property name="minimumSize">
@@ -247,6 +247,30 @@
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <layout class="QHBoxLayout" name="pip_collapse_button">
+              <item>
+               <widget class="QPushButton" name="pushButton_collapse_pipe">
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../assets/images/down.png</normaloff>
+                  <normalon>../assets/images/up.png</normalon>../assets/images/down.png</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QLabel" name="label_2">
                 <property name="maximumSize">
@@ -279,30 +303,6 @@
                 </property>
                 <property name="text">
                  <string/>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="pushButton_collapse_pipe">
-                <property name="maximumSize">
-                 <size>
-                  <width>25</width>
-                  <height>16777215</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>../assets/images/down.png</normaloff>
-                  <normalon>../assets/images/up.png</normalon>../assets/images/down.png</iconset>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <property name="flat">
-                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -389,6 +389,32 @@
            </layout>
           </widget>
          </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="save_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="new_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
          <item row="4" column="0" colspan="6">
           <widget class="QGroupBox" name="settings_collapsable">
            <property name="enabled">
@@ -424,28 +450,27 @@
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <layout class="QHBoxLayout" name="settings_collapse_button">
-              <item>
-               <widget class="QLabel" name="label">
-                <property name="text">
-                 <string>Settings</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetFixedSize</enum>
+              </property>
               <item>
                <widget class="QPushButton" name="pushButton_collapse_settings">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
-                  <width>1</width>
-                  <height>0</height>
+                  <width>25</width>
+                  <height>32</height>
                  </size>
                 </property>
                 <property name="maximumSize">
                  <size>
                   <width>25</width>
-                  <height>16777215</height>
+                  <height>32</height>
                  </size>
                 </property>
                 <property name="text">
@@ -467,7 +492,51 @@
                 </property>
                </widget>
               </item>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Settings</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
              </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>0</width>
+                <height>10</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QScrollArea" name="setting_scroll">
@@ -477,53 +546,46 @@
               <property name="widgetResizable">
                <bool>true</bool>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+              </property>
               <widget class="QWidget" name="settings_scroll_vbox_layout">
                <property name="geometry">
                 <rect>
                  <x>0</x>
                  <y>0</y>
                  <width>338</width>
-                 <height>651</height>
+                 <height>322</height>
                 </rect>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="baseSize">
+                <size>
+                 <width>0</width>
+                 <height>400</height>
+                </size>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <property name="topMargin">
                  <number>0</number>
                 </property>
                 <item>
-                 <layout class="QVBoxLayout" name="setting_widget_vbox_layout"/>
+                 <layout class="QVBoxLayout" name="setting_widget_vbox_layout">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
+                  </property>
+                 </layout>
                 </item>
                </layout>
               </widget>
              </widget>
             </item>
            </layout>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="save_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QPushButton" name="new_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
           </widget>
          </item>
         </layout>
@@ -611,17 +673,33 @@
  <connections>
   <connection>
    <sender>pushButton_collapse_settings</sender>
-   <signal>clicked()</signal>
+   <signal>clicked(bool)</signal>
    <receiver>setting_scroll</receiver>
-   <slot>hide()</slot>
+   <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1614</x>
-     <y>451</y>
+     <x>1301</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1450</x>
+     <y>884</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_collapse_pipe</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>pip_scroll</receiver>
+   <slot>setHidden(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1306</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>1458</x>
-     <y>800</y>
+     <y>290</y>
     </hint>
    </hints>
   </connection>
