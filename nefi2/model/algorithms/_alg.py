@@ -231,6 +231,7 @@ class IntegerSlider:
             | *arg1*: the integer value selected in the ui or the pipeline in
             batch-mode
         """
+        print("Creating Slot")
         self.value = arg1
 
 
