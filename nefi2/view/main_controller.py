@@ -10,12 +10,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
 from PyQt5.QtGui import QIcon
-from settings import *
 # cus widgets
 import PyQt5.QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QBoxLayout
+from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -70,7 +69,7 @@ class MainView(base, form):
         alg_combo_box.add_item("Guo Hall")
         alg_combo_box.add_item("Adaptive Treshold")
 
-        slider_1 = SliderWidget("slider1das", 0, 10, 1, 4, False)
+        slider_1 = SliderWidget("slider1das", 0, 10, 1, 4, True)
         slider_2 = SliderWidget("slider1", 0, 10, 2, 4, False)
         slider_3 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
         checkbox_1 = CheckBoxWidget("checkbox1", True)
@@ -387,145 +386,123 @@ class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.setFlat(True)
 
 
-class IntegerSliderWidget(PyQt5.QtWidgets.QGroupBox):
+class SliderWidget(QGroupBox):
     """
-    This is a combined widget for integer slider in the GUI. It
+    This is a combined widget for a slider in the GUI. It
     contains several input fields and a slider itself. By setting
     the constructor value, the complete widget is connected in itself.
     The name will be displayed in front of the widget. lower and upper
     refer to the sliders range, step_size tells the distance of each step
     and default is the preset value in the GUI.
-    With self.valueChanged on can connect a pyqt slot with the
-    integer slider pyqtSignal.
-    """
-
-    def __init__(self, name, lower, upper, step_size, default):
-        super(SliderWidget, self).__init__()
-        self.valueChanged = pyqtSignal()
-        self.lower = lower
-        self.upper = upper
-        self.step_size = step_size
-        self.default = default
-        self.name = name
-        self.internal_steps = abs(upper - lower / step_size)
-        self.slider = create_horizontal_slider(0, self.internal_steps, 1, self.to_internal_coordinate(default)).slider
-
-        textfield = PyQt5.QtWidgets.QSpinBox()
-        textfield.setRange(lower, upper)
-        textfield.setSingleStep(step_size)
-        textfield.setValue(default)
-
-        label = PyQt5.QtWidgets.QLabel()
-        label.setText(name + ": ")
-
-        single_slider_layout = PyQt5.QtWidgets.QBoxLayout(PyQt5.QtWidgets.QBoxLayout.LeftToRight)
-        single_slider_layout.addWidget(self.label)
-        single_slider_layout.addWidget(self.slider)
-        single_slider_layout.addWidget(self.textfield)
-        self.setLayout(self.SingleSlidersLayout)
-
-        # connect the slots and signals
-        textfield.valueChanged.connect(self.textfield_value_changed)
-        self.slider.valueChanged.connect(self.slider_value_changed)
-
-    @pyqtSlot(int)
-    def textfield_value_changed(self, value):
-        """
-        This is a pyqt slot used to set the textfield value
-        Args:
-            | *value*: The new value for the textfield
-        """
-        self.slider.setValue((self.internal_steps / (self.upper - self.lower)) * (value - self.lower))
-
-    @pyqtSlot(int)
-    def slider_value_changed(self, value):
-        """
-        This is a pyqt slot used to set the slider value
-        Args:
-            | *value*: The new value for the slider
-        """
-        self.textfield.setValue(self.lower + (value * (self.upper - self.lower)) / self.internal_steps)
-
-
-class FloatSliderWidget(PyQt5.QtWidgets.QGroupBox):
-    """
-    This is a combined widget for float slider in the GUI. It
-    contains several input fields and a slider itself. By setting
-    the constructor value, the complete widget is connected in itself.
-    The name will be displayed in front of the widget. lower and upper
-    refer to the sliders range, step_size tells the distance of each step
-    and default is the preset value in the GUI.
+    The float_flag determines whether the slider should represent float values or not.
+    Set float_flag to true if you want to store float values.
     With self.valueChanged on can connect a pyqt slot with the
     float slider pyqtSignal.
+    A SliderWidget is built by a Slider, a QLabel and either a DoubleTextfield or an IntegerTextfield.
     """
+    valueChanged = pyqtSignal()
 
-    def __init__(self, name, lower, upper, step_size, default):
+    def __init__(self, name, lower, upper, step_size, default, float_flag):
         super(SliderWidget, self).__init__()
-        self.valueChanged = pyqtSignal()
-        self.lower = lower
-        self.upper = upper
-        self.step_size = step_size
-        self.default = default
-        self.name = name
-        self.internal_steps = abs(upper - lower / step_size)
-        self.slider = create_horizontal_slider(0, self.internal_steps, 1, self.to_internal_coordinate(default)).slider
 
-        textfield = PyQt5.QtWidgets.QDoubleSpinBox()
-        textfield.setRange(lower, upper)
-        textfield.setSingleStep(step_size)
-        textfield.setValue(default)
+        self.internal_steps = abs(upper - lower) / step_size
 
-        label = PyQt5.QtWidgets.QLabel()
-        label.setText(name + ": ")
+        def to_internal_coordinate(self, value):
+            return (self.internal_steps / (upper - lower)) * (value - lower)
 
-        single_slider_layout = PyQt5.QtWidgets.QBoxLayout(PyQt5.QtWidgets.QBoxLayout.LeftToRight)
-        single_slider_layout.addWidget(self.label)
-        single_slider_layout.addWidget(self.slider)
-        single_slider_layout.addWidget(self.textfield)
+        def to_external_coordinate(self, value):
+            return lower + (value * (upper - lower)) / self.internal_steps
+
+        # Slider itself
+        self.slider = \
+            Slider(0, self.internal_steps, 1, to_internal_coordinate(self, default)) \
+                .slider
+
+        # Textfield
+        if float_flag:
+            self.textfield = \
+                DoubleTextfield(lower, upper, step_size, default) \
+                    .textfield
+        else:
+            self.textfield = \
+                IntegerTextfield(lower, upper, step_size, default) \
+                    .textfield
+
+        # Label
+        self.label = QLabel()
+        self.label.setText(name + ": ")
+
+        # Connect Textfield with Slider
+        def textfield_value_changed(value):
+            self.slider.setValue(to_internal_coordinate(self, value))
+
+        def slider_value_changed(value):
+            self.textfield.setValue(to_external_coordinate(self, value))
+
+        self.textfield.valueChanged.connect(textfield_value_changed)
+        self.slider.valueChanged.connect(slider_value_changed)
+
+        self.SingleSlidersLayout = QBoxLayout(QBoxLayout.LeftToRight)
+        self.SingleSlidersLayout.addWidget(self.label)
+        self.SingleSlidersLayout.addWidget(self.slider)
+        self.SingleSlidersLayout.addWidget(self.textfield)
         self.setLayout(self.SingleSlidersLayout)
-
-        textfield.valueChanged.connect(self.textfield_value_changed)
-        self.slider.valueChanged.connect(self.slider_value_changed)
-
-    @pyqtSlot(float)
-    def textfield_value_changed(self, value):
-        """
-        This is a pyqt slot used to set the textfield value
-        Args:
-            | *value*: The new value for the textfield
-        """
-        self.slider.setValue((self.internal_steps / (self.upper - self.lower)) * (value - self.lower))
-
-    @pyqtSlot(float)
-    def slider_value_changed(self, value):
-        """
-        This is a pyqt slot used to set the slider value
-        Args:
-            | *value*: The new value for the slider
-        """
-        self.textfield.setValue(self.lower + (value * (self.upper - self.lower)) / self.internal_steps)
+        self.setFixedHeight(50)
+        self.setFlat(True)
 
 
-@staticmethod
-def create_horizontal_slider(lower, upper, step_size, default):
+class IntegerTextfield(QSpinBox):
     """
-    This method is used by FloatSliderWidget and IntegerSliderWidget to
-    create a horizontal slider with the given input arguments.
-    Args:
-        lower: lower bound of the slider
-        upper: upper bound of the slider
-        step_size: the size of each slider step
-        default: the default value of this slider
+    A customized QSpinBox that is used by the SliderWidget to allow users to enter integer values.
     """
-    slider = PyQt5.QtWidgets.QSlider(Qt.Horizontal)
-    slider.setFocusPolicy(Qt.StrongFocus)
-    slider.setTickPosition(PyQt5.QtWidgets.QSlider.TicksBothSides)
-    slider.setTickInterval(step_size)
-    slider.setRange(lower, upper)
-    slider.setSingleStep(step_size)
-    slider.setValue(default)
-    slider.setPageStep(step_size)
-    return slider
+
+    def __init__(self, lower, upper, step_size, default):
+        super(IntegerTextfield, self).__init__()
+
+        # Textfield
+        self.textfield = QSpinBox()
+
+        self.textfield.setRange(lower, upper)
+        self.textfield.setSingleStep(step_size)
+        self.textfield.setValue(default)
+        self.textfield.setFixedWidth(75)
+
+
+class DoubleTextfield(QDoubleSpinBox):
+    """
+    A customized QDoubleSpinBox that is used by the SliderWidget to allow users to enter float values.
+    """
+
+    def __init__(self, lower, upper, step_size, default):
+        super(DoubleTextfield, self).__init__()
+
+        # Textfield
+        self.textfield = QDoubleSpinBox()
+
+        self.textfield.setRange(lower, upper)
+        self.textfield.setSingleStep(step_size)
+        self.textfield.setValue(default)
+        self.textfield.setFixedWidth(75)
+
+
+class Slider(QSlider):
+    """
+    A customized QSlider that is used by the SliderWidget to allow users to change a certain setting.
+    """
+
+    def __init__(self, lower, upper, step_size, default):
+        super(Slider, self).__init__()
+
+        self.slider = QSlider(Qt.Horizontal)
+
+        self.slider.setFocusPolicy(Qt.StrongFocus)
+        self.slider.setTickPosition(QSlider.TicksBothSides)
+        self.slider.setTickInterval(step_size)
+
+        self.slider.setRange(lower, upper)
+        self.slider.setSingleStep(step_size)
+        self.slider.setValue(default)
+        self.slider.setPageStep(step_size)
 
 
 if __name__ == '__main__':
