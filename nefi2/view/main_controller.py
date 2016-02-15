@@ -17,8 +17,8 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout
 
-__authors__ = {"Dennis Groß":       "gdennis91@googlemail.com",
-               "Philipp Reichert":  "prei@me.com"}
+__authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
+               "Philipp Reichert": "prei@me.com"}
 
 base, form = uic.loadUiType("MainView.ui")
 
@@ -27,33 +27,18 @@ class MainView(base, form):
     def __init__(self, parent=None):
         super(base, self).__init__(parent)
         self.setupUi(self)
+        self.theme = "white"
         self.draw_ui()
+
 
     def draw_ui(self):
         """
         This function is concerned with drawing all non static elements  into the
         GUI.
         """
-
         self.set_pip_title("A. Junius2")
 
         self.set_preset(["A.Junius", "test", "test", "test"])
-        """
-        pixmap_icon = QtGui.QPixmap("../assets/images/add_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.add_btn.setIcon(q_icon)
-
-        pixmap_icon = QtGui.QPixmap("../assets/images/delete_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.delete_btn.setIcon(q_icon)
-
-        pixmap_icon = QtGui.QPixmap("../assets/images/save_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.save_btn.setIcon(q_icon)
-
-        pixmap_icon = QtGui.QPixmap("../assets/images/new_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.new_btn.setIcon(q_icon)"""
 
         self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
         self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
@@ -121,6 +106,39 @@ class MainView(base, form):
         """
         self.current_pip_label.setText(title)
 
+    def load_white_theme(self, application):
+        """
+        This function is called to load the white theme with
+        all its icons for the buttons and the css file.
+        Args:
+            application: the cureent app instance
+        """
+        # load stylesheet
+        style_file = os.path.join(os.path.split(__file__)[0], "../assets/css/white_theme.css")
+        with open(style_file, "r") as fh:
+            application.setStyleSheet(fh.read())
+
+        #load buttons
+        pixmap_icon = QtGui.QPixmap("../assets/images/add.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.add_btn.setIcon(q_icon)
+
+        pixmap_icon = QtGui.QPixmap("../assets/images/delete.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.delete_btn.setIcon(q_icon)
+
+        pixmap_icon = QtGui.QPixmap("../assets/images/save.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.save_btn.setIcon(q_icon)
+
+        pixmap_icon = QtGui.QPixmap("../assets/images/load.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.input_btn.setIcon(q_icon)
+
+        pixmap_icon = QtGui.QPixmap("../assets/images/folder.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.output_btn.setIcon(q_icon)
+
     def add_pip_entry(self, icon_url, label):
         """
         this methods creates an entry in the pipeline with a given
@@ -147,9 +165,11 @@ class MainView(base, form):
 
         btn = QtWidgets.QPushButton()
         btn.setFixedSize(20, 20)
-        """pixmap_icon = QtGui.QPixmap("../assets/images/delete_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        btn.setIcon(q_icon)"""
+
+        if self.theme == "white":
+            pixmap_icon = QtGui.QPixmap("../assets/images/delete_x.png")
+            q_icon = QtGui.QIcon(pixmap_icon)
+            btn.setIcon(q_icon)
 
         pip_main_layout.addWidget(pixmap_label)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
@@ -510,13 +530,9 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyleSheet("../assets/css/white_theme.css")
-
-    styleFile = os.path.join(os.path.split(__file__)[0], "../assets/css/white_theme.css")
-    with open(styleFile, "r") as fh:
-        app.setStyleSheet(fh.read())
 
     wnd2 = MainView()
+    wnd2.load_white_theme(app)
     wnd2.show()
 
     sys.exit(app.exec_())
