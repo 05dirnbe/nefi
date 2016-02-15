@@ -415,7 +415,7 @@ class SliderWidget(QGroupBox):
 
         # Slider itself
         self.slider = \
-            Slider(0, self.internal_steps, 1, to_internal_coordinate(self, default)) \
+            Slider(0, self.internal_steps, 1, to_internal_coordinate(default)) \
                 .slider
 
         # Textfield
