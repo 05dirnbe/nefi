@@ -7,7 +7,7 @@ To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
-import sys
+import sys, os, sys
 import qdarkstyle
 from PyQt5.QtGui import QIcon
 from settings import *
@@ -38,7 +38,7 @@ class MainView(base, form):
         self.set_pip_title("A. Junius2")
 
         self.set_preset(["A.Junius", "test", "test", "test"])
-
+        """
         pixmap_icon = QtGui.QPixmap("../assets/images/add_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.add_btn.setIcon(q_icon)
@@ -53,7 +53,7 @@ class MainView(base, form):
 
         pixmap_icon = QtGui.QPixmap("../assets/images/new_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        self.new_btn.setIcon(q_icon)
+        self.new_btn.setIcon(q_icon)"""
 
         self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
         self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
@@ -147,9 +147,9 @@ class MainView(base, form):
 
         btn = QtWidgets.QPushButton()
         btn.setFixedSize(20, 20)
-        pixmap_icon = QtGui.QPixmap("../assets/images/delete_white.png")
+        """pixmap_icon = QtGui.QPixmap("../assets/images/delete_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        btn.setIcon(q_icon)
+        btn.setIcon(q_icon)"""
 
         pip_main_layout.addWidget(pixmap_label)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
@@ -510,7 +510,11 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    #app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    app.setStyleSheet("../assets/css/white_theme.css")
+
+    styleFile = os.path.join(os.path.split(__file__)[0], "../assets/css/white_theme.css")
+    with open(styleFile, "r") as fh:
+        app.setStyleSheet(fh.read())
 
     wnd2 = MainView()
     wnd2.show()
