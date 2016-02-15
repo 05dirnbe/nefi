@@ -112,21 +112,30 @@
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="zoom_out_btn">
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">border-radius: 10px;</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSlider" name="horizontalSlider">
+                 <widget class="QSlider" name="zoom_slider">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_2">
+                 <widget class="QPushButton" name="zoom_in_btn">
                   <property name="text">
                    <string/>
                   </property>
@@ -409,6 +418,12 @@
                 <property name="text">
                  <string/>
                 </property>
+                <property name="iconSize">
+                 <size>
+                  <width>26</width>
+                  <height>26</height>
+                 </size>
+                </property>
                </widget>
               </item>
               <item>
@@ -427,6 +442,12 @@
                 </property>
                 <property name="text">
                  <string/>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>26</width>
+                  <height>26</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -537,6 +558,12 @@
               <property name="text">
                <string/>
               </property>
+              <property name="iconSize">
+               <size>
+                <width>26</width>
+                <height>26</height>
+               </size>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
@@ -577,6 +604,11 @@
                 <height>16777215</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
              </widget>
             </item>
             <item row="1" column="2">
@@ -589,6 +621,12 @@
               </property>
               <property name="text">
                <string/>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>26</width>
+                <height>26</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -636,6 +674,12 @@
               </property>
               <property name="text">
                <string/>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>26</width>
+                <height>26</height>
+               </size>
               </property>
              </widget>
             </item>

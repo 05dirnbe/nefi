@@ -122,15 +122,15 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.add_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/delete.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/trash.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.delete_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/save.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/diskette.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/load.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/up-arrow.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
