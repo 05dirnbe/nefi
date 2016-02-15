@@ -14,7 +14,7 @@ from PyQt5.QtGui import QIcon
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel
+from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -28,7 +28,6 @@ class MainView(base, form):
         self.setupUi(self)
         self.theme = "white"
         self.draw_ui()
-
 
     def draw_ui(self):
         """
@@ -117,7 +116,7 @@ class MainView(base, form):
         with open(style_file, "r") as fh:
             application.setStyleSheet(fh.read())
 
-        #load buttons
+        # load buttons
         pixmap_icon = QtGui.QPixmap("../assets/images/add.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.add_btn.setIcon(q_icon)
@@ -132,11 +131,11 @@ class MainView(base, form):
 
         pixmap_icon = QtGui.QPixmap("../assets/images/up-arrow.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        self.input_btn.setIcon(q_icon)
+        #self.input_btn.setIcon(q_icon)
 
         pixmap_icon = QtGui.QPixmap("../assets/images/folder.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        self.output_btn.setIcon(q_icon)
+        #self.output_btn.setIcon(q_icon)
 
     def add_pip_entry(self, icon_url, label):
         """
@@ -231,6 +230,31 @@ class MainView(base, form):
             self.setting_widget_vbox_layout.addWidget(widget)
 
 
+class CollapseButton:
+    """
+    this widget is used to collapse and extend other widgets by pressing a button
+    """
+
+    def __init__(self, parent=None):
+        QtWidgets.QWidget.__init__(self, parent)
+        self.pushButton_collapse_settings = parent
+        print("bla")
+
+    def mousePressEvent(self, event):
+        """
+        this events sets the self.pixmap from this custom widget
+        into the middle panel of the GUI. Or more general: by clicking
+        on this widget the users wants to see this picture in the big display
+        area of the middle.
+
+        Args:
+            | *event*: the mouse press event
+        """
+        print("bla")
+        if event.button() == QtCore.Qt.LeftButton:
+            self.setting_scroll.setFixedHeight(0)
+
+
 class PipelineEntry:
     def __init__(self):
         self._algorithm = None
@@ -255,7 +279,7 @@ class PipelineEntry:
             self._category = category
 
 
-class LeftCustomWidget(QtWidgets.QWidget):
+class LeftCustomWidget(QWidget):
     """
     this widget is used in the left panel of the GUI. All intermediate
     result images are packed into a LeftCustomWidget and appended to the
@@ -263,7 +287,7 @@ class LeftCustomWidget(QtWidgets.QWidget):
     """
 
     def __init__(self, parent=None):
-        PyQt5.QtWidgets.QWidget.__init__(self, parent)
+        QtWidgets.QWidget.__init__(self, parent)
         self.main_image_label = parent
         self.pixmap = None
 
