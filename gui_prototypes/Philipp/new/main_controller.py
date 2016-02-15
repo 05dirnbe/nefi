@@ -119,7 +119,7 @@ class MainView(base, form):
             | *title*: the title of the pipeline
             | *label_ref*: the reference to the label.
         """
-        self.current_pip_label.setText("Current Pipeline " + title)
+        self.current_pip_label.setText(title)
 
     def add_pip_entry(self, icon_url, label):
         """
@@ -510,7 +510,7 @@ def create_horizontal_slider(lower, upper, step_size, default):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    # app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    #app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
     wnd2 = MainView()
     wnd2.show()

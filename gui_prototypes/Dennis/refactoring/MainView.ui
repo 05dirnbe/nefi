@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1220</width>
-    <height>720</height>
+    <width>1651</width>
+    <height>1149</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
               <x>0</x>
               <y>0</y>
               <width>350</width>
-              <height>667</height>
+              <height>1096</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -88,8 +88,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>428</width>
-              <height>667</height>
+              <width>859</width>
+              <height>1096</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -149,6 +149,44 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="custom_line_edit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>10</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
          <item row="0" column="1" colspan="2">
           <widget class="QComboBox" name="fav_pips_combo_box">
            <property name="minimumSize">
@@ -189,69 +227,8 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1" colspan="2">
-          <widget class="QLineEdit" name="custom_line_edit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="QPushButton" name="new_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="4">
-          <widget class="QPushButton" name="save_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="5">
-          <widget class="QPushButton" name="delete_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="0" rowspan="2" colspan="6">
-          <widget class="QGroupBox" name="pip_group">
+          <widget class="QGroupBox" name="pip_collapsable">
            <property name="minimumSize">
             <size>
              <width>350</width>
@@ -265,9 +242,72 @@
             </size>
            </property>
            <property name="title">
-            <string>Pipeline</string>
+            <string/>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout" name="pip_collapse_button">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Pipeline</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="delete_btn">
+                <property name="minimumSize">
+                 <size>
+                  <width>31</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>31</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_collapse_pipe">
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>down.png</normaloff>
+                  <normalon>up.png</normalon>down.png</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <widget class="QScrollArea" name="pip_scroll">
               <property name="frameShape">
@@ -282,7 +322,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>330</width>
-                 <height>267</height>
+                 <height>241</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -307,7 +347,7 @@
                         </font>
                        </property>
                        <property name="text">
-                        <string>Current Pipeline: A.Junius</string>
+                        <string>[Current_Pip_Name]</string>
                        </property>
                       </widget>
                      </item>
@@ -349,34 +389,86 @@
            </layout>
           </widget>
          </item>
-         <item row="3" column="2">
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>0</width>
-             <height>10</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
          <item row="4" column="0" colspan="6">
-          <widget class="QGroupBox" name="settings_group">
+          <widget class="QGroupBox" name="settings_collapsable">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="minimumSize">
             <size>
              <width>350</width>
              <height>400</height>
             </size>
            </property>
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
            <property name="title">
-            <string>Settings</string>
+            <string/>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <item>
+             <layout class="QHBoxLayout" name="settings_collapse_button">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Settings</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_collapse_settings">
+                <property name="minimumSize">
+                 <size>
+                  <width>1</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>25</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>down.png</normaloff>
+                  <normalon>up.png</normalon>down.png</iconset>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>false</bool>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item>
              <widget class="QScrollArea" name="setting_scroll">
               <property name="frameShape">
@@ -391,10 +483,13 @@
                  <x>0</x>
                  <y>0</y>
                  <width>330</width>
-                 <height>367</height>
+                 <height>664</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <layout class="QVBoxLayout" name="setting_widget_vbox_layout"/>
                 </item>
@@ -405,17 +500,42 @@
            </layout>
           </widget>
          </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="save_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="new_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
         <zorder>custom_line_edit</zorder>
         <zorder>custom_label</zorder>
         <zorder>fav_label</zorder>
         <zorder>fav_pips_combo_box</zorder>
-        <zorder>settings_group</zorder>
-        <zorder>pip_group</zorder>
+        <zorder>settings_collapsable</zorder>
+        <zorder>pip_collapsable</zorder>
         <zorder>verticalSpacer</zorder>
         <zorder>new_btn</zorder>
         <zorder>save_btn</zorder>
-        <zorder>delete_btn</zorder>
        </widget>
       </item>
      </layout>

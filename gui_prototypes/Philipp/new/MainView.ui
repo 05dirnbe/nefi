@@ -48,8 +48,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>354</width>
-              <height>1093</height>
+              <width>350</width>
+              <height>1096</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -88,8 +88,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>869</width>
-              <height>1093</height>
+              <width>859</width>
+              <height>1096</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -125,32 +125,6 @@
          <string>Details</string>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="3">
-          <widget class="QPushButton" name="new_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="5">
-          <widget class="QPushButton" name="delete_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="fav_label">
            <property name="minimumSize">
@@ -172,19 +146,6 @@
            </property>
            <property name="text">
             <string>Preset</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="4">
-          <widget class="QPushButton" name="save_btn">
-           <property name="minimumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
            </property>
           </widget>
          </item>
@@ -303,6 +264,25 @@
                </widget>
               </item>
               <item>
+               <widget class="QPushButton" name="delete_btn">
+                <property name="minimumSize">
+                 <size>
+                  <width>31</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>31</width>
+                  <height>31</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="pushButton_collapse_pipe">
                 <property name="maximumSize">
                  <size>
@@ -341,8 +321,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>338</width>
-                 <height>244</height>
+                 <width>330</width>
+                 <height>241</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -502,8 +482,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>338</width>
-                 <height>653</height>
+                 <width>330</width>
+                 <height>664</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -520,6 +500,32 @@
            </layout>
           </widget>
          </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="save_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QPushButton" name="new_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
         </layout>
         <zorder>custom_line_edit</zorder>
         <zorder>custom_label</zorder>
@@ -530,7 +536,6 @@
         <zorder>verticalSpacer</zorder>
         <zorder>new_btn</zorder>
         <zorder>save_btn</zorder>
-        <zorder>delete_btn</zorder>
        </widget>
       </item>
      </layout>
