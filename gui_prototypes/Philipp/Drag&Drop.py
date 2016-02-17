@@ -2,7 +2,8 @@
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, \
-    QVBoxLayout, QListWidget, QAbstractItemView
+    QVBoxLayout, QListWidget, QAbstractItemView, QHBoxLayout, QPushButton, QLabel
+
 
 class Widget(QWidget):
     def __init__(self, parent=None):
@@ -12,8 +13,14 @@ class Widget(QWidget):
 
         # Create ListWidget and add 10 items to move around.
         self.list_widget = QListWidget()
-        for x in range(1, 11):
-            self.list_widget.addItem('Item {:02d}'.format(x))
+
+        self.Button = AddButton()
+        self.ExampleStep1 = SingleStep("ExampleStep1")
+        self.ExampleStep2 = SingleStep("ExampleStep2")
+
+        self.list_widget.addItem(self.ExampleStep1)
+        self.list_widget.addItem(self.ExampleStep2)
+        self.list_widget.addItem(self.Button)
 
         # Enable drag & drop ordering of items.
         self.list_widget.setDragDropMode(QAbstractItemView.InternalMove)
@@ -22,9 +29,38 @@ class Widget(QWidget):
         self.setLayout(self.widget_layout)
 
 
-if __name__ == '__main__':
-  app = QApplication(sys.argv)
-  widget = Widget()
-  widget.show()
+class SingleStep(QWidget):
+    def __init__(self, name):
+        super(SingleStep, self).__init__()
 
-  sys.exit(app.exec_())  
+        self.widget_layout = QHBoxLayout()
+
+        self.Name = QLabel()
+        self.Name.setText(name)
+
+        self.Button = QPushButton()
+        self.Button.setText("Remove Step")
+
+        self.widget_layout.addWidget(self.Button)
+        self.setLayout(self.widget_layout)
+
+
+class AddButton(QWidget):
+    def __init__(self):
+        super(AddButton, self).__init__()
+
+        self.widget_layout = QVBoxLayout()
+
+        self.Button = QPushButton()
+        self.Button.setText("Add Step")
+
+        self.widget_layout.addWidget(self.Button)
+        self.setLayout(self.widget_layout)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    widget = Widget()
+    widget.show()
+
+    sys.exit(app.exec_())

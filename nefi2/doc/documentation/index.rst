@@ -16,6 +16,7 @@ Contents:
    rst_files/Installation
    rst_files/Technologies
    rst_files/Code
+   rst_files/Algorithms_Contribution
 
 
 

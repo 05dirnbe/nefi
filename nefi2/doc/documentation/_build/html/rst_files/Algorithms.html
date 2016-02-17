@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Code.html">CodeBase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Contribution</a></li>
 </ul>
 
             
@@ -127,8 +128,246 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="alg">
-<h1>_alg<a class="headerlink" href="#alg" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-model.algorithms._alg">
+<span id="alg"></span><h1>_alg<a class="headerlink" href="#module-model.algorithms._alg" title="Permalink to this headline">¶</a></h1>
+<p>A module which contains all necessary information&#8217;s and features to create
+an additional implementation of algorithms.
+To contribute an algorithm implementation the contributor is needs to create
+a seperate &lt;algorithm_name&gt;.py in the algorithms folder. In &lt;algorithm_name&gt;.py
+he needs to create a class &#8220;class AlgBody(Algorithm):&#8221; which inherits from
+Algorithm.
+In order to give the ext_loader the possibility to dynamically invoke the
+algorithm definition, the contributor also needs to override the
+methods: process(self, image), get_name(self) and belongs_to(self).
+Additional UI input for the algorithm can be specified by creating
+IntegerSlider, FloatSlider, CheckBox or DropDown objects. These object
+instances need to be created by the constructor method __init__(self) of the
+algorithm implementation. E.g. we create a IntegerSlider in __init__(self)
+by calling the constructor of IntegerSlider and binding it to slider1 with
+&#8220;slider1 = IntegerSlider(self, &#8220;slider1&#8221;, 0, 10, 1, 0)&#8221; (see the IntegerSlider
+definition for further information)</p>
+<dl class="class">
+<dt id="model.algorithms._alg.Algorithm">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtCore.QObject</span></code></p>
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.belongs">
+<code class="descname">belongs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.belongs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the category to which this algorithm implementation is assoc
+iated with. Therefore you the contributor returns a string yielding the
+name of the associated category. E.g. we have an algorithm &#8220;blur&#8221; which
+is created through implementing the abstract class Algorithm. In &#8220;blur&#8221;
+we override the belongs method to return &#8220;preprocessing&#8221; to associate
+the &#8220;blur&#8221; algorithm instance with the category &#8220;preprocessing&#8221;.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>self.parent</em>: The string identifier to which category this algorithm belongs to</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.find_ui_element">
+<code class="descname">find_ui_element</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.find_ui_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method helps the json parser to find the ui elements
+with the given name</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id1"><span class="problematic" id="id2">|</span></a>name: name of the ui element we are looking for</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the name of the implemented algorithm. E.g. int case the contributor
+is implementing a &#8220;watershed&#8221; algorithm, his get_name method should return &#8220;watershed&#8221;.
+By default this method raises an error if the user is not overriding his own get_name
+method.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>self.name</em>: The name of the algorithm specified in this implementation.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>input_data</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the logic of the implemented algorithm. While computing
+the pipeline each algorithm will be called with its process method
+giving the output image from the previous algorithm processed in
+the pipeline The images are used to draw the result of each algorithm
+in the left section of the UI. Therefore the contributor should return
+an image itself at the end of this method.
+By default this method raises an error if the user is not overriding
+his own process
+method.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>input_data</em>: a tuple which contains all relevant arguments found in</div>
+</div>
+<p class="last">the results of the previous processed algorithm. As common in the
+pipeline pattern, the successors always get called with the
+information the predecessor created.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.report_pip">
+<code class="descname">report_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.report_pip" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary which contains all relevant algorithm
+information and returns it to the pipeline along with the algorithm
+name. The pipeline needs this information to create a json
+representation of the algorithm. It will encode the dic as following:
+E.g. blur : {&#8220;type&#8221; : &#8220;preprocessing&#8221;, &#8220;kernelsize&#8221; : 2.5}
+The encoding of the dic to json will be done by the pipeline which
+collects the dictionary of each algorithm in the processing list.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>self.name, collections.OrderedDict</em> (list): A tuple consisting
+of the name of the algorithm and the dic containing all relevant
+information about the algorithm which need to be stored on the
+filesystem for the pipeline.json.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.set_modified">
+<code class="descname">set_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set modified to True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.unset_modified">
+<code class="descname">unset_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.unset_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set modified to False</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.CheckBox">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class defining a Checkbox of type boolean to display in the algorithm
+detail section of the UI. After calling the CheckBox constructor, the
+program automatically creates ui widgets as well as qt slots and signals to
+connect this checkbox with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.CheckBox.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
+input source of selected values for this particular checkbox instance.
+The &#64;pyqtSlot(bool) decoration declares this method as as QT-Slot. To
+get more information about Slots and Signals in QT read about it in the
+official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the boolean value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.DropDown">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class defining a DropDown menu of type string to display in the algorithm
+detail section of the UI. After calling the DropDown constructor, the
+program automatically creates ui widgets as well as qt slots and signals to
+connect this DropDown with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.DropDown.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
+inputsource of selected values for this particular DropDown instance.
+The &#64;pyqtSlot(str) decoration declares this method as as QT-Slot. To
+get more information about Slots and Signals in QT read about it in the
+official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the string value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.FloatSlider">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">FloatSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class defining a slider of type float to display in the algorithm detail
+section of the UI. After calling the FloatSlider constructor, the program
+automatically creates ui widgets as well as qt slots and signals to connect
+this slider with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.FloatSlider.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
+input source of selected values for this particular slider instance.
+The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
+To get more information about Slots and Signals in QT read about it in
+the official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the integer value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.IntegerSlider">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">IntegerSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class defining a slider of type int to display in the algorithm detail
+section of the UI. After calling the IntegerSlider constructor, the program
+automatically creates ui widgets as wellas qt slots and signals to connect
+this slider with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.IntegerSlider.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as
+an input source of selected values for this particular slider instance.
+The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
+To get more information about Slots and Signals in QT read about it in
+the official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the integer value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

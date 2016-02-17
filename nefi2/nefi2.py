@@ -11,7 +11,7 @@ import argparse
 from PyQt5.QtWidgets import QApplication
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
-from view.mainwindow import *
+# from view.mainwindow import *
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
@@ -19,6 +19,7 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 def gui_mode():
     """
     Start NEFI2 GUI
+    """
     """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
@@ -29,6 +30,7 @@ def gui_mode():
 
     window.show()
     sys.exit(app.exec_())
+    """
 
 
 def batch_mode(args):

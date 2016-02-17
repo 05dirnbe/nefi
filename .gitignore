@@ -15,10 +15,14 @@ nefi2.komodoproject
 /nefi2/model/algorithms/*.pyc
 /nefi2/model/categories/*.pyc
 /nefi2/model/categories/__pycache__/
+/nefi2/view/__pycache__/*.pyc
+/nefi2/view/__pycache__/
 /nefi2/install_scripts/*.whl
 /nefi2/install_scripts/*.exe
 /nefi2/install_scripts/*.tar.gz
 /nefi2/controller/__pycache__ 
 /nefi2/unittests/__pycache__ 
-/nefi2/unittests/unittest_model/__pycache__ 
+/nefi2/unittests/unittest_model/__pycache__
+/gui_prototypes/Dennis/new/__pycache__/*.pyc
+/gui_prototypes/Dennis/new/__pycache__/
 
