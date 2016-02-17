@@ -41,13 +41,13 @@ class AlgBody(Algorithm):
         cdf = hist.cumsum()
 
         for i, e in list(enumerate(cdf)):
-            if e > image_channel.size * (self.left_pct / 100):
+            if e > image_channel.size * (self.left_pct.value / 100):
                 if i != 0:
                     vmin = i-1
                 break
 
         for i, e in list(enumerate(cdf)):
-            if e > image_channel.size * (1 - (self.right_pct / 100)):
+            if e > image_channel.size * (1 - (self.right_pct.value / 100)):
                 vmax = i
                 break
 
