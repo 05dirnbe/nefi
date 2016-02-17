@@ -23,11 +23,11 @@ def sanity_test():
     for it in range(len(pips)):
         with open(test_json_path, 'w') as fjson:
             fjson.write(pips[it])
-            nefi2_run = sb.Popen(nefi2_call, shell=True, stdout=sb.PIPE,
-                                 stderr=sb.PIPE,
-                                 close_fds=True)
+        nefi2_run = sb.Popen(nefi2_call, shell=True, stdout=sb.PIPE,
+                             stderr=sb.PIPE,
+                             close_fds=True, universal_newlines=True)
         stdout, stderr = nefi2_run.communicate()
-        failed_chains[chain[it]] = stderr.decode('utf-8')
+        failed_chains[chain[it]] = stderr
         failed_chains_short[chain[it]] = False if stderr else True
         stdou, stderr = '', ''
     os.remove(test_json_path)

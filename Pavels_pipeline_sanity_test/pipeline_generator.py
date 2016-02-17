@@ -122,7 +122,7 @@ SETTINGS = {
                                             "store_image": "false",
                                             "type": "Segmentation"},
     "Guo Hall Thinning": {"store_image": "false",
-                          "type": "Segmentation"},
+                          "type": "Graph detection"},
     "Connected component filter": {"Component Size": 10,
                                    "store_image": "false",
                                    "type": "Graph filtering"},
