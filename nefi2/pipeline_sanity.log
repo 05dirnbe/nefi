@@ -1,1795 +1,837 @@
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-False, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+FAILED PIPELINES: 64
+SUCCESSFUL PIPELINES: 256
 True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-False, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-False, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-False, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-False, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-False, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-False, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-False, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-False, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-False, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-False, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-False, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-False, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
 False, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-False, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
 False, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-False, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
 True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-False, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-False, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-False, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-False, Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
 True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-False, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-False, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-False, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+False, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+False, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
 True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
 True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-False, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-False, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
 True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+False, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+False, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+False, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+False, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+False, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
 True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+False, Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+False, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+False, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+False, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
 
 ##### DETAILS #####
 
-Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
 Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Median Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
 Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
 Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-Median Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
+
+Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
 Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Invert Color -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
 Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
 Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-Traceback (most recent call last):
-  File "nefi2.py", line 94, in <module>
-    main(arguments)
-  File "nefi2.py", line 70, in main
-    batch_mode(args)
-  File "nefi2.py", line 59, in batch_mode
-    pipeline.process()
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 133, in process
-    self.process_image(image_name, start_from)
-  File "/home/tastyminerals/dev/towards-nefi-2-0/nefi2/model/pipeline.py", line 147, in process_image
-    cat.process(img_arr, graph)  # image array always first!
-  File "./model/categories/_category.py", line 127, in process
-    al.process(args)
-  File "./model/algorithms/connected_component_filter.py", line 77, in process
-    to_be_removed = [subgraph for subgraph in connected_components
-  File "./model/algorithms/connected_component_filter.py", line 79, in <listcomp>
-    self.compnt_size.value)]
-TypeError: 'NoneType' object is not callable
-Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
 Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
 Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Median Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+
+Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Invert Color -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+
+Median Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+
+Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
+Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+
+Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+
+Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+
