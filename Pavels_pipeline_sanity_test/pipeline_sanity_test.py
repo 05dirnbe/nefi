@@ -21,6 +21,7 @@ def sanity_test():
     failed_chains = {}
     failed_chains_short = {}
     for it in range(len(pips)):
+    #for it in range(5):
         with open(test_json_path, 'w') as fjson:
             fjson.write(pips[it])
         nefi2_run = sb.Popen(nefi2_call, shell=True, stdout=sb.PIPE,
@@ -33,9 +34,12 @@ def sanity_test():
     os.remove(test_json_path)
     shutil.rmtree('output')
     os.mkdir('output')
-    output = ['\n'.join([k, v]) for k, v in failed_chains.items()]
+    output = ['\n\n'.join([k, v]) for k, v in failed_chains.items() if not v]
+    failed_cnt = sum([1 for v in failed_chains_short.values() if not v])
+    success_cnt = sum([1 for v in failed_chains_short.values() if v])
     output_short = [' '.join([str(v) + ',', k]) for k, v in failed_chains_short.items()]
     with open('pipeline_sanity.log', 'w') as flog:
+        flog.write('FAILED PIPELINES: {0}\nSUCCESSFUL PIPELINES: {1}\n'.format(failed_cnt, success_cnt))
         flog.write('\n'.join(output_short))
         flog.write('\n\n##### DETAILS #####\n\n')
         flog.write(''.join(output))
