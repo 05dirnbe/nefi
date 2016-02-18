@@ -71,6 +71,8 @@ class MainView(base, form):
         slider_1 = SliderWidget("slider1das", 0, 10, 1, 4, True)
         slider_2 = SliderWidget("slider1", 0, 10, 2, 4, False)
         slider_3 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
+        slider_4 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
+        slider_5 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
         checkbox_1 = CheckBoxWidget("checkbox1", True)
 
         self.setting_widget_vbox_layout.addWidget(category_combo_box)
@@ -78,6 +80,8 @@ class MainView(base, form):
         self.setting_widget_vbox_layout.addWidget(slider_1)
         self.setting_widget_vbox_layout.addWidget(slider_2)
         self.setting_widget_vbox_layout.addWidget(slider_3)
+        self.setting_widget_vbox_layout.addWidget(slider_4)
+        self.setting_widget_vbox_layout.addWidget(slider_5)
         self.setting_widget_vbox_layout.addWidget(checkbox_1)
         self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)
 
@@ -104,38 +108,33 @@ class MainView(base, form):
         """
         self.current_pip_label.setText(title)
 
-    def load_white_theme(self, application):
+    def load_dark_theme(self, application):
         """
         This function is called to load the white theme with
         all its icons for the buttons and the css file.
         Args:
             application: the cureent app instance
         """
-        # load stylesheet
-        style_file = os.path.join(os.path.split(__file__)[0], "../assets/css/white_theme.css")
-        with open(style_file, "r") as fh:
-            application.setStyleSheet(fh.read())
-
         # load buttons
-        pixmap_icon = QtGui.QPixmap("../assets/images/add.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/add_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.add_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/trash.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/trash_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.delete_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/diskette.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/diskette_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/up-arrow.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/up-arrow_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        #self.input_btn.setIcon(q_icon)
+        self.input_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/folder.png")
+        pixmap_icon = QtGui.QPixmap("../assets/images/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
-        #self.output_btn.setIcon(q_icon)
+        self.output_btn.setIcon(q_icon)
 
     def add_pip_entry(self, icon_url, label):
         """
@@ -165,7 +164,7 @@ class MainView(base, form):
         btn.setFixedSize(20, 20)
 
         if self.theme == "white":
-            pixmap_icon = QtGui.QPixmap("../assets/images/delete_x.png")
+            pixmap_icon = QtGui.QPixmap("../assets/images/delete_x_white.png")
             q_icon = QtGui.QIcon(pixmap_icon)
             btn.setIcon(q_icon)
 
@@ -228,31 +227,6 @@ class MainView(base, form):
         """
         for widget in widgets:
             self.setting_widget_vbox_layout.addWidget(widget)
-
-
-class CollapseButton:
-    """
-    this widget is used to collapse and extend other widgets by pressing a button
-    """
-
-    def __init__(self, parent=None):
-        QtWidgets.QWidget.__init__(self, parent)
-        self.pushButton_collapse_settings = parent
-        print("bla")
-
-    def mousePressEvent(self, event):
-        """
-        this events sets the self.pixmap from this custom widget
-        into the middle panel of the GUI. Or more general: by clicking
-        on this widget the users wants to see this picture in the big display
-        area of the middle.
-
-        Args:
-            | *event*: the mouse press event
-        """
-        print("bla")
-        if event.button() == QtCore.Qt.LeftButton:
-            self.setting_scroll.setFixedHeight(0)
 
 
 class PipelineEntry:
@@ -364,7 +338,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.label)
         self.SingleCheckBoxLayout.addWidget(self.combobox, Qt.AlignRight)
         self.setLayout(self.SingleCheckBoxLayout)
-        self.setFixedHeight(50)
+        self.setFixedHeight(70)
         self.setFlat(True)
 
     def add_item(self, option, image=None):
@@ -406,7 +380,7 @@ class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
         self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
         self.setLayout(self.SingleCheckBoxLayout)
-        self.setFixedHeight(50)
+        self.setFixedHeight(70)
         self.setFlat(True)
 
 
@@ -439,18 +413,15 @@ class SliderWidget(QGroupBox):
 
         # Slider itself
         self.slider = \
-            Slider(0, self.internal_steps, 1, to_internal_coordinate(default)) \
-                .slider
+            Slider(0, self.internal_steps, 1, to_internal_coordinate(default)).slider
 
         # Textfield
         if float_flag:
             self.textfield = \
-                DoubleTextfield(lower, upper, step_size, default) \
-                    .textfield
+                DoubleTextfield(lower, upper, step_size, default).textfield
         else:
             self.textfield = \
-                IntegerTextfield(lower, upper, step_size, default) \
-                    .textfield
+                IntegerTextfield(lower, upper, step_size, default).textfield
 
         # Label
         self.label = QLabel()
@@ -458,10 +429,10 @@ class SliderWidget(QGroupBox):
 
         # Connect Textfield with Slider
         def textfield_value_changed(value):
-            self.slider.setValue(to_internal_coordinate(self, value))
+            self.slider.setValue(to_internal_coordinate(value))
 
         def slider_value_changed(value):
-            self.textfield.setValue(to_external_coordinate(self, value))
+            self.textfield.setValue(to_external_coordinate(value))
 
         self.textfield.valueChanged.connect(textfield_value_changed)
         self.slider.valueChanged.connect(slider_value_changed)
@@ -471,7 +442,7 @@ class SliderWidget(QGroupBox):
         self.SingleSlidersLayout.addWidget(self.slider)
         self.SingleSlidersLayout.addWidget(self.textfield)
         self.setLayout(self.SingleSlidersLayout)
-        self.setFixedHeight(50)
+        self.setFixedHeight(70)
         self.setFlat(True)
 
 
@@ -532,8 +503,9 @@ class Slider(QSlider):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     wnd2 = MainView()
-    wnd2.load_white_theme(app)
+    wnd2.load_dark_theme(app)
     wnd2.show()
 
     sys.exit(app.exec_())
