@@ -157,6 +157,10 @@ class Algorithm(QObject):
         """
         self.modified = True
 
+    @pyqtSlot(bool)
+    def set_store_image(self, state):
+        self.store_image = state
+
     def find_ui_element(self, name):
         """
         This method helps the json parser to find the ui elements
