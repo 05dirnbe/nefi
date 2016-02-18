@@ -56,7 +56,7 @@ class Pipeline:
         #[cat for cat in self.available_cats.values()]
         #self.executed_cats = []
         self.executed_cats = []
-        self.pipeline_path = 'saved_pipelines'  # default dir
+        self.pipeline_path = os.path.join('assets', 'json')  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
         self.input_files = None
 
@@ -132,8 +132,22 @@ class Pipeline:
         for image_name in self.input_files:
             self.process_image(image_name, start_from)
 
-    def process_image(self, image_name, start_from):
-        img_origin = cv2.imread(image_name, cv2.IMREAD_COLOR)
+    def process_image(self, orig_fpath, start_from):
+        def get_fname():
+            # creating a file name
+            alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
+            basename = os.path.basename(orig_fpath)
+            img_name = '_'.join([cat.name.lower(), alg_name, basename])
+            return img_name
+
+        # create output dir name
+        orig_fname = os.path.splitext(os.path.basename(orig_fpath))[0]
+        pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
+        default_out = os.path.join(os.getcwd(), 'output')
+        dir_name = os.path.join(default_out, '_'.join([pip_name, orig_fname]))
+        self.set_output_dir(dir_name)
+        # read in input image file
+        img_origin = cv2.imread(orig_fpath, cv2.IMREAD_COLOR)
         img_arr = img_origin
         # execute the pipeline from the category with the modified alg
         for _, cat in enumerate(self.executed_cats[start_from[0]:]):
@@ -143,26 +157,29 @@ class Pipeline:
                 graph = cat.active_algorithm.result['graph']
                 # draw the graph into the original image
                 img_arr = _utility.draw_graph(img_origin, graph)
+                if cat.active_algorithm.store_image:
+                    self.save_results(get_fname(), img_arr, graph)
             elif cat.name == "Graph filtering":
                 cat.process(img_arr, graph)  # image array always first!
                 # now get the results of graph filtering
                 graph = cat.active_algorithm.result['graph']
                 # draw the graph into the original image
                 img_arr = _utility.draw_graph(img_origin, graph)
+                if cat.active_algorithm.store_image:
+                    self.save_results(get_fname(), img_arr, graph)
             else:
                 cat.process(img_arr)
                 img_arr = cat.active_algorithm.result['img']
                 graph = None
-            # creating a file name
-            alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
-            basename = os.path.basename(image_name)
-            img_name = '_'.join([cat.name.lower(), alg_name, basename])
-            # saving current algorithm results
-            self.save_results(img_name, img_arr, graph)
+                # saving current algorithm results
+                if cat.active_algorithm.store_image:
+                    self.save_results(get_fname(), img_arr, graph)
+
 
     def save_results(self, image_name, *results):
         """
-        Save the results of algorithm processing.
+        Create a directory of the following format: current pipeline + fname.
+        Save and put the results of algorithm processing in the directory.
 
         Args:
             | *image_name* (str): image name
@@ -171,14 +188,14 @@ class Pipeline:
         """
         # saving the processed image
         cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
-        print(image_name, 'successfully saved in', self.out_dir)
+        print('Success!', image_name, 'saved in', self.out_dir)
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
             nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
                                                                 image_name),
                                        delimiter='|')
-            print(image_name, 'successfully saved in', self.out_dir)
+            print('Success!', image_name, 'saved in', self.out_dir)
 
     def change_category(self, cat_name, position):
         """
@@ -304,6 +321,7 @@ class Pipeline:
                 value = alg_attributes[name]
                 active_alg.find_ui_element(name).set_value(value)
             position += 1
+        self.pipeline_path = url
 
     def save_pipeline_json(self, name, url):
         """

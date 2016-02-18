@@ -8,12 +8,12 @@
                       "store_image":false,
                       "type":"Preprocessing"}],
 
-  ["Otsus Threshold",{"store_image":false,
+  ["Otsus Threshold",{"store_image":true,
                       "type":"Segmentation"}],
 
   ["Guo Hall Thinning",{"store_image":false,
                       "type":"Graph detection"}],
 
-  ["Keep only largest connected component",{"store_image":false,
+  ["Keep only largest connected component",{"store_image":true,
                                             "type":"Graph filtering"}]
 ]
