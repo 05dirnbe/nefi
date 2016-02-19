@@ -308,17 +308,22 @@ class Pipeline:
             single file path
 
         """
+        print("called called")
         if os.path.isdir(input_source):
             files = filter_images(os.listdir(input_source))
             self.input_files = [os.path.join(input_source, f) for f in files]
         elif os.path.isfile(input_source):
+            print("called called 2")
             self.input_files = [input_source]
         # if UI mode create cache dir, copy input file and update cache list
         if self.isui:
+            print("called called 3")
             if not os.path.exists('_cache_'):
                 self.set_cache()
-            shutil.copy(self.input_files[0], '_cache_')
-            self.update_cache('INPUT', self.input_files[0])
+            # shutil.copy(self.input_files[0], '_cache_')
+            print("called called 4")
+            # self.update_cache('INPUT', self.input_files[0])
+        print("i shall return")
 
     def set_output_dir(self, dir_path):
         """
