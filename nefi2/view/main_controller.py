@@ -19,14 +19,28 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
-base, form = uic.loadUiType("MainView.ui")
+# print(os.path.abspath("."))
+# print(os.path.abspath("./view/MainView.ui"))
+base, form = uic.loadUiType("./view/MainView.ui")
 
 
 class MainView(base, form):
-    def __init__(self, parent=None):
+    def __init__(self, pipeline, parent=None):
+
+        app = QtWidgets.QApplication(sys.argv)
+
+        app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+        wnd2 = MainView()
+        wnd2.load_dark_theme(app)
+        wnd2.show()
+
+        sys.exit(app.exec_())
+
         super(base, self).__init__(parent)
         self.setupUi(self)
-        self.theme = "white"
+        self.pipeline = pipeline
+        self.pip_widgets = []
+
         self.draw_ui()
 
     def draw_ui(self):
@@ -34,7 +48,7 @@ class MainView(base, form):
         This function is concerned with drawing all non static elements  into the
         GUI.
         """
-        self.set_pip_title("A. Junius2")
+        """self.set_pip_title("A. Junius2")
 
         self.set_preset(["A.Junius", "test", "test", "test"])
 
@@ -83,7 +97,7 @@ class MainView(base, form):
         self.setting_widget_vbox_layout.addWidget(slider_4)
         self.setting_widget_vbox_layout.addWidget(slider_5)
         self.setting_widget_vbox_layout.addWidget(checkbox_1)
-        self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)
+        self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)"""
 
     def set_preset(self, options):
         """
@@ -136,43 +150,185 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
-    def add_pip_entry(self, icon_url, label):
+    def trash_pipeline(self):
         """
-        this methods creates an entry in the pipeline with a given
-        icon and label. On the right side will be a button to delete
-        the entry.
+        This method clears the complete pipeline while users clicked the trash
+        button.
+        """
+        # remove all entries in the pipeline list
+        for i in reversed(range(self.pip_widget_vbox_layout)):
+            self.pip_widget_vbox_layout.itemAt(i).widget().setParent(None)
 
+        # remove the pipeline name
+        self.current_pip_label.setText("")
+
+        # remove all entries int the executed_cats of the model pipeline
+        for i in self.pipeline.executed_cats:
+            del i
+
+    def run(self):
+        """
+        This method runs the the pipeline by calling the process methode
+        in pipeline
+        """
+        self.pipeline.process()
+
+    def set_input_url(self, url):
+        """
+        This method sets the url for the input image in the pipeline.
         Args:
-            | *icon_url*: the url to the pip entry icon
-            | *label*: the name of the cat for this entry
-            | *parent_vbox_layout*: the parent layout to draw it in
+            url: the url to the input image a user selected in the ui
         """
-        pip_main_main_widget = QtWidgets.QWidget()
-        pip_main_layout = QtWidgets.QHBoxLayout()
-        pip_main_main_widget.setLayout(pip_main_layout)
+        self.pipeline.set_input(url)
 
-        pixmap = QtGui.QPixmap(icon_url)
+    def set_output_url(self, url):
+        """
+        This method sets the url for the output folder in the pipeline.
+        Args:
+            url: the url to the output folder a user selected in the ui
+        """
+        self.pipeline.set_output_dir(url)
+
+    def save_pipeline(self, url, name):
+        """
+        Saves the pipeline as a json at the users file system.
+        Args:
+            url: the location in which folder the pip.json will be saved
+            name: the name for the *.json.
+        """
+        self.pipeline.save_pipeline_json(name, url)
+
+    def remove_pip_entry(self, position):
+        """
+        Removes the pip entry at the given position in the ui
+        Args:
+            position: position at which the pip entry gets removed
+        """
+        # remove at ui
+        self.pip_widget_vbox_layout.itemAt(position).widget().setParent(None)
+
+        # remove it settings widgets
+        del self.pip_widgets[position]
+
+        # remove in model
+        del self.pipeline.executed_cats[position]
+
+    def change_pip_entry_type(self, position, type):
+        """
+        Changes the type of the pipeline entry. The ui pipeline will then display
+        the correct category icon as well as a combobox to select the algorithm type.
+        Args:
+            position: position of the pipeline entry
+            type: the string type of the pipeline entry
+        """
+        # set in ui
+        icon = ""
+
+        # todo not hardcoded
+        if type == "Preprocessing":
+            icon = "../assets/images/P.png"
+        elif type == "Segmentation":
+            icon = "../assets/images/s.png"
+        elif type == "Graph Detection":
+            icon = "../assets/images/D.png"
+        elif type == "Graph Filtering":
+            icon = "../assets/images/F.png"
+
+        pixmap = QtGui.QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
         pixmap_label = QtWidgets.QLabel()
         pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
         string_label = QtWidgets.QLabel()
-        string_label.setText(label)
+        string_label.setText(type)
+        string_label.setFixedWidth(210)
+
+        # set in model
+        self.pipeline.change_category(type, position)
+
+    def change_pip_entry_alg(self, position, algorithm):
+        """
+        Changes the selected algorithm of the pipeline entry at the position.
+        Afterwards create all widgets for this algorithm instance
+        Args:
+            position: the position of the pipeline entry
+            algorithm: the selected algorithm for this category
+        """
+        # set in model
+        self.pipeline.change_algorithm(algorithm, position)
+
+        # create widgets
+        alg = self.pipeline[position].active_algorithm
+        widget_list = self.pip_widgets[position]
+
+        # create integer sliders
+        for slider in alg.integer_sliders:
+            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default, False)
+            widget_list.append(slid)
+            self.setting_widget_vbox_layout.addWidget(slid)
+            slid.valueChanged.connect(slider.set_value)
+
+        # create float sliders
+        for slider in alg.flaot_sliders:
+            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default, True)
+            widget_list.append(slid)
+            self.setting_widget_vbox_layout.addWidget(slid)
+            slid.valueChanged.connect(slider.set_value)
+
+        # create checkboxes
+        for checkbox in alg.checkboxes:
+            check = CheckBoxWidget(checkbox.name, checkbox.default)
+            widget_list.append()
+            self.setting_widget_vbox_layout.addWidget(check)
+            check.valueChanged.connect(checkbox.set_value)
+
+        # create dropdowns
+        for combobox in alg.drop_downs:
+            combo = ComboBoxWidget(combobox.name, combobox.options)
+            widget_list.append(combo)
+            self.setting_widget_vbox_layout.addWidget(combo)
+            combo.valueChanged.connect(combobox.set_value)
+
+    def add_blank_pip_entry(self):
+        """
+        Creates an blank entry in the ui pipeline since the user still needs to specify
+        a type and an algorithm of the category.
+        """
+        # create an widget that displays the pip entry in the ui
+        pip_main_main_widget = QtWidgets.QWidget()
+        pip_main_layout = QtWidgets.QHBoxLayout()
+        pip_main_main_widget.setLayout(pip_main_layout)
+
+        pixmap = QtGui.QPixmap("../assets/images/B.png")
+        pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+        pixmap_label = QtWidgets.QLabel()
+        pixmap_label.set
+        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+        string_label = QtWidgets.QLabel()
+        string_label.setText("Blank")
         string_label.setFixedWidth(210)
 
         btn = QtWidgets.QPushButton()
         btn.setFixedSize(20, 20)
 
-        if self.theme == "white":
-            pixmap_icon = QtGui.QPixmap("../assets/images/delete_x_white.png")
-            q_icon = QtGui.QIcon(pixmap_icon)
-            btn.setIcon(q_icon)
+        pixmap_icon = QtGui.QPixmap("../assets/images/delete_x_white.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        btn.setIcon(q_icon)
 
         pip_main_layout.addWidget(pixmap_label)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
         self.pip_widget_vbox_layout.addWidget(pip_main_main_widget)
+
+        # create an dictionary entry at the position of the pip_widget_dictionary
+        # todo ordering
+        self.self.pip_widgets.append(
+            [ComboBoxWidget("type", ["Preprocessing", "Segmentation", "Graph Detection", "Graph Filtering"])])
+
+        # create blank in the model pipeline at the last position
+        self.pipeline.new_category(self.pipeline.executed_cats.count() - 1)
 
     def add_cat_image(self, url, image_label):
         """
@@ -219,13 +375,13 @@ class MainView(base, form):
         for child in self.setting_widget_vbox_layout.children():
             self.setting_widget_vbox_layout.removeWidget(child)
 
-    def set_settings(self, widgets):
+    def set_settings(self, position):
         """
-        Adds all widgets to for the activated algorithm.
+        Adds all widgets to for the activated algorithm for a specific pip entry.
         Args:
-            widgets: the widgets to add
+            position: the position in widget list where we can find the widgets
         """
-        for widget in widgets:
+        for widget in self.pip_widgets[position]:
             self.setting_widget_vbox_layout.addWidget(widget)
 
 
@@ -321,7 +477,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
     combobox pyqtSignal.
     """
 
-    def __init__(self, name):
+    def __init__(self, name, options=None):
         super(ComboBoxWidget, self).__init__()
         self.valueChanged = pyqtSignal()
 
@@ -340,6 +496,10 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.setLayout(self.SingleCheckBoxLayout)
         self.setFixedHeight(70)
         self.setFlat(True)
+
+        # options
+        for i in options:
+            self.add_item(i)
 
     def add_item(self, option, image=None):
         """
@@ -398,11 +558,11 @@ class SliderWidget(QGroupBox):
     float slider pyqtSignal.
     A SliderWidget is built by a Slider, a QLabel and either a DoubleTextfield or an IntegerTextfield.
     """
-    valueChanged = pyqtSignal()
+
 
     def __init__(self, name, lower, upper, step_size, default, float_flag):
         super(SliderWidget, self).__init__()
-
+        self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
 
         def to_internal_coordinate(value):

@@ -20,19 +20,10 @@ def gui_mode():
     """
     Start NEFI2 GUI
     """
-    """
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
 
-    app = QApplication(sys.argv)
-
-    wnd2 = MainView()
-    wnd2.load_white_theme(app)
-    wnd2.show()
-
-    sys.exit(app.exec_())
-    """
-
+    MainView(pipeline).draw_ui()
 
 def batch_mode(args):
     """
