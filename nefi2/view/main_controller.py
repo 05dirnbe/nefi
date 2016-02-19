@@ -181,7 +181,7 @@ class MainView(base, form):
         """
         This method sets the url for the input image in the pipeline.
         """
-        url = str(QtWidgets.QFileDialog.getOpenFileNames())
+        url = QtWidgets.QFileDialog.getOpenFileNames()
         print(url)
         self.custom_line_edit.setText(url[0])
         print("called too")
