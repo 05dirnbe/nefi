@@ -19,8 +19,6 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
-# print(os.path.abspath("."))
-# print(os.path.abspath("./view/MainView.ui"))
 base, form = uic.loadUiType("./view/MainView.ui")
 
 
@@ -33,8 +31,21 @@ class MainView(base, form):
         self.pip_widgets = []
 
         self.draw_ui()
+        self.connect_ui()
+
+    def connect_ui(self):
+        """
+        This functione connects the ui using signals from the
+        ui elements and its method counterparts.
+        """
+        self.input_btn.clicked.connect(self.set_input_url)
 
     def draw_ui(self):
+        """
+        This function draws all additional UI elements. If you want the
+        application to display any additional things like a button you can
+        either add it in the QtDesigner or declare it here.
+        """
         """
         This function is concerned with drawing all non static elements  into the
         GUI.
@@ -164,13 +175,18 @@ class MainView(base, form):
         """
         self.pipeline.process()
 
-    def set_input_url(self, url):
+    @pyqtSlot()
+    def set_input_url(self):
         """
         This method sets the url for the input image in the pipeline.
-        Args:
-            url: the url to the input image a user selected in the ui
         """
+        url = str(QtWidgets.QFileDialog.getOpenFileNames())
+        print(url)
+        #ur = QtCore.QString(url)
+        # self.custom_line_edit.setText(QtCore.QString(url))
+        print("called too")
         self.pipeline.set_input(url)
+        print("returned")
 
     def set_output_url(self, url):
         """
