@@ -12,21 +12,31 @@ from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 from view.main_controller import *
 
+sys.path.insert(0, os.path.join(os.curdir, 'view'))
+sys.path.insert(0, os.path.join(os.curdir, 'model'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
-__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
+               "Dennig Groß": "gdennis91@googlemail.com"}
 
 
 def gui_mode():
     """
     Start NEFI2 GUI
     """
-    ui_mode = True
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container, ui_mode)
-    app = QApplication(sys.argv)
-    wnd2 = MainView()
-    wnd2.load_white_theme(app)
-    wnd2.show()
+    pipeline = Pipeline(extloader.cats_container, True)
+
+    app = QtWidgets.QApplication(sys.argv)
+
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    wnd = MainView(pipeline)
+    wnd.draw_ui()
+    wnd.load_dark_theme(app)
+    wnd.load_dark_theme(app)
+    wnd.show()
+
     sys.exit(app.exec_())
 
 
