@@ -7,11 +7,11 @@ It also enables console batch processing mode.
 """
 import sys
 import argparse
-
 from PyQt5.QtWidgets import QApplication
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 from view.main_controller import *
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
@@ -21,7 +21,7 @@ def gui_mode():
     Start NEFI2 GUI
     """
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container)
+    pipeline = Pipeline(extloader.cats_containerm, True)
 
     MainView(pipeline).draw_ui()
 
@@ -33,8 +33,9 @@ def batch_mode(args):
         | *args* (dict) : argument dict returned by ArgumentParser
 
     """
+    ui_mode = False
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container)
+    pipeline = Pipeline(extloader.cats_container, ui_mode)
     # processing args values
     if args.pipeline:
         # load the specified pipeline file

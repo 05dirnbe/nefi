@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 This module contains the class Pipeline that represents a central control
@@ -10,6 +11,7 @@ import demjson
 import networkx as nx
 import os
 import re
+import shutil
 import sys
 import copy
 
@@ -39,10 +41,11 @@ def filter_images(file_list):
 
 
 class Pipeline:
-    def __init__(self, categories):
+    def __init__(self, categories, isui):
         """
         Args:
-            *categories*: OrderedDict of category names and their instances
+            | *categories* : OrderedDict of category names and their instances
+            | *isui* (bool) : True if Pipeline is running in UI mode
 
         public Attributes:
             | *available_cats* (dict): dict of {Category name: Category}
@@ -50,11 +53,14 @@ class Pipeline:
             | *pipeline_path* (str): a path to a saved pipelines
             | *out_dir* (str): a path where processing results are saved
             | *input_files* (list): a list of image files in the input dir
+            | *cache* (list): a list of tuples where (Category name, img url)
 
         """
+        self.isui = isui
+        if self.isui:
+            self.set_cache()
+            self.cache = []
         self.available_cats = categories
-        #[cat for cat in self.available_cats.values()]
-        #self.executed_cats = []
         self.executed_cats = []
         self.pipeline_path = os.path.join('assets', 'json')  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
@@ -146,8 +152,12 @@ class Pipeline:
         default_out = os.path.join(os.getcwd(), 'output')
         dir_name = os.path.join(default_out, '_'.join([pip_name, orig_fname]))
         self.set_output_dir(dir_name)
-        # read in input image file
-        img_origin = cv2.imread(orig_fpath, cv2.IMREAD_COLOR)
+        # read in the input image file
+        try:
+            img_origin = cv2.imread(orig_fpath, cv2.IMREAD_COLOR)
+        except (IOError, cv2.error):
+            print('ERROR! Cannot read the image file, make sure it is readable')
+            sys.exit(1)
         img_arr = img_origin
         # execute the pipeline from the category with the modified alg
         for _, cat in enumerate(self.executed_cats[start_from[0]:]):
@@ -159,6 +169,10 @@ class Pipeline:
                 img_arr = _utility.draw_graph(img_origin, graph)
                 if cat.active_algorithm.store_image:
                     self.save_results(get_fname(), img_arr, graph)
+                if self.isui:
+                    self.save_results(get_fname(), img_arr, None)
+                    self.update_cache('Graph detection',
+                                      os.path.join(self.out_dir, get_fname()))
             elif cat.name == "Graph filtering":
                 cat.process(img_arr, graph)  # image array always first!
                 # now get the results of graph filtering
@@ -167,6 +181,10 @@ class Pipeline:
                 img_arr = _utility.draw_graph(img_origin, graph)
                 if cat.active_algorithm.store_image:
                     self.save_results(get_fname(), img_arr, graph)
+                if self.isui:
+                    self.save_results(get_fname(), img_arr, None)
+                    self.update_cache('Graph filtering',
+                                      os.path.join(self.out_dir, get_fname()))
             else:
                 cat.process(img_arr)
                 img_arr = cat.active_algorithm.result['img']
@@ -174,7 +192,10 @@ class Pipeline:
                 # saving current algorithm results
                 if cat.active_algorithm.store_image:
                     self.save_results(get_fname(), img_arr, graph)
-
+                if self.isui:
+                    self.save_results(get_fname(), img_arr, None)
+                    self.update_cache(cat.get_name(),
+                                      os.path.join(self.out_dir, get_fname()))
 
     def save_results(self, image_name, *results):
         """
@@ -187,8 +208,14 @@ class Pipeline:
 
         """
         # saving the processed image
-        cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
-        print('Success!', image_name, 'saved in', self.out_dir)
+        try:
+            cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
+        except (IOError, cv2.error):
+            print('ERROR! Could not write an image file, make sure there is ' +
+                  'enough free space on disk')
+            sys.exit(1)
+        if not self.isui:
+            print('Success!', image_name, 'saved in', self.out_dir)
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
@@ -196,6 +223,29 @@ class Pipeline:
                                                                 image_name),
                                        delimiter='|')
             print('Success!', image_name, 'saved in', self.out_dir)
+
+    def report_available_cats(self, selected_cat):
+        """
+        The order of the categories is important in the pipeline.
+        You can not execute graph filtering before graph detection or
+        segmentation after graph filtering.
+        When a user selects a category from a drop-down menu we provide only
+        currently allowed categories.
+
+        Args:
+            *selected_cat* (str): Category selected by the user
+
+        Returns:
+            *allowed* (list): a list of currently allowed cats
+
+        """
+        current_cats = self.get_executed_cats()
+        if selected_cat not in current_cats:
+            return current_cats
+        elif selected_cat == 'Graph detection':
+            return current_cats[current_cats.index(selected_cat) + 1:]
+        else:
+            return current_cats[current_cats.index(selected_cat):]
 
     def change_category(self, cat_name, position):
         """
@@ -228,8 +278,6 @@ class Pipeline:
                 self.executed_cats[position].set_active_algorithm(alg_name)
 
     def get_executed_cats(self):
-        #todo: if you call get_executed_cats you dont expect a list of string -> remove method?
-
         """
         Create and return a list of currently executed categories.
 
@@ -243,7 +291,6 @@ class Pipeline:
         return executed_cat_names
 
     def get_algorithm_list(self, position):
-        #todo: some like get_executed_cats thats confusing
         """
         Get names of all available algorithms for the category in position.
         Sort the list and return.
@@ -262,7 +309,6 @@ class Pipeline:
     def set_input(self, input_source):
         """
         Set the directory where original images are located or set a file path.
-        <Used in console mode>.
 
         Args:
             *input_source* (str): directory path with original images or a
@@ -274,6 +320,12 @@ class Pipeline:
             self.input_files = [os.path.join(input_source, f) for f in files]
         elif os.path.isfile(input_source):
             self.input_files = [input_source]
+        # if UI mode create cache dir, copy input file and update cache list
+        if self.isui:
+            if not os.path.exists('_cache_'):
+                self.set_cache()
+            shutil.copy(self.input_files[0], '_cache_')
+            self.update_cache('INPUT', self.input_files[0])
 
     def set_output_dir(self, dir_path):
         """
@@ -302,7 +354,6 @@ class Pipeline:
         except demjson.JSONDecodeError as e:
             e = sys.exc_info()[0]
             print("Unable to parse " + url + " trace: " + e)
-
         position = 0
         for alg in json:
             alg_name = alg[0]
@@ -317,7 +368,6 @@ class Pipeline:
             for name in alg_attributes.keys():
                 if name == "type" or name == "store_image":
                     continue
-
                 value = alg_attributes[name]
                 active_alg.find_ui_element(name).set_value(value)
             position += 1
@@ -335,15 +385,50 @@ class Pipeline:
 
         """
         alg_reports = []
-
         for cat in self.executed_cats:
             alg = cat.get_active_algorithm()
             cat_name, alg_dic = alg.report_pip()
             alg_reports.append([cat_name, alg_dic])
 
         with open(os.path.join(url, name + ".json"), "wb+") as outfile:
-            #ord_alg_reps = OrderedDict(alg_reports)
+            # ord_alg_reps = OrderedDict(alg_reports)
             outfile.write(bytes(demjson.encode(alg_reports), "UTF-8"))
+
+    def set_cache(self):
+        """
+        Create cache dir in order to save in it the intermediate results of
+        processing and an original image.
+        Recreate dir if exists or before running image processing.
+        <This is done to make thumbnails in the left pane available in UI.>
+        """
+        if os.path.exists('_cache_'):
+            try:
+                shutil.rmtree('_cache_')
+            except (IOError, OSError):
+                print('ERROR! Cannot remove _cache_ directory, make sure it ' +
+                      'is not open or locked by some other process.')
+                sys.exit(1)
+        os.mkdir('_cache_')
+        self.cache = []
+
+    def update_cache(self, category, img_path):
+        """
+        Copy an img to cache dir and update the cache list.
+
+        Args:
+            | *category* (str): Category name
+            | *img_path* (str): image path
+
+        """
+        try:
+            shutil.copy(img_path, '_cache_')
+        except (IOError, OSError):
+            print('ERROR! Cannot copy to _cache_ directory, make sure there ' +
+                  'is enough space on disk')
+            sys.exit(1)
+        cache_img_path = os.path.join(os.getcwd(), '_cache_',
+                                      os.path.basename(img_path))
+        self.cache.append((category, cache_img_path))
 
 
 if __name__ == '__main__':

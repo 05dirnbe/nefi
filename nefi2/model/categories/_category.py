@@ -111,9 +111,6 @@ class Category:
         """
         return self.active_algorithm
 
-    def scan_algorithms(self):
-        pass
-
     def process(self, *args):
         """
         Run a specific algorithm on the image.
