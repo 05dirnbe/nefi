@@ -224,17 +224,28 @@ class Pipeline:
                                        delimiter='|')
             print('Success!', image_name, 'saved in', self.out_dir)
 
-    def report_available_cats(self):
+    def report_available_cats(self, selected_cat):
         """
         The order of the categories is important in the pipeline.
         You can not execute graph filtering before graph detection or
         segmentation after graph filtering.
-        When the pipeline is loaded or altered by the user, we need to
-        check if the new pipeline categories are in correct order.
-        Check current order of categories and warn the user if the order is
-        incorrect.
+        When a user selects a category from a drop-down menu we provide only
+        currently allowed categories.
+
+        Args:
+            *selected_cat* (str): Category selected by the user
+
+        Returns:
+            *allowed* (list): a list of currently allowed cats
+
         """
-        pass
+        current_cats = self.get_executed_cats()
+        if selected_cat not in current_cats:
+            return current_cats
+        elif selected_cat == 'Graph detection':
+            return current_cats[current_cats.index(selected_cat) + 1:]
+        else:
+            return current_cats[current_cats.index(selected_cat):]
 
     def change_category(self, cat_name, position):
         """
