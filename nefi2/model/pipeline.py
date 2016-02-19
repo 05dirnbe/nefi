@@ -236,7 +236,7 @@ class Pipeline:
             *selected_cat* (str): Category selected by the user
 
         Returns:
-            *allowed* (list): a list of currently allowed cats
+            a list of currently allowed cats
 
         """
         current_cats = self.get_executed_cats()
