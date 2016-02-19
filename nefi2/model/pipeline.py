@@ -14,6 +14,13 @@ import re
 import shutil
 import sys
 import copy
+
+
+sys.path.insert(0, os.path.join(os.curdir, 'view'))
+sys.path.insert(0, os.path.join(os.curdir, 'model'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
+
 from _category import Category
 from algorithms import _utility
 
@@ -229,7 +236,7 @@ class Pipeline:
             *selected_cat* (str): Category selected by the user
 
         Returns:
-            *allowed* (list): a list of currently allowed cats
+            a list of currently allowed cats
 
         """
         current_cats = self.get_executed_cats()
