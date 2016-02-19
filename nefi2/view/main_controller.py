@@ -39,6 +39,7 @@ class MainView(base, form):
         ui elements and its method counterparts.
         """
         self.input_btn.clicked.connect(self.set_input_url)
+        self.save_btn.clicked.connect(self.save_pipeline)
 
     def draw_ui(self):
         """
@@ -182,8 +183,7 @@ class MainView(base, form):
         """
         url = str(QtWidgets.QFileDialog.getOpenFileNames())
         print(url)
-        #ur = QtCore.QString(url)
-        # self.custom_line_edit.setText(QtCore.QString(url))
+        self.custom_line_edit.setText(url[0])
         print("called too")
         self.pipeline.set_input(url)
         print("returned")
@@ -196,13 +196,18 @@ class MainView(base, form):
         """
         self.pipeline.set_output_dir(url)
 
-    def save_pipeline(self, url, name):
+    def save_pipeline(self):
         """
         Saves the pipeline as a json at the users file system.
         Args:
             url: the location in which folder the pip.json will be saved
             name: the name for the *.json.
         """
+
+        url = str(QtWidgets.QFileDialog.getSaveFileName())
+        split_list = url.split("/")
+
+
         self.pipeline.save_pipeline_json(name, url)
 
     def remove_pip_entry(self, position):
