@@ -23,7 +23,17 @@ def gui_mode():
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container, True)
 
-    MainView(pipeline).draw_ui()
+    app = QtWidgets.QApplication(sys.argv)
+
+    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+    wnd = MainView(pipeline)
+    wnd.draw_ui()
+    wnd.load_dark_theme(app)
+    wnd.load_dark_theme(app)
+    wnd.show()
+
+    sys.exit(app.exec_())
+
 
 def batch_mode(args):
     """

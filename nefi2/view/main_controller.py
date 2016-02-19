@@ -27,15 +27,6 @@ base, form = uic.loadUiType("./view/MainView.ui")
 class MainView(base, form):
     def __init__(self, pipeline, parent=None):
 
-        app = QtWidgets.QApplication(sys.argv)
-
-        app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-        wnd2 = MainView()
-        wnd2.load_dark_theme(app)
-        wnd2.show()
-
-        sys.exit(app.exec_())
-
         super(base, self).__init__(parent)
         self.setupUi(self)
         self.pipeline = pipeline
@@ -130,23 +121,23 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
-        pixmap_icon = QtGui.QPixmap("../assets/images/add_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/add_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.add_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/trash_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/trash_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.delete_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/diskette_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/diskette_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/up-arrow_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/up-arrow_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/folder_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
@@ -226,13 +217,13 @@ class MainView(base, form):
 
         # todo not hardcoded
         if type == "Preprocessing":
-            icon = "../assets/images/P.png"
+            icon = "./assets/images/P.png"
         elif type == "Segmentation":
-            icon = "../assets/images/s.png"
+            icon = "./assets/images/s.png"
         elif type == "Graph Detection":
-            icon = "../assets/images/D.png"
+            icon = "./assets/images/D.png"
         elif type == "Graph Filtering":
-            icon = "../assets/images/F.png"
+            icon = "./assets/images/F.png"
 
         pixmap = QtGui.QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
@@ -299,7 +290,7 @@ class MainView(base, form):
         pip_main_layout = QtWidgets.QHBoxLayout()
         pip_main_main_widget.setLayout(pip_main_layout)
 
-        pixmap = QtGui.QPixmap("../assets/images/B.png")
+        pixmap = QtGui.QPixmap("./assets/images/B.png")
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
         pixmap_label = QtWidgets.QLabel()
         pixmap_label.set
@@ -312,7 +303,7 @@ class MainView(base, form):
         btn = QtWidgets.QPushButton()
         btn.setFixedSize(20, 20)
 
-        pixmap_icon = QtGui.QPixmap("../assets/images/delete_x_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/delete_x_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
@@ -383,30 +374,6 @@ class MainView(base, form):
         """
         for widget in self.pip_widgets[position]:
             self.setting_widget_vbox_layout.addWidget(widget)
-
-
-class PipelineEntry:
-    def __init__(self):
-        self._algorithm = None
-        self._category = None
-        self.settings_widgets = []
-
-    def set_algorithm(self, algorithm):
-        if algorithm is not None:
-            self._algorithm = algorithm
-            for int_slider in self._algorithm.integer_sliders:
-                slider = SliderWidget(
-                    int_slider.lower,
-                    int_slider.upper,
-                    int_slider.step_size,
-                    int_slider.default
-                ).textfield.valueChanged.connect()
-                slider.valueChanged.connect()
-                self.settings_widgets.append(slider)
-
-    def set_category(self, category):
-        if category is not None:
-            self._category = category
 
 
 class LeftCustomWidget(QWidget):
@@ -661,11 +628,4 @@ class Slider(QSlider):
 
 
 if __name__ == '__main__':
-    app = QtWidgets.QApplication(sys.argv)
-
-    app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
-    wnd2 = MainView()
-    wnd2.load_dark_theme(app)
-    wnd2.show()
-
-    sys.exit(app.exec_())
+    pass
