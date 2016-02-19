@@ -315,6 +315,7 @@ class Pipeline:
             single file path
 
         """
+        input_source = input_source[0][0]
         print("called called")
         if os.path.isdir(input_source):
             files = filter_images(os.listdir(input_source))
@@ -327,7 +328,7 @@ class Pipeline:
             print("called called 3")
             if not os.path.exists('_cache_'):
                 self.set_cache()
-            # shutil.copy(self.input_files[0], '_cache_')
+            shutil.copy(self.input_files[0], '_cache_')
             print("called called 4")
             # self.update_cache('INPUT', self.input_files[0])
         print("i shall return")
