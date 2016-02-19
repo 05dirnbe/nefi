@@ -14,6 +14,13 @@ import re
 import shutil
 import sys
 import copy
+
+
+sys.path.insert(0, os.path.join(os.curdir, 'view'))
+sys.path.insert(0, os.path.join(os.curdir, 'model'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
+
 from _category import Category
 from algorithms import _utility
 
