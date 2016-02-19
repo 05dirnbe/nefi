@@ -12,8 +12,13 @@ from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 from view.main_controller import *
 
+sys.path.insert(0, os.path.join(os.curdir, 'view'))
+sys.path.insert(0, os.path.join(os.curdir, 'model'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
+sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
-__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
+               "Dennig Groß": "gdennis91@googlemail.com"}
 
 
 def gui_mode():
