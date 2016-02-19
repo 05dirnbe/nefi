@@ -21,7 +21,7 @@ def gui_mode():
     Start NEFI2 GUI
     """
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_containerm, True)
+    pipeline = Pipeline(extloader.cats_container, True)
 
     MainView(pipeline).draw_ui()
 
