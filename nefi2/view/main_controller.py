@@ -29,9 +29,13 @@ class MainView(base, form):
         self.setupUi(self)
         self.pipeline = pipeline
         self.pip_widgets = []
+        self.default_pips = []
 
         self.draw_ui()
         self.connect_ui()
+
+    def register_observers(self):
+        pass
 
     def connect_ui(self):
         """
@@ -40,6 +44,9 @@ class MainView(base, form):
         """
         self.input_btn.clicked.connect(self.set_input_url)
         self.save_btn.clicked.connect(self.save_pipeline)
+        self.load_favorite_pipelines()
+        self.fav_pips_combo_box.activated.connect(self.select_default_pip)
+        self.run_btn.clicked.connect(self.run)
 
     def draw_ui(self):
         """
@@ -102,19 +109,6 @@ class MainView(base, form):
         self.setting_widget_vbox_layout.addWidget(checkbox_1)
         self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)"""
 
-    def set_preset(self, options):
-        """
-        Inserts the options for the preset pipelines. Those are the
-        default pipelines.json offered by the nefi project. The default
-        jsons are located in the ../assets/json/ folder.
-
-        Args:
-            | *options*: a string list with the options.
-            | *combobox_ref*:  a reference to the combobox object.
-        """
-        for item in options:
-            self.fav_pips_combo_box.addItem(item)
-
     def set_pip_title(self, title):
         """
         Sets the title of the current selected pipeline in the ui.
@@ -153,6 +147,26 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
+    @pyqtSlot(int)
+    def select_default_pip(self, index):
+        """
+        This is the slot for the Pipeline combobox in the ui
+        Args:
+            index: index of the option currently selected
+        """
+        # get url and name
+        name, url = self.default_pips[index - 1]
+
+        # parse the json in the model
+        self.pipeline.load_pipeline_json(url)
+
+        # set the title
+        self.set_pip_title(name)
+
+        # create the widgets
+        for i in range(0, len(self.pipeline.executed_cats) - 1):
+            self.load_widgets_from_cat(i, True)
+
     def trash_pipeline(self):
         """
         This method clears the complete pipeline while users clicked the trash
@@ -169,6 +183,11 @@ class MainView(base, form):
         for i in self.pipeline.executed_cats:
             del i
 
+        # remove all widgets
+        for i in self.pip_widgets:
+            del i
+
+    @pyqtSlot()
     def run(self):
         """
         This method runs the the pipeline by calling the process methode
@@ -183,11 +202,11 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         print(url)
-        self.custom_line_edit.setText(url[0])
-        print("called too")
-        self.pipeline.set_input(url)
-        print("returned")
+        self.custom_line_edit.setText(url[0][0])
+        self.pipeline.set_input(url[0][0])
 
+    # todo
+    @pyqtSlot()
     def set_output_url(self, url):
         """
         This method sets the url for the output folder in the pipeline.
@@ -196,26 +215,41 @@ class MainView(base, form):
         """
         self.pipeline.set_output_dir(url)
 
+    def load_favorite_pipelines(self):
+        """
+        Scans the directory for default pipelines to display all available items
+        """
+        self.fav_pips_combo_box.addItem("Please Select")
+
+        # scan the directory for default pipelines
+        for file in os.listdir("./_default_pipelines"):
+            if file.endswith(".json"):
+                name = file.split(".")[0]
+                url = os.path.abspath("./_default_pipelines" + "/" + file)
+                self.default_pips.append([name, url])
+                self.fav_pips_combo_box.addItem(name)
+
+    @pyqtSlot()
     def save_pipeline(self):
         """
         Saves the pipeline as a json at the users file system.
-        Args:
-            url: the location in which folder the pip.json will be saved
-            name: the name for the *.json.
         """
+        url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
 
-        url = str(QtWidgets.QFileDialog.getSaveFileName())
         split_list = url.split("/")
-
-
+        name = split_list[len(split_list) - 1].split(".")[0]
+        del split_list[len(split_list) - 1]
+        url = url.replace(name, "")
         self.pipeline.save_pipeline_json(name, url)
 
+    @pyqtSlot(int)
     def remove_pip_entry(self, position):
         """
         Removes the pip entry at the given position in the ui
         Args:
             position: position at which the pip entry gets removed
         """
+        # todo check
         # remove at ui
         self.pip_widget_vbox_layout.itemAt(position).widget().setParent(None)
 
@@ -236,7 +270,7 @@ class MainView(base, form):
         # set in ui
         icon = ""
 
-        # todo not hardcoded
+        # todo not hardcod
         if type == "Preprocessing":
             icon = "./assets/images/P.png"
         elif type == "Segmentation":
@@ -255,6 +289,8 @@ class MainView(base, form):
         string_label.setText(type)
         string_label.setFixedWidth(210)
 
+        # todo settings at the location
+
         # set in model
         self.pipeline.change_category(type, position)
 
@@ -270,55 +306,102 @@ class MainView(base, form):
         self.pipeline.change_algorithm(algorithm, position)
 
         # create widgets
-        alg = self.pipeline[position].active_algorithm
         widget_list = self.pip_widgets[position]
+
+        for item in self.load_widgets_from_cat(position, False):
+            widget_list.append(item)
+            self.setting_widget_vbox_layout.addWidget(item)
+
+    def load_widgets_from_cat(self, position, from_json):
+        """
+        Extracts all widgets from a single algorithm and returns a list
+        of widgets.
+        Args:
+            alg: the alg instance we extract from
+
+        Returns: a list widgets for this particular alg.
+
+        """
+
+        alg = self.pipeline.executed_cats[position].active_algorithm
+        widget_list = []
+
+        if from_json:
+            type_widget = ComboBoxWidget("type", [])
+            type_widget.add_item("Preprocessing", "./assets/images/P.png")
+            type_widget.add_item("Segmentation", "./assets/images/s.png")
+            type_widget.add_item("Graph Detection", "./assets/images/D.png")
+            type_widget.add_item("Graph Filtering", "./assets/images/F.png")
+            widget_list.append(type_widget)
+
+            widget_list.append(ComboBoxWidget("selected alg", self.pipeline.get_algorithm_list(position)))
+
+            widget_list.append(CheckBoxWidget("store result", alg.store_image))
 
         # create integer sliders
         for slider in alg.integer_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default, False)
+            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value, False)
             widget_list.append(slid)
-            self.setting_widget_vbox_layout.addWidget(slid)
             slid.valueChanged.connect(slider.set_value)
 
         # create float sliders
         for slider in alg.flaot_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.default, True)
+            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value, True)
             widget_list.append(slid)
-            self.setting_widget_vbox_layout.addWidget(slid)
             slid.valueChanged.connect(slider.set_value)
 
         # create checkboxes
         for checkbox in alg.checkboxes:
-            check = CheckBoxWidget(checkbox.name, checkbox.default)
+            check = CheckBoxWidget(checkbox.name, checkbox.value)
             widget_list.append()
-            self.setting_widget_vbox_layout.addWidget(check)
             check.valueChanged.connect(checkbox.set_value)
+
+        # todo default value
 
         # create dropdowns
         for combobox in alg.drop_downs:
             combo = ComboBoxWidget(combobox.name, combobox.options)
             widget_list.append(combo)
-            self.setting_widget_vbox_layout.addWidget(combo)
             combo.valueChanged.connect(combobox.set_value)
 
-    def add_blank_pip_entry(self):
+        return widget_list
+
+    def add_pip_entry(self, cat_position=None):
         """
         Creates an blank entry in the ui pipeline since the user still needs to specify
         a type and an algorithm of the category.
         """
         # create an widget that displays the pip entry in the ui
-        pip_main_main_widget = QtWidgets.QWidget()
+        pip_main_widget = QtWidgets.QWidget()
         pip_main_layout = QtWidgets.QHBoxLayout()
-        pip_main_main_widget.setLayout(pip_main_layout)
+        pip_main_widget.setLayout(pip_main_layout)
 
-        pixmap = QtGui.QPixmap("./assets/images/B.png")
+        label = "Blank"
+        icon = "./assets/images/B.png"
+
+        # todo not hardcoding
+        if cat_position is not None:
+            cat = self.pipeline.executed_cats[cat_position]
+            if cat == "Preprocessing":
+                label = "Preprocessing"
+                icon = "./assets/images/P.png"
+            elif cat == "Segmentation":
+                label = "Segmentation"
+                icon = "./assets/images/S.png"
+            elif cat == "Graph detection":
+                label = "Graph detection"
+                icon = "./assets/images/D.png"
+            elif cat == "Graph filtering":
+                label = "Graph filtering"
+                icon = "./assets/images/F.png"
+
+        pixmap = QtGui.QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
         pixmap_label = QtWidgets.QLabel()
-        pixmap_label.set
         pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
         string_label = QtWidgets.QLabel()
-        string_label.setText("Blank")
+        string_label.setText(label)
         string_label.setFixedWidth(210)
 
         btn = QtWidgets.QPushButton()
@@ -328,19 +411,26 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
+        btn.clicked.connect(self.remove_pip_entry(len(self.pip_widget_vbox_layout)))
+
         pip_main_layout.addWidget(pixmap_label)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
-        self.pip_widget_vbox_layout.addWidget(pip_main_main_widget)
+        self.pip_widget_vbox_layout.addWidget(pip_main_widget)
 
         # create an dictionary entry at the position of the pip_widget_dictionary
         # todo ordering
         self.self.pip_widgets.append(
             [ComboBoxWidget("type", ["Preprocessing", "Segmentation", "Graph Detection", "Graph Filtering"])])
 
-        # create blank in the model pipeline at the last position
-        self.pipeline.new_category(self.pipeline.executed_cats.count() - 1)
+        if cat_position is not None:
+            name = self.pipeline.executed_cats[cat_position].name
+            widgets = self.load_widgets_from_cat(cat_position, True)
+            self.pip_widgets.append([name, widgets])
+        else:
+            # create blank in the model pipeline at the last position
+            self.pipeline.new_category(self.pipeline.executed_cats.count() - 1)
 
     def add_cat_image(self, url, image_label):
         """
@@ -393,6 +483,8 @@ class MainView(base, form):
         Args:
             position: the position in widget list where we can find the widgets
         """
+        self.reset_settings()
+
         for widget in self.pip_widgets[position]:
             self.setting_widget_vbox_layout.addWidget(widget)
 
