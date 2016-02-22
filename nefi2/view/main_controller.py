@@ -198,12 +198,11 @@ class MainView(base, form):
         self.set_pip_title("")
 
         # remove all entries int the executed_cats of the model pipeline
-        for i in self.pipeline.executed_cats:
-            del i
+        del self.pipeline.executed_cats[:]
 
         # remove all widgets
-        for i in self.pip_widgets:
-            del i
+        del self.pip_widgets[:]
+
 
     @pyqtSlot()
     def run(self):
