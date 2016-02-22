@@ -45,6 +45,7 @@ class Algorithm(QObject):
             | *store_image*: this flag is per default false and indicates if the
                 calculated image from this algorithm should be stores at the
                 default location after processing.
+            | *icon* (str): Path to custom icon to be used for this algorithm.
 
         Returns:
             | *object*: instance of the algorithm object
@@ -57,6 +58,7 @@ class Algorithm(QObject):
         self.checkboxes = []
         self.drop_downs = []
         self.name = ""
+        self.icon = "./assets/images/missing.png"
         self.parent = ""
         self.result = {"img": None, "graph": None}
         self.store_image = False
@@ -109,6 +111,22 @@ class Algorithm(QObject):
             return self.name
         else:
             raise NotImplementedError
+
+    def set_icon(self, icon_path):
+        """
+        Args:
+            | *icon_path*: The path to the icon to be used
+        """
+
+        self.icon = icon_path
+
+    def get_icon(self):
+        """
+        Returns:
+            | *icon_path*: The path to the icon to be used
+        """
+
+        return self.icon
 
     def report_pip(self):
         """
@@ -229,7 +247,7 @@ class IntegerSlider:
             | *arg1*: the integer value selected in the ui or the pipeline in
             batch-mode
         """
-        print("Creating Slot")
+
         self.value = arg1
 
 

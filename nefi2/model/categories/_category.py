@@ -13,7 +13,7 @@ class Category:
     transmitting the output to the pipeline. It serves as an intermediate layer
     between the algorithms and the pipeline.
     """
-    def __init__(self, name):
+    def __init__(self, name, icon=None):
         """
         Args:
             *name* (str): Category name
@@ -23,6 +23,7 @@ class Category:
 
         Public Attributes:
             | *name* (str): Category name
+            | *icon* (str): Path to custom icon to be used for this category.
             | *available_algs* (dict): a dict of {Category: [alg, alg, ...]}
             | *alg_names* (list): a list of alg names for current category
             | *active_algorithm* (Algorithm): Currently selected algorithm
@@ -32,6 +33,10 @@ class Category:
             if path.endswith('algorithms'):
                 _alg_dir = path
         self.name = name
+        if icon is not None:
+            self.icon = icon
+        else:
+            self.icon = "./assets/images/missing.png"
         self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
@@ -143,6 +148,21 @@ class Category:
         """
         self.name = name
 
+    def set_icon(self, icon_path):
+        """
+        Args:
+            | *icon_path*: The path to the icon to be used
+        """
+
+        self.icon = icon_path
+
+    def get_icon(self):
+        """
+        Returns:
+            | *icon_path*: The path to the icon to be used
+        """
+
+        return self.icon
 
 if __name__ == '__main__':
     pass

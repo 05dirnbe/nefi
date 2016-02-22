@@ -167,7 +167,10 @@ class MainView(base, form):
 
         # create the widgets
         for i in range(0, len(self.pipeline.executed_cats) - 1):
-            self.load_widgets_from_cat(i, True)
+            alg_widgets = self.load_widgets_from_cat(i, True)
+            self.add_pip_entry(i)
+            for widget in alg_widgets:
+                self.setting_widget_vbox_layout.addWidget(widget)
 
     def trash_pipeline(self):
         """
@@ -276,7 +279,7 @@ class MainView(base, form):
         if type == "Preprocessing":
             icon = "./assets/images/P.png"
         elif type == "Segmentation":
-            icon = "./assets/images/s.png"
+            icon = "./assets/images/S.png"
         elif type == "Graph Detection":
             icon = "./assets/images/D.png"
         elif type == "Graph Filtering":
@@ -331,7 +334,7 @@ class MainView(base, form):
         if from_json:
             type_widget = ComboBoxWidget("type", [])
             type_widget.add_item("Preprocessing", "./assets/images/P.png")
-            type_widget.add_item("Segmentation", "./assets/images/s.png")
+            type_widget.add_item("Segmentation", "./assets/images/S.png")
             type_widget.add_item("Graph Detection", "./assets/images/D.png")
             type_widget.add_item("Graph Filtering", "./assets/images/F.png")
             widget_list.append(type_widget)
@@ -374,13 +377,20 @@ class MainView(base, form):
         pip_main_layout = QtWidgets.QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
-        label = "Blank"
-        icon = "./assets/images/B.png"
+        print(cat_position)
 
         # todo not hardcoding
         if cat_position is not None:
             cat = self.pipeline.executed_cats[cat_position]
-            if cat == "Preprocessing":
+            print(cat)
+
+            print("cat.get_name()" + cat.get_name())
+            print("cat.get_icon()" + cat.get_icon())
+
+            label = cat.get_name()
+            icon = cat.get_icon()
+
+            """if cat == "Preprocessing":
                 label = "Preprocessing"
                 icon = "./assets/images/P.png"
             elif cat == "Segmentation":
@@ -392,6 +402,9 @@ class MainView(base, form):
             elif cat == "Graph filtering":
                 label = "Graph filtering"
                 icon = "./assets/images/F.png"
+            else:
+                label = "Blank"
+                icon = "./assets/images/B.png"""
 
         pixmap = QtGui.QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
