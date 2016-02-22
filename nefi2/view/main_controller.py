@@ -187,7 +187,6 @@ class MainView(base, form):
         button.
         """
         # remove all entries in the pipeline list
-        print("trash")
 
         while self.pip_widget_vbox_layout.count():
             child = self.pip_widget_vbox_layout.takeAt(0)
@@ -265,15 +264,17 @@ class MainView(base, form):
         Args:
             position: position at which the pip entry gets removed
         """
-        # todo check
+
         # remove at ui
-        self.pip_widget_vbox_layout.itemAt(position).widget().setParent(None)
+        print("remove")
+        print(position)
+        self.pip_widget_vbox_layout.itemAt(position).widget().deleteLater()
 
         # remove it settings widgets
-        del self.pip_widgets[position]
+        #del self.pip_widgets[position]
 
         # remove in model
-        del self.pipeline.executed_cats[position]
+        #del self.pipeline.executed_cats[position]
 
     def change_pip_entry_type(self, position, type):
         """
@@ -415,13 +416,12 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        #btn.clicked.connect(self.remove_pip_entry(len(self.pip_widget_vbox_layout))) ????
-
         pip_main_layout.addWidget(pixmap_label)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        btn.clicked.connect(lambda: self.remove_pip_entry(len(self.pip_widget_vbox_layout) - 1))
 
         # create an dictionary entry at the position of the pip_widget_dictionary
         # todo ordering
