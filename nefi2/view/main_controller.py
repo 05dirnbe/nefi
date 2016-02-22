@@ -382,12 +382,14 @@ class MainView(base, form):
         """
         # create an widget that displays the pip entry in the ui
         pip_main_widget = QWidget()
+        pip_main_widget.setFixedHeight(50)
         pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
         if cat_position is not None:
             cat = self.pipeline.executed_cats[cat_position]
-            label = cat.get_name()
+            alg = self.pipeline.executed_cats[cat_position].active_algorithm
+            label = alg.get_name()
             icon = cat.get_icon()
         else:
             label = "<Click to specify new step>"
