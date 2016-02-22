@@ -18,7 +18,8 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
-               "Dennig Groß": "gdennis91@googlemail.com"}
+               "Dennig Groß": "gdennis91@googlemail.com",
+               "Philipp Reichert": "prei@me.com"}
 
 
 def gui_mode():

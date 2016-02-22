@@ -3,7 +3,8 @@ import re
 import os
 import sys
 
-__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+__authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
+               "Philipp Reichert": "prei@me.com"}
 
 
 class Category:

@@ -47,6 +47,7 @@ class MainView(base, form):
         self.load_favorite_pipelines()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
         self.run_btn.clicked.connect(self.run)
+        self.delete_btn.clicked.connect(self.trash_pipeline)
 
     def draw_ui(self):
         """
@@ -156,6 +157,11 @@ class MainView(base, form):
         Args:
             index: index of the option currently selected
         """
+
+        # delete current pipeline
+
+        self.trash_pipeline()
+
         # get url and name
         name, url = self.default_pips[index - 1]
 
@@ -166,11 +172,15 @@ class MainView(base, form):
         self.set_pip_title(name)
 
         # create the widgets
-        for i in range(0, len(self.pipeline.executed_cats) - 1):
+        for i in range(0, len(self.pipeline.executed_cats)):
             alg_widgets = self.load_widgets_from_cat(i, True)
             self.add_pip_entry(i)
-            for widget in alg_widgets:
-                self.setting_widget_vbox_layout.addWidget(widget)
+
+            """for widget in alg_widgets:
+                self.setting_widget_vbox_layout.addWidget(widget)"""
+
+    def create_pipeline(self):
+        pass
 
     def trash_pipeline(self):
         """
@@ -178,11 +188,14 @@ class MainView(base, form):
         button.
         """
         # remove all entries in the pipeline list
-        for i in reversed(range(self.pip_widget_vbox_layout)):
-            self.pip_widget_vbox_layout.itemAt(i).widget().setParent(None)
+        print("trash")
+
+        while self.pip_widget_vbox_layout.count():
+            child = self.pip_widget_vbox_layout.takeAt(0)
+            child.widget().deleteLater()
 
         # remove the pipeline name
-        self.current_pip_label.setText("")
+        self.set_pip_title("")
 
         # remove all entries int the executed_cats of the model pipeline
         for i in self.pipeline.executed_cats:
@@ -377,34 +390,10 @@ class MainView(base, form):
         pip_main_layout = QtWidgets.QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
-        print(cat_position)
-
-        # todo not hardcoding
         if cat_position is not None:
             cat = self.pipeline.executed_cats[cat_position]
-            print(cat)
-
-            print("cat.get_name()" + cat.get_name())
-            print("cat.get_icon()" + cat.get_icon())
-
             label = cat.get_name()
             icon = cat.get_icon()
-
-            """if cat == "Preprocessing":
-                label = "Preprocessing"
-                icon = "./assets/images/P.png"
-            elif cat == "Segmentation":
-                label = "Segmentation"
-                icon = "./assets/images/S.png"
-            elif cat == "Graph detection":
-                label = "Graph detection"
-                icon = "./assets/images/D.png"
-            elif cat == "Graph filtering":
-                label = "Graph filtering"
-                icon = "./assets/images/F.png"
-            else:
-                label = "Blank"
-                icon = "./assets/images/B.png"""
 
         pixmap = QtGui.QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
