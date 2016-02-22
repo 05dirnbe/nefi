@@ -39,7 +39,7 @@ class MainView(base, form):
 
     def connect_ui(self):
         """
-        This functione connects the ui using signals from the
+        This function connects the ui using signals from the
         ui elements and its method counterparts.
         """
         self.input_btn.clicked.connect(self.set_input_url)
@@ -54,6 +54,9 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
+
+        #self.add_pip_entry()
+
         """
         This function is concerned with drawing all non static elements  into the
         GUI.
@@ -62,15 +65,14 @@ class MainView(base, form):
 
         self.set_preset(["A.Junius", "test", "test", "test"])
 
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
 
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
+        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
         self.add_cat_image("../assets/images/seg_fav.jpeg", "Preprocessing")
         self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
         self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
@@ -340,12 +342,14 @@ class MainView(base, form):
 
         # create integer sliders
         for slider in alg.integer_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value, slider.set_value, False)
+            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
+                                slider.set_value, False)
             widget_list.append(slid)
 
         # create float sliders
         for slider in alg.float_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value, slider.set_value, True)
+            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
+                                slider.set_value, True)
             widget_list.append(slid)
 
         # create checkboxes
@@ -353,13 +357,10 @@ class MainView(base, form):
             check = CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value)
             widget_list.append(check)
 
-        # todo default value
-
         # create dropdowns
         for combobox in alg.drop_downs:
-            combo = ComboBoxWidget(combobox.name, combobox.options)
+            combo = ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default)
             widget_list.append(combo)
-            combo.valueChanged.connect(combobox.set_value)
 
         return widget_list
 
@@ -408,7 +409,7 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        btn.clicked.connect(self.remove_pip_entry(len(self.pip_widget_vbox_layout)))
+        #btn.clicked.connect(self.remove_pip_entry(len(self.pip_widget_vbox_layout))) ????
 
         pip_main_layout.addWidget(pixmap_label)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
@@ -418,7 +419,7 @@ class MainView(base, form):
 
         # create an dictionary entry at the position of the pip_widget_dictionary
         # todo ordering
-        self.self.pip_widgets.append(
+        self.pip_widgets.append(
             [ComboBoxWidget("type", ["Preprocessing", "Segmentation", "Graph Detection", "Graph Filtering"])])
 
         if cat_position is not None:
@@ -554,7 +555,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
     combobox pyqtSignal.
     """
 
-    def __init__(self, name, options=None):
+    def __init__(self, name, options, slot=None, default=None):
         super(ComboBoxWidget, self).__init__()
         self.valueChanged = pyqtSignal()
 
@@ -577,6 +578,12 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
         # options
         for i in options:
             self.add_item(i)
+
+        if default is not None:
+            self.combobox.setCurrentIndex(self.items.keys().index(default))
+
+        if slot is not None:
+            self.combobox.activated().connect(slot)
 
     def add_item(self, option, image=None):
         """
@@ -685,6 +692,7 @@ class SliderWidget(QGroupBox):
 
         self.textfield.valueChanged.connect(slot)
         self.slider.valueChanged.connect(slot)
+
 
 class IntegerTextfield(QSpinBox):
     """

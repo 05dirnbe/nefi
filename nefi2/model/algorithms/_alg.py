@@ -20,14 +20,12 @@ definition for further information)
 import collections
 from PyQt5.QtCore import QObject, pyqtSlot
 
-
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Philipp Reichert": "prei@me.com"}
 
 
 class Algorithm(QObject):
-
     def __init__(self):
         """
         Public Attributes:
@@ -129,7 +127,7 @@ class Algorithm(QObject):
               filesystem for the pipeline.json.
         
         """
-        list = [["type", self.parent],["store_image", self.store_image]]
+        list = [["type", self.parent], ["store_image", self.store_image]]
 
         for int_slider in self.integer_sliders:
             list.append([int_slider.name, int_slider.value])
@@ -320,16 +318,20 @@ class DropDown:
     connect this DropDown with the UI.
     """
 
-    def __init__(self, name, options):
+    def __init__(self, name, options, default=None):
         """
         Args:
             | *name*: The name of the DropDown menu to be displayed in the UI
             | *options*: The list of string options a user can select in the Ui for
+            | *default*: Optional: The default value
             the DropDown
         """
         self.name = name
-        self.value = name
         self.options = options
+        if default is not None:
+            self.value = default
+        else:
+            self.value = list(options)[0]
 
     @pyqtSlot(str)
     def set_value(self, arg1):

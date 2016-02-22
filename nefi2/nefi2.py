@@ -33,8 +33,6 @@ def gui_mode():
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setQuitOnLastWindowClosed(False)
     wnd = MainView(pipeline)
-    wnd.draw_ui()
-    wnd.load_dark_theme(app)
     wnd.load_dark_theme(app)
     wnd.show()
 
