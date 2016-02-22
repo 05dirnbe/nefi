@@ -48,6 +48,7 @@ class MainView(base, form):
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
         self.run_btn.clicked.connect(self.run)
         self.delete_btn.clicked.connect(self.trash_pipeline)
+        self.add_btn.clicked.connect(lambda: self.add_pip_entry())
 
     def draw_ui(self):
         """
@@ -55,8 +56,6 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
-
-        #self.add_pip_entry()
 
         """
         This function is concerned with drawing all non static elements  into the
@@ -389,10 +388,16 @@ class MainView(base, form):
         pip_main_layout = QtWidgets.QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
+        print(cat_position)
+
         if cat_position is not None:
             cat = self.pipeline.executed_cats[cat_position]
             label = cat.get_name()
             icon = cat.get_icon()
+            print(cat.get_name())
+        else:
+            label = "<Click to specify new step>"
+            icon = None
 
         pixmap = QtGui.QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
@@ -429,7 +434,7 @@ class MainView(base, form):
             self.pip_widgets.append([name, widgets])
         else:
             # create blank in the model pipeline at the last position
-            self.pipeline.new_category(self.pipeline.executed_cats.count() - 1)
+            self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
 
     def add_cat_image(self, url, image_label):
         """
