@@ -14,7 +14,7 @@ from PyQt5.QtGui import QIcon
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget
+from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -170,17 +170,12 @@ class MainView(base, form):
         # set the title
         self.set_pip_title(name)
 
-        # create the widgets
+        # Create an entry in the pipeline widget for every step in the pipeline
         for i in range(0, len(self.pipeline.executed_cats)):
-            alg_widgets = self.load_widgets_from_cat(i, True)
             self.add_pip_entry(i)
 
             """for widget in alg_widgets:
                 self.setting_widget_vbox_layout.addWidget(widget)"""
-
-    def create_pipeline(self):
-        pass
-
     def trash_pipeline(self):
         """
         This method clears the complete pipeline while users clicked the trash
@@ -258,7 +253,7 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, position):
+    def remove_pip_entry(self, widget):
         """
         Removes the pip entry at the given position in the ui
         Args:
@@ -267,8 +262,8 @@ class MainView(base, form):
 
         # remove at ui
         print("remove")
-        print(position)
-        self.pip_widget_vbox_layout.itemAt(position).widget().deleteLater()
+
+        self.pip_widget_vbox_layout.removeWidget(widget)
 
         # remove it settings widgets
         #del self.pip_widgets[position]
@@ -383,19 +378,17 @@ class MainView(base, form):
         """
         Creates an blank entry in the ui pipeline since the user still needs to specify
         a type and an algorithm of the category.
+        It also creates the corresponding settings widget.
         """
         # create an widget that displays the pip entry in the ui
-        pip_main_widget = QtWidgets.QWidget()
-        pip_main_layout = QtWidgets.QHBoxLayout()
+        pip_main_widget = QWidget()
+        pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
-
-        print(cat_position)
 
         if cat_position is not None:
             cat = self.pipeline.executed_cats[cat_position]
             label = cat.get_name()
             icon = cat.get_icon()
-            print(cat.get_name())
         else:
             label = "<Click to specify new step>"
             icon = None
@@ -421,7 +414,19 @@ class MainView(base, form):
         pip_main_layout.addWidget(btn)
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
-        btn.clicked.connect(lambda: self.remove_pip_entry(len(self.pip_widget_vbox_layout) - 1))
+
+        def delete_button_clicked():
+            self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
+            pip_main_widget.deleteLater()
+
+        btn.clicked.connect(delete_button_clicked)
+
+
+
+        # Create the corresponding settings widget
+        #alg_widgets = self.load_widgets_from_cat(cat_position, True)
+        #self.setting_widget_vbox_layout.addWidget(alg_widgets)
+
 
         # create an dictionary entry at the position of the pip_widget_dictionary
         # todo ordering
@@ -544,7 +549,7 @@ class PipCustomWidget(QtWidgets.QWidget):
     """
 
     def __init__(self, parent=None):
-        PyQt5.QtWidgets.QWidget.__init__(self, parent)
+        QWidget.__init__(self, parent)
         self.main_image_label = parent
         self.pixmap = None
 
@@ -604,7 +609,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
             self.combobox.addItem(QIcon(image), option)
 
 
-class CheckBoxWidget(PyQt5.QtWidgets.QGroupBox):
+class CheckBoxWidget(QGroupBox):
     """
     Thi sis the checkbox widget as it is shown in the GUI.
     The name is the displayed in fron of the checkbox in the GUI and
