@@ -14,7 +14,8 @@ from PyQt5.QtGui import QIcon, QPixmap
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout
+from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
+                            QStackedWidget, QComboBox
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -45,10 +46,11 @@ class MainView(base, form):
         self.input_btn.clicked.connect(self.set_input_url)
         self.save_btn.clicked.connect(self.save_pipeline)
         self.load_favorite_pipelines()
+        self.create_cat_alg_dropdown()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
         self.run_btn.clicked.connect(self.run)
         self.delete_btn.clicked.connect(self.trash_pipeline)
-        self.add_btn.clicked.connect(lambda: self.add_pip_entry())
+        self.add_btn.clicked.connect(self.add_pip_entry_empty)
 
     def draw_ui(self):
         """
@@ -186,6 +188,10 @@ class MainView(base, form):
         while self.pip_widget_vbox_layout.count():
             child = self.pip_widget_vbox_layout.takeAt(0)
             child.widget().deleteLater()
+
+        while self.stackedWidget.currentWidget() is not None:
+            self.stackedWidget.removeWidget(self.stackedWidget.currentWidget())
+            self.settings_collapsable.setTitle("")
 
         # remove the pipeline name
         self.set_pip_title("")
@@ -425,10 +431,87 @@ class MainView(base, form):
 
         return groupOfSliders
 
+    def create_cat_alg_dropdown(self):
+
+        """layout = self.settings_scroll_vbox_layout
+
+       #cat = self.pipeline.executed_cats[cat_position]
+       #alg = self.pipeline.executed_cats[cat_position].active_algorithm
+
+        self.stackedWidgetAlgorithmsSelect = QStackedWidget()
+        self.stackedWidgetAlgorithmsSettings = QStackedWidget()
+        self.orientationComboCategories = QComboBox()
+        self.orientationComboAlgorithms = dict()
+        # print("here")
+
+
+        for category in self.pipeline.available_cats:
+
+            print(category)
+            self.orientationComboCategories.addItem(category)
+            tmp1 = QComboBox()
+
+            for algorithm in category.available_algs[category]:
+                tmp1.addItem(algorithm.get_name())
+                self.orientationComboAlgorithms[category.get_name()] = tmp1
+                #self.stackedWidgetAlgorithmsSettings.addWidget(GroupOfSliders(algorithm))
+
+            self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+
+        layout.addWidget(self.orientationComboCategories)
+        layout.addWidget(self.stackedWidgetAlgorithmsSelect)
+        layout.addWidget(self.stackedWidgetAlgorithmsSettings)"""
+
+
     def add_pip_entry_empty(self):
+        """
+        Creates an blank entry in the ui pipeline since the user still needs to specify
+        a type and an algorithm of the category.
+        It also creates the corresponding settings widget.
+        """
+        # create an widget that displays the pip entry in the ui and connect the remove button
+        pip_main_widget = QWidget()
+        pip_main_widget.setFixedHeight(50)
+        pip_main_layout = QHBoxLayout()
+        pip_main_widget.setLayout(pip_main_layout)
 
         label = "<Click to specify new step>"
         icon = None
+
+        pixmap = QPixmap(icon)
+        pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+        pixmap_label = QtWidgets.QLabel()
+        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+        string_label = QLabel()
+        string_label.setText(label)
+        string_label.setFixedWidth(210)
+
+        btn = QtWidgets.QPushButton()
+        btn.setFixedSize(20, 20)
+
+        pixmap_icon = QtGui.QPixmap("./assets/images/delete_x_white.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        btn.setIcon(q_icon)
+
+        pip_main_layout.addWidget(pixmap_label)
+        pip_main_layout.addWidget(string_label, Qt.AlignLeft)
+        pip_main_layout.addWidget(btn)
+
+        self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+
+        # Connect Button to remove step from pipeline
+        def delete_button_clicked():
+            self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
+            pip_main_widget.deleteLater()
+
+            #if self.stackedWidget.currentWidget() == settings:
+            #    self.stackedWidget.hide()
+            #    self.settings_collapsable.setTitle("Settings")
+
+            #self.stackedWidget.removeWidget(settings)
+
+        btn.clicked.connect(delete_button_clicked)
 
         self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
 
@@ -497,7 +580,6 @@ class MainView(base, form):
             pip_main_widget.deleteLater()
 
             if self.stackedWidget.currentWidget() == settings:
-                print("et")
                 self.stackedWidget.hide()
                 self.settings_collapsable.setTitle("Settings")
 
