@@ -240,7 +240,7 @@ class Pipeline:
 
         """
         current_cats = self.get_executed_cats()
-        if selected_cat not in current_cats:
+        if not selected_cat or selected_cat not in current_cats:
             return current_cats
         elif selected_cat == 'Graph detection':
             return current_cats[current_cats.index(selected_cat) + 1:]
