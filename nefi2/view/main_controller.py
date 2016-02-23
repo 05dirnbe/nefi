@@ -440,11 +440,6 @@ class MainView(base, form):
         """
         layout = self.select_cat_alg_vbox_layout
 
-        string_label = QLabel()
-        string_label.setText("bla")
-
-        layout.addWidget(string_label)
-
         self.stackedWidgetAlgorithmsSelect = QStackedWidget()
         self.orientationComboCategories = QComboBox()
         self.orientationComboAlgorithms = dict()
@@ -461,14 +456,14 @@ class MainView(base, form):
 
             for algorithm in self.pipeline.get_all_algorithm_list(category):
                 print(algorithm)
-                #tmp1.addItem(algorithm.get_name())
-                #self.orientationComboAlgorithms[category.get_name()] = tmp1
+                tmp1.addItem(algorithm)
+                self.orientationComboAlgorithms[category.get_name()] = tmp1
                 #self.stackedWidgetAlgorithmsSettings.addWidget(GroupOfSliders(algorithm))
 
-            #self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+            self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
 
-        #layout.addWidget(self.orientationComboCategories)
-        #layout.addWidget(self.stackedWidgetAlgorithmsSelect)
+        layout.addWidget(self.orientationComboCategories)
+        layout.addWidget(self.stackedWidgetAlgorithmsSelect)
         #layout.addWidget(self.stackedWidgetAlgorithmsSettings)
 
 
