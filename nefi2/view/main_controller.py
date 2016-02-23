@@ -440,30 +440,52 @@ class MainView(base, form):
         """
         layout = self.select_cat_alg_vbox_layout
 
-        self.stackedWidgetAlgorithmsSelect = QStackedWidget()
         self.orientationComboCategories = QComboBox()
-        self.orientationComboAlgorithms = dict()
-        # print("here")
+        self.orientationComboCategories.setFixedHeight(30)
+        self.orientationComboCategories.addItem("<Please Select Category>")
 
+        self.stackedWidgetAlgorithmsSelect = QStackedWidget()
+        tmp1 = QComboBox()
+        tmp1.setFixedHeight(30)
+        tmp1.addItem("-")
+        self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+        self.stackedWidgetAlgorithmsSelect.hide()
+
+        #self.orientationComboAlgorithms = dict()
 
         for category_name in self.pipeline.report_available_cats():
 
-            print(category_name)
+            # Add Category to combobox
             self.orientationComboCategories.addItem(category_name)
             tmp1 = QComboBox()
+            tmp1.setFixedHeight(30)
 
             category = self.pipeline.get_category(category_name)
 
-            for algorithm in self.pipeline.get_all_algorithm_list(category):
-                print(algorithm)
-                tmp1.addItem(algorithm)
-                self.orientationComboAlgorithms[category.get_name()] = tmp1
+            for algorithm_name in self.pipeline.get_all_algorithm_list(category):
+                print(category_name + "has algorithm " + algorithm_name)
+                # Add Algorithm to combobox
+                tmp1.addItem(algorithm_name)
+                #self.orientationComboAlgorithms[category.get_name()] = tmp1
                 #self.stackedWidgetAlgorithmsSettings.addWidget(GroupOfSliders(algorithm))
 
             self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
 
         layout.addWidget(self.orientationComboCategories)
         layout.addWidget(self.stackedWidgetAlgorithmsSelect)
+
+        def setCurrentIndex(index):
+            print("bla")
+            if self.orientationComboCategories.currentIndex() == 0:
+                self.stackedWidgetAlgorithmsSelect.hide()
+            else:
+                self.stackedWidgetAlgorithmsSelect.show()
+                self.stackedWidgetAlgorithmsSelect.setCurrentIndex(index)
+
+
+        #self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSelect.setCurrentIndex)
+        self.orientationComboCategories.activated.connect(setCurrentIndex)
+
         #layout.addWidget(self.stackedWidgetAlgorithmsSettings)
 
 
