@@ -9,10 +9,10 @@ called
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QPixmap
 # cus widgets
 import PyQt5.QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout
 
@@ -374,17 +374,70 @@ class MainView(base, form):
 
         return widget_list
 
+    def load_widgets_from_cat_groupbox(self, position):
+        """
+        Extracts all widgets from a single algorithm and returns a QBoxLayout
+        Args:
+            alg: the alg instance we extract from
+
+        Returns: a QBoxLayout containing all widgets for this particular alg.
+
+        """
+
+        alg = self.pipeline.executed_cats[position].active_algorithm
+        empty_flag = True
+
+        groupOfSliders = QGroupBox()
+        groupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
+
+        # create integer sliders
+        for slider in alg.integer_sliders:
+            empty_flag = False
+            print(alg.get_name() + ": add slider (int).")
+            groupOfSliderssLayout.addWidget(SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
+                                slider.set_value, False))
+
+        # create float sliders
+        for slider in alg.float_sliders:
+            empty_flag = False
+            print(alg.get_name() + ": add slider (float).")
+            groupOfSliderssLayout.addWidget(SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
+                                            slider.set_value, True))
+
+        # create checkboxes
+        for checkbox in alg.checkboxes:
+            empty_flag = False
+            print(alg.get_name() + ": add checkbox.")
+            groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value))
+
+        # create dropdowns
+        for combobox in alg.drop_downs:
+            empty_flag = False
+            print(alg.get_name() + ": add combobox.")
+            groupOfSliderssLayout.addWidget(ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default))
+
+        if empty_flag:
+            label = QLabel()
+            label.setText("This algorithm has no Settings.")
+            groupOfSliderssLayout.addWidget(label, Qt.AlignHCenter)
+
+        groupOfSliders.setLayout(groupOfSliderssLayout)
+
+        return groupOfSliders
+
     def add_pip_entry(self, cat_position=None):
         """
         Creates an blank entry in the ui pipeline since the user still needs to specify
         a type and an algorithm of the category.
         It also creates the corresponding settings widget.
         """
-        # create an widget that displays the pip entry in the ui
+        # create an widget that displays the pip entry in the ui and connect the remove button
         pip_main_widget = QWidget()
         pip_main_widget.setFixedHeight(50)
         pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
+
+        alg = None
 
         if cat_position is not None:
             cat = self.pipeline.executed_cats[cat_position]
@@ -395,12 +448,12 @@ class MainView(base, form):
             label = "<Click to specify new step>"
             icon = None
 
-        pixmap = QtGui.QPixmap(icon)
+        pixmap = QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
         pixmap_label = QtWidgets.QLabel()
         pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
-        string_label = QtWidgets.QLabel()
+        string_label = QLabel()
         string_label.setText(label)
         string_label.setFixedWidth(210)
 
@@ -417,16 +470,15 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
 
+        # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
             pip_main_widget.deleteLater()
 
         btn.clicked.connect(delete_button_clicked)
 
-
-
-        # Create the corresponding settings widget
-        #alg_widgets = self.load_widgets_from_cat(cat_position, True)
+        # Create the corresponding settings widget and connect it
+        alg_widgets = self.load_widgets_from_cat(cat_position, True)
         #self.setting_widget_vbox_layout.addWidget(alg_widgets)
 
 
@@ -437,11 +489,50 @@ class MainView(base, form):
 
         if cat_position is not None:
             name = self.pipeline.executed_cats[cat_position].name
-            widgets = self.load_widgets_from_cat(cat_position, True)
-            self.pip_widgets.append([name, widgets])
+            settings = self.load_widgets_from_cat_groupbox(cat_position)
+            #self.pip_widgets.append([name, widgets])
+
+            self.settings_collapsable.setTitle(" Settings")
+            self.stackedWidget.hide()
+            self.stackedWidget.addWidget(settings)
+
+            def show_settings():
+                print("click")
+                self.stackedWidget.show()
+                self.stackedWidget.setCurrentWidget(settings)
+                self.settings_collapsable.setTitle(alg.get_name() + " Settings")
+
+
+            self.clickable(pixmap_label).connect(show_settings)
+            self.clickable(string_label).connect(show_settings)
+
+
+            #self.stackedWidget.addWidget(GroupOfSliders(algorithm))
         else:
             # create blank in the model pipeline at the last position
             self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
+
+    # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
+    def clickable(self, widget):
+
+        class Filter(QObject):
+
+            clicked = pyqtSignal()
+
+            def eventFilter(self, obj, event):
+
+                if obj == widget:
+                    if event.type() == QEvent.MouseButtonPress:
+                        if obj.rect().contains(event.pos()):
+                            self.clicked.emit()
+                            # The developer can opt for .emit(obj) to get the object within the slot.
+                            return True
+
+                return False
+
+        filter = Filter(widget)
+        widget.installEventFilter(filter)
+        return filter.clicked
 
     def add_cat_image(self, url, image_label):
         """
@@ -544,7 +635,7 @@ class LeftCustomWidget(QWidget):
             self.main_image_label.setPixmap(QtGui.QPixmap(self.pixmap))
 
 
-class PipCustomWidget(QtWidgets.QWidget):
+class PipCustomWidget(QWidget):
     """
     This Widget is used for the entry's in the pipeline of thr right
     GUI panel.
@@ -560,7 +651,7 @@ class PipCustomWidget(QtWidgets.QWidget):
             self.main_image_label.setPixmap(QtGui.QPixmap(self.pixmap))
 
 
-class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
+class ComboBoxWidget(QGroupBox):
     """
     This is the combobox widget as it is shown in the settings
     panel of the GUI. It gets initialized with a name
@@ -578,7 +669,7 @@ class ComboBoxWidget(PyQt5.QtWidgets.QGroupBox):
         self.combobox.setFixedWidth(220)
 
         # Label
-        self.label = PyQt5.QtWidgets.QLabel()
+        self.label = QtWidgets.QLabel()
         self.label.setText(name + ": ")
 
         self.SingleCheckBoxLayout = QBoxLayout(QBoxLayout.LeftToRight)

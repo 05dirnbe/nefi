@@ -124,9 +124,6 @@
         <property name="title">
          <string>Details</string>
         </property>
-        <property name="flat">
-         <bool>true</bool>
-        </property>
         <layout class="QGridLayout" name="gridLayout">
          <item row="1" column="0">
           <widget class="QLabel" name="custom_label">
@@ -311,9 +308,6 @@
            </property>
            <property name="title">
             <string/>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
@@ -506,9 +500,6 @@
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
-              <property name="frameShadow">
-               <enum>QFrame::Plain</enum>
-              </property>
               <property name="widgetResizable">
                <bool>true</bool>
               </property>
@@ -541,11 +532,11 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QStackedWidget" name="stackedWidget">
-                  <property name="currentIndex">
-                   <number>-1</number>
+                 <layout class="QVBoxLayout" name="setting_widget_vbox_layout">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
                   </property>
-                 </widget>
+                 </layout>
                 </item>
                </layout>
               </widget>
