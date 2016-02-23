@@ -425,7 +425,14 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def add_pip_entry(self, cat_position=None):
+    def add_pip_entry_empty(self):
+
+        label = "<Click to specify new step>"
+        icon = None
+
+        self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
+
+    def add_pip_entry(self, cat_position):
         """
         Creates an blank entry in the ui pipeline since the user still needs to specify
         a type and an algorithm of the category.
@@ -437,16 +444,12 @@ class MainView(base, form):
         pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
-        alg = None
 
-        if cat_position is not None:
-            cat = self.pipeline.executed_cats[cat_position]
-            alg = self.pipeline.executed_cats[cat_position].active_algorithm
-            label = alg.get_name()
-            icon = cat.get_icon()
-        else:
-            label = "<Click to specify new step>"
-            icon = None
+        cat = self.pipeline.executed_cats[cat_position]
+        alg = self.pipeline.executed_cats[cat_position].active_algorithm
+        label = alg.get_name()
+        icon = cat.get_icon()
+
 
         pixmap = QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
@@ -470,47 +473,40 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
 
+        # Create the corresponding settings widget and connect it
+        settings = self.load_widgets_from_cat_groupbox(cat_position)
+
+        self.settings_collapsable.setTitle("Settings")
+        self.stackedWidget.hide()
+        self.stackedWidget.addWidget(settings)
+
+        def show_settings():
+            print("click")
+            self.stackedWidget.show()
+            self.stackedWidget.setCurrentWidget(settings)
+            self.settings_collapsable.setTitle(alg.get_name() + " Settings")
+
+
+        self.clickable(pixmap_label).connect(show_settings)
+        self.clickable(string_label).connect(show_settings)
+
+
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
             pip_main_widget.deleteLater()
 
+            if self.stackedWidget.currentWidget() == settings:
+                print("et")
+                self.stackedWidget.hide()
+                self.settings_collapsable.setTitle("Settings")
+
+            self.stackedWidget.removeWidget(settings)
+
+
         btn.clicked.connect(delete_button_clicked)
 
-        # Create the corresponding settings widget and connect it
-        alg_widgets = self.load_widgets_from_cat(cat_position, True)
-        #self.setting_widget_vbox_layout.addWidget(alg_widgets)
 
-
-        # create an dictionary entry at the position of the pip_widget_dictionary
-        # todo ordering
-        self.pip_widgets.append(
-            [ComboBoxWidget("type", ["Preprocessing", "Segmentation", "Graph Detection", "Graph Filtering"])])
-
-        if cat_position is not None:
-            name = self.pipeline.executed_cats[cat_position].name
-            settings = self.load_widgets_from_cat_groupbox(cat_position)
-            #self.pip_widgets.append([name, widgets])
-
-            self.settings_collapsable.setTitle(" Settings")
-            self.stackedWidget.hide()
-            self.stackedWidget.addWidget(settings)
-
-            def show_settings():
-                print("click")
-                self.stackedWidget.show()
-                self.stackedWidget.setCurrentWidget(settings)
-                self.settings_collapsable.setTitle(alg.get_name() + " Settings")
-
-
-            self.clickable(pixmap_label).connect(show_settings)
-            self.clickable(string_label).connect(show_settings)
-
-
-            #self.stackedWidget.addWidget(GroupOfSliders(algorithm))
-        else:
-            # create blank in the model pipeline at the last position
-            self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
 
     # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
     def clickable(self, widget):
