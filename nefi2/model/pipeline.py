@@ -224,7 +224,7 @@ class Pipeline:
                                        delimiter='|')
             print('Success!', image_name, 'saved in', self.out_dir)
 
-    def report_available_cats(self, selected_cat):
+    def report_available_cats(self, selected_cat=None):
         """
         The order of the categories is important in the pipeline.
         You can not execute graph filtering before graph detection or

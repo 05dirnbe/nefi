@@ -46,8 +46,8 @@ class MainView(base, form):
         self.input_btn.clicked.connect(self.set_input_url)
         self.save_btn.clicked.connect(self.save_pipeline)
         self.load_favorite_pipelines()
-        self.create_cat_alg_dropdown()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
+        self.create_cat_alg_dropdown()
         self.run_btn.clicked.connect(self.run)
         self.delete_btn.clicked.connect(self.trash_pipeline)
         self.add_btn.clicked.connect(self.add_pip_entry_empty)
@@ -433,6 +433,11 @@ class MainView(base, form):
 
     def create_cat_alg_dropdown(self):
 
+        print(self.pipeline.report_available_cats())
+
+        for category in self.pipeline.available_cats:
+            print(category)
+
         """layout = self.settings_scroll_vbox_layout
 
        #cat = self.pipeline.executed_cats[cat_position]
@@ -445,9 +450,7 @@ class MainView(base, form):
         # print("here")
 
 
-        for category in self.pipeline.available_cats:
 
-            print(category)
             self.orientationComboCategories.addItem(category)
             tmp1 = QComboBox()
 
