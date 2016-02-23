@@ -407,6 +407,9 @@
                   <property name="spacing">
                    <number>2</number>
                   </property>
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetMaximumSize</enum>
+                  </property>
                  </layout>
                 </item>
                </layout>
@@ -502,6 +505,9 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
+             <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout"/>
+            </item>
+            <item>
              <widget class="QScrollArea" name="setting_scroll">
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
@@ -521,7 +527,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>338</width>
-                 <height>400</height>
+                 <height>392</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -536,12 +542,18 @@
                  <height>400</height>
                 </size>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
+               <layout class="QVBoxLayout" name="settings_scroll_vbox_layout_2">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetMaximumSize</enum>
+                </property>
                 <property name="topMargin">
                  <number>0</number>
                 </property>
                 <item>
                  <widget class="QStackedWidget" name="stackedWidget">
+                  <property name="accessibleName">
+                   <string/>
+                  </property>
                   <property name="currentIndex">
                    <number>-1</number>
                   </property>

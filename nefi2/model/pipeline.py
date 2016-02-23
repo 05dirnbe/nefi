@@ -26,7 +26,8 @@ from algorithms import _utility
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
-               "Dennis Groß": "gdennis91@googlemail.com"}
+               "Dennis Groß": "gdennis91@googlemail.com",
+               "Philipp Reichert": "prei@me.com"}
 
 
 def filter_images(file_list):
@@ -239,7 +240,7 @@ class Pipeline:
             a list of currently allowed cats
 
         """
-        current_cats = self.get_executed_cats()
+        current_cats = self.get_available_cat_names()
         if not selected_cat or selected_cat not in current_cats:
             return current_cats
         elif selected_cat == 'Graph detection':
@@ -290,9 +291,46 @@ class Pipeline:
         executed_cat_names = [cat.get_name() for cat in self.executed_cats]
         return executed_cat_names
 
+    def get_category(self, key):
+        """
+        Keys are the names of the categories.
+
+        Returns:
+            *category*: Category
+
+        """
+        return self.available_cats.get(key)
+
+    def get_available_cat_names(self):
+        """
+        Create and return a list of currently available categories as strings.
+        Names are used as keys in available_cats
+
+        *Cats might have been harmed during execution of this method >_<*
+
+        Returns:
+            *executed_cat_names*: list of Category names
+
+        """
+        available_cat_names = list(self.available_cats.keys())
+        return available_cat_names
+
+    def get_available_cats(self):
+        """
+        Create and return a list of currently available categories as list of categorie objects.
+
+        *Cats might have been harmed during execution of this method >_<*
+
+        Returns:
+            *executed_cat_names*: list of Category names
+
+        """
+        available_cat_names = list(self.available_cats.values())
+        return available_cat_names
+
     def get_algorithm_list(self, position):
         """
-        Get names of all available algorithms for the category in position.
+        Get names of all available algorithms for the category in position available in the pipeline.
         Sort the list and return.
 
         Args:
@@ -303,6 +341,22 @@ class Pipeline:
 
         """
         alg_names = self.executed_cats[position].alg_names
+        alg_names.sort()
+        return alg_names
+
+    def get_all_algorithm_list(self, category):
+        """
+        Get names of all available algorithms for a given category.
+        Sort the list and return.
+
+        Args:
+            *category*: Category
+
+        Returns:
+            *alg_names* (list): a sorted list of algorithm names
+
+        """
+        alg_names = category.alg_names
         alg_names.sort()
         return alg_names
 

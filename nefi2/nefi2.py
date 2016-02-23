@@ -29,7 +29,7 @@ def gui_mode():
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container, True)
 
-    app = QtWidgets.QApplication(sys.argv)
+    app = QApplication(sys.argv)
 
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setQuitOnLastWindowClosed(False)

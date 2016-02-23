@@ -431,39 +431,45 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown(self):
+    def create_cat_alg_dropdown(self, last_cat=None):
 
-        print(self.pipeline.report_available_cats())
+        """
 
-        for category in self.pipeline.available_cats:
-            print(category)
+        Args:
+            last_cat (object):
+        """
+        layout = self.select_cat_alg_vbox_layout
 
-        """layout = self.settings_scroll_vbox_layout
+        string_label = QLabel()
+        string_label.setText("bla")
 
-       #cat = self.pipeline.executed_cats[cat_position]
-       #alg = self.pipeline.executed_cats[cat_position].active_algorithm
+        layout.addWidget(string_label)
 
         self.stackedWidgetAlgorithmsSelect = QStackedWidget()
-        self.stackedWidgetAlgorithmsSettings = QStackedWidget()
         self.orientationComboCategories = QComboBox()
         self.orientationComboAlgorithms = dict()
         # print("here")
 
 
+        for category_name in self.pipeline.report_available_cats():
 
-            self.orientationComboCategories.addItem(category)
+            print(category_name)
+            self.orientationComboCategories.addItem(category_name)
             tmp1 = QComboBox()
 
-            for algorithm in category.available_algs[category]:
-                tmp1.addItem(algorithm.get_name())
-                self.orientationComboAlgorithms[category.get_name()] = tmp1
+            category = self.pipeline.get_category(category_name)
+
+            for algorithm in self.pipeline.get_all_algorithm_list(category):
+                print(algorithm)
+                #tmp1.addItem(algorithm.get_name())
+                #self.orientationComboAlgorithms[category.get_name()] = tmp1
                 #self.stackedWidgetAlgorithmsSettings.addWidget(GroupOfSliders(algorithm))
 
-            self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+            #self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
 
-        layout.addWidget(self.orientationComboCategories)
-        layout.addWidget(self.stackedWidgetAlgorithmsSelect)
-        layout.addWidget(self.stackedWidgetAlgorithmsSettings)"""
+        #layout.addWidget(self.orientationComboCategories)
+        #layout.addWidget(self.stackedWidgetAlgorithmsSelect)
+        #layout.addWidget(self.stackedWidgetAlgorithmsSettings)
 
 
     def add_pip_entry_empty(self):
