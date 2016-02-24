@@ -267,25 +267,29 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, widget):
+    def remove_pip_entry(self, pipe_entry_widget, settings_widget, pipeline_index):
         """
         Removes the pip entry at the given position in the ui
         Args:
             position: position at which the pip entry gets removed
         """
 
-        # remove at ui
-        print("remove")
+        # remove pipeline entry widget from ui
+        self.pip_widget_vbox_layout.removeWidget(pipe_entry_widget)
+        pipe_entry_widget.deleteLater()
 
-        self.pip_widget_vbox_layout.removeWidget(widget)
+        # remove it settings widgets from ui
+        if self.stackedWidget_Settings.currentWidget() == settings_widget:
+            self.stackedWidget_Settings.hide()
+            self.remove_cat_alg_dropdown()
+            self.settings_collapsable.setTitle("Settings")
 
-        self.remove_cat_alg_dropdown()
-
-        # remove it settings widgets
-        #del self.pip_widgets[position]
+        self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
-        #del self.pipeline.executed_cats[position]
+        print("Delte entry " + str(pipeline_index))
+        self.pipeline.delete_category(pipeline_index)
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
         """
@@ -614,13 +618,15 @@ class MainView(base, form):
         pip_main_layout.addWidget(btn)
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
+        print(index)
 
         # Create the corresponding settings widget and connect it
-        settings = self.load_widgets_from_cat_groupbox(cat_position)
+        settings_main_widget = self.load_widgets_from_cat_groupbox(cat_position)
 
         self.settings_collapsable.setTitle("Settings")
         self.stackedWidget_Settings.hide()
-        self.stackedWidget_Settings.addWidget(settings)
+        self.stackedWidget_Settings.addWidget(settings_main_widget)
 
         print("Read from pipeline entry " + str(cat))
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
@@ -633,7 +639,7 @@ class MainView(base, form):
             pip_main_widget.setPalette(p)
 
             self.stackedWidget_Settings.show()
-            self.stackedWidget_Settings.setCurrentWidget(settings)
+            self.stackedWidget_Settings.setCurrentWidget(settings_main_widget)
             self.settings_collapsable.setTitle(alg.get_name() + " Settings")
 
             last_cat = None
@@ -647,18 +653,7 @@ class MainView(base, form):
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
-            pip_main_widget.deleteLater()
-
-            if self.stackedWidget_Settings.currentWidget() == settings:
-                self.stackedWidget_Settings.hide()
-                self.remove_cat_alg_dropdown()
-                self.settings_collapsable.setTitle("Settings")
-
-            self.stackedWidget_Settings.removeWidget(settings)
-            print("Delte entry " + str(cat))
-            self.pipeline.delete_category(cat)
-            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+            self.remove_pip_entry(pip_main_widget, settings_main_widget, index)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
