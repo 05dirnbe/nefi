@@ -552,7 +552,7 @@ class MainView(base, form):
         new_category = self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
 
         print("Create entry " + str(new_category))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats) - 1) + ".")
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         # Connect pipeline entry with corresponding settings widget
         def show_settings():
@@ -569,7 +569,7 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
             print("Delte entry " + str(new_category))
             self.pipeline.delete_category(new_category)
-            print("Pipeline length: " + str(len(self.pipeline.executed_cats) - 1) + ".")
+            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
@@ -622,6 +622,9 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         self.stackedWidget_Settings.addWidget(settings)
 
+        print("Read from pipeline entry " + str(cat))
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+
         def show_settings():
 
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
@@ -653,6 +656,9 @@ class MainView(base, form):
                 self.settings_collapsable.setTitle("Settings")
 
             self.stackedWidget_Settings.removeWidget(settings)
+            print("Delte entry " + str(cat))
+            self.pipeline.delete_category(cat)
+            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
