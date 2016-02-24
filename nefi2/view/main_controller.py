@@ -47,7 +47,6 @@ class MainView(base, form):
         self.save_btn.clicked.connect(self.save_pipeline)
         self.load_favorite_pipelines()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
-        self.create_cat_alg_dropdown()
         self.run_btn.clicked.connect(self.run)
         self.delete_btn.clicked.connect(self.trash_pipeline)
         self.add_btn.clicked.connect(self.add_pip_entry_empty)
@@ -189,8 +188,8 @@ class MainView(base, form):
             child = self.pip_widget_vbox_layout.takeAt(0)
             child.widget().deleteLater()
 
-        while self.stackedWidget.currentWidget() is not None:
-            self.stackedWidget.removeWidget(self.stackedWidget.currentWidget())
+        while self.stackedWidget_Settings.currentWidget() is not None:
+            self.stackedWidget_Settings.removeWidget(self.stackedWidget_Settings.currentWidget())
             self.settings_collapsable.setTitle("")
 
         # remove the pipeline name
@@ -202,6 +201,8 @@ class MainView(base, form):
         # remove all widgets
         del self.pip_widgets[:]
 
+        # remove category algorith dropdown
+        self.remove_cat_alg_dropdown()
 
     @pyqtSlot()
     def run(self):
@@ -434,60 +435,61 @@ class MainView(base, form):
     def create_cat_alg_dropdown(self, last_cat=None):
 
         """
-
         Args:
             last_cat (object):
         """
         layout = self.select_cat_alg_vbox_layout
 
-        self.orientationComboCategories = QComboBox()
-        self.orientationComboCategories.setFixedHeight(30)
-        self.orientationComboCategories.addItem("<Please Select Category>")
+        # Combobox for selecting Category
+        #self.ComboxCategories = QComboBox()
+        self.ComboxCategories.setFixedHeight(30)
+        self.ComboxCategories.addItem("<Please Select Category>")
 
-        self.stackedWidgetAlgorithmsSelect = QStackedWidget()
+        stackedWidgetAlgorithmsSelect = QStackedWidget()
+        stackedWidgetAlgorithmsSelect.setFixedHeight(30)
         tmp1 = QComboBox()
         tmp1.setFixedHeight(30)
         tmp1.addItem("-")
-        self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
-        self.stackedWidgetAlgorithmsSelect.hide()
+        stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+        stackedWidgetAlgorithmsSelect.hide()
 
         #self.orientationComboAlgorithms = dict()
 
-        for category_name in self.pipeline.report_available_cats():
+        for category_name in self.pipeline.report_available_cats(last_cat):
 
             # Add Category to combobox
-            self.orientationComboCategories.addItem(category_name)
+            self.ComboxCategories.addItem(category_name)
             tmp1 = QComboBox()
             tmp1.setFixedHeight(30)
 
             category = self.pipeline.get_category(category_name)
 
             for algorithm_name in self.pipeline.get_all_algorithm_list(category):
-                print(category_name + "has algorithm " + algorithm_name)
+                print(category_name + " has algorithm " + algorithm_name)
                 # Add Algorithm to combobox
                 tmp1.addItem(algorithm_name)
                 #self.orientationComboAlgorithms[category.get_name()] = tmp1
-                #self.stackedWidgetAlgorithmsSettings.addWidget(GroupOfSliders(algorithm))
 
-            self.stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+            stackedWidgetAlgorithmsSelect.addWidget(tmp1)
 
-        layout.addWidget(self.orientationComboCategories)
-        layout.addWidget(self.stackedWidgetAlgorithmsSelect)
+        layout.addWidget(self.ComboxCategories)
+        layout.addWidget(stackedWidgetAlgorithmsSelect)
 
         def setCurrentIndex(index):
             print("bla")
-            if self.orientationComboCategories.currentIndex() == 0:
-                self.stackedWidgetAlgorithmsSelect.hide()
+            if self.ComboxCategories.currentIndex() == 0:
+                stackedWidgetAlgorithmsSelect.hide()
             else:
-                self.stackedWidgetAlgorithmsSelect.show()
-                self.stackedWidgetAlgorithmsSelect.setCurrentIndex(index)
+                stackedWidgetAlgorithmsSelect.show()
+                stackedWidgetAlgorithmsSelect.setCurrentIndex(index)
 
+        self.ComboxCategories.activated.connect(setCurrentIndex)
 
-        #self.orientationComboCategories.activated.connect(self.stackedWidgetAlgorithmsSelect.setCurrentIndex)
-        self.orientationComboCategories.activated.connect(setCurrentIndex)
+    def remove_cat_alg_dropdown(self):
 
-        #layout.addWidget(self.stackedWidgetAlgorithmsSettings)
-
+        while self.select_cat_alg_vbox_layout.count():
+            child = self.select_cat_alg_vbox_layout.takeAt(0)
+            child.widget().deleteLater()
 
     def add_pip_entry_empty(self):
         """
@@ -526,16 +528,35 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
 
+        # Create the corresponding empty settings widget and connect it
+        #settings = self.load_widgets_from_cat_groupbox(cat_position) *TODO* EMPTY
+
+        self.settings_collapsable.setTitle("Settings")
+        self.stackedWidget_Settings.hide()
+        #self.        stackedWidget_Settings.addWidget(settings)
+
+        def show_settings():
+            print("click")
+            self.stackedWidget_Settings.show()
+            #self.            stackedWidget_Settings.setCurrentWidget(settings)
+            #self.settings_collapsable.setTitle(alg.get_name() + " Settings")
+            self.remove_cat_alg_dropdown()
+            self.create_cat_alg_dropdown()
+            self.stackedWidget_Settings.hide()
+
+        self.clickable(pixmap_label).connect(show_settings)
+        self.clickable(string_label).connect(show_settings)
+
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
             pip_main_widget.deleteLater()
 
-            #if self.stackedWidget.currentWidget() == settings:
-            #    self.stackedWidget.hide()
+            #if self.            stackedWidget_Settings.currentWidget() == settings:
+            #    self.            stackedWidget_Settings.hide()
             #    self.settings_collapsable.setTitle("Settings")
-
-            #self.stackedWidget.removeWidget(settings)
+            self.remove_cat_alg_dropdown()
+            #self.            stackedWidget_Settings.removeWidget(settings)
 
         btn.clicked.connect(delete_button_clicked)
 
@@ -543,8 +564,7 @@ class MainView(base, form):
 
     def add_pip_entry(self, cat_position):
         """
-        Creates an blank entry in the ui pipeline since the user still needs to specify
-        a type and an algorithm of the category.
+        Creates a entry in the ui pipeline with a given position in pipeline.
         It also creates the corresponding settings widget.
         """
         # create an widget that displays the pip entry in the ui and connect the remove button
@@ -553,12 +573,10 @@ class MainView(base, form):
         pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
-
         cat = self.pipeline.executed_cats[cat_position]
         alg = self.pipeline.executed_cats[cat_position].active_algorithm
         label = alg.get_name()
         icon = cat.get_icon()
-
 
         pixmap = QPixmap(icon)
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
@@ -586,39 +604,43 @@ class MainView(base, form):
         settings = self.load_widgets_from_cat_groupbox(cat_position)
 
         self.settings_collapsable.setTitle("Settings")
-        self.stackedWidget.hide()
-        self.stackedWidget.addWidget(settings)
+        self.stackedWidget_Settings.hide()
+        self.stackedWidget_Settings.addWidget(settings)
 
         def show_settings():
             print("click")
-            self.stackedWidget.show()
-            self.stackedWidget.setCurrentWidget(settings)
+
+            # Set background color while widget is selected. Doesn't work because of theme? *TODO*
+            p = pip_main_widget.palette()
+            p.setColor(pip_main_widget.backgroundRole(), Qt.red)
+            pip_main_widget.setPalette(p)
+
+            self.stackedWidget_Settings.show()
+            self.stackedWidget_Settings.setCurrentWidget(settings)
             self.settings_collapsable.setTitle(alg.get_name() + " Settings")
 
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
 
-
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
             pip_main_widget.deleteLater()
 
-            if self.stackedWidget.currentWidget() == settings:
-                self.stackedWidget.hide()
+            if self.stackedWidget_Settings.currentWidget() == settings:
+                self.stackedWidget_Settings.hide()
                 self.settings_collapsable.setTitle("Settings")
 
-            self.stackedWidget.removeWidget(settings)
-
+            self.stackedWidget_Settings.removeWidget(settings)
 
         btn.clicked.connect(delete_button_clicked)
 
-
-
     # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
     def clickable(self, widget):
-
+        """
+        Convert any widget to a clickable widget.
+        """
         class Filter(QObject):
 
             clicked = pyqtSignal()

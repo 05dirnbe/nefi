@@ -505,7 +505,49 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout"/>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QComboBox" name="ComboxCategories"/>
+            </item>
+            <item>
+             <widget class="QComboBox" name="ComboxAlgorithms"/>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetMinimumSize</enum>
+              </property>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
             <item>
              <widget class="QScrollArea" name="setting_scroll">
@@ -527,7 +569,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>338</width>
-                 <height>392</height>
+                 <height>264</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -550,7 +592,7 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QStackedWidget" name="stackedWidget">
+                 <widget class="QStackedWidget" name="stackedWidget_Settings">
                   <property name="accessibleName">
                    <string/>
                   </property>
