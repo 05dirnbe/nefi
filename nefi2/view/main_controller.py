@@ -977,7 +977,7 @@ class SliderWidget(QGroupBox):
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
 
-        def to_external_coordinate(value):
+        def to_external_coordinate(value): 
             return lower + (value * (upper - lower)) / self.internal_steps
 
         # Slider itself
