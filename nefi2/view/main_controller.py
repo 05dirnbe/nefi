@@ -38,6 +38,9 @@ class MainView(base, form):
         # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
+        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
+        self.ComboxCategories.hide()
 
     def register_observers(self):
         pass
@@ -276,6 +279,8 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.removeWidget(widget)
 
+        self.remove_cat_alg_dropdown()
+
         # remove it settings widgets
         #del self.pip_widgets[position]
 
@@ -486,6 +491,16 @@ class MainView(base, form):
 
     def remove_cat_alg_dropdown(self):
 
+        """
+
+        Returns:
+            object:
+        """
+        self.ComboxCategories.clear()
+
+        while self.stackedWidgetComboxesAlgorithms.currentWidget() is not None:
+            self.stackedWidgetComboxesAlgorithms.removeWidget(self.stackedWidgetComboxesAlgorithms.currentWidget())
+
         while self.select_cat_alg_vbox_layout.count():
             child = self.select_cat_alg_vbox_layout.takeAt(0)
             child.widget().hide()
@@ -532,34 +547,35 @@ class MainView(base, form):
 
         self.settings_collapsable.setTitle("Settings")
         self.stackedWidget_Settings.hide()
-        #self.        stackedWidget_Settings.addWidget(settings)
 
+        # Add new step to pipeline
+        new_category = self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
+
+        print("Create entry " + str(new_category))
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats) - 1) + ".")
+
+        # Connect pipeline entry with corresponding settings widget
         def show_settings():
             print("click")
             self.stackedWidget_Settings.show()
-            #self.            stackedWidget_Settings.setCurrentWidget(settings)
-            #self.settings_collapsable.setTitle(alg.get_name() + " Settings")
             self.remove_cat_alg_dropdown()
             self.create_cat_alg_dropdown()
             self.stackedWidget_Settings.hide()
-
-        self.clickable(pixmap_label).connect(show_settings)
-        self.clickable(string_label).connect(show_settings)
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
             pip_main_widget.deleteLater()
-
-            #if self.            stackedWidget_Settings.currentWidget() == settings:
-            #    self.            stackedWidget_Settings.hide()
-            #    self.settings_collapsable.setTitle("Settings")
             self.remove_cat_alg_dropdown()
-            #self.            stackedWidget_Settings.removeWidget(settings)
+            print("Delte entry " + str(new_category))
+            self.pipeline.delete_category(new_category)
+            print("Pipeline length: " + str(len(self.pipeline.executed_cats) - 1) + ".")
 
+        self.clickable(pixmap_label).connect(show_settings)
+        self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
 
-        self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
+
 
     def add_pip_entry(self, cat_position):
         """
@@ -607,7 +623,6 @@ class MainView(base, form):
         self.stackedWidget_Settings.addWidget(settings)
 
         def show_settings():
-            print("click")
 
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
             p = pip_main_widget.palette()
@@ -618,9 +633,14 @@ class MainView(base, form):
             self.stackedWidget_Settings.setCurrentWidget(settings)
             self.settings_collapsable.setTitle(alg.get_name() + " Settings")
 
+            last_cat = None
 
-        self.clickable(pixmap_label).connect(show_settings)
-        self.clickable(string_label).connect(show_settings)
+            # Show only allowed categories in dropdown
+            if len(self.pipeline.executed_cats) > 1:
+                last_cat = self.pipeline.executed_cats[cat_position - 1]
+
+            self.remove_cat_alg_dropdown()
+            self.create_cat_alg_dropdown(last_cat)
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
@@ -629,10 +649,13 @@ class MainView(base, form):
 
             if self.stackedWidget_Settings.currentWidget() == settings:
                 self.stackedWidget_Settings.hide()
+                self.remove_cat_alg_dropdown()
                 self.settings_collapsable.setTitle("Settings")
 
             self.stackedWidget_Settings.removeWidget(settings)
 
+        self.clickable(pixmap_label).connect(show_settings)
+        self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
 
     # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
