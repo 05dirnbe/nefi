@@ -35,6 +35,10 @@ class MainView(base, form):
         self.draw_ui()
         self.connect_ui()
 
+        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
+        self.ComboxCategories = QComboBox()
+        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+
     def register_observers(self):
         pass
 
@@ -441,19 +445,17 @@ class MainView(base, form):
         layout = self.select_cat_alg_vbox_layout
 
         # Combobox for selecting Category
-        #self.ComboxCategories = QComboBox()
+        self.ComboxCategories.show()
         self.ComboxCategories.setFixedHeight(30)
         self.ComboxCategories.addItem("<Please Select Category>")
 
-        stackedWidgetAlgorithmsSelect = QStackedWidget()
-        stackedWidgetAlgorithmsSelect.setFixedHeight(30)
+        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+        self.stackedWidgetComboxesAlgorithms.setFixedHeight(30)
         tmp1 = QComboBox()
         tmp1.setFixedHeight(30)
         tmp1.addItem("-")
-        stackedWidgetAlgorithmsSelect.addWidget(tmp1)
-        stackedWidgetAlgorithmsSelect.hide()
-
-        #self.orientationComboAlgorithms = dict()
+        self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
+        self.stackedWidgetComboxesAlgorithms.hide()
 
         for category_name in self.pipeline.report_available_cats(last_cat):
 
@@ -466,22 +468,19 @@ class MainView(base, form):
 
             for algorithm_name in self.pipeline.get_all_algorithm_list(category):
                 print(category_name + " has algorithm " + algorithm_name)
-                # Add Algorithm to combobox
                 tmp1.addItem(algorithm_name)
-                #self.orientationComboAlgorithms[category.get_name()] = tmp1
 
-            stackedWidgetAlgorithmsSelect.addWidget(tmp1)
+            self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
 
         layout.addWidget(self.ComboxCategories)
-        layout.addWidget(stackedWidgetAlgorithmsSelect)
+        layout.addWidget(self.stackedWidgetComboxesAlgorithms)
 
         def setCurrentIndex(index):
-            print("bla")
             if self.ComboxCategories.currentIndex() == 0:
-                stackedWidgetAlgorithmsSelect.hide()
+                self.stackedWidgetComboxesAlgorithms.hide()
             else:
-                stackedWidgetAlgorithmsSelect.show()
-                stackedWidgetAlgorithmsSelect.setCurrentIndex(index)
+                self.stackedWidgetComboxesAlgorithms.show()
+                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index)
 
         self.ComboxCategories.activated.connect(setCurrentIndex)
 
@@ -489,7 +488,7 @@ class MainView(base, form):
 
         while self.select_cat_alg_vbox_layout.count():
             child = self.select_cat_alg_vbox_layout.takeAt(0)
-            child.widget().deleteLater()
+            child.widget().hide()
 
     def add_pip_entry_empty(self):
         """

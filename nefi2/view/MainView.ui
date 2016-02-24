@@ -521,12 +521,6 @@
              </spacer>
             </item>
             <item>
-             <widget class="QComboBox" name="ComboxCategories"/>
-            </item>
-            <item>
-             <widget class="QComboBox" name="ComboxAlgorithms"/>
-            </item>
-            <item>
              <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout">
               <property name="sizeConstraint">
                <enum>QLayout::SetMinimumSize</enum>
@@ -569,7 +563,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>338</width>
-                 <height>264</height>
+                 <height>340</height>
                 </rect>
                </property>
                <property name="sizePolicy">
