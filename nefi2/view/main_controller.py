@@ -15,7 +15,7 @@ import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
-                            QStackedWidget, QComboBox
+    QStackedWidget, QComboBox
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -184,6 +184,7 @@ class MainView(base, form):
 
             """for widget in alg_widgets:
                 self.setting_widget_vbox_layout.addWidget(widget)"""
+
     def trash_pipeline(self):
         """
         This method clears the complete pipeline while users clicked the trash
@@ -267,10 +268,12 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, pipe_entry_widget, settings_widget, pipeline_index):
+    def remove_pip_entry(self, pipe_entry_widget, pipeline_index, settings_widget=None):
         """
         Removes the pip entry at the given position in the ui
         Args:
+            pipeline_index (object):
+            settings_widget:
             position: position at which the pip entry gets removed
         """
 
@@ -279,16 +282,17 @@ class MainView(base, form):
         pipe_entry_widget.deleteLater()
 
         # remove it settings widgets from ui
-        if self.stackedWidget_Settings.currentWidget() == settings_widget:
-            self.stackedWidget_Settings.hide()
-            self.remove_cat_alg_dropdown()
-            self.settings_collapsable.setTitle("Settings")
+        if settings_widget is not None:
+            if self.stackedWidget_Settings.currentWidget() == settings_widget:
+                self.stackedWidget_Settings.hide()
+                self.remove_cat_alg_dropdown()
+                self.settings_collapsable.setTitle("Settings")
 
-        self.stackedWidget_Settings.removeWidget(settings_widget)
+            self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
         print("Delte entry " + str(pipeline_index))
-        self.pipeline.delete_category(pipeline_index)
+        # self.pipeline.delete_category(pipeline_index)
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
@@ -414,15 +418,17 @@ class MainView(base, form):
         for slider in alg.integer_sliders:
             empty_flag = False
             print(alg.get_name() + ": add slider (int).")
-            groupOfSliderssLayout.addWidget(SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                                slider.set_value, False))
+            groupOfSliderssLayout.addWidget(
+                SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
+                             slider.set_value, False))
 
         # create float sliders
         for slider in alg.float_sliders:
             empty_flag = False
             print(alg.get_name() + ": add slider (float).")
-            groupOfSliderssLayout.addWidget(SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                                            slider.set_value, True))
+            groupOfSliderssLayout.addWidget(
+                SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
+                             slider.set_value, True))
 
         # create checkboxes
         for checkbox in alg.checkboxes:
@@ -434,7 +440,8 @@ class MainView(base, form):
         for combobox in alg.drop_downs:
             empty_flag = False
             print(alg.get_name() + ": add combobox.")
-            groupOfSliderssLayout.addWidget(ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default))
+            groupOfSliderssLayout.addWidget(
+                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default))
 
         if empty_flag:
             label = QLabel()
@@ -445,7 +452,7 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown(self, last_cat=None):
+    def create_cat_alg_dropdown_default(self, last_cat=None):
 
         """
         Args:
@@ -492,6 +499,64 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index)
 
         self.ComboxCategories.activated.connect(setCurrentIndex)
+
+    def create_cat_alg_dropdown_from_entry(self, category, algorithm, last_cat=None):
+
+        """
+        Args:
+            category:
+            last_cat (object):
+        """
+        layout = self.select_cat_alg_vbox_layout
+
+        # Combobox for selecting Category
+        self.ComboxCategories.show()
+        self.ComboxCategories.setFixedHeight(30)
+        self.ComboxCategories.addItem("<Please Select Category>")
+
+        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+        self.stackedWidgetComboxesAlgorithms.setFixedHeight(30)
+        tmp1 = QComboBox()
+        tmp1.setFixedHeight(30)
+        tmp1.addItem("-")
+        self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
+        self.stackedWidgetComboxesAlgorithms.hide()
+
+        for category_name in self.pipeline.report_available_cats(last_cat):
+
+            # Add Category to combobox
+            self.ComboxCategories.addItem(category_name)
+            tmp1 = QComboBox()
+            tmp1.setFixedHeight(30)
+
+            category = self.pipeline.get_category(category_name)
+
+            for algorithm_name in self.pipeline.get_all_algorithm_list(category):
+                print(category_name + " has algorithm " + algorithm_name)
+                tmp1.addItem(algorithm_name)
+
+            self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
+
+        layout.addWidget(self.ComboxCategories)
+        layout.addWidget(self.stackedWidgetComboxesAlgorithms)
+
+        def setCurrentIndex(index):
+            if self.ComboxCategories.currentIndex() == 0:
+                self.stackedWidgetComboxesAlgorithms.hide()
+            else:
+                self.stackedWidgetComboxesAlgorithms.show()
+                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index)
+
+        self.ComboxCategories.activated.connect(setCurrentIndex)
+
+    def set_cat_alg_dropdown(self, category, algorithm):
+
+        indexC = self.ComboxCategories.findText(category.get_name())
+        self.ComboxCategories.setCurrentIndex(indexC)
+        self.stackedWidgetComboxesAlgorithms.show()
+        self.stackedWidgetComboxesAlgorithms.setCurrentIndex(indexC)
+        indexA = self.stackedWidgetComboxesAlgorithms.currentWidget().findText(algorithm.get_name())
+        self.stackedWidgetComboxesAlgorithms.currentWidget().setCurrentIndex(indexA)
 
     def remove_cat_alg_dropdown(self):
 
@@ -545,9 +610,11 @@ class MainView(base, form):
         pip_main_layout.addWidget(btn)
 
         self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
+        print(index)
 
         # Create the corresponding empty settings widget and connect it
-        #settings = self.load_widgets_from_cat_groupbox(cat_position) *TODO* EMPTY
+        # settings = self.load_widgets_from_cat_groupbox(cat_position) *TODO* EMPTY
 
         self.settings_collapsable.setTitle("Settings")
         self.stackedWidget_Settings.hide()
@@ -563,23 +630,24 @@ class MainView(base, form):
             print("click")
             self.stackedWidget_Settings.show()
             self.remove_cat_alg_dropdown()
-            self.create_cat_alg_dropdown()
+            # Create drop down for cats and algs
+            self.create_cat_alg_dropdown_default()
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
+            self.remove_cat_alg_dropdown()
+            self.remove_pip_entry(pip_main_widget, index)
+            """self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
             pip_main_widget.deleteLater()
             self.remove_cat_alg_dropdown()
             print("Delte entry " + str(new_category))
             self.pipeline.delete_category(new_category)
-            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")"""
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
-
-
 
     def add_pip_entry(self, cat_position):
         """
@@ -632,7 +700,6 @@ class MainView(base, form):
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         def show_settings():
-
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
             p = pip_main_widget.palette()
             p.setColor(pip_main_widget.backgroundRole(), Qt.red)
@@ -649,11 +716,14 @@ class MainView(base, form):
                 last_cat = self.pipeline.executed_cats[cat_position - 1]
 
             self.remove_cat_alg_dropdown()
-            self.create_cat_alg_dropdown(last_cat)
+
+            # Create drop down for cats and algs
+            self.create_cat_alg_dropdown_from_entry(cat, alg, last_cat)
+            self.set_cat_alg_dropdown(cat, alg)
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.remove_pip_entry(pip_main_widget, settings_main_widget, index)
+            self.remove_pip_entry(pip_main_widget, index, settings_main_widget)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
@@ -664,6 +734,7 @@ class MainView(base, form):
         """
         Convert any widget to a clickable widget.
         """
+
         class Filter(QObject):
 
             clicked = pyqtSignal()
