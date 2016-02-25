@@ -213,6 +213,10 @@ class MainView(base, form):
         # remove category algorith dropdown
         self.remove_cat_alg_dropdown()
 
+        # remove all entries from the model
+
+        del self.pipeline.executed_cats[:]
+
     @pyqtSlot()
     def run(self):
         """
@@ -293,7 +297,7 @@ class MainView(base, form):
             self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
-        self.pipeline.delete_category_by_cat(cat)
+        self.pipeline.delete_category(self.pipeline.get_index(cat))
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
@@ -696,7 +700,7 @@ class MainView(base, form):
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.remove_pip_entry(pip_main_widget, index, cat, settings_main_widget)
+            self.remove_pip_entry(pip_main_widget, cat, settings_main_widget)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)

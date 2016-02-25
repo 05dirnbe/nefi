@@ -121,17 +121,19 @@ class Pipeline:
                 if category == cat.name:
                     del self.executed_cats[i]
 
-    def delete_category_by_cat(self, category):
+    def get_index(self, cat):
         """
-        Remove Category from the pipeline.
+        Gets the index of a given Category entry from the pipeline.
 
         Args:
-            *category* (cat): Category object
+            | *category* (cat): Category object
+
+        Returns:
+            | *index* (int): index of Category object in the pipeline
 
         """
-        index = self.executed_cats.index(category)
-        self.delete_category(index)
 
+        return(self.executed_cats.index(cat))
 
     def process(self):
         """
