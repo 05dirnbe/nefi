@@ -82,12 +82,12 @@ class AlgBody(Algorithm):
 
         """
         res = np.zeros_like(image)
-        res[mask == THRESHOLD_FG_COLOR] = [THRESHOLD_FG_COLOR]*3
+        res[mask == THRESHOLD_FG_COLOR] = [THRESHOLD_FG_COLOR] * 3
         return res
 
-    def otsus_threshold(self,image, threshold_value=0,
+    def otsus_threshold(self, image, threshold_value=0,
                         threshold_type=cv2.THRESH_BINARY_INV, **_):
-        if (len(image).shape == 3):
+        if len(image.shape) == 3:
             greyscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         else:
             greyscale_image = image
@@ -96,7 +96,7 @@ class AlgBody(Algorithm):
                                         THRESHOLD_FG_COLOR, threshold_type)[1]
         return threshold_image
 
-    def distance_transform_dilation_marker(self,image,
+    def distance_transform_dilation_marker(self, image,
                                            opening_iterations=2,
                                            dilation_iterations=1,
                                            kernel=np.ones((3, 3), np.uint8),

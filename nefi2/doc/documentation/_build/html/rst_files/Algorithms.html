@@ -81,9 +81,10 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Code.html">CodeBase</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Contribution</a></li>
 </ul>
 
             
@@ -181,6 +182,18 @@ with the given name</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="model.algorithms._alg.Algorithm.get_icon">
+<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="model.algorithms._alg.Algorithm.get_name">
 <code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method returns the name of the implemented algorithm. E.g. int case the contributor
@@ -243,10 +256,27 @@ filesystem for the pipeline.json.</div>
 </dd></dl>
 
 <dl class="method">
+<dt id="model.algorithms._alg.Algorithm.set_icon">
+<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_icon" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="model.algorithms._alg.Algorithm.set_modified">
 <code class="descname">set_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_modified" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set modified to True</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.set_store_image">
+<code class="descname">set_store_image</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_store_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.unset_modified">
@@ -286,7 +316,7 @@ official QT documentation.</p>
 
 <dl class="class">
 <dt id="model.algorithms._alg.DropDown">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A class defining a DropDown menu of type string to display in the algorithm
 detail section of the UI. After calling the DropDown constructor, the

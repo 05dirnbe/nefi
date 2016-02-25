@@ -1,5 +1,5 @@
 Algorithms Contribution
-============
+=======================
 
 This document is a guide to add your own new algorithm in Nefi 2.0.
 The guide provides you all the step to be done for allow the users of Nefi 2.0 to use the new algorithm.
@@ -41,10 +41,3 @@ The :func:`__init__` method is necessary to set the name of the algorithm, to li
 The :func:`process` is the main method that contains the logic of the algorithm.
 
 	The **results** of the algorithm must be saved in the object ``self.result['img']``, if it is an image, and/or in ``self.result['graph']``, if it is a graph.
-
-
-
-
-
-
-
