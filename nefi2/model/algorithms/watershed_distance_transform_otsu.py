@@ -31,9 +31,8 @@ class AlgBody(Algorithm):
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
-            | *kernelsize* : blurring kernel size that will be used as slider
-              for the UI
-            | *sigmaX* : gaussian kernel standard deviation in X direction
+            | *fg_iter* : Number of foreground iterations for markers
+            | *bg_iter* : Number of background iterations for markers
 
         """
         Algorithm.__init__(self)
@@ -79,7 +78,11 @@ class AlgBody(Algorithm):
         return res
 
     def otsus_threshold(self, image, threshold_value=0, threshold_type=cv2.THRESH_BINARY_INV, **_):
-        greyscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        if (len(image.shape) == 3):
+            greyscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        else:
+            greyscale_image = image
+
         threshold_type += cv2.THRESH_OTSU
         threshold_image = cv2.threshold(greyscale_image, threshold_value, THRESHOLD_FG_COLOR, threshold_type)[1]
         return threshold_image

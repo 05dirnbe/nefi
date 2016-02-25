@@ -26,7 +26,9 @@ class AlgBody(Algorithm):
             | *parent* : name of the appropriate category
             | *diameter* : diameter of each pixel neighborhood that is used
              during filtering. If it is non-positive, it is computed from
-             sigmaSpace
+             sigmaSpace. Consider that a value n is treated as 2*n+1 to
+              guarantee an odd box filter. For example the value 1 gives
+              a neighbourhood of size 3x3.
             | *sigma_color* : filter sigma in the color space. The larger
              the value, the further the colors within a pixel neighborhood
              will be mixed together
@@ -78,17 +80,22 @@ class AlgBody(Algorithm):
                                               self.sigma_color.value,
                                               self.sigma_space.value)
 
-        channels = cv2.split(args[0])
-        if all([self.channel1.value, self.channel2.value, self.channel3.value]):
-            self.result['img'] = bilateral(args[0])
+        if (len(args[0].shape) == 2):
+           self.result['img'] = cv2.bilateralFilter(args[0], self.diameter.value*2+1,
+                                              self.sigma_color.value,
+                                              self.sigma_space.value)
         else:
-            if self.channel1.value:
-                channels[0] = bilateral(channels[0])
-            if self.channel2.value:
-                channels[1] = bilateral(channels[1])
-            if self.channel3.value:
-                channels[2] = bilateral(channels[2])
-            self.result['img'] = cv2.merge(channels)
+            channels = cv2.split(args[0])
+            if all([self.channel1.value, self.channel2.value, self.channel3.value]):
+                self.result['img'] = bilateral(args[0])
+            else:
+                if self.channel1.value:
+                    channels[0] = bilateral(channels[0])
+                if self.channel2.value:
+                    channels[1] = bilateral(channels[1])
+                if self.channel3.value:
+                    channels[2] = bilateral(channels[2])
+                self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':

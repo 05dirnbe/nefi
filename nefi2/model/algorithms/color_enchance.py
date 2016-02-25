@@ -29,9 +29,9 @@ class AlgBody(Algorithm):
         if self.channel1.value:
             channels[0] = self.compute_channels(channels[0])
         if self.channel2.value:
-            channels[0] = self.compute_channels(channels[0])
+            channels[1] = self.compute_channels(channels[1])
         if self.channel3.value:
-            channels[0] = self.compute_channels(channels[0])
+            channels[2] = self.compute_channels(channels[2])
         self.result['img'] = cv2.merge(channels)
 
     def compute_channels(self, image_channel):
