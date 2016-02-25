@@ -82,7 +82,7 @@ class Pipeline:
         """
         if cat_name is None:
             self.executed_cats.insert(position, Category("blank"))
-            return
+            return self.executed_cats[position]
 
         for v in list(self.available_cats.values()):
             if v.name == cat_name:
@@ -120,6 +120,18 @@ class Pipeline:
             for i, cat in enumerate(self.executed_cats):
                 if category == cat.name:
                     del self.executed_cats[i]
+
+    def delete_category_by_cat(self, category):
+        """
+        Remove Category from the pipeline.
+
+        Args:
+            *category* (cat): Category object
+
+        """
+        index = self.executed_cats.index(category)
+        self.delete_category(index)
+
 
     def process(self):
         """

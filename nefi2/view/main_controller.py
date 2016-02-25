@@ -269,7 +269,7 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, pipe_entry_widget, pipeline_index, settings_widget=None):
+    def remove_pip_entry(self, pipe_entry_widget, cat, settings_widget=None):
         """
         Removes the pip entry at the given position in the ui
         Args:
@@ -292,8 +292,7 @@ class MainView(base, form):
             self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
-        print("Delte entry " + str(pipeline_index))
-        # self.pipeline.delete_category(pipeline_index)
+        self.pipeline.delete_category_by_cat(cat)
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
@@ -611,7 +610,7 @@ class MainView(base, form):
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.remove_cat_alg_dropdown()
-            self.remove_pip_entry(pip_main_widget, index)
+            self.remove_pip_entry(pip_main_widget, new_category)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
@@ -696,7 +695,7 @@ class MainView(base, form):
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.remove_pip_entry(pip_main_widget, index, settings_main_widget)
+            self.remove_pip_entry(pip_main_widget, index, cat, settings_main_widget)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
