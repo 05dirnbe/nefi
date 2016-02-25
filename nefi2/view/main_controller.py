@@ -452,13 +452,14 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown_default(self, last_cat=None):
+    def create_cat_alg_dropdown(self, last_cat=None):
 
         """
         Args:
             last_cat (object):
         """
         layout = self.select_cat_alg_vbox_layout
+
 
         # Combobox for selecting Category
         self.ComboxCategories.show()
@@ -467,10 +468,6 @@ class MainView(base, form):
 
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
         self.stackedWidgetComboxesAlgorithms.setFixedHeight(30)
-        tmp1 = QComboBox()
-        tmp1.setFixedHeight(30)
-        tmp1.addItem("-")
-        self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
         self.stackedWidgetComboxesAlgorithms.hide()
 
         for category_name in self.pipeline.report_available_cats(last_cat):
@@ -478,6 +475,7 @@ class MainView(base, form):
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)
             tmp1 = QComboBox()
+            tmp1.addItem("<Please Select Algorithm>")
             tmp1.setFixedHeight(30)
 
             category = self.pipeline.get_category(category_name)
@@ -492,70 +490,24 @@ class MainView(base, form):
         layout.addWidget(self.stackedWidgetComboxesAlgorithms)
 
         def setCurrentIndex(index):
-            if self.ComboxCategories.currentIndex() == 0:
+            print("here")
+            if False:#self.ComboxCategories.currentIndex() == 0:
                 self.stackedWidgetComboxesAlgorithms.hide()
             else:
                 self.stackedWidgetComboxesAlgorithms.show()
-                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index)
-
-        self.ComboxCategories.activated.connect(setCurrentIndex)
-
-    def create_cat_alg_dropdown_from_entry(self, category, algorithm, last_cat=None):
-
-        """
-        Args:
-            category:
-            last_cat (object):
-        """
-        layout = self.select_cat_alg_vbox_layout
-
-        # Combobox for selecting Category
-        self.ComboxCategories.show()
-        self.ComboxCategories.setFixedHeight(30)
-        self.ComboxCategories.addItem("<Please Select Category>")
-
-        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
-        self.stackedWidgetComboxesAlgorithms.setFixedHeight(30)
-        tmp1 = QComboBox()
-        tmp1.setFixedHeight(30)
-        tmp1.addItem("-")
-        self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
-        self.stackedWidgetComboxesAlgorithms.hide()
-
-        for category_name in self.pipeline.report_available_cats(last_cat):
-
-            # Add Category to combobox
-            self.ComboxCategories.addItem(category_name)
-            tmp1 = QComboBox()
-            tmp1.setFixedHeight(30)
-
-            category = self.pipeline.get_category(category_name)
-
-            for algorithm_name in self.pipeline.get_all_algorithm_list(category):
-                print(category_name + " has algorithm " + algorithm_name)
-                tmp1.addItem(algorithm_name)
-
-            self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
-
-        layout.addWidget(self.ComboxCategories)
-        layout.addWidget(self.stackedWidgetComboxesAlgorithms)
-
-        def setCurrentIndex(index):
-            if self.ComboxCategories.currentIndex() == 0:
-                self.stackedWidgetComboxesAlgorithms.hide()
-            else:
-                self.stackedWidgetComboxesAlgorithms.show()
-                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index)
+                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
         self.ComboxCategories.activated.connect(setCurrentIndex)
 
     def set_cat_alg_dropdown(self, category, algorithm):
 
         indexC = self.ComboxCategories.findText(category.get_name())
+        print("IndexC " + str(indexC))
         self.ComboxCategories.setCurrentIndex(indexC)
         self.stackedWidgetComboxesAlgorithms.show()
-        self.stackedWidgetComboxesAlgorithms.setCurrentIndex(indexC)
+        self.stackedWidgetComboxesAlgorithms.setCurrentIndex(indexC - 1)
         indexA = self.stackedWidgetComboxesAlgorithms.currentWidget().findText(algorithm.get_name())
+        print("IndexA " + str(indexA))
         self.stackedWidgetComboxesAlgorithms.currentWidget().setCurrentIndex(indexA)
 
     def remove_cat_alg_dropdown(self):
@@ -631,7 +583,7 @@ class MainView(base, form):
             self.stackedWidget_Settings.show()
             self.remove_cat_alg_dropdown()
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown_default()
+            self.create_cat_alg_dropdown()
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
@@ -718,7 +670,9 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown_from_entry(cat, alg, last_cat)
+            self.create_cat_alg_dropdown(last_cat)
+            print(cat)
+            print(alg)
             self.set_cat_alg_dropdown(cat, alg)
 
         # Connect Button to remove step from pipeline
@@ -977,7 +931,7 @@ class SliderWidget(QGroupBox):
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
 
-        def to_external_coordinate(value): 
+        def to_external_coordinate(value):
             return lower + (value * (upper - lower)) / self.internal_steps
 
         # Slider itself
