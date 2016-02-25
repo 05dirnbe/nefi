@@ -15,7 +15,7 @@ import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
-    QStackedWidget, QComboBox
+    QStackedWidget, QComboBox, QSizePolicy
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -181,6 +181,7 @@ class MainView(base, form):
         # Create an entry in the pipeline widget for every step in the pipeline
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pip_entry(i)
+            self.scroll_down_pip()
 
             """for widget in alg_widgets:
                 self.setting_widget_vbox_layout.addWidget(widget)"""
@@ -412,7 +413,13 @@ class MainView(base, form):
         empty_flag = True
 
         groupOfSliders = QGroupBox()
+        sp = QSizePolicy()
+        sp.setVerticalPolicy(QSizePolicy.Preferred)
+        #groupOfSliders.setSizePolicy(sp)
         groupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
+        groupOfSliderssLayout.setContentsMargins(0, -0, -0, 0)
+        groupOfSliderssLayout.setAlignment(Qt.AlignTop)
+        groupOfSliderssLayout.setSpacing(0)
 
         # create integer sliders
         for slider in alg.integer_sliders:
@@ -428,25 +435,26 @@ class MainView(base, form):
             print(alg.get_name() + ": add slider (float).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                             slider.set_value, True))
+                             slider.set_value, True), 0, Qt.AlignTop)
 
         # create checkboxes
         for checkbox in alg.checkboxes:
             empty_flag = False
             print(alg.get_name() + ": add checkbox.")
-            groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value))
+            groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value), 0,
+                                            Qt.AlignTop)
 
         # create dropdowns
         for combobox in alg.drop_downs:
             empty_flag = False
             print(alg.get_name() + ": add combobox.")
             groupOfSliderssLayout.addWidget(
-                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default))
+                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default), 0, Qt.AlignTop)
 
         if empty_flag:
             label = QLabel()
             label.setText("This algorithm has no Settings.")
-            groupOfSliderssLayout.addWidget(label, Qt.AlignHCenter)
+            groupOfSliderssLayout.addWidget(label, 0, Qt.AlignHCenter)
 
         groupOfSliders.setLayout(groupOfSliderssLayout)
 
@@ -481,7 +489,7 @@ class MainView(base, form):
             category = self.pipeline.get_category(category_name)
 
             for algorithm_name in self.pipeline.get_all_algorithm_list(category):
-                print(category_name + " has algorithm " + algorithm_name)
+                #print(category_name + " has algorithm " + algorithm_name)
                 tmp1.addItem(algorithm_name)
 
             self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
@@ -525,6 +533,9 @@ class MainView(base, form):
         while self.select_cat_alg_vbox_layout.count():
             child = self.select_cat_alg_vbox_layout.takeAt(0)
             child.widget().hide()
+
+    def scroll_down_pip(self):
+        self.pip_scroll.verticalScrollBar().setSliderPosition(self.pip_scroll.verticalScrollBar().maximum())
 
     def add_pip_entry_empty(self):
         """
@@ -581,25 +592,32 @@ class MainView(base, form):
         def show_settings():
             print("click")
             self.stackedWidget_Settings.show()
+
+            last_cat = None
+
+            # Show only allowed categories in dropdown
+
+            if len(self.pipeline.executed_cats) > 1:
+                last_cat = self.pipeline.executed_cats[-1]
+
+            print("Last element in pipe" + str(last_cat))
+
             self.remove_cat_alg_dropdown()
+
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown()
+            self.create_cat_alg_dropdown(last_cat)
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.remove_cat_alg_dropdown()
             self.remove_pip_entry(pip_main_widget, index)
-            """self.pip_widget_vbox_layout.removeWidget(pip_main_widget)
-            pip_main_widget.deleteLater()
-            self.remove_cat_alg_dropdown()
-            print("Delte entry " + str(new_category))
-            self.pipeline.delete_category(new_category)
-            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")"""
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
+
+        self.scroll_down_pip()
 
     def add_pip_entry(self, cat_position):
         """
@@ -607,6 +625,7 @@ class MainView(base, form):
         It also creates the corresponding settings widget.
         """
         # create an widget that displays the pip entry in the ui and connect the remove button
+
         pip_main_widget = QWidget()
         pip_main_widget.setFixedHeight(50)
         pip_main_layout = QHBoxLayout()
