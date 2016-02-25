@@ -41,7 +41,10 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
-        gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
+        if (len(args[0].shape) == 3):
+            gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
+        else:
+            gray_img = args[0]
         self.result['img'] = cv2.threshold(gray_img, 0, 255,
                                       cv2.THRESH_BINARY_INV +
                                       cv2.THRESH_OTSU)[1]

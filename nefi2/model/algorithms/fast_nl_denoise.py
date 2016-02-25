@@ -28,10 +28,18 @@ class AlgBody(Algorithm):
               A larger value of the parameter means that more noise and also
               more image details will be removed
             | *template_size* : size in pixels of the template patch that
-              is used to compute weights
+              is used to compute weights. Consider that a value n is treated
+              as 2*n+1 to guarantee an odd box filter. For example the value 1
+              gives a neighbourhood of size 3x3.
             | *search_size* : size in pixels of the window that is used
               to compute weighted average for given pixel.
-              A larger value of the parameter means a larger denoising time
+              A larger value of the parameter means a larger denoising time.
+              Consider that a value n is treated as 2*n+1 to
+              guarantee an odd box filter. For example the value 1 gives
+              a neighbourhood of size 3x3.
+            | *channel1* : checkbox if computing the first color channel
+            | *channel2* : checkbox if computing the second color channel
+            | *channel3* : checkbox if computing the third color channel
 
         """
         Algorithm.__init__(self)
@@ -74,30 +82,37 @@ class AlgBody(Algorithm):
                                             self.f_strength.value,
                                             self.template_size.value*2+1,
                                             self.search_size.value*2+1)
-        channels = cv2.split(args[0])
 
-        if all([self.channel1.value, self.channel2.value, self.channel3.value]):
-            self.result['img'] = fastNLMeans(args[0])
+        if (len(args[0].shape) == 2):
+            self.result['img'] = cv2.fastNlMeansDenoising(args[0],
+                                            self.f_strength.value,
+                                            self.template_size.value*2+1,
+                                            self.search_size.value*2+1)
         else:
-            if self.channel1.value:
-                val = cv2.fastNlMeansDenoising(channels[0],
-                                           self.f_strength.value,
-                                           self.template_size.value*2+1,
-                                           self.search_size.value*2+1)
-                channels[0] = val
-            if self.channel2.value:
-                val = cv2.fastNlMeansDenoising(channels[1],
-                                           self.f_strength.value,
-                                           self.template_size.value*2+1,
-                                           self.search_size.value*2+1)
-                channels[1] = val
-            if self.channel3.value:
-                val = cv2.fastNlMeansDenoising(channels[2],
-                                           self.f_strength.value,
-                                           self.template_size.value*2+1,
-                                           self.search_size.value*2+1)
-                channels[2] = val
-            self.result['img'] = cv2.merge(channels)
+            channels = cv2.split(args[0])
+
+            if all([self.channel1.value, self.channel2.value, self.channel3.value]):
+                self.result['img'] = fastNLMeans(args[0])
+            else:
+                if self.channel1.value:
+                    val = cv2.fastNlMeansDenoising(channels[0],
+                                               self.f_strength.value,
+                                               self.template_size.value*2+1,
+                                               self.search_size.value*2+1)
+                    channels[0] = val
+                if self.channel2.value:
+                    val = cv2.fastNlMeansDenoising(channels[1],
+                                               self.f_strength.value,
+                                               self.template_size.value*2+1,
+                                               self.search_size.value*2+1)
+                    channels[1] = val
+                if self.channel3.value:
+                    val = cv2.fastNlMeansDenoising(channels[2],
+                                               self.f_strength.value,
+                                               self.template_size.value*2+1,
+                                               self.search_size.value*2+1)
+                    channels[2] = val
+                self.result['img'] = cv2.merge(channels)
 
 
 if __name__ == '__main__':

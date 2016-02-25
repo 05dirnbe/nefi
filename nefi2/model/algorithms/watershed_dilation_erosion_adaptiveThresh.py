@@ -31,9 +31,10 @@ class AlgBody(Algorithm):
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
-            | *kernelsize* : blurring kernel size that will be used as slider
-              for the UI
-            | *sigmaX* : gaussian kernel standard deviation in X direction
+            | *fg_iter* : Number of foreground iterations for markers
+            | *bg_iter* : Number of background iterations for markers
+            | *blocksize* : blocksize for adaptive threshold
+            | *constant* : constant for adaptive threshold
 
         """
         Algorithm.__init__(self)
@@ -95,7 +96,10 @@ class AlgBody(Algorithm):
         constant=2,
         **_):
 
-        grayscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        if (len(image.shape) == 3):
+            grayscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        else:
+            grayscale_image = image
         result = cv2.adaptiveThreshold(grayscale_image, threshold_value, adaptive_type,
             threshold_type, block_size, constant)
 

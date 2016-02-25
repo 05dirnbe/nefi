@@ -10,6 +10,30 @@ class AlgBody(Algorithm):
     """Fast nl Means Denoising Colored algorithm implementation."""
 
     def __init__(self):
+        """
+        Fast nl Means Denoising Colored object constructor.
+
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriate category
+            | *f_strength* : Parameter regulating filter strength.
+              A larger value of the parameter means that more noise and also
+              more image details will be removed
+            | *f_col* : The same as h but for color components. For most images
+                value equals 10 will be enough to remove colored noise and do
+                not distort colors
+            | *template_size* : size in pixels of the template patch that
+              is used to compute weights. Consider that a value n is treated
+              as 2*n+1 to guarantee an odd box filter. For example the value 1
+              gives a neighbourhood of size 3x3.
+            | *search_size* : size in pixels of the window that is used
+              to compute weighted average for given pixel.
+              A larger value of the parameter means a larger denoising time.
+              Consider that a value n is treated as 2*n+1 to
+              guarantee an odd box filter. For example the value 1 gives
+              a neighbourhood of size 3x3.
+
+        """
         Algorithm.__init__(self)
         self.name = "Fast nl Means Denoising Colored"
         self.parent = "Preprocessing"
@@ -23,14 +47,21 @@ class AlgBody(Algorithm):
         self.float_sliders.append(self.f_col)
 
     def process(self, args):
-        ts = self.template_size.value*2+1
-        ss = self.search_size.value*2+1
-        result = cv2.fastNlMeansDenoisingColored(src=args[0],
-                                                 h=self.f_strength.value,
-                                                 hColor=self.f_col.value,
-                                                 templateWindowSize=ts,
-                                                 searchWindowSize=ss)
-        self.result['img'] = result
+
+        if (len(args[0].shape) == 2):
+            self.result['img'] = cv2.fastNlMeansDenoising(args[0],
+                                            self.f_strength.value,
+                                            self.template_size.value*2+1,
+                                            self.search_size.value*2+1)
+        else:
+            ts = self.template_size.value*2+1
+            ss = self.search_size.value*2+1
+            result = cv2.fastNlMeansDenoisingColored(src=args[0],
+                                                     h=self.f_strength.value,
+                                                     hColor=self.f_col.value,
+                                                     templateWindowSize=ts,
+                                                     searchWindowSize=ss)
+            self.result['img'] = result
 
 
 if __name__ == '__main__':
