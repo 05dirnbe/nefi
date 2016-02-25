@@ -228,7 +228,7 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         print(url)
-        self.custom_line_edit.setText(url[0][0])
+        self.lineEdit.setText(url[0][0])
         self.pipeline.set_input(url[0][0])
 
     # todo
@@ -239,6 +239,7 @@ class MainView(base, form):
         Args:
             url: the url to the output folder a user selected in the ui
         """
+        self.custom_line_edit.setText(url[0][0])
         self.pipeline.set_output_dir(url)
 
     def load_favorite_pipelines(self):
