@@ -104,6 +104,33 @@ class TestNLMeans(unittest.TestCase):
                 self.assertEqual(diff1,0)
                 self.assertEqual(diff2,0)
 
+  def test_greyscale(self):
+    obj1 = AlgBody()
+    obj2 = AlgBody()
+    obj2.integer_sliders[0].set_value(4)
+    obj2.integer_sliders[1].set_value(9)
+    obj2.float_sliders[0].set_value(10.0)
+
+    test_img = cv2.imread("NEFI1_Images/p_polycephalum.jpg")
+    test_image = cv2.cvtColor(test_img, cv2.COLOR_RGB2GRAY)
+    input = [test_image]
+    ref_image1 = cv2.fastNlMeansDenoising(test_image,1.0,7,21)
+    ref_image2 = cv2.fastNlMeansDenoising(test_image,10.0,9,19)
+    obj1.process(input)
+    obj2.process(input)
+    h,w = obj1.result["img"].shape
+    for i in range(h):
+        for j in range(w):
+                test_val1 = obj1.result["img"].item(i,j)
+                test_val2 = obj2.result["img"].item(i,j)
+                ref_val1 = ref_image1.item(i,j)
+                ref_val2 = ref_image2.item(i,j)
+                diff1 = abs(test_val1-ref_val1)
+                diff2 = abs(test_val2-ref_val2)
+                # Less equal due to numerical issues when bilateral filter is processed on the whole color image
+                self.assertEqual(diff1,0)
+                self.assertEqual(diff2,0)
+
   def test_process_separate_channels(self):
     obj1 = AlgBody()
     obj2 = AlgBody()

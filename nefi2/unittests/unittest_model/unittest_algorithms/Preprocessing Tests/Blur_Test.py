@@ -72,6 +72,29 @@ class TestBlur(unittest.TestCase):
                 self.assertEqual(diff_ksize3,0)
                 self.assertEqual(diff_ksize11,0)
 
+  def test_greyscale(self):
+    obj1 = AlgBody()
+    obj2 = AlgBody()
+    obj2.integer_sliders[0].set_value(5)
+    test_img = cv2.imread("NEFI1_Images/p_polycephalum.jpg")
+    test_image = cv2.cvtColor(test_img, cv2.COLOR_RGB2GRAY)
+    ref_image1 = cv2.blur(test_image, (3, 3))
+    ref_image2 = cv2.blur(test_image, (11, 11))
+    input = [test_image]
+    obj1.process(input)
+    obj2.process(input)
+    h,w = obj1.result["img"].shape
+    for i in range(h):
+        for j in range(w):
+                test_val1 = obj1.result["img"].item(i,j)
+                test_val2 = obj2.result["img"].item(i,j)
+                ref_val1 = ref_image1.item(i,j)
+                ref_val2 = ref_image2.item(i,j)
+                diff_ksize3 = abs(test_val1-ref_val1)
+                diff_ksize11 = abs(test_val2-ref_val2)
+                self.assertEqual(diff_ksize3,0)
+                self.assertEqual(diff_ksize11,0)
+
   def test_process_separate_channels(self):
     obj1 = AlgBody()
     obj2 = AlgBody()

@@ -53,6 +53,22 @@ class TestInvertColor(unittest.TestCase):
                 diff = abs(test_val1-ref_val1)
                 self.assertEqual(diff,0)
 
+  def test_greyscale(self):
+    obj1 = AlgBody()
+    obj2 = AlgBody()
+    test_img = cv2.imread("NEFI1_Images/p_polycephalum.jpg")
+    test_image = cv2.cvtColor(test_img, cv2.COLOR_RGB2GRAY)
+    input = [test_image]
+    obj1.process(input)
+    obj2.process([obj1.result["img"]])
+    h,w = obj1.result["img"].shape
+    for i in range(h):
+        for j in range(w):
+                test_val1 = obj2.result["img"].item(i,j)
+                ref_val1 = test_image.item(i,j)
+                diff = abs(test_val1-ref_val1)
+                self.assertEqual(diff,0)
+
   def test_process_separate_channels(self):
     obj1 = AlgBody()
     obj2 = AlgBody()
