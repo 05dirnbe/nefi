@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Development &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
+        <link rel="next" title="Algorithms Contribution" href="Algorithms_Contribution.html"/>
+        <link rel="prev" title="Quick Start Guide for developers" href="Quick_Start_Guide_for_developers.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Contribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Categories_Contribution.html">Categories Contribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Code.html">CodeBase</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Development</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst_files/Development.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Contribution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html#imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html#algbody-class">AlgBody Class</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Categories_Contribution.html">Categories Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Code.html">CodeBase</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Autogen.html">model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="subsection1.html">saved_pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Autogen.html#pipeline">pipeline</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subsection2.html">categories</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="subsection2.html#gfiltering">gfiltering</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection2.html#preprocessing">preprocessing</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection2.html#module-model.categories._category">_category</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection2.html#gdetection">gdetection</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection2.html#segmentation">segmentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Autogen.html#module-model.ext_loader">ext_loader</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="subsection3.html">algorithms</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#constant-threshold">constant_threshold</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#grabcut-dilation-erosion-otsu">grabcut_dilation_erosion_otsu</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#adaptive">adaptive</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#watershed-distance-transform-otsu">watershed_distance_transform_otsu</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#connected-component-filter">connected_component_filter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#med-blur">med_blur</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#simple-cycle">simple_cycle</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#edge-attribute-filter">edge_attribute_filter</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#largest-connected">largest_connected</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#module-model.algorithms._alg">_alg</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#fast-nl-denoise">fast_nl_denoise</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#grabcut-distance-transform-otsu">grabcut_distance_transform_otsu</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#gauss-blur">gauss_blur</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#blur">blur</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#module-model.algorithms._utility">_utility</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#fast-nl-denoise-color">fast_nl_denoise_color</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#watershed-dilation-erosion-adaptivethresh">watershed_dilation_erosion_adaptiveThresh</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#bilateral">bilateral</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#smooth-degree-two-nodes">smooth_degree_two_nodes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#otsus">otsus</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#watershed-dilation-erosion-otsu">watershed_dilation_erosion_otsu</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#guo-hall">guo_hall</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#color-enchance">color_enchance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="subsection3.html#invert-color">invert_color</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Autogen.html#view">view</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Autogen.html#main-controller">main_controller</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Autogen.html#controller">controller</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Algorithms_Contribution.html" class="btn btn-neutral float-right" title="Algorithms Contribution" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Quick_Start_Guide_for_developers.html" class="btn btn-neutral" title="Quick Start Guide for developers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
