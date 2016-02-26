@@ -370,14 +370,14 @@ class MainView(base, form):
 
         # change settings widgets
         self.remove_pip_entry(pipe_entry_widget, settings_widget)
-        self.add_pip_entry(position)
+        (new_pipe_entry_widget, new_settings_widget) = self.add_pip_entry(position)
 
         self.stackedWidget_Settings.show()
         self.stackedWidget_Settings.setCurrentIndex(position)
         self.settings_collapsable.setTitle(new_alg.get_name() + " Settings")
 
         self.remove_cat_alg_dropdown()
-        self.create_cat_alg_dropdown(position, pipe_entry_widget, settings_widget)
+        self.create_cat_alg_dropdown(position, new_pipe_entry_widget, new_settings_widget)
         self.set_cat_alg_dropdown(new_cat, new_alg)
 
 
@@ -540,9 +540,7 @@ class MainView(base, form):
             self.current_index = -1
 
             def setCurrentIndexAlg(index):
-                print("Index: " + str(index))
-                print("self.current_index: " + str(self.current_index))
-                if self.ComboxCategories.currentIndex() == 0:
+                if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
                 elif self.current_index != index:
                     self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(),
@@ -745,6 +743,8 @@ class MainView(base, form):
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
+
+        return (pip_main_widget, settings_main_widget)
 
     # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
     def clickable(self, widget):
