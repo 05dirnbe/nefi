@@ -308,41 +308,6 @@ class MainView(base, form):
         if cat is not None:
             self.pipeline.delete_category(self.pipeline.get_index(cat))
 
-    def change_pip_entry_type(self, position, type):
-        """
-        Changes the type of the pipeline entry. The ui pipeline will then display
-        the correct category icon as well as a combobox to select the algorithm type.
-        Args:
-            position: position of the pipeline entry
-            type: the string type of the pipeline entry
-        """
-        # set in ui
-        icon = ""
-
-        # todo not hardcod
-        if type == "Preprocessing":
-            icon = "./assets/images/P.png"
-        elif type == "Segmentation":
-            icon = "./assets/images/S.png"
-        elif type == "Graph Detection":
-            icon = "./assets/images/D.png"
-        elif type == "Graph Filtering":
-            icon = "./assets/images/F.png"
-
-        pixmap = QtGui.QPixmap(icon)
-        pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
-        pixmap_label = QtWidgets.QLabel()
-        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
-
-        string_label = QtWidgets.QLabel()
-        string_label.setText(type)
-        string_label.setFixedWidth(210)
-
-        # todo settings at the location
-
-        # set in model
-        self.pipeline.change_category(type, position)
-
     def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
         """
         Changes the selected algorithm of the pipeline entry at the position.
@@ -382,61 +347,9 @@ class MainView(base, form):
         self.set_cat_alg_dropdown(new_cat, new_alg)
 
 
-
         print("New Cat found in pipeline: " + str(new_cat))
         print("New Alg found in pipeline: " + str(new_alg))
 
-        # self.select_default_pip(0)
-
-    def load_settings_widgets_from_cat(self, position, from_json):
-        """
-        Extracts all widgets from a single algorithm and returns a list
-        of widgets.
-        Args:
-            alg: the alg instance we extract from
-
-        Returns: a list widgets for this particular alg.
-
-        """
-
-        alg = self.pipeline.executed_cats[position].active_algorithm
-        widget_list = []
-
-        if from_json:
-            type_widget = ComboBoxWidget("type", [])
-            type_widget.add_item("Preprocessing", "./assets/images/P.png")
-            type_widget.add_item("Segmentation", "./assets/images/S.png")
-            type_widget.add_item("Graph Detection", "./assets/images/D.png")
-            type_widget.add_item("Graph Filtering", "./assets/images/F.png")
-            widget_list.append(type_widget)
-
-            widget_list.append(ComboBoxWidget("selected alg", self.pipeline.get_algorithm_list(position)))
-
-            widget_list.append(CheckBoxWidget("store result", alg.store_image, alg.set_store_image))
-
-        # create integer sliders
-        for slider in alg.integer_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                                slider.set_value, False)
-            widget_list.append(slid)
-
-        # create float sliders
-        for slider in alg.float_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                                slider.set_value, True)
-            widget_list.append(slid)
-
-        # create checkboxes
-        for checkbox in alg.checkboxes:
-            check = CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value)
-            widget_list.append(check)
-
-        # create dropdowns
-        for combobox in alg.drop_downs:
-            combo = ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default)
-            widget_list.append(combo)
-
-        return widget_list
 
     def load_settings_widgets_from_pipeline_groupbox(self, position):
         """
@@ -727,7 +640,7 @@ class MainView(base, form):
             pip_main_widget.setPalette(p)
 
             self.stackedWidget_Settings.show()
-            self.stackedWidget_Settings.setCurrentIndex(cat_position)
+            self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
             self.settings_collapsable.setTitle(alg.get_name() + " Settings")
 
             self.remove_cat_alg_dropdown()
