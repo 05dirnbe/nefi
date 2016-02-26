@@ -213,7 +213,7 @@ class MainView(base, form):
         # remove category algorith dropdown
         self.remove_cat_alg_dropdown()
 
-        # remove all entries from the model
+        # remove all entries from the pipeline model
 
         del self.pipeline.executed_cats[:]
 
