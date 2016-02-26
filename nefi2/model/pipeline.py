@@ -82,7 +82,7 @@ class Pipeline:
         """
         if cat_name is None:
             self.executed_cats.insert(position, Category("blank"))
-            return
+            return self.executed_cats[position]
 
         for v in list(self.available_cats.values()):
             if v.name == cat_name:
@@ -120,6 +120,20 @@ class Pipeline:
             for i, cat in enumerate(self.executed_cats):
                 if category == cat.name:
                     del self.executed_cats[i]
+
+    def get_index(self, cat):
+        """
+        Gets the index of a given Category entry from the pipeline.
+
+        Args:
+            | *category* (cat): Category object
+
+        Returns:
+            | *index* (int): index of Category object in the pipeline
+
+        """
+
+        return(self.executed_cats.index(cat))
 
     def process(self):
         """
@@ -241,10 +255,12 @@ class Pipeline:
 
         """
         current_cats = self.get_available_cat_names()
-        if not selected_cat or selected_cat not in current_cats:
+        if selected_cat is not None and selected_cat not in current_cats:
             return current_cats
         elif selected_cat == 'Graph detection':
             return current_cats[current_cats.index(selected_cat) + 1:]
+        elif selected_cat is None:
+            return current_cats[:-1]
         else:
             return current_cats[current_cats.index(selected_cat):]
 
