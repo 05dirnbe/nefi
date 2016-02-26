@@ -20,6 +20,7 @@ FG_MARKER = 255
 BG_MARKER = 150
 UNDECIDED_MARKER = 0
 
+
 class AlgBody(Algorithm):
     """
     Watershed algorithm implementation with dilation, erosion and adaptive
@@ -39,7 +40,7 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Grabcut - Dilation Erosion Otsu"
         self.parent = "Segmentation"
-        self.fg_iter = IntegerSlider("Foreground Iteration", 1,10, 1, 2)
+        self.fg_iter = IntegerSlider("Foreground Iteration", 1, 10, 1, 2)
         self.bg_iter = IntegerSlider("Background Iteration", 1, 10, 1, 1)
         self.gc_iter = IntegerSlider("GrabCut Iteration", 1, 10, 1, 5)
         self.integer_sliders.append(self.fg_iter)
@@ -79,12 +80,12 @@ class AlgBody(Algorithm):
 
         """
         res = np.zeros_like(image)
-        res[mask == THRESHOLD_FG_COLOR] = [THRESHOLD_FG_COLOR]*3
+        res[mask == THRESHOLD_FG_COLOR] = [THRESHOLD_FG_COLOR] * 3
         return res
 
-    def otsus_threshold(self,image, threshold_value=0,
+    def otsus_threshold(self, image, threshold_value=0,
                         threshold_type=cv2.THRESH_BINARY_INV, **_):
-        if (len(image).shape == 3):
+        if len(image.shape) == 3:
             greyscale_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
         else:
             greyscale_image = image
@@ -93,11 +94,9 @@ class AlgBody(Algorithm):
                                         THRESHOLD_FG_COLOR, threshold_type)[1]
         return threshold_image
 
-    def erosion_dilation_marker(self,
-        image,
-        erosion_iterations=2,
-        dilation_iterations=1,
-        threshold_strategy=otsus_threshold):
+    def erosion_dilation_marker(self, image, erosion_iterations=2,
+                                dilation_iterations=1,
+                                threshold_strategy=otsus_threshold):
         """
         Applies morphological transformations to obtain the marker. The areas
         likely to be foreground are obtained by erosion. The areas likely to
@@ -125,10 +124,9 @@ class AlgBody(Algorithm):
         # regions not part of either likely foreground nor likely background
         # are considered undecided
         marker = cv2.add(foreground_image, background_image)
-
         return marker
 
-    def grabcut(self,image, marker, grabcut_iterations=5):
+    def grabcut(self, image, marker, grabcut_iterations=5):
         """
         Applies opencv's grabcut method iteratively to an input image. An
         initial marker containing preliminary information on whether a pixel is
@@ -164,13 +162,9 @@ class AlgBody(Algorithm):
 
         # run grabcut and let it figure out the undecided areas of the image
         # and update the guiding grabcut_mask
-        cv2.grabCut(image,
-            grabcut_mask,
-            None,
-            background_model,
-            foreground_model,
-            grabcut_iterations,
-            mode=cv2.GC_INIT_WITH_MASK)
+        cv2.grabCut(image, grabcut_mask, None, background_model,
+                    foreground_model, grabcut_iterations,
+                    mode = cv2.GC_INIT_WITH_MASK)
         mask = np.zeros_like(grabcut_mask)
         # replace probable background/foreground with definite
         # background/foreground respectively and the final mask is done
