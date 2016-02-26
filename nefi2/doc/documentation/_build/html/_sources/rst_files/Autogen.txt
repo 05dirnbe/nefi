@@ -1,10 +1,6 @@
 model
 =====
 
-.. toctree::
-
-	subsection1
-
 pipeline
 --------
 
@@ -15,7 +11,7 @@ pipeline
 
 .. toctree::
 
-	subsection2
+	subsection1
 
 ext_loader
 ----------
@@ -27,7 +23,7 @@ ext_loader
 
 .. toctree::
 
-	subsection3
+	subsection2
 
 view
 ====

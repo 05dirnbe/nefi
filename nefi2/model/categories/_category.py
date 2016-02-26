@@ -37,20 +37,11 @@ class Category:
         if icon is not None:
             self.icon = icon
         else:
-            self.icon = "./assets/images/missing.png"
+            self.icon = os.path.join(os.curdir, 'assets', 'images',
+                                     'missing.png')
         self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
-        # since no settings are implemented, use [0] choice for alg
-        algs = list(self.available_algs.values())
-        if algs[0]:
-            # set the default algorithm for the category
-            self.active_algorithm = algs[0][-1]
-        # debugging only
-        #print(self.available_algs)
-
-    def set_available_algorithms(self):
-        pass
 
     def _get_available_algorithms(self, alg_dir):
         """
@@ -85,9 +76,10 @@ class Category:
         for alg in found_algs:
             alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
             try:
-                imported_algs.append(alg.AlgBody())
+                imported_algs.append(alg.AlgBody())  # instantiating algorithms
             except AttributeError as ex:
                 continue
+        # assign instantiated algorithms to corresponding (belongs()) categories
         category_alg_map = {self.name: [alg for alg in imported_algs
                             if self.name == alg.belongs()]}
         alg_names = [alg.get_name() for alg in imported_algs
@@ -153,17 +145,18 @@ class Category:
         """
         Args:
             | *icon_path*: The path to the icon to be used
-        """
 
+        """
         self.icon = icon_path
 
     def get_icon(self):
         """
         Returns:
             | *icon_path*: The path to the icon to be used
-        """
 
+        """
         return self.icon
+
 
 if __name__ == '__main__':
     pass
