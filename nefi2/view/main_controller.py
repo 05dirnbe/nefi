@@ -307,7 +307,6 @@ class MainView(base, form):
         # remove in model
         if cat is not None:
             self.pipeline.delete_category(self.pipeline.get_index(cat))
-            #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
         """
@@ -352,16 +351,13 @@ class MainView(base, form):
             position: the position of the pipeline entry
             algorithm: the selected algorithm for this category
         """
-        print("Pipeline change debug:")
-
         print("Position to be changed:" + str(position))
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats)))
 
         old_cat = self.pipeline.executed_cats[position]
         old_alg = old_cat.active_algorithm
         print("Old Cat found in pipeline: " + str(old_cat))
         print("Old Alg: found in pipeline:" + str(old_alg))
-
-        print("\n")
 
         print("New Category given:" + str(new_category))
         print("New Algorithm given:" + str(new_algorithm))
@@ -467,7 +463,7 @@ class MainView(base, form):
         # create integer sliders
         for slider in alg.integer_sliders:
             empty_flag = False
-            print(alg.get_name() + ": add slider (int).")
+            #print(alg.get_name() + ": add slider (int).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
                              slider.set_value, False))
@@ -475,7 +471,7 @@ class MainView(base, form):
         # create float sliders
         for slider in alg.float_sliders:
             empty_flag = False
-            print(alg.get_name() + ": add slider (float).")
+            #print(alg.get_name() + ": add slider (float).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
                              slider.set_value, True), 0, Qt.AlignTop)
@@ -483,14 +479,14 @@ class MainView(base, form):
         # create checkboxes
         for checkbox in alg.checkboxes:
             empty_flag = False
-            print(alg.get_name() + ": add checkbox.")
+            #print(alg.get_name() + ": add checkbox.")
             groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value), 0,
                                             Qt.AlignTop)
 
         # create dropdowns
         for combobox in alg.drop_downs:
             empty_flag = False
-            print(alg.get_name() + ": add combobox.")
+            #print(alg.get_name() + ": add combobox.")
             groupOfSliderssLayout.addWidget(
                 ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default), 0, Qt.AlignTop)
 
@@ -510,6 +506,7 @@ class MainView(base, form):
             last_cat (object):
         """
         layout = self.select_cat_alg_vbox_layout
+        cat = self.pipeline.executed_cats[cat_position]
 
         last_cat = None
 
@@ -527,7 +524,7 @@ class MainView(base, form):
         self.stackedWidgetComboxesAlgorithms.hide()
 
         def setCurrentIndexCat(index):
-            print("Set Cat")
+            #print("Set Cat")
             if self.ComboxCategories.currentIndex() == 0:
                 self.stackedWidgetComboxesAlgorithms.hide()
             else:
@@ -548,7 +545,7 @@ class MainView(base, form):
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
                 elif self.current_index != index:
-                    self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(),
+                    self.change_pip_entry_alg(self.pipeline.get_index(cat), self.ComboxCategories.currentText(),
                                               self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
                                               pipe_entry_widget, settings_widget)
                     self.current_index = index
@@ -568,12 +565,12 @@ class MainView(base, form):
     def set_cat_alg_dropdown(self, category, algorithm):
 
         indexC = self.ComboxCategories.findText(category.get_name())
-        print("IndexC " + str(indexC))
+        #print("IndexC " + str(indexC))
         self.ComboxCategories.setCurrentIndex(indexC)
         self.stackedWidgetComboxesAlgorithms.show()
         self.stackedWidgetComboxesAlgorithms.setCurrentIndex(indexC - 1)
         indexA = self.stackedWidgetComboxesAlgorithms.currentWidget().findText(algorithm.get_name())
-        print("IndexA " + str(indexA))
+        #print("IndexA " + str(indexA))
         self.stackedWidgetComboxesAlgorithms.currentWidget().setCurrentIndex(indexA)
 
     def remove_cat_alg_dropdown(self):
@@ -634,7 +631,7 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
-        print(index)
+        #print(index)
 
         # Create the corresponding empty settings widget and connect it
         # settings = self.load_widgets_from_cat_groupbox(cat_position) *TODO* EMPTY
@@ -645,14 +642,14 @@ class MainView(base, form):
         # Add new step to pipeline
         new_category = self.pipeline.new_category(cat_position)
 
-        print("Create entry " + str(new_category))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        #print("Create entry " + str(new_category))
+        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         settings_main_widget = None
 
         # Connect pipeline entry with corresponding settings widget
         def show_settings():
-            print("click")
+            #print("click")
             self.stackedWidget_Settings.show()
 
             self.remove_cat_alg_dropdown()
@@ -711,7 +708,7 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
-        print(index)
+        #print(index)
 
         # Create the corresponding settings widget and connect it
         settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(cat_position)
@@ -720,8 +717,8 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         self.stackedWidget_Settings.insertWidget(cat_position, settings_main_widget)
 
-        print("Read from pipeline entry " + str(cat))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        #print("Read from pipeline entry " + str(cat))
+        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         def show_settings():
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
@@ -736,9 +733,9 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget)
-            print(cat)
-            print(alg)
+            self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_main_widget, settings_main_widget)
+            #print(cat)
+            #print(alg)
             self.set_cat_alg_dropdown(cat, alg)
 
         # Connect Button to remove step from pipeline
@@ -775,63 +772,6 @@ class MainView(base, form):
         filter = Filter(widget)
         widget.installEventFilter(filter)
         return filter.clicked
-
-    def add_cat_image(self, url, image_label):
-        """
-        Creates an image item in the immediate results group
-        (left side of the ui). The image will be displayed inside vertical
-        layout inside a fresh widget along with its label.
-
-        Args:
-            | *url*: the url to the image
-            | *image_label*: the name of the image cat e.g. preprocessing
-
-        """
-        # create top level widget and set its layout vertical
-        image_vbox_layout = QtWidgets.QVBoxLayout()
-        image_widget = LeftCustomWidget()
-        image_widget.setLayout(image_vbox_layout)
-
-        # create a pixmap and draw it into a widget with a label
-        pixmap = QtGui.QPixmap(url)
-        pixmap_scaled_keeping_aspec = pixmap.scaled(290, 200, QtCore.Qt.KeepAspectRatio)
-        pixmap_widget = QtWidgets.QWidget()
-
-        pixmap_label = QtWidgets.QLabel(pixmap_widget)
-        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
-
-        image_widget.set_image_label(self.main_image_label)
-        image_widget.set_pixmap(pixmap)
-
-        # create label for the image_label
-        label = QtWidgets.QLabel()
-        label.setText(image_label)
-
-        # add image and label to the image_widget
-        image_vbox_layout.addWidget(label)
-        image_vbox_layout.addWidget(pixmap_label)
-
-        # add the image widget to the parents vertical layout
-        self.left_scroll_results_vbox_layout.addWidget(image_widget)
-
-    def reset_settings(self):
-        """
-        deletes all settings widgets.
-        """
-        for child in self.setting_widget_vbox_layout.children():
-            self.setting_widget_vbox_layout.removeWidget(child)
-
-    def set_settings(self, position):
-        """
-        Adds all widgets to for the activated algorithm for a specific pip entry.
-        Args:
-            position: the position in widget list where we can find the widgets
-        """
-        self.reset_settings()
-
-        for widget in self.pip_widgets[position]:
-            self.setting_widget_vbox_layout.addWidget(widget)
-
 
 class LeftCustomWidget(QWidget):
     """
