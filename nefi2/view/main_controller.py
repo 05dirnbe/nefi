@@ -51,6 +51,7 @@ class MainView(base, form):
         ui elements and its method counterparts.
         """
         self.input_btn.clicked.connect(self.set_input_url)
+        self.output_btn.clicked.connect(self.set_output_url)
         self.save_btn.clicked.connect(self.save_pipeline)
         self.load_favorite_pipelines()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
@@ -223,6 +224,7 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
+
         self.pipeline.process()
 
     @pyqtSlot()
@@ -231,20 +233,26 @@ class MainView(base, form):
         This method sets the url for the input image in the pipeline.
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
-        print(url)
-        self.lineEdit.setText(url[0][0])
-        self.pipeline.set_input(url[0][0])
+        if url[0]:
+            print(url[0])
+            print(url[0][0])
+            self.lineEdit.setText(url[0][0])
+            self.pipeline.set_input(url[0][0])
 
-    # todo
+
     @pyqtSlot()
-    def set_output_url(self, url):
+    def set_output_url(self):
         """
         This method sets the url for the output folder in the pipeline.
         Args:
             url: the url to the output folder a user selected in the ui
         """
-        self.custom_line_edit.setText(url[0][0])
-        self.pipeline.set_output_dir(url)
+        url = QtWidgets.QFileDialog.getExistingDirectory()
+        if url:
+            print(url)
+            print(url)
+            self.custom_line_edit.setText(url)
+            self.pipeline.set_output_dir(url)
 
     def load_favorite_pipelines(self):
         """
