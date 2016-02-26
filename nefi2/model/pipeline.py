@@ -279,6 +279,8 @@ class Pipeline:
             if v.name == cat_name:
                 self.executed_cats[position] = copy.copy(v)
 
+        print("change_category"  + str(self.executed_cats[position]))
+
     def change_algorithm(self, alg_name, position):
         """
         Set the algorithm of the category in position to modified = *True*.
@@ -292,7 +294,9 @@ class Pipeline:
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
                 v.set_modified()
+                print("alg_name " + str(alg_name))
                 self.executed_cats[position].set_active_algorithm(alg_name)
+                print("change_algorithm" +  str(self.executed_cats[position].active_algorithm))
 
     def get_executed_cats(self):
         """

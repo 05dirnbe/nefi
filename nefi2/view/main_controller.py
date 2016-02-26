@@ -368,7 +368,7 @@ class MainView(base, form):
         self.load_settings_widgets_from_pipeline_groupbox(position)
 
         new_cat= self.pipeline.executed_cats[position]
-        new_alg= old_cat.active_algorithm
+        new_alg= new_cat.active_algorithm
 
         print("New Cat found in pipeline: " + str(new_cat))
         print("New Alg found in pipeline: " + str(new_alg))
