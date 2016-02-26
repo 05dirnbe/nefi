@@ -335,7 +335,7 @@ class MainView(base, form):
         # set in model
         self.pipeline.change_category(type, position)
 
-    def change_pip_entry_alg(self, position, algorithm):
+    def change_pip_entry_alg(self, position, new_category, new_algorithm):
         """
         Changes the selected algorithm of the pipeline entry at the position.
         Afterwards create all widgets for this algorithm instance
@@ -343,17 +343,31 @@ class MainView(base, form):
             position: the position of the pipeline entry
             algorithm: the selected algorithm for this category
         """
+
+        old_cat= self.pipeline.executed_cats[position]
+        old_alg= old_cat.active_algorithm
+
+        print("Old Cat: " + str(old_cat))
+        print("Old Alg: " + str(old_alg))
+
+        print("Post to be changed:" + str(position))
+        print("New Category:" + str(new_category))
+        print("New Algorithm:" + str(new_algorithm))
+
         # set in model
-        self.pipeline.change_algorithm(algorithm, position)
+        self.pipeline.change_category(new_category, position)
+        self.pipeline.change_algorithm(new_algorithm, position)
 
-        # create widgets
-        widget_list = self.pip_widgets[position]
+        # change settings widgets
+        self.load_settings_widgets_from_pipeline_groupbox(position)
 
-        for item in self.load_widgets_from_cat(position, False):
-            widget_list.append(item)
-            self.setting_widget_vbox_layout.addWidget(item)
+        new_cat= self.pipeline.executed_cats[position]
+        new_alg= old_cat.active_algorithm
 
-    def load_widgets_from_cat(self, position, from_json):
+        print("New Cat: " + str(new_cat))
+        print("New Alg: " + str(new_alg))
+
+    def load_settings_widgets_from_cat(self, position, from_json):
         """
         Extracts all widgets from a single algorithm and returns a list
         of widgets.
@@ -403,7 +417,7 @@ class MainView(base, form):
 
         return widget_list
 
-    def load_widgets_from_cat_groupbox(self, position):
+    def load_settings_widgets_from_pipeline_groupbox(self, position):
         """
         Extracts all widgets from a single algorithm and returns a QBoxLayout
         Args:
@@ -464,7 +478,7 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown(self, last_cat=None):
+    def create_cat_alg_dropdown(self, cat_position, last_cat=None):
 
         """
         Args:
@@ -482,6 +496,14 @@ class MainView(base, form):
         self.stackedWidgetComboxesAlgorithms.setFixedHeight(30)
         self.stackedWidgetComboxesAlgorithms.hide()
 
+        def setCurrentIndexCat(index):
+            print("Set Cat")
+            if self.ComboxCategories.currentIndex() == 0:
+                self.stackedWidgetComboxesAlgorithms.hide()
+            else:
+                self.stackedWidgetComboxesAlgorithms.show()
+                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
+
         for category_name in self.pipeline.report_available_cats(last_cat):
 
             # Add Category to combobox
@@ -489,11 +511,18 @@ class MainView(base, form):
             tmp1 = QComboBox()
             tmp1.addItem("<Please Select Algorithm>")
             tmp1.setFixedHeight(30)
-
             category = self.pipeline.get_category(category_name)
 
+            def setCurrentIndexAlg(index):
+                print("Set Alg")
+                if self.ComboxCategories.currentIndex() == 0:
+                    pass
+                else:
+                    self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(), self.stackedWidgetComboxesAlgorithms.currentWidget().currentText())
+
+            tmp1.activated.connect(setCurrentIndexAlg)
+
             for algorithm_name in self.pipeline.get_all_algorithm_list(category):
-                #print(category_name + " has algorithm " + algorithm_name)
                 tmp1.addItem(algorithm_name)
 
             self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
@@ -501,15 +530,7 @@ class MainView(base, form):
         layout.addWidget(self.ComboxCategories)
         layout.addWidget(self.stackedWidgetComboxesAlgorithms)
 
-        def setCurrentIndex(index):
-            print("here")
-            if False:#self.ComboxCategories.currentIndex() == 0:
-                self.stackedWidgetComboxesAlgorithms.hide()
-            else:
-                self.stackedWidgetComboxesAlgorithms.show()
-                self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
-
-        self.ComboxCategories.activated.connect(setCurrentIndex)
+        self.ComboxCategories.activated.connect(setCurrentIndexCat)
 
     def set_cat_alg_dropdown(self, category, algorithm):
 
@@ -587,7 +608,8 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
 
         # Add new step to pipeline
-        new_category = self.pipeline.new_category(len(self.pipeline.executed_cats) - 1)
+        cat_position = len(self.pipeline.executed_cats) - 1
+        new_category = self.pipeline.new_category(cat_position)
 
         print("Create entry " + str(new_category))
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
@@ -609,7 +631,7 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(last_cat)
+            self.create_cat_alg_dropdown(cat_position, last_cat)
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
@@ -636,7 +658,7 @@ class MainView(base, form):
         pip_main_widget.setLayout(pip_main_layout)
 
         cat = self.pipeline.executed_cats[cat_position]
-        alg = self.pipeline.executed_cats[cat_position].active_algorithm
+        alg = cat.active_algorithm
         label = alg.get_name()
         icon = cat.get_icon()
 
@@ -665,7 +687,7 @@ class MainView(base, form):
         print(index)
 
         # Create the corresponding settings widget and connect it
-        settings_main_widget = self.load_widgets_from_cat_groupbox(cat_position)
+        settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(cat_position)
 
         self.settings_collapsable.setTitle("Settings")
         self.stackedWidget_Settings.hide()
@@ -693,7 +715,7 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(last_cat)
+            self.create_cat_alg_dropdown(cat_position, last_cat)
             print(cat)
             print(alg)
             self.set_cat_alg_dropdown(cat, alg)
