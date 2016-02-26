@@ -274,7 +274,7 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, pipe_entry_widget, cat=None, settings_widget=None):
+    def remove_pip_entry(self, pipe_entry_widget, settings_widget, cat=None):
         """
         Removes the pip entry at the given position in the ui
         Args:
@@ -299,7 +299,7 @@ class MainView(base, form):
         # remove in model
         if cat is not None:
             self.pipeline.delete_category(self.pipeline.get_index(cat))
-            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+            #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
         """
@@ -365,12 +365,22 @@ class MainView(base, form):
         self.pipeline.change_category(new_category, position)
         self.pipeline.change_algorithm(new_algorithm, position)
 
-        # change settings widgets
-        self.remove_pip_entry(pipe_entry_widget)
-        self.add_pip_entry(position)
-
         new_cat = self.pipeline.executed_cats[position]
         new_alg = new_cat.active_algorithm
+
+        # change settings widgets
+        self.remove_pip_entry(pipe_entry_widget, settings_widget)
+        self.add_pip_entry(position)
+
+        self.stackedWidget_Settings.show()
+        self.stackedWidget_Settings.setCurrentIndex(position)
+        self.settings_collapsable.setTitle(new_alg.get_name() + " Settings")
+
+        self.remove_cat_alg_dropdown()
+        self.create_cat_alg_dropdown(position, pipe_entry_widget, settings_widget)
+        self.set_cat_alg_dropdown(new_cat, new_alg)
+
+
 
         print("New Cat found in pipeline: " + str(new_cat))
         print("New Alg found in pipeline: " + str(new_alg))
@@ -488,13 +498,19 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown(self, cat_position, pipe_entry_widget, settings_widget, last_cat=None):
+    def create_cat_alg_dropdown(self, cat_position, pipe_entry_widget, settings_widget):
 
         """
         Args:
             last_cat (object):
         """
         layout = self.select_cat_alg_vbox_layout
+
+        last_cat = None
+
+        # Show only allowed categories in dropdown
+        if len(self.pipeline.executed_cats) > 1:
+            last_cat = self.pipeline.executed_cats[cat_position - 1]
 
         # Combobox for selecting Category
         self.ComboxCategories.show()
@@ -521,15 +537,18 @@ class MainView(base, form):
             tmp1.addItem("<Please Select Algorithm>")
             tmp1.setFixedHeight(30)
             category = self.pipeline.get_category(category_name)
+            self.current_index = -1
 
             def setCurrentIndexAlg(index):
-                print("Set Alg")
+                print("Index: " + str(index))
+                print("self.current_index: " + str(self.current_index))
                 if self.ComboxCategories.currentIndex() == 0:
                     pass
-                else:
+                elif self.current_index != index:
                     self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(),
                                               self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
                                               pipe_entry_widget, settings_widget)
+                    self.current_index = index
 
             tmp1.activated.connect(setCurrentIndexAlg)
 
@@ -608,7 +627,9 @@ class MainView(base, form):
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
-        self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        cat_position = len(self.pipeline.executed_cats)
+
+        self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
         print(index)
 
@@ -619,37 +640,28 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
 
         # Add new step to pipeline
-        cat_position = len(self.pipeline.executed_cats) - 1
         new_category = self.pipeline.new_category(cat_position)
 
         print("Create entry " + str(new_category))
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+
+        settings_main_widget = None
 
         # Connect pipeline entry with corresponding settings widget
         def show_settings():
             print("click")
             self.stackedWidget_Settings.show()
 
-            last_cat = None
-
-            # Show only allowed categories in dropdown
-
-            if len(self.pipeline.executed_cats) > 1:
-                last_cat = self.pipeline.executed_cats[-1]
-
-            print("Last element in pipe" + str(last_cat))
-
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            settings_main_widget = None
-            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget, last_cat)
+            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget)
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.remove_cat_alg_dropdown()
-            self.remove_pip_entry(pip_main_widget, new_category)
+            self.remove_pip_entry(pip_main_widget, settings_main_widget, new_category)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
@@ -703,7 +715,7 @@ class MainView(base, form):
 
         self.settings_collapsable.setTitle("Settings")
         self.stackedWidget_Settings.hide()
-        self.stackedWidget_Settings.addWidget(settings_main_widget)
+        self.stackedWidget_Settings.insertWidget(cat_position, settings_main_widget)
 
         print("Read from pipeline entry " + str(cat))
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
@@ -715,26 +727,20 @@ class MainView(base, form):
             pip_main_widget.setPalette(p)
 
             self.stackedWidget_Settings.show()
-            self.stackedWidget_Settings.setCurrentWidget(settings_main_widget)
+            self.stackedWidget_Settings.setCurrentIndex(cat_position)
             self.settings_collapsable.setTitle(alg.get_name() + " Settings")
-
-            last_cat = None
-
-            # Show only allowed categories in dropdown
-            if len(self.pipeline.executed_cats) > 1:
-                last_cat = self.pipeline.executed_cats[cat_position - 1]
 
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget, last_cat)
+            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget)
             print(cat)
             print(alg)
             self.set_cat_alg_dropdown(cat, alg)
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.remove_pip_entry(pip_main_widget, cat, settings_main_widget)
+            self.remove_pip_entry(pip_main_widget, settings_main_widget, cat)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
