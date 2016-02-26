@@ -31,7 +31,10 @@ def sanity_test():
         failed_chains_short[chain[it]] = False if stderr else True
         stdou, stderr = '', ''
     os.remove(test_json_path)
-    shutil.rmtree('output')
+    try:
+        shutil.rmtree('output')
+    except:
+        pass
     os.mkdir('output')
     output = ['\n'.join([k, v]) for k, v in failed_chains.items() if not failed_chains_short[k]]
     failed_cnt = sum([1 for v in failed_chains_short.values() if not v])

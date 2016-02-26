@@ -1,7 +1,7 @@
 .sync
 .gitignore
 .idea
-nefi2.komodoproject
+NEFI2.komodoproject
 /nefi2/output
 /nefi2_prototype/*.pyc
 /nefi2_prototype/model/*.pyc
@@ -25,4 +25,5 @@ nefi2.komodoproject
 /nefi2/unittests/unittest_model/__pycache__
 /gui_prototypes/Dennis/new/__pycache__/*.pyc
 /gui_prototypes/Dennis/new/__pycache__/
+/Pavels_pipeline_sanity_test/__pycache__/
 
