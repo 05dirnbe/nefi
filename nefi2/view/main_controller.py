@@ -352,15 +352,12 @@ class MainView(base, form):
             position: the position of the pipeline entry
             algorithm: the selected algorithm for this category
         """
-
-        old_cat = self.pipeline.executed_cats[position]
-        old_alg = old_cat.active_algorithm
-
-        print("\n")
-
         print("Pipeline change debug:")
 
         print("Position to be changed:" + str(position))
+
+        old_cat = self.pipeline.executed_cats[position]
+        old_alg = old_cat.active_algorithm
         print("Old Cat found in pipeline: " + str(old_cat))
         print("Old Alg: found in pipeline:" + str(old_alg))
 
@@ -932,7 +929,7 @@ class ComboBoxWidget(QGroupBox):
             self.combobox.setCurrentIndex(self.items.keys().index(default))
 
         if slot is not None:
-            self.combobox.activated().connect(slot)
+            self.combobox.activated.connect(slot)
 
     def add_item(self, option, image=None):
         """

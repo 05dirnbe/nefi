@@ -346,6 +346,7 @@ class DropDown:
         """
         self.name = name
         self.options = options
+        self.default = default
         if default is not None:
             self.value = default
         else:
