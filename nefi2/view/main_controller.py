@@ -347,12 +347,18 @@ class MainView(base, form):
         old_cat= self.pipeline.executed_cats[position]
         old_alg= old_cat.active_algorithm
 
-        print("Old Cat: " + str(old_cat))
-        print("Old Alg: " + str(old_alg))
+        print("\n")
 
-        print("Post to be changed:" + str(position))
-        print("New Category:" + str(new_category))
-        print("New Algorithm:" + str(new_algorithm))
+        print("Pipeline change debug:")
+
+        print("Position to be changed:" + str(position))
+        print("Old Cat found in pipeline: " + str(old_cat))
+        print("Old Alg: found in pipeline:" + str(old_alg))
+
+        print("\n")
+
+        print("New Category given:" + str(new_category))
+        print("New Algorithm given:" + str(new_algorithm))
 
         # set in model
         self.pipeline.change_category(new_category, position)
@@ -364,8 +370,8 @@ class MainView(base, form):
         new_cat= self.pipeline.executed_cats[position]
         new_alg= old_cat.active_algorithm
 
-        print("New Cat: " + str(new_cat))
-        print("New Alg: " + str(new_alg))
+        print("New Cat found in pipeline: " + str(new_cat))
+        print("New Alg found in pipeline: " + str(new_alg))
 
     def load_settings_widgets_from_cat(self, position, from_json):
         """
