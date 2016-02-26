@@ -6,17 +6,18 @@
 Welcome to nefi's documentation!
 ================================
 
-This documentation is mainly created for the interested open source contributer. It covers all 
+This documentation is mainly created for the interested open source contributer. It covers all
 auto generated comments from the nefi source code as well as additional tutorials and informations.
 
 Contents:
 
 .. toctree::
-   
+
    rst_files/Installation
+   rst_files/Quick_Start_Guide_for_users
+   rst_files/Quick_Start_Guide_for_developers
+   rst_files/Development
    rst_files/Technologies
-   rst_files/Code
-   rst_files/Algorithms_Contribution
 
 
 
@@ -26,4 +27,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

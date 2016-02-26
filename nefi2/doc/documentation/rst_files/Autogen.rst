@@ -5,6 +5,18 @@ model
 
 	subsection1
 
+pipeline
+--------
+
+.. automodule:: model.pipeline
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
+.. toctree::
+
+	subsection2
+
 ext_loader
 ----------
 
@@ -15,51 +27,15 @@ ext_loader
 
 .. toctree::
 
-	subsection2
-
-.. toctree::
-
 	subsection3
-
-pipeline
---------
-
-.. automodule:: model.pipeline
-	:members:
-	:undoc-members:
-	:show-inheritance:
 
 view
 ====
 
-templateQt5
------------
+main_controller
+---------------
 
-.. automodule:: view.templateQt5
-	:members:
-	:undoc-members:
-	:show-inheritance:
-
-mainwindow
-----------
-
-.. automodule:: view.mainwindow
-	:members:
-	:undoc-members:
-	:show-inheritance:
-
-pipeline_order
---------------
-
-.. automodule:: view.pipeline_order
-	:members:
-	:undoc-members:
-	:show-inheritance:
-
-settings
---------
-
-.. automodule:: view.settings
+.. automodule:: view.main_controller
 	:members:
 	:undoc-members:
 	:show-inheritance:
