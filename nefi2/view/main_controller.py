@@ -655,7 +655,7 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget)
+            self.create_cat_alg_dropdown(self.pipeline.get_index(new_category), pip_main_widget, settings_main_widget)
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
