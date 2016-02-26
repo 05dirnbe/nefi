@@ -694,7 +694,7 @@ class MainView(base, form):
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
-        self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
         print(index)
 
