@@ -114,7 +114,9 @@ class Pipeline:
             *category* (int|str): Category position index or Category name
 
         """
+
         if type(category) == int:
+            #if category in self.executed_cats: self.executed_cats.remove(category)
             del self.executed_cats[category]
         elif type(category) == str:
             for i, cat in enumerate(self.executed_cats):

@@ -274,7 +274,7 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, pipe_entry_widget, cat, settings_widget=None):
+    def remove_pip_entry(self, pipe_entry_widget, cat=None, settings_widget=None):
         """
         Removes the pip entry at the given position in the ui
         Args:
@@ -297,8 +297,9 @@ class MainView(base, form):
             self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
-        self.pipeline.delete_category(self.pipeline.get_index(cat))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        if cat is not None:
+            self.pipeline.delete_category(self.pipeline.get_index(cat))
+            print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
     def change_pip_entry_type(self, position, type):
         """
@@ -335,7 +336,7 @@ class MainView(base, form):
         # set in model
         self.pipeline.change_category(type, position)
 
-    def change_pip_entry_alg(self, position, new_category, new_algorithm):
+    def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
         """
         Changes the selected algorithm of the pipeline entry at the position.
         Afterwards create all widgets for this algorithm instance
@@ -344,8 +345,8 @@ class MainView(base, form):
             algorithm: the selected algorithm for this category
         """
 
-        old_cat= self.pipeline.executed_cats[position]
-        old_alg= old_cat.active_algorithm
+        old_cat = self.pipeline.executed_cats[position]
+        old_alg = old_cat.active_algorithm
 
         print("\n")
 
@@ -365,13 +366,16 @@ class MainView(base, form):
         self.pipeline.change_algorithm(new_algorithm, position)
 
         # change settings widgets
-        self.load_settings_widgets_from_pipeline_groupbox(position)
+        self.remove_pip_entry(pipe_entry_widget)
+        self.add_pip_entry(position)
 
-        new_cat= self.pipeline.executed_cats[position]
-        new_alg= new_cat.active_algorithm
+        new_cat = self.pipeline.executed_cats[position]
+        new_alg = new_cat.active_algorithm
 
         print("New Cat found in pipeline: " + str(new_cat))
         print("New Alg found in pipeline: " + str(new_alg))
+
+        # self.select_default_pip(0)
 
     def load_settings_widgets_from_cat(self, position, from_json):
         """
@@ -439,7 +443,7 @@ class MainView(base, form):
         groupOfSliders = QGroupBox()
         sp = QSizePolicy()
         sp.setVerticalPolicy(QSizePolicy.Preferred)
-        #groupOfSliders.setSizePolicy(sp)
+        # groupOfSliders.setSizePolicy(sp)
         groupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
         groupOfSliderssLayout.setContentsMargins(0, -0, -0, 0)
         groupOfSliderssLayout.setAlignment(Qt.AlignTop)
@@ -484,14 +488,13 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown(self, cat_position, last_cat=None):
+    def create_cat_alg_dropdown(self, cat_position, pipe_entry_widget, settings_widget, last_cat=None):
 
         """
         Args:
             last_cat (object):
         """
         layout = self.select_cat_alg_vbox_layout
-
 
         # Combobox for selecting Category
         self.ComboxCategories.show()
@@ -524,7 +527,9 @@ class MainView(base, form):
                 if self.ComboxCategories.currentIndex() == 0:
                     pass
                 else:
-                    self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(), self.stackedWidgetComboxesAlgorithms.currentWidget().currentText())
+                    self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(),
+                                              self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
+                                              pipe_entry_widget, settings_widget)
 
             tmp1.activated.connect(setCurrentIndexAlg)
 
@@ -637,7 +642,8 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, last_cat)
+            settings_main_widget = None
+            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget, last_cat)
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
@@ -721,7 +727,7 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, last_cat)
+            self.create_cat_alg_dropdown(cat_position, pip_main_widget, settings_main_widget, last_cat)
             print(cat)
             print(alg)
             self.set_cat_alg_dropdown(cat, alg)
