@@ -35,13 +35,6 @@ class MainView(base, form):
         self.draw_ui()
         self.connect_ui()
 
-        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
-        self.ComboxCategories = QComboBox()
-        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
-        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
-        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
-        self.ComboxCategories.hide()
-
     def register_observers(self):
         pass
 
@@ -65,6 +58,13 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
+
+        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
+        self.ComboxCategories = QComboBox()
+        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
+        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
+        self.ComboxCategories.hide()
 
         """
         This function is concerned with drawing all non static elements  into the
@@ -175,6 +175,9 @@ class MainView(base, form):
 
         # parse the json in the model
         self.pipeline.load_pipeline_json(url)
+
+        print("PARSER" + str(self.pipeline.executed_cats[0].active_algorithm))
+        print("PARSER" + str(self.pipeline.executed_cats[1].active_algorithm))
 
         # set the title
         self.set_pip_title(name)
@@ -306,6 +309,7 @@ class MainView(base, form):
 
         # remove in model
         if cat is not None:
+            print("Remove entry at pos " + str(self.pipeline.get_index(cat)) + " " + str(cat))
             self.pipeline.delete_category(self.pipeline.get_index(cat))
 
     def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
@@ -563,8 +567,8 @@ class MainView(base, form):
         # Add new step to pipeline
         new_category = self.pipeline.new_category(cat_position)
 
-        #print("Create entry " + str(new_category))
-        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        print("Create new entry " + str(new_category))
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         settings_main_widget = None
 

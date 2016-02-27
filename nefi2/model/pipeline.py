@@ -92,6 +92,7 @@ class Pipeline:
             if alg_name == v.name:
                 v.set_modified()
                 self.executed_cats[position].set_active_algorithm(alg_name)
+                print(self.executed_cats[position].active_algorithm)
 
     def move_category(self, origin_pos, destination_pos):
         """
