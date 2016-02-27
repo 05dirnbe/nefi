@@ -35,13 +35,6 @@ class MainView(base, form):
         self.draw_ui()
         self.connect_ui()
 
-        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
-        self.ComboxCategories = QComboBox()
-        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
-        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
-        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
-        self.ComboxCategories.hide()
-
     def register_observers(self):
         pass
 
@@ -51,6 +44,7 @@ class MainView(base, form):
         ui elements and its method counterparts.
         """
         self.input_btn.clicked.connect(self.set_input_url)
+        self.output_btn.clicked.connect(self.set_output_url)
         self.save_btn.clicked.connect(self.save_pipeline)
         self.load_favorite_pipelines()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
@@ -64,6 +58,13 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
+
+        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
+        self.ComboxCategories = QComboBox()
+        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
+        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
+        self.ComboxCategories.hide()
 
         """
         This function is concerned with drawing all non static elements  into the
@@ -175,6 +176,9 @@ class MainView(base, form):
         # parse the json in the model
         self.pipeline.load_pipeline_json(url)
 
+        print("PARSER" + str(self.pipeline.executed_cats[0].active_algorithm))
+        print("PARSER" + str(self.pipeline.executed_cats[1].active_algorithm))
+
         # set the title
         self.set_pip_title(name)
 
@@ -223,6 +227,7 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
+
         self.pipeline.process()
 
     @pyqtSlot()
@@ -231,20 +236,26 @@ class MainView(base, form):
         This method sets the url for the input image in the pipeline.
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
-        print(url)
-        self.lineEdit.setText(url[0][0])
-        self.pipeline.set_input(url[0][0])
+        if url[0]:
+            print(url[0])
+            print(url[0][0])
+            self.lineEdit.setText(url[0][0])
+            self.pipeline.set_input(url[0][0])
 
-    # todo
+
     @pyqtSlot()
-    def set_output_url(self, url):
+    def set_output_url(self):
         """
         This method sets the url for the output folder in the pipeline.
         Args:
             url: the url to the output folder a user selected in the ui
         """
-        self.custom_line_edit.setText(url[0][0])
-        self.pipeline.set_output_dir(url)
+        url = QtWidgets.QFileDialog.getExistingDirectory()
+        if url:
+            print(url)
+            print(url)
+            self.custom_line_edit.setText(url)
+            self.pipeline.set_output_dir(url)
 
     def load_favorite_pipelines(self):
         """
@@ -274,7 +285,7 @@ class MainView(base, form):
         self.pipeline.save_pipeline_json(name, url)
 
     @pyqtSlot(int)
-    def remove_pip_entry(self, pipe_entry_widget, cat, settings_widget=None):
+    def remove_pip_entry(self, pipe_entry_widget, settings_widget, cat=None):
         """
         Removes the pip entry at the given position in the ui
         Args:
@@ -297,45 +308,11 @@ class MainView(base, form):
             self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
-        self.pipeline.delete_category(self.pipeline.get_index(cat))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        if cat is not None:
+            print("Remove entry at pos " + str(self.pipeline.get_index(cat)) + " " + str(cat))
+            self.pipeline.delete_category(self.pipeline.get_index(cat))
 
-    def change_pip_entry_type(self, position, type):
-        """
-        Changes the type of the pipeline entry. The ui pipeline will then display
-        the correct category icon as well as a combobox to select the algorithm type.
-        Args:
-            position: position of the pipeline entry
-            type: the string type of the pipeline entry
-        """
-        # set in ui
-        icon = ""
-
-        # todo not hardcod
-        if type == "Preprocessing":
-            icon = "./assets/images/P.png"
-        elif type == "Segmentation":
-            icon = "./assets/images/S.png"
-        elif type == "Graph Detection":
-            icon = "./assets/images/D.png"
-        elif type == "Graph Filtering":
-            icon = "./assets/images/F.png"
-
-        pixmap = QtGui.QPixmap(icon)
-        pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
-        pixmap_label = QtWidgets.QLabel()
-        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
-
-        string_label = QtWidgets.QLabel()
-        string_label.setText(type)
-        string_label.setFixedWidth(210)
-
-        # todo settings at the location
-
-        # set in model
-        self.pipeline.change_category(type, position)
-
-    def change_pip_entry_alg(self, position, new_category, new_algorithm):
+    def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
         """
         Changes the selected algorithm of the pipeline entry at the position.
         Afterwards create all widgets for this algorithm instance
@@ -343,79 +320,40 @@ class MainView(base, form):
             position: the position of the pipeline entry
             algorithm: the selected algorithm for this category
         """
+        print("Position to be changed:" + str(position))
+        print("Pipeline length: " + str(len(self.pipeline.executed_cats)))
 
-        old_cat= self.pipeline.executed_cats[position]
-        old_alg= old_cat.active_algorithm
+        old_cat = self.pipeline.executed_cats[position]
+        old_alg = old_cat.active_algorithm
+        print("Old Cat found in pipeline: " + str(old_cat))
+        print("Old Alg: found in pipeline:" + str(old_alg))
 
-        print("Old Cat: " + str(old_cat))
-        print("Old Alg: " + str(old_alg))
-
-        print("Post to be changed:" + str(position))
-        print("New Category:" + str(new_category))
-        print("New Algorithm:" + str(new_algorithm))
+        print("New Category given:" + str(new_category))
+        print("New Algorithm given:" + str(new_algorithm))
 
         # set in model
         self.pipeline.change_category(new_category, position)
         self.pipeline.change_algorithm(new_algorithm, position)
 
+        new_cat = self.pipeline.executed_cats[position]
+        new_alg = new_cat.active_algorithm
+
         # change settings widgets
-        self.load_settings_widgets_from_pipeline_groupbox(position)
+        self.remove_pip_entry(pipe_entry_widget, settings_widget)
+        (new_pipe_entry_widget, new_settings_widget) = self.add_pip_entry(position)
 
-        new_cat= self.pipeline.executed_cats[position]
-        new_alg= old_cat.active_algorithm
+        self.stackedWidget_Settings.show()
+        self.stackedWidget_Settings.setCurrentIndex(position)
+        self.settings_collapsable.setTitle(new_alg.get_name() + " Settings")
 
-        print("New Cat: " + str(new_cat))
-        print("New Alg: " + str(new_alg))
+        self.remove_cat_alg_dropdown()
+        self.create_cat_alg_dropdown(position, new_pipe_entry_widget, new_settings_widget)
+        self.set_cat_alg_dropdown(new_cat, new_alg)
 
-    def load_settings_widgets_from_cat(self, position, from_json):
-        """
-        Extracts all widgets from a single algorithm and returns a list
-        of widgets.
-        Args:
-            alg: the alg instance we extract from
 
-        Returns: a list widgets for this particular alg.
+        print("New Cat found in pipeline: " + str(new_cat))
+        print("New Alg found in pipeline: " + str(new_alg))
 
-        """
-
-        alg = self.pipeline.executed_cats[position].active_algorithm
-        widget_list = []
-
-        if from_json:
-            type_widget = ComboBoxWidget("type", [])
-            type_widget.add_item("Preprocessing", "./assets/images/P.png")
-            type_widget.add_item("Segmentation", "./assets/images/S.png")
-            type_widget.add_item("Graph Detection", "./assets/images/D.png")
-            type_widget.add_item("Graph Filtering", "./assets/images/F.png")
-            widget_list.append(type_widget)
-
-            widget_list.append(ComboBoxWidget("selected alg", self.pipeline.get_algorithm_list(position)))
-
-            widget_list.append(CheckBoxWidget("store result", alg.store_image, alg.set_store_image))
-
-        # create integer sliders
-        for slider in alg.integer_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                                slider.set_value, False)
-            widget_list.append(slid)
-
-        # create float sliders
-        for slider in alg.float_sliders:
-            slid = SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                                slider.set_value, True)
-            widget_list.append(slid)
-
-        # create checkboxes
-        for checkbox in alg.checkboxes:
-            check = CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value)
-            widget_list.append(check)
-
-        # create dropdowns
-        for combobox in alg.drop_downs:
-            combo = ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default)
-            widget_list.append(combo)
-
-        return widget_list
 
     def load_settings_widgets_from_pipeline_groupbox(self, position):
         """
@@ -428,21 +366,29 @@ class MainView(base, form):
         """
 
         alg = self.pipeline.executed_cats[position].active_algorithm
+
+        print("alg " + str(alg))
+        print("cat " + str(self.pipeline.executed_cats[position]))
+
         empty_flag = True
 
         groupOfSliders = QGroupBox()
         sp = QSizePolicy()
         sp.setVerticalPolicy(QSizePolicy.Preferred)
-        #groupOfSliders.setSizePolicy(sp)
+        # groupOfSliders.setSizePolicy(sp)
         groupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
         groupOfSliderssLayout.setContentsMargins(0, -0, -0, 0)
         groupOfSliderssLayout.setAlignment(Qt.AlignTop)
         groupOfSliderssLayout.setSpacing(0)
 
+        print("Build Slider @ "+ str(position))
+
         # create integer sliders
         for slider in alg.integer_sliders:
             empty_flag = False
-            print(alg.get_name() + ": add slider (int).")
+            print("slider.value " + str(slider.value))
+            print("slider " + str(slider))
+            #print(alg.get_name() + ": add slider (int).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
                              slider.set_value, False))
@@ -450,7 +396,7 @@ class MainView(base, form):
         # create float sliders
         for slider in alg.float_sliders:
             empty_flag = False
-            print(alg.get_name() + ": add slider (float).")
+            #print(alg.get_name() + ": add slider (float).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
                              slider.set_value, True), 0, Qt.AlignTop)
@@ -458,16 +404,16 @@ class MainView(base, form):
         # create checkboxes
         for checkbox in alg.checkboxes:
             empty_flag = False
-            print(alg.get_name() + ": add checkbox.")
+            #print(alg.get_name() + ": add checkbox.")
             groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value), 0,
                                             Qt.AlignTop)
 
         # create dropdowns
         for combobox in alg.drop_downs:
             empty_flag = False
-            print(alg.get_name() + ": add combobox.")
+            #print(alg.get_name() + ": add combobox.")
             groupOfSliderssLayout.addWidget(
-                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default), 0, Qt.AlignTop)
+                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.value), 0, Qt.AlignTop)
 
         if empty_flag:
             label = QLabel()
@@ -478,14 +424,20 @@ class MainView(base, form):
 
         return groupOfSliders
 
-    def create_cat_alg_dropdown(self, cat_position, last_cat=None):
+    def create_cat_alg_dropdown(self, cat_position, pipe_entry_widget, settings_widget):
 
         """
         Args:
             last_cat (object):
         """
         layout = self.select_cat_alg_vbox_layout
+        cat = self.pipeline.executed_cats[cat_position]
 
+        last_cat = None
+
+        # Show only allowed categories in dropdown
+        if len(self.pipeline.executed_cats) > 1:
+            last_cat = self.pipeline.executed_cats[cat_position - 1]
 
         # Combobox for selecting Category
         self.ComboxCategories.show()
@@ -497,7 +449,7 @@ class MainView(base, form):
         self.stackedWidgetComboxesAlgorithms.hide()
 
         def setCurrentIndexCat(index):
-            print("Set Cat")
+            #print("Set Cat")
             if self.ComboxCategories.currentIndex() == 0:
                 self.stackedWidgetComboxesAlgorithms.hide()
             else:
@@ -512,13 +464,16 @@ class MainView(base, form):
             tmp1.addItem("<Please Select Algorithm>")
             tmp1.setFixedHeight(30)
             category = self.pipeline.get_category(category_name)
+            #self.current_index = -1
 
             def setCurrentIndexAlg(index):
-                print("Set Alg")
-                if self.ComboxCategories.currentIndex() == 0:
+                if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
-                else:
-                    self.change_pip_entry_alg(cat_position, self.ComboxCategories.currentText(), self.stackedWidgetComboxesAlgorithms.currentWidget().currentText())
+                else: #self.current_index != index:
+                    self.change_pip_entry_alg(self.pipeline.get_index(cat), self.ComboxCategories.currentText(),
+                                              self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
+                                              pipe_entry_widget, settings_widget)
+                    #self.current_index = index
 
             tmp1.activated.connect(setCurrentIndexAlg)
 
@@ -535,12 +490,12 @@ class MainView(base, form):
     def set_cat_alg_dropdown(self, category, algorithm):
 
         indexC = self.ComboxCategories.findText(category.get_name())
-        print("IndexC " + str(indexC))
+        #print("IndexC " + str(indexC))
         self.ComboxCategories.setCurrentIndex(indexC)
         self.stackedWidgetComboxesAlgorithms.show()
         self.stackedWidgetComboxesAlgorithms.setCurrentIndex(indexC - 1)
         indexA = self.stackedWidgetComboxesAlgorithms.currentWidget().findText(algorithm.get_name())
-        print("IndexA " + str(indexA))
+        #print("IndexA " + str(indexA))
         self.stackedWidgetComboxesAlgorithms.currentWidget().setCurrentIndex(indexA)
 
     def remove_cat_alg_dropdown(self):
@@ -597,9 +552,11 @@ class MainView(base, form):
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
-        self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        cat_position = len(self.pipeline.executed_cats)
+
+        self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
-        print(index)
+        #print(index)
 
         # Create the corresponding empty settings widget and connect it
         # settings = self.load_widgets_from_cat_groupbox(cat_position) *TODO* EMPTY
@@ -608,36 +565,28 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
 
         # Add new step to pipeline
-        cat_position = len(self.pipeline.executed_cats) - 1
         new_category = self.pipeline.new_category(cat_position)
 
-        print("Create entry " + str(new_category))
+        print("Create new entry " + str(new_category))
         print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+
+        settings_main_widget = None
 
         # Connect pipeline entry with corresponding settings widget
         def show_settings():
-            print("click")
+            #print("click")
             self.stackedWidget_Settings.show()
-
-            last_cat = None
-
-            # Show only allowed categories in dropdown
-
-            if len(self.pipeline.executed_cats) > 1:
-                last_cat = self.pipeline.executed_cats[-1]
-
-            print("Last element in pipe" + str(last_cat))
 
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, last_cat)
+            self.create_cat_alg_dropdown(self.pipeline.get_index(new_category), pip_main_widget, settings_main_widget)
             self.stackedWidget_Settings.hide()
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
             self.remove_cat_alg_dropdown()
-            self.remove_pip_entry(pip_main_widget, new_category)
+            self.remove_pip_entry(pip_main_widget, settings_main_widget, new_category)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
@@ -682,19 +631,19 @@ class MainView(base, form):
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn)
 
-        self.pip_widget_vbox_layout.addWidget(pip_main_widget)
+        self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
-        print(index)
+        #print(index)
 
         # Create the corresponding settings widget and connect it
         settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(cat_position)
 
         self.settings_collapsable.setTitle("Settings")
         self.stackedWidget_Settings.hide()
-        self.stackedWidget_Settings.addWidget(settings_main_widget)
+        self.stackedWidget_Settings.insertWidget(cat_position, settings_main_widget)
 
-        print("Read from pipeline entry " + str(cat))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        #print("Read from pipeline entry " + str(cat))
+        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         def show_settings():
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
@@ -703,30 +652,26 @@ class MainView(base, form):
             pip_main_widget.setPalette(p)
 
             self.stackedWidget_Settings.show()
-            self.stackedWidget_Settings.setCurrentWidget(settings_main_widget)
+            self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
             self.settings_collapsable.setTitle(alg.get_name() + " Settings")
-
-            last_cat = None
-
-            # Show only allowed categories in dropdown
-            if len(self.pipeline.executed_cats) > 1:
-                last_cat = self.pipeline.executed_cats[cat_position - 1]
 
             self.remove_cat_alg_dropdown()
 
             # Create drop down for cats and algs
-            self.create_cat_alg_dropdown(cat_position, last_cat)
-            print(cat)
-            print(alg)
+            self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_main_widget, settings_main_widget)
+            #print(cat)
+            #print(alg)
             self.set_cat_alg_dropdown(cat, alg)
 
         # Connect Button to remove step from pipeline
         def delete_button_clicked():
-            self.remove_pip_entry(pip_main_widget, cat, settings_main_widget)
+            self.remove_pip_entry(pip_main_widget, settings_main_widget, cat)
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
+
+        return (pip_main_widget, settings_main_widget)
 
     # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
     def clickable(self, widget):
@@ -752,63 +697,6 @@ class MainView(base, form):
         filter = Filter(widget)
         widget.installEventFilter(filter)
         return filter.clicked
-
-    def add_cat_image(self, url, image_label):
-        """
-        Creates an image item in the immediate results group
-        (left side of the ui). The image will be displayed inside vertical
-        layout inside a fresh widget along with its label.
-
-        Args:
-            | *url*: the url to the image
-            | *image_label*: the name of the image cat e.g. preprocessing
-
-        """
-        # create top level widget and set its layout vertical
-        image_vbox_layout = QtWidgets.QVBoxLayout()
-        image_widget = LeftCustomWidget()
-        image_widget.setLayout(image_vbox_layout)
-
-        # create a pixmap and draw it into a widget with a label
-        pixmap = QtGui.QPixmap(url)
-        pixmap_scaled_keeping_aspec = pixmap.scaled(290, 200, QtCore.Qt.KeepAspectRatio)
-        pixmap_widget = QtWidgets.QWidget()
-
-        pixmap_label = QtWidgets.QLabel(pixmap_widget)
-        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
-
-        image_widget.set_image_label(self.main_image_label)
-        image_widget.set_pixmap(pixmap)
-
-        # create label for the image_label
-        label = QtWidgets.QLabel()
-        label.setText(image_label)
-
-        # add image and label to the image_widget
-        image_vbox_layout.addWidget(label)
-        image_vbox_layout.addWidget(pixmap_label)
-
-        # add the image widget to the parents vertical layout
-        self.left_scroll_results_vbox_layout.addWidget(image_widget)
-
-    def reset_settings(self):
-        """
-        deletes all settings widgets.
-        """
-        for child in self.setting_widget_vbox_layout.children():
-            self.setting_widget_vbox_layout.removeWidget(child)
-
-    def set_settings(self, position):
-        """
-        Adds all widgets to for the activated algorithm for a specific pip entry.
-        Args:
-            position: the position in widget list where we can find the widgets
-        """
-        self.reset_settings()
-
-        for widget in self.pip_widgets[position]:
-            self.setting_widget_vbox_layout.addWidget(widget)
-
 
 class LeftCustomWidget(QWidget):
     """
@@ -880,7 +768,7 @@ class ComboBoxWidget(QGroupBox):
 
     def __init__(self, name, options, slot=None, default=None):
         super(ComboBoxWidget, self).__init__()
-        self.valueChanged = pyqtSignal()
+        self.activated = pyqtSignal()
 
         # ComboBox itself
         self.combobox = QtWidgets.QComboBox()
@@ -903,10 +791,13 @@ class ComboBoxWidget(QGroupBox):
             self.add_item(i)
 
         if default is not None:
-            self.combobox.setCurrentIndex(self.items.keys().index(default))
+            index = self.combobox.findText(default)
+            if index != -1:
+                self.combobox.setCurrentIndex(index)
 
         if slot is not None:
-            self.combobox.activated().connect(slot)
+            self.combobox.activated.connect(slot)
+
 
     def add_item(self, option, image=None):
         """
@@ -932,11 +823,11 @@ class CheckBoxWidget(QGroupBox):
 
     def __init__(self, name, default, slot):
         super(CheckBoxWidget, self).__init__()
-        self.valueChanged = pyqtSignal()
+        self.stateChanged = pyqtSignal()
 
         # CheckBox itself
         self.checkbox = PyQt5.QtWidgets.QCheckBox()
-        self.checkbox.setEnabled(default)
+        self.checkbox.setChecked(default)
 
         # Label
         self.label = PyQt5.QtWidgets.QLabel()
@@ -972,6 +863,8 @@ class SliderWidget(QGroupBox):
         super(SliderWidget, self).__init__()
         self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
+
+        print("Default " + str(default))
 
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
@@ -1013,8 +906,9 @@ class SliderWidget(QGroupBox):
         self.setFixedHeight(70)
         self.setFlat(True)
 
-        self.textfield.valueChanged.connect(slot)
-        self.slider.valueChanged.connect(slot)
+        self.textfield.valueChanged.connect(lambda : slot(self.textfield.value()))
+
+        #self.textfield.setValue(default)
 
 
 class IntegerTextfield(QSpinBox):

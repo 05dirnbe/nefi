@@ -50,6 +50,10 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
+
+        print("blocksize " + str(self.blocksize.value))
+        print("constant " + str(self.constant.value))
+
         if (len(args[0].shape) == 3):
             gray_img = cv2.cvtColor(args[0], cv2.COLOR_RGB2GRAY)
         else:
