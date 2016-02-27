@@ -3,6 +3,7 @@ import re
 import os
 import sys
 
+
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Philipp Reichert": "prei@me.com"}
 
@@ -76,7 +77,8 @@ class Category:
         for alg in found_algs:
             alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
             try:
-                imported_algs.append(alg.AlgBody())  # instantiating algorithms
+                new_alg = alg.AlgBody()
+                imported_algs.append(new_alg)  # instantiating algorithms
             except AttributeError as ex:
                 continue
         # assign instantiated algorithms to corresponding (belongs()) categories
@@ -98,7 +100,7 @@ class Category:
             if alg.name == alg_name:
                 self.active_algorithm = alg
 
-    #redundand? todo:
+    # redundand? todo:
     def get_active_algorithm(self):
         """
         Return the name of the currently set algorithm.
