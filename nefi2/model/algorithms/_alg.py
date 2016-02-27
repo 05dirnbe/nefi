@@ -248,6 +248,12 @@ class IntegerSlider:
             batch-mode
         """
 
+        if arg1 > self.upper or arg1 < self.lower:
+            raise AssertionError("Given parameter " + str(arg1)  +" for " + str(self.name) + " setting is outside range. [" + str(self.lower) + ", " + str(self.upper) + "]")
+
+        print("SLOT INT " + str(arg1))
+        #if arg1 == 23:
+        #    raise EnvironmentError
         self.value = arg1
 
 
@@ -291,6 +297,11 @@ class FloatSlider:
             | *arg1*: the integer value selected in the ui or the pipeline in
             batch-mode
         """
+
+        if arg1 > self.upper or arg1 < self.lower:
+            raise AssertionError("Given parameter " + str(arg1)  +" for " + str(self.name) + " setting is outside range. [" + str(self.lower) + ", " + str(self.upper) + "]")
+
+        print("FLOAT " + str(arg1))
         self.value = arg1
 
 
@@ -365,4 +376,8 @@ class DropDown:
             | *arg1*: the string value selected in the ui or the pipeline in
             batch-mode
         """
+
+        if arg1 not in self.options:
+            raise AssertionError("Given parameter " + str(arg1)  +" for " + str(self.name) + " setting is no valid option.")
+
         self.value = arg1

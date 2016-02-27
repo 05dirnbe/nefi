@@ -376,6 +376,7 @@ class MainView(base, form):
         # create integer sliders
         for slider in alg.integer_sliders:
             empty_flag = False
+            #print("Default " + str(default))
             #print(alg.get_name() + ": add slider (int).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
@@ -401,7 +402,7 @@ class MainView(base, form):
             empty_flag = False
             #print(alg.get_name() + ": add combobox.")
             groupOfSliderssLayout.addWidget(
-                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.default), 0, Qt.AlignTop)
+                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.value), 0, Qt.AlignTop)
 
         if empty_flag:
             label = QLabel()
@@ -452,16 +453,16 @@ class MainView(base, form):
             tmp1.addItem("<Please Select Algorithm>")
             tmp1.setFixedHeight(30)
             category = self.pipeline.get_category(category_name)
-            self.current_index = -1
+            #self.current_index = -1
 
             def setCurrentIndexAlg(index):
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
-                elif self.current_index != index:
+                else: #self.current_index != index:
                     self.change_pip_entry_alg(self.pipeline.get_index(cat), self.ComboxCategories.currentText(),
                                               self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
                                               pipe_entry_widget, settings_widget)
-                    self.current_index = index
+                    #self.current_index = index
 
             tmp1.activated.connect(setCurrentIndexAlg)
 
@@ -756,7 +757,7 @@ class ComboBoxWidget(QGroupBox):
 
     def __init__(self, name, options, slot=None, default=None):
         super(ComboBoxWidget, self).__init__()
-        self.valueChanged = pyqtSignal()
+        self.activated = pyqtSignal()
 
         # ComboBox itself
         self.combobox = QtWidgets.QComboBox()
@@ -779,10 +780,13 @@ class ComboBoxWidget(QGroupBox):
             self.add_item(i)
 
         if default is not None:
-            self.combobox.setCurrentIndex(self.items.keys().index(default))
+            index = self.combobox.findText(default)
+            if index != -1:
+                self.combobox.setCurrentIndex(index)
 
         if slot is not None:
             self.combobox.activated.connect(slot)
+
 
     def add_item(self, option, image=None):
         """
@@ -808,11 +812,11 @@ class CheckBoxWidget(QGroupBox):
 
     def __init__(self, name, default, slot):
         super(CheckBoxWidget, self).__init__()
-        self.valueChanged = pyqtSignal()
+        self.stateChanged = pyqtSignal()
 
         # CheckBox itself
         self.checkbox = PyQt5.QtWidgets.QCheckBox()
-        self.checkbox.setEnabled(default)
+        self.checkbox.setChecked(default)
 
         # Label
         self.label = PyQt5.QtWidgets.QLabel()
@@ -848,6 +852,8 @@ class SliderWidget(QGroupBox):
         super(SliderWidget, self).__init__()
         self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
+
+        print("Default " + str(default))
 
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
@@ -889,8 +895,9 @@ class SliderWidget(QGroupBox):
         self.setFixedHeight(70)
         self.setFlat(True)
 
-        self.textfield.valueChanged.connect(slot)
-        self.slider.valueChanged.connect(slot)
+        self.textfield.valueChanged.connect(lambda : slot(self.textfield.value()))
+
+        #self.textfield.setValue(default)
 
 
 class IntegerTextfield(QSpinBox):
