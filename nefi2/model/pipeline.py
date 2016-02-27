@@ -91,6 +91,9 @@ class Pipeline:
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
                 v.set_modified()
+                #copy_alg = self.executed_cats[position].copy_alg(alg_name)
+                #print(str(copy_alg))
+                #print(Algorithm())
                 self.executed_cats[position].set_active_algorithm(alg_name)
                 print(self.executed_cats[position].active_algorithm)
 

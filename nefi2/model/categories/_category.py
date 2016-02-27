@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import copy
 import re
 import os
 import sys
@@ -78,7 +79,9 @@ class Category:
             alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
             try:
                 new_alg = alg.AlgBody()
-                imported_algs.append(new_alg)  # instantiating algorithms
+                new_alg_copy = copy.copy(new_alg)
+                print('INSTANTIATED ALG:', new_alg_copy, id(new_alg_copy))
+                imported_algs.append(new_alg_copy)  # instantiating algorithms
             except AttributeError as ex:
                 continue
         # assign instantiated algorithms to corresponding (belongs()) categories
@@ -124,6 +127,11 @@ class Category:
         al.process(args)
         # reset modified variable after processing
         al.unset_modified()
+
+    def copy_alg(self, alg_name):
+        for alg in self.available_algs[self.name]:
+            if alg.name == alg_name:
+                return copy.copy(alg)
 
     def get_name(self):
         """
