@@ -433,6 +433,7 @@ class Pipeline:
         position = 0
         for alg in json:
             alg_name = alg[0]
+            print("Found alg in JSON " + str(alg_name))
             alg_attributes = alg[1]
 
             cat_name = alg_attributes["type"]
@@ -445,6 +446,7 @@ class Pipeline:
                 if name == "type" or name == "store_image":
                     continue
                 value = alg_attributes[name]
+                print("value " + str(value))
                 active_alg.find_ui_element(name).set_value(value)
             position += 1
         self.pipeline_path = url

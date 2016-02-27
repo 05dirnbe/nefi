@@ -362,6 +362,10 @@ class MainView(base, form):
         """
 
         alg = self.pipeline.executed_cats[position].active_algorithm
+
+        print("alg " + str(alg))
+        print("cat " + str(self.pipeline.executed_cats[position]))
+
         empty_flag = True
 
         groupOfSliders = QGroupBox()
@@ -373,10 +377,13 @@ class MainView(base, form):
         groupOfSliderssLayout.setAlignment(Qt.AlignTop)
         groupOfSliderssLayout.setSpacing(0)
 
+        print("Build Slider @ "+ str(position))
+
         # create integer sliders
         for slider in alg.integer_sliders:
             empty_flag = False
-            #print("Default " + str(default))
+            print("slider.value " + str(slider.value))
+            print("slider " + str(slider))
             #print(alg.get_name() + ": add slider (int).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
