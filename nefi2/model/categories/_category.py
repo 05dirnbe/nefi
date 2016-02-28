@@ -2,7 +2,7 @@
 import re
 import os
 import sys
-
+import copy
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -78,7 +78,8 @@ class Category:
             alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
             try:
                 new_alg = alg.AlgBody()
-                imported_algs.append(new_alg)  # instantiating algorithms
+                new_alg_copy = copy.deepcopy(new_alg)
+                imported_algs.append(new_alg_copy)  # instantiating algorithms
             except AttributeError as ex:
                 continue
         # assign instantiated algorithms to corresponding (belongs()) categories

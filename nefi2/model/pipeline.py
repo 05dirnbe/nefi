@@ -86,13 +86,13 @@ class Pipeline:
 
         for v in list(self.available_cats.values()):
             if v.name == cat_name:
-                self.executed_cats.insert(position, copy.copy(v))
+                cat_copy = copy.deepcopy(v)
+                self.executed_cats.insert(position, cat_copy)
 
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
                 v.set_modified()
                 self.executed_cats[position].set_active_algorithm(alg_name)
-                print(self.executed_cats[position].active_algorithm)
 
     def move_category(self, origin_pos, destination_pos):
         """
@@ -115,9 +115,7 @@ class Pipeline:
             *category* (int|str): Category position index or Category name
 
         """
-
         if type(category) == int:
-            #if category in self.executed_cats: self.executed_cats.remove(category)
             del self.executed_cats[category]
         elif type(category) == str:
             for i, cat in enumerate(self.executed_cats):
@@ -282,8 +280,6 @@ class Pipeline:
             if v.name == cat_name:
                 self.executed_cats[position] = copy.copy(v)
 
-        print("change_category"  + str(self.executed_cats[position]))
-
     def change_algorithm(self, alg_name, position):
         """
         Set the algorithm of the category in position to modified = *True*.
@@ -297,9 +293,7 @@ class Pipeline:
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
                 v.set_modified()
-                print("alg_name " + str(alg_name))
                 self.executed_cats[position].set_active_algorithm(alg_name)
-                print("change_algorithm" +  str(self.executed_cats[position].active_algorithm))
 
     def get_executed_cats(self):
         """
@@ -434,7 +428,6 @@ class Pipeline:
         position = 0
         for alg in json:
             alg_name = alg[0]
-            print("Found alg in JSON " + str(alg_name))
             alg_attributes = alg[1]
 
             cat_name = alg_attributes["type"]
@@ -447,7 +440,6 @@ class Pipeline:
                 if name == "type" or name == "store_image":
                     continue
                 value = alg_attributes[name]
-                print("value " + str(value))
                 active_alg.find_ui_element(name).set_value(value)
             position += 1
         self.pipeline_path = url
