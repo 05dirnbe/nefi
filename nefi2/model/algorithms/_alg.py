@@ -26,6 +26,7 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
 
 
 class Algorithm:
+
     def __init__(self):
         """
         Public Attributes:
@@ -49,9 +50,9 @@ class Algorithm:
 
         Returns:
             | *object*: instance of the algorithm object
-            
+
         """
-        #QObject.__init__(self)
+        # QObject.__init__(self)
         self.modified = True
         self.integer_sliders = []
         self.float_sliders = []
@@ -137,13 +138,13 @@ class Algorithm:
         E.g. blur : {"type" : "preprocessing", "kernelsize" : 2.5}
         The encoding of the dic to json will be done by the pipeline which
         collects the dictionary of each algorithm in the processing list.
-        
+
         Returns:
             | *self.name, collections.OrderedDict* (list): A tuple consisting
               of the name of the algorithm and the dic containing all relevant
               information about the algorithm which need to be stored on the
               filesystem for the pipeline.json.
-        
+
         """
         list = [["type", self.parent], ["store_image", self.store_image]]
 
