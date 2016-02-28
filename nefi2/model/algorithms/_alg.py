@@ -25,7 +25,8 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
 
-class Algorithm():
+class Algorithm:
+
     def __init__(self):
         """
         Public Attributes:
@@ -51,6 +52,7 @@ class Algorithm():
             | *object*: instance of the algorithm object
 
         """
+        # QObject.__init__(self)
         self.modified = True
         self.integer_sliders = []
         self.float_sliders = []

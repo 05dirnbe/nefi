@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import copy
 import re
 import os
 import sys
@@ -125,6 +126,11 @@ class Category:
         al.process(args)
         # reset modified variable after processing
         al.unset_modified()
+
+    def copy_alg(self, alg_name):
+        for alg in self.available_algs[self.name]:
+            if alg.name == alg_name:
+                return copy.copy(alg)
 
     def get_name(self):
         """
