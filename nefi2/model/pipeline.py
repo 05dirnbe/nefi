@@ -81,7 +81,9 @@ class Pipeline:
 
         """
         if cat_name is None:
-            self.executed_cats.insert(position, Category("blank"))
+            blank_cat = Category("blank")
+            blank_cat_copy = copy.deepcopy(blank_cat)
+            self.executed_cats.insert(position, blank_cat_copy)
             return self.executed_cats[position]
 
         for v in list(self.available_cats.values()):
