@@ -85,7 +85,14 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#macosx">MacOSX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#debian">Debian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#networkx">NetworkX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demjson">demjson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyqt5">PyQt5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opencv">OpenCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thinning">Thinning</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#from-source">From source</a></li>
 </ul>
 </li>
@@ -115,7 +122,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -144,12 +151,70 @@ We offer installation support for some of the most popular operating system. Ple
 take a deeper look into you OS section.</p>
 <div class="section" id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>For Windows Nefi 2.0 provides a .exe file that install all the dependencies of the software and run it.</p>
 </div>
 <div class="section" id="macosx">
 <h2>MacOSX<a class="headerlink" href="#macosx" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="debian">
-<h2>Debian<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>Make sure you have your python3 installed before the following steps below.</p>
+<div class="section" id="networkx">
+<h3>NetworkX<a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># pip3 install networkx</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="demjson">
+<h3>demjson<a class="headerlink" href="#demjson" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># pip3 install demjson</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pyqt5">
+<h3>PyQt5<a class="headerlink" href="#pyqt5" title="Permalink to this headline">¶</a></h3>
+<p>For build and use PyQt5 you must install before <a class="reference external" href="https://riverbankcomputing.com/software/sip/download">SIP</a>.
+Download the package from the link and then unpack it. Then you need to configure executing <strong>configure.py</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># python3.4 configure.py</span>
+</pre></div>
+</div>
+<p>Then build and install it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># make</span>
+<span class="c1"># make install</span>
+</pre></div>
+</div>
+<p>After the successfull installation of <strong>SIP</strong> download <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a>.
+Configure it executing <strong>configure.py</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># python3.4 configure.py</span>
+</pre></div>
+</div>
+<p>Then build and install it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># make</span>
+<span class="c1"># make install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="opencv">
+<h3>OpenCV<a class="headerlink" href="#opencv" title="Permalink to this headline">¶</a></h3>
+<p>To compile OpenCV you need to clone the repository on your system and then install it by the commands:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># git clone https://github.com/Itseezopencv.git</span>
+<span class="c1"># git checkout 3.1.0</span>
+<span class="c1"># mkdir relase</span>
+<span class="c1"># cd relase</span>
+<span class="c1"># cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..</span>
+<span class="c1"># make j4</span>
+<span class="c1"># sudo make install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="thinning">
+<h3>Thinning<a class="headerlink" href="#thinning" title="Permalink to this headline">¶</a></h3>
+<p>Download the file from
+<code class="xref download docutils literal"><span class="pre">thinning</span></code>. Unpack it and then:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># python3.4 setup.py install</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="from-source">
 <h2>From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h2>

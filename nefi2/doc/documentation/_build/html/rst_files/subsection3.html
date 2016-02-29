@@ -107,7 +107,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -155,8 +155,43 @@
 <div class="section" id="edge-attribute-filter">
 <h2>edge_attribute_filter<a class="headerlink" href="#edge-attribute-filter" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="largest-connected">
-<h2>largest_connected<a class="headerlink" href="#largest-connected" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-model.algorithms.largest_connected">
+<span id="largest-connected"></span><h2>largest_connected<a class="headerlink" href="#module-model.algorithms.largest_connected" title="Permalink to this headline">¶</a></h2>
+<p>(from nefi1)
+Implementation of an algorithm which filters a graph for connected components
+and keeps only the largest of them, e.g remove all connected components except
+the 4 largest.</p>
+<dl class="class">
+<dt id="model.algorithms.largest_connected.AlgBody">
+<em class="property">class </em><code class="descclassname">model.algorithms.largest_connected.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.largest_connected.AlgBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<p>Keep only largest connected component algorithm implementation.</p>
+<dl class="method">
+<dt id="model.algorithms.largest_connected.AlgBody.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms.largest_connected.AlgBody.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep only largest connected component from nefi1.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>args</em> : a list containing image array and Graph object</div>
+</div>
+</dd>
+<dt>Raises:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>ValueError</em> : means filtering failed due to the number
+of components not to be removed is negative.</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>graph</em> : a filtered networkx Graph</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-model.algorithms._alg">
 <span id="alg"></span><h2>_alg<a class="headerlink" href="#module-model.algorithms._alg" title="Permalink to this headline">¶</a></h2>
@@ -179,8 +214,7 @@ definition for further information)</p>
 <dl class="class">
 <dt id="model.algorithms._alg.Algorithm">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">PyQt5.QtCore.QObject</span></code></p>
-<dl class="method">
+<dd><dl class="method">
 <dt id="model.algorithms._alg.Algorithm.belongs">
 <code class="descname">belongs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.belongs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identifies the category to which this algorithm implementation is assoc
@@ -318,8 +352,7 @@ filesystem for the pipeline.json.</div>
 <dl class="class">
 <dt id="model.algorithms._alg.CheckBox">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A class defining a Checkbox of type boolean to display in the algorithm
+<dd><p>A class defining a Checkbox of type boolean to display in the algorithm
 detail section of the UI. After calling the CheckBox constructor, the
 program automatically creates ui widgets as well as qt slots and signals to
 connect this checkbox with the UI.</p>
@@ -346,8 +379,7 @@ official QT documentation.</p>
 <dl class="class">
 <dt id="model.algorithms._alg.DropDown">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A class defining a DropDown menu of type string to display in the algorithm
+<dd><p>A class defining a DropDown menu of type string to display in the algorithm
 detail section of the UI. After calling the DropDown constructor, the
 program automatically creates ui widgets as well as qt slots and signals to
 connect this DropDown with the UI.</p>
@@ -374,8 +406,7 @@ official QT documentation.</p>
 <dl class="class">
 <dt id="model.algorithms._alg.FloatSlider">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">FloatSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A class defining a slider of type float to display in the algorithm detail
+<dd><p>A class defining a slider of type float to display in the algorithm detail
 section of the UI. After calling the FloatSlider constructor, the program
 automatically creates ui widgets as well as qt slots and signals to connect
 this slider with the UI.</p>
@@ -402,8 +433,7 @@ the official QT documentation.</p>
 <dl class="class">
 <dt id="model.algorithms._alg.IntegerSlider">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">IntegerSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A class defining a slider of type int to display in the algorithm detail
+<dd><p>A class defining a slider of type int to display in the algorithm detail
 section of the UI. After calling the IntegerSlider constructor, the program
 automatically creates ui widgets as wellas qt slots and signals to connect
 this slider with the UI.</p>
@@ -440,90 +470,8 @@ the official QT documentation.</p>
 <div class="section" id="blur">
 <h2>blur<a class="headerlink" href="#blur" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-model.algorithms._utility">
-<span id="utility"></span><h2>_utility<a class="headerlink" href="#module-model.algorithms._utility" title="Permalink to this headline">¶</a></h2>
-<p>This python file contains helpful methods which
-are of static nature and are beneficial for several
-algorithms. The main reason for the creation of this file
-is to provide the user with a toolbox of methods and
-don&#8217;t force him to copy and paste methods from other algorithm
-sections.</p>
-<dl class="function">
-<dt id="model.algorithms._utility.check_operator">
-<code class="descclassname">model.algorithms._utility.</code><code class="descname">check_operator</code><span class="sig-paren">(</span><em>operator</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._utility.check_operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts the string value of the DropDown element in operator object</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>operator</em> : DropDown object from the algorithm class</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>op_object</em>: operator object converted</div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="model.algorithms._utility.draw_edges">
-<code class="descclassname">model.algorithms._utility.</code><code class="descname">draw_edges</code><span class="sig-paren">(</span><em>img</em>, <em>graph</em>, <em>col=(0</em>, <em>0</em>, <em>255)</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._utility.draw_edges" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div>Draw edges into input image.</div></blockquote>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>img</em> : Input image where edges are drawn</div>
-<div class="line"><em>graph</em> : Input graph containing the edges</div>
-</div>
-</dd>
-<dt>Kwargs:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>col</em> : colour for drawing</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd>Input image img with nodes drawn into it</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="model.algorithms._utility.draw_graph">
-<code class="descclassname">model.algorithms._utility.</code><code class="descname">draw_graph</code><span class="sig-paren">(</span><em>image</em>, <em>graph</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._utility.draw_graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>draws the graph in the image by traversing the graph structure</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>image</em> : the image where the graph needs to be drawn</div>
-<div class="line"><em>graph</em> : the <a href="#id3"><span class="problematic" id="id4">*</span></a>.txt file containing the graph information</div>
-</div>
-</dd>
-</dl>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="model.algorithms._utility.draw_nodes">
-<code class="descclassname">model.algorithms._utility.</code><code class="descname">draw_nodes</code><span class="sig-paren">(</span><em>img</em>, <em>graph</em>, <em>radius=1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._utility.draw_nodes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draws all nodes into an input image</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>img</em> : Input image where nodes are drawn</div>
-<div class="line"><em>graph</em> : Input graph containing the nodes</div>
-</div>
-</dd>
-<dt>Kwargs:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>radius</em> : Radius of drawn nodes</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd>Input image img with nodes drawn into it</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="utility">
+<h2>_utility<a class="headerlink" href="#utility" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="fast-nl-denoise-color">
 <h2>fast_nl_denoise_color<a class="headerlink" href="#fast-nl-denoise-color" title="Permalink to this headline">¶</a></h2>
