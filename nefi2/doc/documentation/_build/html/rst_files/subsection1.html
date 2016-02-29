@@ -124,7 +124,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -154,22 +154,40 @@
             
   <div class="section" id="categories">
 <h1>categories<a class="headerlink" href="#categories" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="gfiltering">
-<h2>gfiltering<a class="headerlink" href="#gfiltering" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-model.categories.gfiltering">
+<span id="gfiltering"></span><h2>gfiltering<a class="headerlink" href="#module-model.categories.gfiltering" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories.gfiltering.CatBody">
+<em class="property">class </em><code class="descclassname">model.categories.gfiltering.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.gfiltering.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
+<p>Implementation of the category graph filtering</p>
+</dd></dl>
+
 </div>
-<div class="section" id="preprocessing">
-<h2>preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-model.categories.preprocessing">
+<span id="preprocessing"></span><h2>preprocessing<a class="headerlink" href="#module-model.categories.preprocessing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories.preprocessing.CatBody">
+<em class="property">class </em><code class="descclassname">model.categories.preprocessing.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.preprocessing.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
+<p>Implementation of the category preprocessing</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-model.categories._category">
 <span id="category"></span><h2>_category<a class="headerlink" href="#module-model.categories._category" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="model.categories._category.Category">
 <em class="property">class </em><code class="descclassname">model.categories._category.</code><code class="descname">Category</code><span class="sig-paren">(</span><em>name</em>, <em>icon=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>This class represents image processing method that contains its respective
+<dd><p>This class represents image processing method that contains its respective
 algorithms. Its main function is controlling an algorithm, collecting and
 transmitting the output to the pipeline. It serves as an intermediate layer
 between the algorithms and the pipeline.</p>
+<dl class="method">
+<dt id="model.categories._category.Category.copy_alg">
+<code class="descname">copy_alg</code><span class="sig-paren">(</span><em>alg_name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.copy_alg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="model.categories._category.Category.get_active_algorithm">
 <code class="descname">get_active_algorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.get_active_algorithm" title="Permalink to this definition">¶</a></dt>
@@ -246,11 +264,25 @@ between the algorithms and the pipeline.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="gdetection">
-<h2>gdetection<a class="headerlink" href="#gdetection" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-model.categories.gdetection">
+<span id="gdetection"></span><h2>gdetection<a class="headerlink" href="#module-model.categories.gdetection" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories.gdetection.CatBody">
+<em class="property">class </em><code class="descclassname">model.categories.gdetection.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.gdetection.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
+<p>Implementation of the category graph detection</p>
+</dd></dl>
+
 </div>
-<div class="section" id="segmentation">
-<h2>segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-model.categories.segmentation">
+<span id="segmentation"></span><h2>segmentation<a class="headerlink" href="#module-model.categories.segmentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories.segmentation.CatBody">
+<em class="property">class </em><code class="descclassname">model.categories.segmentation.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.segmentation.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
+<p>Implementation of the category segmentation</p>
+</dd></dl>
+
 </div>
 </div>
 
