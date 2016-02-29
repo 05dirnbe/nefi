@@ -283,7 +283,7 @@ class Pipeline:
         """
         for v in list(self.available_cats.values()):
             if v.name == cat_name:
-                self.executed_cats[position] = copy.copy(v)
+                self.executed_cats[position] = copy.deepcopy(v)
 
     def change_algorithm(self, alg_name, position):
         """
