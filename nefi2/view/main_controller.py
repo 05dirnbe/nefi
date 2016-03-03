@@ -50,7 +50,7 @@ class MainView(base, form):
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
         self.run_btn.clicked.connect(self.run)
         self.delete_btn.clicked.connect(self.trash_pipeline)
-        self.add_btn.clicked.connect(self.add_pip_entry_empty)
+        self.add_btn.clicked.connect(lambda: self.add_pipe_entry_new())
 
     def draw_ui(self):
         """
@@ -185,7 +185,7 @@ class MainView(base, form):
 
         # Create an entry in the pipeline widget for every step in the pipeline
         for i in range(0, len(self.pipeline.executed_cats)):
-            self.add_pip_entry(i)
+            self.add_pipe_entry_new(i)
             self.scroll_down_pip()
 
             """for widget in alg_widgets:
@@ -341,7 +341,7 @@ class MainView(base, form):
 
         # change settings widgets
         self.remove_pip_entry(pipe_entry_widget, settings_widget)
-        (new_pipe_entry_widget, new_settings_widget) = self.add_pip_entry(position)
+        (new_pipe_entry_widget, new_settings_widget) = self.add_pipe_entry_new(position)
 
         self.stackedWidget_Settings.show()
         self.stackedWidget_Settings.setCurrentIndex(position)
@@ -517,6 +517,115 @@ class MainView(base, form):
 
     def scroll_down_pip(self):
         self.pip_scroll.verticalScrollBar().setSliderPosition(self.pip_scroll.verticalScrollBar().maximum())
+
+    def add_pipe_entry_new(self, position=None):
+        """
+            Creates a entry in the ui pipeline with a given position in pipeline.
+            It also creates the corresponding settings widget.
+            """
+        # create an widget that displays the pip entry in the ui and connect the remove button
+
+        pip_main_widget = QWidget()
+        pip_main_widget.setFixedHeight(70)
+        pip_main_widget.setFixedWidth(300)
+        pip_main_layout = QHBoxLayout()
+        pip_main_widget.setLayout(pip_main_layout)
+
+        new_marker = False
+
+        if position is None:
+            position = len(self.pipeline.executed_cats)
+            cat = self.pipeline.new_category(position)
+            label = "<Click to specify new step>"
+            icon = None
+            new_marker = True
+        else:
+            cat = self.pipeline.executed_cats[position]
+            alg = cat.active_algorithm
+            label = alg.get_name()
+            icon = cat.get_icon()
+            new_marker = False
+
+        pixmap = QPixmap(icon)
+        pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+        pixmap_label = QtWidgets.QLabel()
+        pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+        pip_up_down = QWidget()
+        pip_up_down.setFixedHeight(70)
+        pip_up_down_layout = QVBoxLayout()
+        pip_up_down.setLayout(pip_up_down_layout)
+
+        up_btn = QToolButton()
+        dw_btn = QToolButton()
+
+        up_btn.setArrowType(Qt.UpArrow)
+        up_btn.setFixedHeight(25)
+        dw_btn.setArrowType(Qt.DownArrow)
+        dw_btn.setFixedHeight(25)
+
+        pip_up_down_layout.addWidget(up_btn)
+        pip_up_down_layout.addWidget(dw_btn)
+
+        string_label = QLabel()
+        string_label.setText(label)
+        string_label.setFixedWidth(210)
+
+        btn = QtWidgets.QPushButton()
+        btn.setFixedSize(20, 20)
+
+        pixmap_icon = QtGui.QPixmap("./assets/images/delete_x_white.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        btn.setIcon(q_icon)
+
+        pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
+        pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
+        pip_main_layout.addWidget(string_label, Qt.AlignLeft)
+        pip_main_layout.addWidget(btn, Qt.AlignVCenter)
+
+        self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget)
+
+        # Create the corresponding settings widget and connect it
+        self.settings_collapsable.setTitle("Settings")
+        self.stackedWidget_Settings.hide()
+        settings_main_widget = None
+        if not new_marker:
+            settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(position)
+            self.stackedWidget_Settings.insertWidget(position, settings_main_widget)
+
+        def show_settings():
+            # Set background color while widget is selected. Doesn't work because of theme? *TODO*
+            p = pip_main_widget.palette()
+            p.setColor(pip_main_widget.backgroundRole(), Qt.red)
+            pip_main_widget.setPalette(p)
+
+            if not new_marker:
+                self.stackedWidget_Settings.show()
+                self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
+                self.settings_collapsable.setTitle(alg.get_name() + " Settings")
+            else:
+                self.stackedWidget_Settings.hide()
+
+            # Create drop down for cats and algs
+            self.remove_cat_alg_dropdown()
+            self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_main_widget, settings_main_widget)
+
+            if not new_marker:
+                self.set_cat_alg_dropdown(cat, alg)
+
+        # Connect Button to remove step from pipeline
+        def delete_button_clicked():
+            self.remove_cat_alg_dropdown()
+            self.remove_pip_entry(pip_main_widget, settings_main_widget, cat)
+
+        self.clickable(pixmap_label).connect(show_settings)
+        self.clickable(string_label).connect(show_settings)
+        btn.clicked.connect(delete_button_clicked)
+
+
+        return (pip_main_widget, settings_main_widget)
+
+
 
     def add_pip_entry_empty(self):
         """
