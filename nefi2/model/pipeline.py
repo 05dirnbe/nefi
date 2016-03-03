@@ -65,6 +65,8 @@ class Pipeline:
         self.executed_cats = []
         self.pipeline_path = os.path.join('assets', 'json')  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
+        if not os.path.exists(self.out_dir):
+            os.mkdir(self.out_dir)
         self.input_files = None
 
     def new_category(self, position, cat_name=None, alg_name=None):
@@ -94,9 +96,6 @@ class Pipeline:
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
                 v.set_modified()
-                #copy_alg = self.executed_cats[position].copy_alg(alg_name)
-                #print(str(copy_alg))
-                #print(Algorithm())
                 self.executed_cats[position].set_active_algorithm(alg_name)
 
     def move_category(self, origin_pos, destination_pos):
@@ -232,6 +231,7 @@ class Pipeline:
             | *results* (list): a list of arguments to save
 
         """
+        print("SAVING IN", os.path.join(self.out_dir, image_name))
         # saving the processed image
         try:
             cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
