@@ -152,6 +152,8 @@ class Pipeline:
             if cat.active_algorithm.modified:
                 start_from = idx, cat.name
                 break
+            start_from = (0, 'Preprocessing')
+
         # process all images in the input
         for image_name in self.input_files:
             self.process_image(image_name, start_from)
@@ -163,7 +165,6 @@ class Pipeline:
             basename = os.path.basename(orig_fpath)
             img_name = '_'.join([cat.name.lower(), alg_name, basename])
             return img_name
-
         # create output dir name
         orig_fname = os.path.splitext(os.path.basename(orig_fpath))[0]
         pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]

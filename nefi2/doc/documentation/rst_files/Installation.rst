@@ -1,8 +1,8 @@
 ===============
-Installation 
+Installation
 ===============
 
-This document will guide you through the installation of the nefi project. 
+This document will guide you through the installation of the nefi project.
 We offer installation support for some of the most popular operating system. Please
 take a deeper look into you OS section.
 
@@ -10,7 +10,7 @@ take a deeper look into you OS section.
 Windows
 ---------------
 
-For Windows Nefi 2.0 provides a .exe file that install all the dependencies of the software and run it.
+We provide a Windows installer which you can download from <link>.
 
 ---------------
 MacOSX
@@ -20,7 +20,7 @@ MacOSX
 ---------------
 Linux
 ---------------
-Make sure you have your python3 installed before the following steps below.
+Make sure you have your python 3.4 installed before performing the following steps below.
 
 NetworkX
 +++++++++++++
@@ -79,13 +79,13 @@ To compile OpenCV you need to clone the repository on your system and then insta
 # git checkout 3.1.0
 # mkdir relase
 # cd relase
-# cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..  
+# cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..
 # make j4
 # sudo make install
 
 Thinning
 +++++++++++++
-Download the file from 
+Download the file from
 :download:`thinning <towards-nefi-2-0/nefi2/doc/documentation/thinning.zip>`. Unpack it and then:
 
 ::
