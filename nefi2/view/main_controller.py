@@ -221,13 +221,25 @@ class MainView(base, form):
 
         del self.pipeline.executed_cats[:]
 
+    def clear_left_side_new_image(self):
+        while self.left_scroll_results_vbox_layout.count():
+            child = self.left_scroll_results_vbox_layout.takeAt(0)
+            child.widget().deleteLater()
+
+
+    def clear_left_side_new_run(self):
+        while self.left_scroll_results_vbox_layout.count() > 1:
+            child = self.left_scroll_results_vbox_layout.takeAt(1)
+            child.widget().deleteLater()
+
     @pyqtSlot()
     def run(self):
         """
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
-
+        self.pipeline.set_cache()
+        self.clear_left_side_new_run()
         self.pipeline.process()
         self.show_results()
 
@@ -238,13 +250,19 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         if url[0]:
-            print(url[0])
-            print(url[0][0])
+            #print(url[0])
+            #print(url[0][0])
             self.lineEdit.setText(url[0][0])
             self.pipeline.set_input(url[0][0])
+
+            self.clear_left_side_new_image()
+
             pixmap = QPixmap(url[0][0])
             pixmap_scaled_keeping_aspec = pixmap.scaled(self.main_image_label.width(), self.main_image_label.height(), QtCore.Qt.KeepAspectRatio)
             self.main_image_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel)
+            self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
     def set_output_url(self):
@@ -255,8 +273,8 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getExistingDirectory()
         if url:
-            print(url)
-            print(url)
+            #print(url)
+            #print(url)
             self.custom_line_edit.setText(url)
             self.pipeline.set_output_dir(url)
 
@@ -312,7 +330,6 @@ class MainView(base, form):
 
         # remove in model
         if cat is not None:
-            print("Remove entry at pos " + str(self.pipeline.get_index(cat)) + " " + str(cat))
             self.pipeline.delete_category(self.pipeline.get_index(cat))
 
     def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
@@ -323,16 +340,16 @@ class MainView(base, form):
             position: the position of the pipeline entry
             algorithm: the selected algorithm for this category
         """
-        print("Position to be changed:" + str(position))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)))
+        #print("Position to be changed:" + str(position))
+        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)))
 
         old_cat = self.pipeline.executed_cats[position]
         old_alg = old_cat.active_algorithm
-        print("Old Cat found in pipeline: " + str(old_cat))
-        print("Old Alg: found in pipeline:" + str(old_alg))
+        #print("Old Cat found in pipeline: " + str(old_cat))
+        #print("Old Alg: found in pipeline:" + str(old_alg))
 
-        print("New Category given:" + str(new_category))
-        print("New Algorithm given:" + str(new_algorithm))
+        #print("New Category given:" + str(new_category))
+        #print("New Algorithm given:" + str(new_algorithm))
 
         # set in model
         self.pipeline.change_category(new_category, position)
@@ -354,8 +371,8 @@ class MainView(base, form):
         self.set_cat_alg_dropdown(new_cat, new_alg)
 
 
-        print("New Cat found in pipeline: " + str(new_cat))
-        print("New Alg found in pipeline: " + str(new_alg))
+        #print("New Cat found in pipeline: " + str(new_cat))
+        #print("New Alg found in pipeline: " + str(new_alg))
 
     def load_settings_widgets_from_pipeline_groupbox(self, position):
         """
@@ -636,7 +653,7 @@ class MainView(base, form):
         Swap two entries in the ui pipeline and the pipeline model
         """
 
-        print("Swap position "  +str(pos1) + " and " + str(pos2))
+        #print("Swap position "  +str(pos1) + " and " + str(pos2))
 
         if pos1 == pos2:
             return
@@ -740,8 +757,8 @@ class MainView(base, form):
         # Add new step to pipeline
         new_category = self.pipeline.new_category(cat_position)
 
-        print("Create new entry " + str(new_category))
-        print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        #print("Create new entry " + str(new_category))
+        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         settings_main_widget = None
 
@@ -891,15 +908,16 @@ class MainView(base, form):
         return filter.clicked
 
     def show_results(self):
-        print("Length Cache: " + str(len(self.pipeline.cache)))
+        #print("Length Cache: " + str(len(self.pipeline.cache)))
 
         j = 1
+        print("Cache length: " + str(len(self.pipeline.cache)))
 
         for i in self.pipeline.cache:
-            image_path = i[1]
-            image_name = i[0]
-            print(str(image_name))
-            print(str(image_path))
+            image_path = i[2]
+            image_name = (str(i[0]) + " - " + str(i[1]))
+            #print(str(image_name))
+            #print(str(image_path))
 
             widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel)
             self.left_scroll_results_vbox_layout.addWidget(widget)
@@ -917,6 +935,7 @@ class LeftCustomWidget(QGroupBox):
 
     def __init__(self, image_path, image_name, step, main_image_label, mid_panel):
         super(LeftCustomWidget, self).__init__()
+
         self.main_image_label = main_image_label
         self.mid_panel = mid_panel
         self.image_name = image_name
@@ -925,11 +944,11 @@ class LeftCustomWidget(QGroupBox):
         self.pixmap = QPixmap(image_path)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap)
+
         self.LeftCustomWidgetLayout = QVBoxLayout()
         self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
         self.setLayout(self.LeftCustomWidgetLayout)
-
 
     def set_image_label(self, image_label):
         """
@@ -960,7 +979,6 @@ class LeftCustomWidget(QGroupBox):
             | *event*: the mouse press event
         """
         if event.button() == QtCore.Qt.LeftButton:
-            print("press")
             self.main_image_label.setPixmap(self.pixmap)
             self.mid_panel.setTitle(self.image_name +  " - Pipeline Position " + str(self.step))
 
@@ -1095,7 +1113,6 @@ class SliderWidget(QGroupBox):
         self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
 
-        print("AAAAAAAAAALG" + str(alg))
 
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)

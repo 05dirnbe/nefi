@@ -231,7 +231,7 @@ class Pipeline:
             | *results* (list): a list of arguments to save
 
         """
-        print("SAVING IN", os.path.join(self.out_dir, image_name))
+        #print("SAVING IN", os.path.join(self.out_dir, image_name))
         # saving the processed image
         try:
             cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
@@ -509,7 +509,7 @@ class Pipeline:
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
         self.cache.append((category, alg_name, cache_img_path))
-        print(self.cache)
+        #print(self.cache)
 
 
 if __name__ == '__main__':
