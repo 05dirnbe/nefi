@@ -14,8 +14,8 @@ from PyQt5.QtGui import QIcon, QPixmap
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
-    QStackedWidget, QComboBox, QSizePolicy
+from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, QVBoxLayout, \
+    QStackedWidget, QComboBox, QSizePolicy, QToolButton
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -65,6 +65,7 @@ class MainView(base, form):
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
         self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
         self.ComboxCategories.hide()
+
 
         """
         This function is concerned with drawing all non static elements  into the
@@ -525,7 +526,8 @@ class MainView(base, form):
         """
         # create an widget that displays the pip entry in the ui and connect the remove button
         pip_main_widget = QWidget()
-        pip_main_widget.setFixedHeight(50)
+        pip_main_widget.setFixedHeight(70)
+        pip_main_widget.setFixedWidth(300)
         pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
@@ -536,6 +538,22 @@ class MainView(base, form):
         pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
         pixmap_label = QtWidgets.QLabel()
         pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+        pip_up_down = QWidget()
+        pip_up_down.setFixedHeight(70)
+        pip_up_down_layout = QVBoxLayout()
+        pip_up_down.setLayout(pip_up_down_layout)
+
+        up_btn = QToolButton()
+        dw_btn = QToolButton()
+
+        up_btn.setArrowType(Qt.UpArrow)
+        up_btn.setFixedHeight(25)
+        dw_btn.setArrowType(Qt.DownArrow)
+        dw_btn.setFixedHeight(25)
+
+        pip_up_down_layout.addWidget(up_btn)
+        pip_up_down_layout.addWidget(dw_btn)
 
         string_label = QLabel()
         string_label.setText(label)
@@ -548,9 +566,10 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        pip_main_layout.addWidget(pixmap_label)
+        pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
+        pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
-        pip_main_layout.addWidget(btn)
+        pip_main_layout.addWidget(btn, Qt.AlignVCenter)
 
         cat_position = len(self.pipeline.executed_cats)
 
@@ -602,7 +621,8 @@ class MainView(base, form):
         # create an widget that displays the pip entry in the ui and connect the remove button
 
         pip_main_widget = QWidget()
-        pip_main_widget.setFixedHeight(50)
+        pip_main_widget.setFixedHeight(70)
+        pip_main_widget.setFixedWidth(300)
         pip_main_layout = QHBoxLayout()
         pip_main_widget.setLayout(pip_main_layout)
 
@@ -616,6 +636,22 @@ class MainView(base, form):
         pixmap_label = QtWidgets.QLabel()
         pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
+        pip_up_down = QWidget()
+        pip_up_down.setFixedHeight(70)
+        pip_up_down_layout = QVBoxLayout()
+        pip_up_down.setLayout(pip_up_down_layout)
+
+        up_btn = QToolButton()
+        dw_btn = QToolButton()
+
+        up_btn.setArrowType(Qt.UpArrow)
+        up_btn.setFixedHeight(25)
+        dw_btn.setArrowType(Qt.DownArrow)
+        dw_btn.setFixedHeight(25)
+
+        pip_up_down_layout.addWidget(up_btn)
+        pip_up_down_layout.addWidget(dw_btn)
+
         string_label = QLabel()
         string_label.setText(label)
         string_label.setFixedWidth(210)
@@ -627,9 +663,10 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        pip_main_layout.addWidget(pixmap_label)
+        pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
+        pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
-        pip_main_layout.addWidget(btn)
+        pip_main_layout.addWidget(btn, Qt.AlignVCenter)
 
         self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
