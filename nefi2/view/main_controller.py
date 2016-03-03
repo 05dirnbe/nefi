@@ -229,6 +229,7 @@ class MainView(base, form):
         """
 
         self.pipeline.process()
+        self.show_results()
 
     @pyqtSlot()
     def set_input_url(self):
@@ -241,7 +242,9 @@ class MainView(base, form):
             print(url[0][0])
             self.lineEdit.setText(url[0][0])
             self.pipeline.set_input(url[0][0])
-
+            pixmap = QPixmap(url[0][0])
+            pixmap_scaled_keeping_aspec = pixmap.scaled(self.main_image_label.width(), self.main_image_label.height(), QtCore.Qt.KeepAspectRatio)
+            self.main_image_label.setPixmap(pixmap_scaled_keeping_aspec)
 
     @pyqtSlot()
     def set_output_url(self):
@@ -669,7 +672,6 @@ class MainView(base, form):
         self.add_pipe_entry_new(pos1)
         self.add_pipe_entry_new(pos2)
 
-
     def add_pip_entry_empty(self):
         """
         *NOT NEEDED ANYMORE*
@@ -863,10 +865,10 @@ class MainView(base, form):
 
         return (pip_main_widget, settings_main_widget)
 
-    # https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
     def clickable(self, widget):
         """
         Convert any widget to a clickable widget.
+        Source -> https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
         """
 
         class Filter(QObject):
@@ -888,17 +890,46 @@ class MainView(base, form):
         widget.installEventFilter(filter)
         return filter.clicked
 
-class LeftCustomWidget(QWidget):
+    def show_results(self):
+        print("Length Cache: " + str(len(self.pipeline.cache)))
+
+        j = 1
+
+        for i in self.pipeline.cache:
+            image_path = i[1]
+            image_name = i[0]
+            print(str(image_name))
+            print(str(image_path))
+
+            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel)
+            self.left_scroll_results_vbox_layout.addWidget(widget)
+            j += 1
+
+
+
+
+class LeftCustomWidget(QGroupBox):
     """
     this widget is used in the left panel of the GUI. All intermediate
     result images are packed into a LeftCustomWidget and appended to the
     according vbox_layout of the Mainview.ui
     """
 
-    def __init__(self, parent=None):
-        QtWidgets.QWidget.__init__(self, parent)
-        self.main_image_label = parent
-        self.pixmap = None
+    def __init__(self, image_path, image_name, step, main_image_label, mid_panel):
+        super(LeftCustomWidget, self).__init__()
+        self.main_image_label = main_image_label
+        self.mid_panel = mid_panel
+        self.image_name = image_name
+        self.step = step
+        self.image_label = QLabel(image_name)
+        self.pixmap = QPixmap(image_path)
+        self.image = QLabel()
+        self.image.setPixmap(self.pixmap)
+        self.LeftCustomWidgetLayout = QVBoxLayout()
+        self.LeftCustomWidgetLayout.addWidget(self.image_label)
+        self.LeftCustomWidgetLayout.addWidget(self.image)
+        self.setLayout(self.LeftCustomWidgetLayout)
+
 
     def set_image_label(self, image_label):
         """
@@ -907,16 +938,16 @@ class LeftCustomWidget(QWidget):
         Args:
             | *image_label*: the string label of the image e.g. "preprocessing"
         """
-        self.main_image_label = image_label
+        self.image_label.setText(image_label)
 
-    def set_pixmap(self, pixmap):
+    def set_pixmap(self, pixmap_path):
         """
         puts the image pixmap on its place
 
         Args:
             | *pixmap*: the url to the intermediate result
         """
-        self.pixmap = pixmap
+        self.image.setPixmap(QPixmap(pixmap_path))
 
     def mousePressEvent(self, event):
         """
@@ -929,7 +960,9 @@ class LeftCustomWidget(QWidget):
             | *event*: the mouse press event
         """
         if event.button() == QtCore.Qt.LeftButton:
-            self.main_image_label.setPixmap(QtGui.QPixmap(self.pixmap))
+            print("press")
+            self.main_image_label.setPixmap(self.pixmap)
+            self.mid_panel.setTitle(self.image_name +  " - Pipeline Position " + str(self.step))
 
 
 class PipCustomWidget(QWidget):
@@ -1040,8 +1073,6 @@ class CheckBoxWidget(QGroupBox):
 
         self.checkbox.stateChanged.connect(slot)
         self.checkbox.stateChanged.connect(set_modified)
-
-
 
 
 class SliderWidget(QGroupBox):
