@@ -252,10 +252,8 @@ class IntegerSlider:
         if arg1 > self.upper or arg1 < self.lower:
             raise AssertionError("Given parameter " + str(arg1)  +" for " + str(self.name) + " setting is outside range. [" + str(self.lower) + ", " + str(self.upper) + "]")
 
-        print("SLOT INT " + str(arg1))
-        #if arg1 == 23:
-        #    raise EnvironmentError
         self.value = arg1
+        self.set_modified()
 
 
 class FloatSlider:
@@ -302,8 +300,8 @@ class FloatSlider:
         if arg1 > self.upper or arg1 < self.lower:
             raise AssertionError("Given parameter " + str(arg1)  +" for " + str(self.name) + " setting is outside range. [" + str(self.lower) + ", " + str(self.upper) + "]")
 
-        print("FLOAT " + str(arg1))
         self.value = arg1
+        self.set_modified()
 
 
 class CheckBox:
@@ -338,6 +336,7 @@ class CheckBox:
             batch-mode
         """
         self.value = arg1
+        self.set_modified()
 
 
 class DropDown:
@@ -382,3 +381,4 @@ class DropDown:
             raise AssertionError("Given parameter " + str(arg1)  +" for " + str(self.name) + " setting is no valid option.")
 
         self.value = arg1
+        self.set_modified()
