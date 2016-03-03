@@ -193,6 +193,7 @@ class Pipeline:
                 if self.isui:
                     self.save_results(get_fname(), img_arr, None)
                     self.update_cache('Graph detection',
+                                      cat.active_algorithm.name,
                                       os.path.join(self.out_dir, get_fname()))
             elif cat.name == "Graph filtering":
                 cat.process(img_arr, graph)  # image array always first!
@@ -205,6 +206,7 @@ class Pipeline:
                 if self.isui:
                     self.save_results(get_fname(), img_arr, None)
                     self.update_cache('Graph filtering',
+                                      cat.active_algorithm.name,
                                       os.path.join(self.out_dir, get_fname()))
             else:
                 cat.process(img_arr)
@@ -216,6 +218,7 @@ class Pipeline:
                 if self.isui:
                     self.save_results(get_fname(), img_arr, None)
                     self.update_cache(cat.get_name(),
+                                      cat.active_algorithm.name,
                                       os.path.join(self.out_dir, get_fname()))
 
     def save_results(self, image_name, *results):
@@ -488,7 +491,7 @@ class Pipeline:
         os.mkdir('_cache_')
         self.cache = []
 
-    def update_cache(self, category, img_path):
+    def update_cache(self, category, alg_name, img_path):
         """
         Copy an img to cache dir and update the cache list.
 
@@ -505,7 +508,8 @@ class Pipeline:
             sys.exit(1)
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
-        self.cache.append((category, cache_img_path))
+        self.cache.append((category, alg_name, cache_img_path))
+        print(self.cache)
 
 
 if __name__ == '__main__':
