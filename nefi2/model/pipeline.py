@@ -65,6 +65,8 @@ class Pipeline:
         self.executed_cats = []
         self.pipeline_path = os.path.join('assets', 'json')  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
+        if not os.path.exists(self.out_dir):
+            os.mkdir(self.out_dir)
         self.input_files = None
 
     def new_category(self, position, cat_name=None, alg_name=None):
@@ -229,6 +231,7 @@ class Pipeline:
             | *results* (list): a list of arguments to save
 
         """
+        print("SAVING IN", os.path.join(self.out_dir, image_name))
         # saving the processed image
         try:
             cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
