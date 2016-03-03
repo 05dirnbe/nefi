@@ -505,7 +505,7 @@ class MainView(base, form):
 
     def add_pipe_entry_new(self, position=None):
         """
-            Creates a entry in the ui pipeline with a given position in pipeline.
+            Creates an entry in the ui pipeline with a given position in pipeline.
             It also creates the corresponding settings widget.
             """
         # create an widget that displays the pip entry in the ui and connect the remove button
@@ -672,6 +672,7 @@ class MainView(base, form):
 
     def add_pip_entry_empty(self):
         """
+        *NOT NEEDED ANYMORE*
         Creates an blank entry in the ui pipeline since the user still needs to specify
         a type and an algorithm of the category.
         It also creates the corresponding settings widget.
@@ -766,6 +767,7 @@ class MainView(base, form):
 
     def add_pip_entry(self, cat_position):
         """
+        *NOT NEEDED ANYMORE*
         Creates a entry in the ui pipeline with a given position in pipeline.
         It also creates the corresponding settings widget.
         """
