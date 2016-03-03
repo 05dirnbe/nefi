@@ -6,6 +6,8 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
+import copy
+
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
@@ -176,9 +178,6 @@ class MainView(base, form):
 
         # parse the json in the model
         self.pipeline.load_pipeline_json(url)
-
-        print("PARSER" + str(self.pipeline.executed_cats[0].active_algorithm))
-        print("PARSER" + str(self.pipeline.executed_cats[1].active_algorithm))
 
         # set the title
         self.set_pip_title(name)
@@ -355,7 +354,6 @@ class MainView(base, form):
         print("New Cat found in pipeline: " + str(new_cat))
         print("New Alg found in pipeline: " + str(new_alg))
 
-
     def load_settings_widgets_from_pipeline_groupbox(self, position):
         """
         Extracts all widgets from a single algorithm and returns a QBoxLayout
@@ -368,9 +366,6 @@ class MainView(base, form):
 
         alg = self.pipeline.executed_cats[position].active_algorithm
 
-        print("alg " + str(alg))
-        print("cat " + str(self.pipeline.executed_cats[position]))
-
         empty_flag = True
 
         groupOfSliders = QGroupBox()
@@ -382,14 +377,9 @@ class MainView(base, form):
         groupOfSliderssLayout.setAlignment(Qt.AlignTop)
         groupOfSliderssLayout.setSpacing(0)
 
-        print("Build Slider @ "+ str(position))
-
         # create integer sliders
         for slider in alg.integer_sliders:
             empty_flag = False
-            print("slider.value " + str(slider.value))
-            print("slider " + str(slider))
-            #print(alg.get_name() + ": add slider (int).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
                              slider.set_value, False))
@@ -397,7 +387,6 @@ class MainView(base, form):
         # create float sliders
         for slider in alg.float_sliders:
             empty_flag = False
-            #print(alg.get_name() + ": add slider (float).")
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
                              slider.set_value, True), 0, Qt.AlignTop)
@@ -405,14 +394,12 @@ class MainView(base, form):
         # create checkboxes
         for checkbox in alg.checkboxes:
             empty_flag = False
-            #print(alg.get_name() + ": add checkbox.")
             groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value), 0,
                                             Qt.AlignTop)
 
         # create dropdowns
         for combobox in alg.drop_downs:
             empty_flag = False
-            #print(alg.get_name() + ": add combobox.")
             groupOfSliderssLayout.addWidget(
                 ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.value), 0, Qt.AlignTop)
 
@@ -491,12 +478,10 @@ class MainView(base, form):
     def set_cat_alg_dropdown(self, category, algorithm):
 
         indexC = self.ComboxCategories.findText(category.get_name())
-        #print("IndexC " + str(indexC))
         self.ComboxCategories.setCurrentIndex(indexC)
         self.stackedWidgetComboxesAlgorithms.show()
         self.stackedWidgetComboxesAlgorithms.setCurrentIndex(indexC - 1)
         indexA = self.stackedWidgetComboxesAlgorithms.currentWidget().findText(algorithm.get_name())
-        #print("IndexA " + str(indexA))
         self.stackedWidgetComboxesAlgorithms.currentWidget().setCurrentIndex(indexA)
 
     def remove_cat_alg_dropdown(self):
@@ -618,13 +603,71 @@ class MainView(base, form):
             self.remove_cat_alg_dropdown()
             self.remove_pip_entry(pip_main_widget, settings_main_widget, cat)
 
+        def move_up_button_clicked():
+            if position == 0 or new_marker:
+                pass
+            else:
+                current_position = self.pipeline.get_index(cat)
+                self.swap_pip_entry(current_position - 1, current_position)
+
+        def move_down_button_clicked():
+            if position == len(self.pipeline.executed_cats) - 1 or new_marker:
+                pass
+            else:
+                current_position = self.pipeline.get_index(cat)
+                if self.pipeline.executed_cats[current_position + 1].get_name() == "blank":
+                    pass
+                else:
+                    self.swap_pip_entry(current_position, current_position + 1)
+
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
-
+        up_btn.clicked.connect(move_up_button_clicked)
+        dw_btn.clicked.connect(move_down_button_clicked)
 
         return (pip_main_widget, settings_main_widget)
 
+    def swap_pip_entry(self, pos1, pos2):
+        """
+        Swap two entries in the ui pipeline and the pipeline model
+        """
+
+        print("Swap position "  +str(pos1) + " and " + str(pos2))
+
+        if pos1 == pos2:
+            return
+        if pos1 < 0 or pos2 < 0:
+            return
+        if pos1 > len(self.pipeline.executed_cats) or pos2 > len(self.pipeline.executed_cats):
+            return
+
+        # Save pipeline model entries
+        cat1 = self.pipeline.executed_cats[pos1]
+        cat2 = self.pipeline.executed_cats[pos2]
+
+        # Find pipe_entry_widget
+
+        pipe_entry_widget1 = self.pip_widget_vbox_layout.itemAt(pos1).widget()
+        pipe_entry_widget2 = self.pip_widget_vbox_layout.itemAt(pos2).widget()
+
+        # Find settings_widget
+
+        settings_widget1 = self.stackedWidget_Settings.widget(pos1)
+        settings_widget2 = self.stackedWidget_Settings.widget(pos2)
+
+        # Remove old entries
+
+        self.remove_pip_entry(pipe_entry_widget1, settings_widget1)
+        self.remove_pip_entry(pipe_entry_widget2, settings_widget2)
+
+        # Create new entries
+
+        self.pipeline.executed_cats[pos1] = cat2
+        self.pipeline.executed_cats[pos2] = cat1
+
+        self.add_pipe_entry_new(pos1)
+        self.add_pipe_entry_new(pos2)
 
 
     def add_pip_entry_empty(self):
@@ -684,7 +727,6 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
-        #print(index)
 
         # Create the corresponding empty settings widget and connect it
         # settings = self.load_widgets_from_cat_groupbox(cat_position) *TODO* EMPTY
@@ -1009,8 +1051,6 @@ class SliderWidget(QGroupBox):
         super(SliderWidget, self).__init__()
         self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
-
-        print("Default " + str(default))
 
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
