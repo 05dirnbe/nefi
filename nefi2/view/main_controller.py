@@ -382,26 +382,26 @@ class MainView(base, form):
             empty_flag = False
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                             slider.set_value, False))
+                             slider.set_value, False, alg))
 
         # create float sliders
         for slider in alg.float_sliders:
             empty_flag = False
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                             slider.set_value, True), 0, Qt.AlignTop)
+                             slider.set_value, True, alg), 0, Qt.AlignTop)
 
         # create checkboxes
         for checkbox in alg.checkboxes:
             empty_flag = False
-            groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value), 0,
+            groupOfSliderssLayout.addWidget(CheckBoxWidget(checkbox.name, checkbox.value, checkbox.set_value, alg), 0,
                                             Qt.AlignTop)
 
         # create dropdowns
         for combobox in alg.drop_downs:
             empty_flag = False
             groupOfSliderssLayout.addWidget(
-                ComboBoxWidget(combobox.name, combobox.options, combobox.set_value, combobox.value), 0, Qt.AlignTop)
+                ComboBoxWidget(combobox.name, combobox.options, alg, combobox.set_value, combobox.value), 0, Qt.AlignTop)
 
         if empty_flag:
             label = QLabel()
@@ -956,7 +956,7 @@ class ComboBoxWidget(QGroupBox):
     combobox pyqtSignal.
     """
 
-    def __init__(self, name, options, slot=None, default=None):
+    def __init__(self, name, options, alg, slot=None, default=None):
         super(ComboBoxWidget, self).__init__()
         self.activated = pyqtSignal()
 
@@ -976,6 +976,9 @@ class ComboBoxWidget(QGroupBox):
         self.setFixedHeight(70)
         self.setFlat(True)
 
+        def set_modified():
+            alg.set_modified()
+
         # options
         for i in options:
             self.add_item(i)
@@ -986,7 +989,8 @@ class ComboBoxWidget(QGroupBox):
                 self.combobox.setCurrentIndex(index)
 
         if slot is not None:
-            self.combobox.activated.connect(slot)
+            self.combobox.currentTextChanged.connect(slot)
+            self.combobox.currentTextChanged.connect(set_modified)
 
 
     def add_item(self, option, image=None):
@@ -1011,7 +1015,7 @@ class CheckBoxWidget(QGroupBox):
     checkbox pyqtSignal.
     """
 
-    def __init__(self, name, default, slot):
+    def __init__(self, name, default, slot, alg):
         super(CheckBoxWidget, self).__init__()
         self.stateChanged = pyqtSignal()
 
@@ -1031,7 +1035,13 @@ class CheckBoxWidget(QGroupBox):
         self.setFixedHeight(70)
         self.setFlat(True)
 
+        def set_modified():
+            alg.set_modified()
+
         self.checkbox.stateChanged.connect(slot)
+        self.checkbox.stateChanged.connect(set_modified)
+
+
 
 
 class SliderWidget(QGroupBox):
@@ -1049,10 +1059,12 @@ class SliderWidget(QGroupBox):
     A SliderWidget is built by a Slider, a QLabel and either a DoubleTextfield or an IntegerTextfield.
     """
 
-    def __init__(self, name, lower, upper, step_size, default, slot, float_flag):
+    def __init__(self, name, lower, upper, step_size, default, slot, float_flag, alg):
         super(SliderWidget, self).__init__()
         self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
+
+        print("AAAAAAAAAALG" + str(alg))
 
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
@@ -1083,6 +1095,9 @@ class SliderWidget(QGroupBox):
         def slider_value_changed(value):
             self.textfield.setValue(to_external_coordinate(value))
 
+        def set_modified():
+            alg.set_modified()
+
         self.textfield.valueChanged.connect(textfield_value_changed)
         self.slider.valueChanged.connect(slider_value_changed)
 
@@ -1095,7 +1110,7 @@ class SliderWidget(QGroupBox):
         self.setFlat(True)
 
         self.textfield.valueChanged.connect(lambda : slot(self.textfield.value()))
-
+        self.textfield.valueChanged.connect(set_modified)
         #self.textfield.setValue(default)
 
 
