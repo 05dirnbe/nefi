@@ -238,6 +238,9 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
+        if len(self.pipeline.executed_cats) == 0:
+            return
+
         self.pipeline.set_cache()
         self.clear_left_side_new_run()
         self.pipeline.process()
@@ -257,11 +260,13 @@ class MainView(base, form):
 
             self.clear_left_side_new_image()
 
+            # Add input image to the main panel
             pixmap = QPixmap(url[0][0])
-            pixmap_scaled_keeping_aspec = pixmap.scaled(self.main_image_label.width(), self.main_image_label.height(), QtCore.Qt.KeepAspectRatio)
-            self.main_image_label.setPixmap(pixmap_scaled_keeping_aspec)
+            #pixmap_scaled_keeping_aspec = pixmap.scaled(self.main_image_label.width(), self.main_image_label.height(),
+            #                                            QtCore.Qt.KeepAspectRatio)
+            self.main_image_label.setPixmap(pixmap)
 
-            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel)
+            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel, self.left_scroll_results)
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
@@ -919,7 +924,9 @@ class MainView(base, form):
             #print(str(image_name))
             #print(str(image_path))
 
-            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel)
+            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel, self.left_scroll_results)
+            #widget.setFixedWidth(self.left_scroll_results.width() - 35)
+            #widget.setFixedHeight(self.left_scroll_results.width() - 35)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
@@ -933,40 +940,28 @@ class LeftCustomWidget(QGroupBox):
     according vbox_layout of the Mainview.ui
     """
 
-    def __init__(self, image_path, image_name, step, main_image_label, mid_panel):
+    def __init__(self, image_path, image_name, step, main_image_label, mid_panel, left_scroll_results):
         super(LeftCustomWidget, self).__init__()
 
         self.main_image_label = main_image_label
         self.mid_panel = mid_panel
+        self.left_scroll_results = left_scroll_results
         self.image_name = image_name
         self.step = step
+
         self.image_label = QLabel(image_name)
+        self.image_label.setFixedWidth(self.left_scroll_results.width() - 45)
+
         self.pixmap = QPixmap(image_path)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 30, self.left_scroll_results.height() - 30,  QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
-        self.image.setPixmap(self.pixmap)
+        self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
+        self.image.setFixedWidth(self.left_scroll_results.width() - 45)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.addWidget(self.image_label)
-        self.LeftCustomWidgetLayout.addWidget(self.image)
+        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignTop)
+        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignTop)
         self.setLayout(self.LeftCustomWidgetLayout)
-
-    def set_image_label(self, image_label):
-        """
-        puts the image label at its place
-
-        Args:
-            | *image_label*: the string label of the image e.g. "preprocessing"
-        """
-        self.image_label.setText(image_label)
-
-    def set_pixmap(self, pixmap_path):
-        """
-        puts the image pixmap on its place
-
-        Args:
-            | *pixmap*: the url to the intermediate result
-        """
-        self.image.setPixmap(QPixmap(pixmap_path))
 
     def mousePressEvent(self, event):
         """
@@ -982,6 +977,18 @@ class LeftCustomWidget(QGroupBox):
             self.main_image_label.setPixmap(self.pixmap)
             self.mid_panel.setTitle(self.image_name +  " - Pipeline Position " + str(self.step))
 
+class ImageWidget(QLabel):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setScaledContents(True)
+
+    def hasHeightForWidth(self):
+        return self.pixmap() is not None
+
+    def heightForWidth(self, w):
+        if self.pixmap():
+            return int(w * (self.pixmap().height() / self.pixmap().width()))
 
 class PipCustomWidget(QWidget):
     """
