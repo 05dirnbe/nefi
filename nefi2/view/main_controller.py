@@ -161,6 +161,18 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
+        pixmap_icon = QtGui.QPixmap("./assets/images/plus.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.zoom_in.setIcon(q_icon)
+
+        pixmap_icon = QtGui.QPixmap("./assets/images/minus.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.zoom_out.setIcon(q_icon)
+
+        pixmap_icon = QtGui.QPixmap("./assets/images/resize.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.resize.setIcon(q_icon)
+
     @pyqtSlot(int)
     def select_default_pip(self, index):
         """
@@ -925,8 +937,8 @@ class MainView(base, form):
             #print(str(image_path))
 
             widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel, self.left_scroll_results)
-            #widget.setFixedWidth(self.left_scroll_results.width() - 35)
-            #widget.setFixedHeight(self.left_scroll_results.width() - 35)
+            widget.setFixedWidth(self.left_scroll_results.width() - 35)
+            widget.setFixedHeight(self.left_scroll_results.width() - 35)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
