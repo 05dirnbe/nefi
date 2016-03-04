@@ -21,7 +21,7 @@
        <widget class="QGroupBox" name="left_panel">
         <property name="minimumSize">
          <size>
-          <width>370</width>
+          <width>430</width>
           <height>500</height>
          </size>
         </property>
@@ -48,9 +48,15 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>346</width>
-              <height>1170</height>
+              <width>415</width>
+              <height>1146</height>
              </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>415</width>
+              <height>0</height>
+             </size>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
@@ -88,8 +94,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>543</width>
-              <height>1113</height>
+              <width>483</width>
+              <height>1110</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -830,7 +836,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>341</width>
-                 <height>261</height>
+                 <height>258</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -944,7 +950,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>326</width>
-                 <height>313</height>
+                 <height>310</height>
                 </rect>
                </property>
                <property name="sizePolicy">
