@@ -37,6 +37,9 @@ class MainView(base, form):
         self.draw_ui()
         self.connect_ui()
 
+        self.current_image_original = None
+        self.current_image_size = 1.0
+
     def register_observers(self):
         pass
 
@@ -53,6 +56,9 @@ class MainView(base, form):
         self.run_btn.clicked.connect(self.run)
         self.delete_btn.clicked.connect(self.trash_pipeline)
         self.add_btn.clicked.connect(lambda: self.add_pipe_entry_new())
+        self.resize.clicked.connect(self.resize_default)
+        self.zoom_in.clicked.connect(self.zoom_in_)
+        self.zoom_out.clicked.connect(self.zoom_out_)
 
     def draw_ui(self):
         """
@@ -274,11 +280,13 @@ class MainView(base, form):
 
             # Add input image to the main panel
             pixmap = QPixmap(url[0][0])
-            #pixmap_scaled_keeping_aspec = pixmap.scaled(self.main_image_label.width(), self.main_image_label.height(),
-            #                                            QtCore.Qt.KeepAspectRatio)
-            self.main_image_label.setPixmap(pixmap)
+            self.current_image_original = pixmap
+            self.current_image_size = 1.0
 
-            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel, self.left_scroll_results)
+            self.resize_default()
+            #self.main_image_label.setPixmap(pixmap)
+
+            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel, self.left_scroll_results, self.current_image_original)
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
@@ -936,19 +944,40 @@ class MainView(base, form):
             #print(str(image_name))
             #print(str(image_path))
 
-            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel, self.left_scroll_results)
+            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel, self.left_scroll_results, self.current_image_original)
+
+            def set_image(image):
+                print(str(image))
+
+            #widget.connect(set_image)
+
             widget.setFixedWidth(self.left_scroll_results.width() - 35)
             widget.setFixedHeight(self.left_scroll_results.width() - 35)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
-    def zoom_in(self):
-        pass
+    def zoom_in_(self):
+        if not self.current_image_original:
+            return
+        self.current_image_size = self.current_image_size*0.85
+        pixmap =  self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size, self.current_image_original.width() * self.current_image_size, QtCore.Qt.KeepAspectRatio)
+        self.main_image_label.setPixmap(pixmap)
 
-    def zoom_out(self):
-        pass
+    def zoom_out_(self):
+        if not self.current_image_original:
+            return
+        self.current_image_size = self.current_image_size * 1.25
+        pixmap =  self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size, self.current_image_original.width() * self.current_image_size, QtCore.Qt.KeepAspectRatio)
+        self.main_image_label.setPixmap(pixmap)
 
-    def
+    def resize_default(self):
+        if not self.current_image_original:
+            return
+        print(str(self.current_image_original))
+        self.current_image_size = self.current_image_original.width()/self.mid_panel.width()
+        pixmap =  self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(), QtCore.Qt.KeepAspectRatio)
+        self.main_image_label.setPixmap(pixmap)
+
 
 
 class LeftCustomWidget(QGroupBox):
@@ -958,14 +987,17 @@ class LeftCustomWidget(QGroupBox):
     according vbox_layout of the Mainview.ui
     """
 
-    def __init__(self, image_path, image_name, step, main_image_label, mid_panel, left_scroll_results):
+
+    def __init__(self, image_path, image_name, step, main_image_label, mid_panel, left_scroll_results, current_image):
         super(LeftCustomWidget, self).__init__()
+
 
         self.main_image_label = main_image_label
         self.mid_panel = mid_panel
         self.left_scroll_results = left_scroll_results
         self.image_name = image_name
         self.step = step
+        self.current_image = current_image
 
         self.image_label = QLabel(image_name)
         self.image_label.setFixedWidth(self.left_scroll_results.width() - 45)
@@ -994,6 +1026,7 @@ class LeftCustomWidget(QGroupBox):
         if event.button() == QtCore.Qt.LeftButton:
             self.main_image_label.setPixmap(self.pixmap)
             self.mid_panel.setTitle(self.image_name +  " - Pipeline Position " + str(self.step))
+            self.current_image = self.pixmap
 
 class ImageWidget(QLabel):
 
