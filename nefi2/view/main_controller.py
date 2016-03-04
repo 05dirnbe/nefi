@@ -16,7 +16,8 @@ from PyQt5.QtGui import QIcon, QPixmap
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, QVBoxLayout, \
+from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
+    QVBoxLayout, \
     QStackedWidget, QComboBox, QSizePolicy, QToolButton
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
@@ -42,6 +43,13 @@ class MainView(base, form):
 
     def register_observers(self):
         pass
+
+    @pyqtSlot()
+    def get_current_image(self, image):
+        print("bla")
+        print(str(image))
+        self.current_image_original = image
+        self.resize_default()
 
     def connect_ui(self):
         """
@@ -189,7 +197,6 @@ class MainView(base, form):
             child = self.left_scroll_results_vbox_layout.takeAt(0)
             child.widget().deleteLater()
 
-
     def clear_left_side_new_run(self):
         while self.left_scroll_results_vbox_layout.count() > 1:
             child = self.left_scroll_results_vbox_layout.takeAt(1)
@@ -216,8 +223,8 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         if url[0]:
-            #print(url[0])
-            #print(url[0][0])
+            # print(url[0])
+            # print(url[0][0])
             self.lineEdit.setText(url[0][0])
             self.pipeline.set_input(url[0][0])
 
@@ -229,9 +236,10 @@ class MainView(base, form):
             self.current_image_size = 1.0
 
             self.resize_default()
-            #self.main_image_label.setPixmap(pixmap)
+            # self.main_image_label.setPixmap(pixmap)
 
-            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel, self.left_scroll_results, self.current_image_original)
+            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image)
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
@@ -243,8 +251,8 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getExistingDirectory()
         if url:
-            #print(url)
-            #print(url)
+            # print(url)
+            # print(url)
             self.custom_line_edit.setText(url)
             self.pipeline.set_output_dir(url)
 
@@ -310,16 +318,16 @@ class MainView(base, form):
             position: the position of the pipeline entry
             algorithm: the selected algorithm for this category
         """
-        #print("Position to be changed:" + str(position))
-        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)))
+        # print("Position to be changed:" + str(position))
+        # print("Pipeline length: " + str(len(self.pipeline.executed_cats)))
 
         old_cat = self.pipeline.executed_cats[position]
         old_alg = old_cat.active_algorithm
-        #print("Old Cat found in pipeline: " + str(old_cat))
-        #print("Old Alg: found in pipeline:" + str(old_alg))
+        # print("Old Cat found in pipeline: " + str(old_cat))
+        # print("Old Alg: found in pipeline:" + str(old_alg))
 
-        #print("New Category given:" + str(new_category))
-        #print("New Algorithm given:" + str(new_algorithm))
+        # print("New Category given:" + str(new_category))
+        # print("New Algorithm given:" + str(new_algorithm))
 
         # set in model
         self.pipeline.change_category(new_category, position)
@@ -341,8 +349,8 @@ class MainView(base, form):
         self.set_cat_alg_dropdown(new_cat, new_alg)
 
 
-        #print("New Cat found in pipeline: " + str(new_cat))
-        #print("New Alg found in pipeline: " + str(new_alg))
+        # print("New Cat found in pipeline: " + str(new_cat))
+        # print("New Alg found in pipeline: " + str(new_alg))
 
     def load_settings_widgets_from_pipeline_groupbox(self, position):
         """
@@ -391,7 +399,8 @@ class MainView(base, form):
         for combobox in alg.drop_downs:
             empty_flag = False
             groupOfSliderssLayout.addWidget(
-                ComboBoxWidget(combobox.name, combobox.options, alg, combobox.set_value, combobox.value), 0, Qt.AlignTop)
+                ComboBoxWidget(combobox.name, combobox.options, alg, combobox.set_value, combobox.value), 0,
+                Qt.AlignTop)
 
         if empty_flag:
             label = QLabel()
@@ -427,7 +436,7 @@ class MainView(base, form):
         self.stackedWidgetComboxesAlgorithms.hide()
 
         def setCurrentIndexCat(index):
-            #print("Set Cat")
+            # print("Set Cat")
             if self.ComboxCategories.currentIndex() == 0:
                 self.stackedWidgetComboxesAlgorithms.hide()
             else:
@@ -442,16 +451,17 @@ class MainView(base, form):
             tmp1.addItem("<Please Select Algorithm>")
             tmp1.setFixedHeight(30)
             category = self.pipeline.get_category(category_name)
-            #self.current_index = -1
+
+            # self.current_index = -1
 
             def setCurrentIndexAlg(index):
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
-                else: #self.current_index != index:
+                else:  # self.current_index != index:
                     self.change_pip_entry_alg(self.pipeline.get_index(cat), self.ComboxCategories.currentText(),
                                               self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
                                               pipe_entry_widget, settings_widget)
-                    #self.current_index = index
+                    # self.current_index = index
 
             tmp1.activated.connect(setCurrentIndexAlg)
 
@@ -623,7 +633,7 @@ class MainView(base, form):
         Swap two entries in the ui pipeline and the pipeline model
         """
 
-        #print("Swap position "  +str(pos1) + " and " + str(pos2))
+        # print("Swap position "  +str(pos1) + " and " + str(pos2))
 
         if pos1 == pos2:
             return
@@ -727,14 +737,14 @@ class MainView(base, form):
         # Add new step to pipeline
         new_category = self.pipeline.new_category(cat_position)
 
-        #print("Create new entry " + str(new_category))
-        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        # print("Create new entry " + str(new_category))
+        # print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         settings_main_widget = None
 
         # Connect pipeline entry with corresponding settings widget
         def show_settings():
-            #print("click")
+            # print("click")
             self.stackedWidget_Settings.show()
 
             self.remove_cat_alg_dropdown()
@@ -812,7 +822,7 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.insertWidget(cat_position, pip_main_widget)
         index = self.pip_widget_vbox_layout.indexOf(pip_main_widget)
-        #print(index)
+        # print(index)
 
         # Create the corresponding settings widget and connect it
         settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(cat_position)
@@ -821,8 +831,8 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         self.stackedWidget_Settings.insertWidget(cat_position, settings_main_widget)
 
-        #print("Read from pipeline entry " + str(cat))
-        #print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
+        # print("Read from pipeline entry " + str(cat))
+        # print("Pipeline length: " + str(len(self.pipeline.executed_cats)) + ".")
 
         def show_settings():
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
@@ -838,8 +848,8 @@ class MainView(base, form):
 
             # Create drop down for cats and algs
             self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_main_widget, settings_main_widget)
-            #print(cat)
-            #print(alg)
+            # print(cat)
+            # print(alg)
             self.set_cat_alg_dropdown(cat, alg)
 
         # Connect Button to remove step from pipeline
@@ -878,7 +888,7 @@ class MainView(base, form):
         return filter.clicked
 
     def show_results(self):
-        #print("Length Cache: " + str(len(self.pipeline.cache)))
+        # print("Length Cache: " + str(len(self.pipeline.cache)))
 
         j = 1
         print("Cache length: " + str(len(self.pipeline.cache)))
@@ -886,42 +896,54 @@ class MainView(base, form):
         for i in self.pipeline.cache:
             image_path = i[2]
             image_name = (str(i[0]) + " - " + str(i[1]))
-            #print(str(image_name))
-            #print(str(image_path))
+            # print(str(image_name))
+            # print(str(image_path))
 
-            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel, self.left_scroll_results, self.current_image_original)
+            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image)
 
             def set_image(image):
                 print(str(image))
 
-            #widget.connect(set_image)
+            # widget.connect(set_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 35)
-            widget.setFixedHeight(self.left_scroll_results.width() - 35)
+            widget.setFixedWidth(self.left_scroll_results.width() - 40)
+            widget.setFixedHeight(self.left_scroll_results.width() - 40)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
-
-    def zoom_in_(self):
-        if not self.current_image_original:
-            return
-        self.current_image_size = self.current_image_size*0.85
-        pixmap =  self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size, self.current_image_original.width() * self.current_image_size, QtCore.Qt.KeepAspectRatio)
-        self.main_image_label.setPixmap(pixmap)
 
     def zoom_out_(self):
         if not self.current_image_original:
             return
+        if self.current_image_size < 0.1:
+            return
+        self.current_image_size = self.current_image_size * 0.85
+        pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
+                                                    self.current_image_original.width() * self.current_image_size,
+                                                    QtCore.Qt.KeepAspectRatio)
+        self.main_image_label.setPixmap(pixmap)
+
+    def zoom_in_(self):
+        if not self.current_image_original:
+            return
+        if self.current_image_size > 3:
+            return
         self.current_image_size = self.current_image_size * 1.25
-        pixmap =  self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size, self.current_image_original.width() * self.current_image_size, QtCore.Qt.KeepAspectRatio)
+        pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
+                                                    self.current_image_original.width() * self.current_image_size,
+                                                    QtCore.Qt.KeepAspectRatio)
         self.main_image_label.setPixmap(pixmap)
 
     def resize_default(self):
         if not self.current_image_original:
             return
         print(str(self.current_image_original))
-        self.current_image_size = self.current_image_original.width()/self.mid_panel.width()
-        pixmap =  self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(), QtCore.Qt.KeepAspectRatio)
+        self.current_image_size = self.mid_panel.width()/self.current_image_original.width()
+        print(self.current_image_size)
+        pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
+                                                    QtCore.Qt.KeepAspectRatio)
         self.main_image_label.setPixmap(pixmap)
+
 
 class LeftCustomWidget(QGroupBox):
     """
@@ -930,10 +952,11 @@ class LeftCustomWidget(QGroupBox):
     according vbox_layout of the Mainview.ui
     """
 
+    trigger = pyqtSignal()
 
-    def __init__(self, image_path, image_name, step, main_image_label, mid_panel, left_scroll_results, current_image):
+    def __init__(self, image_path, image_name, step, main_image_label, mid_panel, left_scroll_results, current_image,
+                 slot):
         super(LeftCustomWidget, self).__init__()
-
 
         self.main_image_label = main_image_label
         self.mid_panel = mid_panel
@@ -941,15 +964,18 @@ class LeftCustomWidget(QGroupBox):
         self.image_name = image_name
         self.step = step
         self.current_image = current_image
+        self.slot = slot
 
         self.image_label = QLabel(image_name)
-        self.image_label.setFixedWidth(self.left_scroll_results.width() - 45)
+        self.image_label.setFixedWidth(self.left_scroll_results.width() - 50)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 45, self.left_scroll_results.height() - 45,  QtCore.Qt.KeepAspectRatio)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 50,
+                                                              self.left_scroll_results.height() - 50,
+                                                              QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.image.setFixedWidth(self.left_scroll_results.width() - 45)
+        self.image.setFixedWidth(self.left_scroll_results.width() - 50)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
         self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignTop)
@@ -967,12 +993,17 @@ class LeftCustomWidget(QGroupBox):
             | *event*: the mouse press event
         """
         if event.button() == QtCore.Qt.LeftButton:
-            self.main_image_label.setPixmap(self.pixmap)
-            self.mid_panel.setTitle(self.image_name +  " - Pipeline Position " + str(self.step))
+            #self.main_image_label.setPixmap(self.pixmap)
+            self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(self.step))
             self.current_image = self.pixmap
 
-class ImageWidget(QLabel):
+            # Connect the trigger signal to a slot.
+            self.trigger.connect(lambda: self.slot(self.current_image))
+            # Emit the signal.
+            self.trigger.emit()
 
+
+class ImageWidget(QLabel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setScaledContents(True)
@@ -983,6 +1014,7 @@ class ImageWidget(QLabel):
     def heightForWidth(self, w):
         if self.pixmap():
             return int(w * (self.pixmap().height() / self.pixmap().width()))
+
 
 class PipCustomWidget(QWidget):
     """
@@ -1043,7 +1075,6 @@ class ComboBoxWidget(QGroupBox):
         if slot is not None:
             self.combobox.currentTextChanged.connect(slot)
             self.combobox.currentTextChanged.connect(set_modified)
-
 
     def add_item(self, option, image=None):
         """
@@ -1114,7 +1145,6 @@ class SliderWidget(QGroupBox):
         self.valueChanged = pyqtSignal()
         self.internal_steps = abs(upper - lower) / step_size
 
-
         def to_internal_coordinate(value):
             return (self.internal_steps / (upper - lower)) * (value - lower)
 
@@ -1158,9 +1188,9 @@ class SliderWidget(QGroupBox):
         self.setFixedHeight(70)
         self.setFlat(True)
 
-        self.textfield.valueChanged.connect(lambda : slot(self.textfield.value()))
+        self.textfield.valueChanged.connect(lambda: slot(self.textfield.value()))
         self.textfield.valueChanged.connect(set_modified)
-        #self.textfield.setValue(default)
+        # self.textfield.setValue(default)
 
 
 class IntegerTextfield(QSpinBox):
