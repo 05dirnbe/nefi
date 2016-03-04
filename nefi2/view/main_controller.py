@@ -240,6 +240,10 @@ class MainView(base, form):
 
             widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel,
                                       self.left_scroll_results, self.current_image_original, self.get_current_image)
+
+            widget.setFixedWidth(self.left_scroll_results.width() - 20)
+            widget.setFixedHeight(self.left_scroll_results.width() - 20)
+
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
@@ -907,8 +911,8 @@ class MainView(base, form):
 
             # widget.connect(set_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 40)
-            widget.setFixedHeight(self.left_scroll_results.width() - 40)
+            widget.setFixedWidth(self.left_scroll_results.width() - 20)
+            widget.setFixedHeight(self.left_scroll_results.width() - 20)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
@@ -970,16 +974,16 @@ class LeftCustomWidget(QGroupBox):
         self.image_label.setFixedWidth(self.left_scroll_results.width() - 50)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 50,
-                                                              self.left_scroll_results.height() - 50,
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 60,
+                                                              self.left_scroll_results.height() - 60,
                                                               QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
         self.image.setFixedWidth(self.left_scroll_results.width() - 50)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignTop)
-        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignTop)
+        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignCenter)
+        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignCenter)
         self.setLayout(self.LeftCustomWidgetLayout)
 
     def mousePressEvent(self, event):
