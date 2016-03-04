@@ -830,7 +830,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>341</width>
-                 <height>273</height>
+                 <height>261</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -853,6 +853,22 @@
                </layout>
               </widget>
              </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>5</width>
+                <height>5</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>
