@@ -241,8 +241,8 @@ class MainView(base, form):
             widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel,
                                       self.left_scroll_results, self.current_image_original, self.get_current_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 20)
-            widget.setFixedHeight(self.left_scroll_results.width() - 20)
+            widget.setFixedWidth(self.left_scroll_results.width() - 30)
+            widget.setFixedHeight(self.left_scroll_results.width() - 30)
 
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -911,8 +911,8 @@ class MainView(base, form):
 
             # widget.connect(set_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 20)
-            widget.setFixedHeight(self.left_scroll_results.width() - 20)
+            widget.setFixedWidth(self.left_scroll_results.width() - 30)
+            widget.setFixedHeight(self.left_scroll_results.width() - 30)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
