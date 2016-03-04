@@ -942,7 +942,13 @@ class MainView(base, form):
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
+    def zoom_in(self):
+        pass
 
+    def zoom_out(self):
+        pass
+
+    def
 
 
 class LeftCustomWidget(QGroupBox):
@@ -965,7 +971,7 @@ class LeftCustomWidget(QGroupBox):
         self.image_label.setFixedWidth(self.left_scroll_results.width() - 45)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 30, self.left_scroll_results.height() - 30,  QtCore.Qt.KeepAspectRatio)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 45, self.left_scroll_results.height() - 45,  QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
         self.image.setFixedWidth(self.left_scroll_results.width() - 45)
