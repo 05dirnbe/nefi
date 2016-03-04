@@ -107,7 +107,7 @@
         <div class="rst-content">
           
 
- 
+
 
 
 
@@ -131,6 +131,299 @@
             
   <div class="section" id="pipeline">
 <h1>Pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-model.pipeline"></span><p>This module contains the class Pipeline that represents a central control
+mechanism over a sequential image processing pipeline. It controls all the
+available image processing categories, handles processing results and works
+as an mediator between the algorithms and UI.</p>
+<dl class="class">
+<dt id="model.pipeline.Pipeline">
+<em class="property">class </em><tt class="descclassname">model.pipeline.</tt><tt class="descname">Pipeline</tt><big>(</big><em>categories</em>, <em>isui</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
+<dt id="model.pipeline.Pipeline.change_algorithm">
+<tt class="descname">change_algorithm</tt><big>(</big><em>alg_name</em>, <em>position</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.change_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the algorithm of the category in position to modified = <em>True</em>.
+Also change the selected algorithm of the category in position.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>position</em>: list index of the category in the pipeline</div>
+<div class="line"><em>alg_name</em>: algorithm name</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.change_category">
+<tt class="descname">change_category</tt><big>(</big><em>cat_name</em>, <em>position</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.change_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the type of the category at position in the executed_cats.
+This is needed for the ui since the categorys in the executed_cats
+need to be changed because of the dropdown menus.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>cat_name</em>: the name of the category as it should be</div>
+<div class="line"><em>position</em>: the position in the executed_cats</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.delete_category">
+<tt class="descname">delete_category</tt><big>(</big><em>category</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.delete_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove Category from the pipeline.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>category</em> (int|str): Category position index or Category name</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_algorithm_list">
+<tt class="descname">get_algorithm_list</tt><big>(</big><em>position</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_algorithm_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get names of all available algorithms for the category in position available in the pipeline.
+Sort the list and return.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>position</em> (int): Category index number</dd>
+<dt>Returns:</dt>
+<dd><em>alg_names</em> (list): a sorted list of algorithm names</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_all_algorithm_list">
+<tt class="descname">get_all_algorithm_list</tt><big>(</big><em>category</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_all_algorithm_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get names of all available algorithms for a given category.
+Sort the list and return.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>category</em>: Category</dd>
+<dt>Returns:</dt>
+<dd><em>alg_names</em> (list): a sorted list of algorithm names</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_available_cat_names">
+<tt class="descname">get_available_cat_names</tt><big>(</big><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_available_cat_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a list of currently available categories as strings.
+Names are used as keys in available_cats</p>
+<p><em>Cats might have been harmed during execution of this method &gt;_&lt;</em></p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><em>executed_cat_names</em>: list of Category names</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_available_cats">
+<tt class="descname">get_available_cats</tt><big>(</big><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_available_cats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a list of currently available categories as list of categorie objects.</p>
+<p><em>Cats might have been harmed during execution of this method &gt;_&lt;</em></p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><em>executed_cat_names</em>: list of Category names</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_category">
+<tt class="descname">get_category</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keys are the names of the categories.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><em>category</em>: Category</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_executed_cats">
+<tt class="descname">get_executed_cats</tt><big>(</big><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_executed_cats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and return a list of currently executed categories.</p>
+<p><em>No cats are actually harmed during execution of this method &gt;_&lt;</em></p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><em>executed_cat_names</em>: list of Category names</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.get_index">
+<tt class="descname">get_index</tt><big>(</big><em>cat</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.get_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the index of a given Category entry from the pipeline.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>category</em> (cat): Category object</div>
+</div>
+</dd>
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>index</em> (int): index of Category object in the pipeline</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.load_pipeline_json">
+<tt class="descname">load_pipeline_json</tt><big>(</big><em>url</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.load_pipeline_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the Pipeline from the url location and parses all data to
+create the corresponding executed_cats</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>url</em>: location identifier for the pipeline.json</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.move_category">
+<tt class="descname">move_category</tt><big>(</big><em>origin_pos</em>, <em>destination_pos</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.move_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move Category instance within the pipeline using indices.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>origin_pos</em> (int): Category index number</div>
+<div class="line"><em>destination_pos</em> (int): new position for Category</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.new_category">
+<tt class="descname">new_category</tt><big>(</big><em>position</em>, <em>cat_name=None</em>, <em>alg_name=None</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.new_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used by the json parser to create a category.
+The parser knows already the cat type and alg type as well
+as the position. So it doesnt make sense to create a blank and
+change it.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>cat_name</em> (str): name of the category also indicating its cat type</div>
+<div class="line"><em>alg_name</em> (str): name of the active algoirthm indicating its alg type</div>
+<div class="line"><em>position</em> (int): position in the executed_cats</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.process">
+<tt class="descname">process</tt><big>(</big><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute current pipeline starting from the first modified image
+processing category.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><em>image</em> (ndarray): processed image</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.process_image">
+<tt class="descname">process_image</tt><big>(</big><em>orig_fpath</em>, <em>start_from</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.process_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.report_available_cats">
+<tt class="descname">report_available_cats</tt><big>(</big><em>selected_cat=None</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.report_available_cats" title="Permalink to this definition">¶</a></dt>
+<dd><p>The order of the categories is important in the pipeline.
+You can not execute graph filtering before graph detection or
+segmentation after graph filtering.
+When a user selects a category from a drop-down menu we provide only
+currently allowed categories.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>selected_cat</em> (str): Category selected by the user</dd>
+<dt>Returns:</dt>
+<dd>a list of currently allowed cats</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.save_pipeline_json">
+<tt class="descname">save_pipeline_json</tt><big>(</big><em>name</em>, <em>url</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.save_pipeline_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Goes trough the list of executed_cats and calls for every
+selected_algorithm its report_pip method. With the returned
+dictionary&#8217;s, it builds the pipeline.json file and stores it
+at the given url location on the file system.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>url</em>: location identifier for the pipeline.json</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.save_results">
+<tt class="descname">save_results</tt><big>(</big><em>image_name</em>, <em>*results</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.save_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a directory of the following format: current pipeline + fname.
+Save and put the results of algorithm processing in the directory.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>image_name</em> (str): image name</div>
+<div class="line"><em>results</em> (list): a list of arguments to save</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.set_cache">
+<tt class="descname">set_cache</tt><big>(</big><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.set_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create cache dir in order to save in it the intermediate results of
+processing and an original image.
+Recreate dir if exists or before running image processing.
+&lt;This is done to make thumbnails in the left pane available in UI.&gt;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.set_input">
+<tt class="descname">set_input</tt><big>(</big><em>input_source</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.set_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the directory where original images are located or set a file path.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>input_source</em> (str): directory path with original images or a
+single file path</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.set_output_dir">
+<tt class="descname">set_output_dir</tt><big>(</big><em>dir_path</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.set_output_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create and set the directory where to save the results of processing.
+&lt;Used in console mode&gt;.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>dir_path</em> (str): directory path for processing results</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.pipeline.Pipeline.update_cache">
+<tt class="descname">update_cache</tt><big>(</big><em>category</em>, <em>alg_name</em>, <em>img_path</em><big>)</big><a class="headerlink" href="#model.pipeline.Pipeline.update_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy an img to cache dir and update the cache list.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>category</em> (str): Category name</div>
+<div class="line"><em>img_path</em> (str): image path</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 

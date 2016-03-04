@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>algorithms &mdash; nefi 2.0 documentation</title>
+  <title>categories &mdash; nefi 2.0 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
-        <link rel="up" title="model" href="Autogen.html"/>
-        <link rel="next" title="Technologies" href="Technologies.html"/>
-        <link rel="prev" title="categories" href="subsection1.html"/> 
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,25 +79,11 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="Development.html">Development</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Contribution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Categories_Contribution.html">Categories Contribution</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="Code.html">CodeBase</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="Autogen.html">model</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="Autogen.html#pipeline">pipeline</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="Autogen.html#module-model.ext_loader">ext_loader</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="Autogen.html#view">view</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Autogen.html#controller">controller</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
 </ul>
 
@@ -124,7 +107,7 @@
         <div class="rst-content">
           
 
- 
+
 
 
 
@@ -132,13 +115,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="Development.html">Development</a> &raquo;</li>
-      
-          <li><a href="Code.html">CodeBase</a> &raquo;</li>
-      
-          <li><a href="Autogen.html">model</a> &raquo;</li>
-      
-    <li>algorithms</li>
+    <li>categories</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -152,376 +129,138 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="algorithms">
-<h1>algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="constant-threshold">
-<h2>constant_threshold<a class="headerlink" href="#constant-threshold" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="grabcut-dilation-erosion-otsu">
-<h2>grabcut_dilation_erosion_otsu<a class="headerlink" href="#grabcut-dilation-erosion-otsu" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="adaptive">
-<h2>adaptive<a class="headerlink" href="#adaptive" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="watershed-distance-transform-otsu">
-<h2>watershed_distance_transform_otsu<a class="headerlink" href="#watershed-distance-transform-otsu" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="connected-component-filter">
-<h2>connected_component_filter<a class="headerlink" href="#connected-component-filter" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="med-blur">
-<h2>med_blur<a class="headerlink" href="#med-blur" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="simple-cycle">
-<h2>simple_cycle<a class="headerlink" href="#simple-cycle" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="edge-attribute-filter">
-<h2>edge_attribute_filter<a class="headerlink" href="#edge-attribute-filter" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-model.algorithms.largest_connected">
-<span id="largest-connected"></span><h2>largest_connected<a class="headerlink" href="#module-model.algorithms.largest_connected" title="Permalink to this headline">¶</a></h2>
-<p>(from nefi1)
-Implementation of an algorithm which filters a graph for connected components
-and keeps only the largest of them, e.g remove all connected components except
-the 4 largest.</p>
+  <div class="section" id="categories">
+<h1>categories<a class="headerlink" href="#categories" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-model.categories.gdetection">
+<span id="gdetection"></span><h2>gdetection<a class="headerlink" href="#module-model.categories.gdetection" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="model.algorithms.largest_connected.AlgBody">
-<em class="property">class </em><code class="descclassname">model.algorithms.largest_connected.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.largest_connected.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
-<p>Keep only largest connected component algorithm implementation.</p>
-<dl class="method">
-<dt id="model.algorithms.largest_connected.AlgBody.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms.largest_connected.AlgBody.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep only largest connected component from nefi1.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>args</em> : a list containing image array and Graph object</div>
-</div>
-</dd>
-<dt>Raises:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>ValueError</em> : means filtering failed due to the number
-of components not to be removed is negative.</div>
-</div>
-</dd>
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>graph</em> : a filtered networkx Graph</div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
+<dt id="model.categories.gdetection.CatBody">
+<em class="property">class </em><tt class="descclassname">model.categories.gdetection.</tt><tt class="descname">CatBody</tt><a class="headerlink" href="#model.categories.gdetection.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">_category.Category</span></tt></p>
+<p>Implementation of the category graph detection</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-model.algorithms._alg">
-<span id="alg"></span><h2>_alg<a class="headerlink" href="#module-model.algorithms._alg" title="Permalink to this headline">¶</a></h2>
-<p>A module which contains all necessary information&#8217;s and features to create
-an additional implementation of algorithms.
-To contribute an algorithm implementation the contributor is needs to create
-a seperate &lt;algorithm_name&gt;.py in the algorithms folder. In &lt;algorithm_name&gt;.py
-he needs to create a class &#8220;class AlgBody(Algorithm):&#8221; which inherits from
-Algorithm.
-In order to give the ext_loader the possibility to dynamically invoke the
-algorithm definition, the contributor also needs to override the
-methods: process(self, image), get_name(self) and belongs_to(self).
-Additional UI input for the algorithm can be specified by creating
-IntegerSlider, FloatSlider, CheckBox or DropDown objects. These object
-instances need to be created by the constructor method __init__(self) of the
-algorithm implementation. E.g. we create a IntegerSlider in __init__(self)
-by calling the constructor of IntegerSlider and binding it to slider1 with
-&#8220;slider1 = IntegerSlider(self, &#8220;slider1&#8221;, 0, 10, 1, 0)&#8221; (see the IntegerSlider
-definition for further information)</p>
+<div class="section" id="module-model.categories.gfiltering">
+<span id="gfiltering"></span><h2>gfiltering<a class="headerlink" href="#module-model.categories.gfiltering" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="model.algorithms._alg.Algorithm">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="model.algorithms._alg.Algorithm.belongs">
-<code class="descname">belongs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.belongs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Identifies the category to which this algorithm implementation is assoc
-iated with. Therefore you the contributor returns a string yielding the
-name of the associated category. E.g. we have an algorithm &#8220;blur&#8221; which
-is created through implementing the abstract class Algorithm. In &#8220;blur&#8221;
-we override the belongs method to return &#8220;preprocessing&#8221; to associate
-the &#8220;blur&#8221; algorithm instance with the category &#8220;preprocessing&#8221;.</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>self.parent</em>: The string identifier to which category this algorithm belongs to</div>
+<dt id="model.categories.gfiltering.CatBody">
+<em class="property">class </em><tt class="descclassname">model.categories.gfiltering.</tt><tt class="descname">CatBody</tt><a class="headerlink" href="#model.categories.gfiltering.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">_category.Category</span></tt></p>
+<p>Implementation of the category graph filtering</p>
+</dd></dl>
+
 </div>
-</dd>
-</dl>
+<div class="section" id="module-model.categories.preprocessing">
+<span id="preprocessing"></span><h2>preprocessing<a class="headerlink" href="#module-model.categories.preprocessing" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories.preprocessing.CatBody">
+<em class="property">class </em><tt class="descclassname">model.categories.preprocessing.</tt><tt class="descname">CatBody</tt><a class="headerlink" href="#model.categories.preprocessing.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">_category.Category</span></tt></p>
+<p>Implementation of the category preprocessing</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.find_ui_element">
-<code class="descname">find_ui_element</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.find_ui_element" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method helps the json parser to find the ui elements
-with the given name</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><a href="#id1"><span class="problematic" id="id2">|</span></a>name: name of the ui element we are looking for</dd>
-</dl>
-<p>Returns:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.get_icon">
-<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_icon" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
 </div>
-</dd>
-</dl>
+<div class="section" id="module-model.categories.segmentation">
+<span id="segmentation"></span><h2>segmentation<a class="headerlink" href="#module-model.categories.segmentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories.segmentation.CatBody">
+<em class="property">class </em><tt class="descclassname">model.categories.segmentation.</tt><tt class="descname">CatBody</tt><a class="headerlink" href="#model.categories.segmentation.CatBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">_category.Category</span></tt></p>
+<p>Implementation of the category segmentation</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.get_name">
-<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns the name of the implemented algorithm. E.g. int case the contributor
-is implementing a &#8220;watershed&#8221; algorithm, his get_name method should return &#8220;watershed&#8221;.
-By default this method raises an error if the user is not overriding his own get_name
-method.</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>self.name</em>: The name of the algorithm specified in this implementation.</div>
 </div>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="module-model.categories._category">
+<span id="category"></span><h2>_category<a class="headerlink" href="#module-model.categories._category" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="model.categories._category.Category">
+<em class="property">class </em><tt class="descclassname">model.categories._category.</tt><tt class="descname">Category</tt><big>(</big><em>name</em>, <em>icon=None</em><big>)</big><a class="headerlink" href="#model.categories._category.Category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>This class represents image processing method that contains its respective
+algorithms. Its main function is controlling an algorithm, collecting and
+transmitting the output to the pipeline. It serves as an intermediate layer
+between the algorithms and the pipeline.</p>
 <dl class="method">
-<dt id="model.algorithms._alg.Algorithm.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>input_data</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Contains the logic of the implemented algorithm. While computing
-the pipeline each algorithm will be called with its process method
-giving the output image from the previous algorithm processed in
-the pipeline The images are used to draw the result of each algorithm
-in the left section of the UI. Therefore the contributor should return
-an image itself at the end of this method.
-By default this method raises an error if the user is not overriding
-his own process
-method.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first line-block">
-<div class="line"><em>input_data</em>: a tuple which contains all relevant arguments found in</div>
-</div>
-<p class="last">the results of the previous processed algorithm. As common in the
-pipeline pattern, the successors always get called with the
-information the predecessor created.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.report_pip">
-<code class="descname">report_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.report_pip" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method returns a dictionary which contains all relevant algorithm
-information and returns it to the pipeline along with the algorithm
-name. The pipeline needs this information to create a json
-representation of the algorithm. It will encode the dic as following:
-E.g. blur : {&#8220;type&#8221; : &#8220;preprocessing&#8221;, &#8220;kernelsize&#8221; : 2.5}
-The encoding of the dic to json will be done by the pipeline which
-collects the dictionary of each algorithm in the processing list.</p>
-<dl class="docutils">
-<dt>Returns:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>self.name, collections.OrderedDict</em> (list): A tuple consisting
-of the name of the algorithm and the dic containing all relevant
-information about the algorithm which need to be stored on the
-filesystem for the pipeline.json.</div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.set_icon">
-<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_icon" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first last line-block">
-<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
-</div>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.set_modified">
-<code class="descname">set_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_modified" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set modified to True</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="model.algorithms._alg.Algorithm.set_store_image">
-<code class="descname">set_store_image</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_store_image" title="Permalink to this definition">¶</a></dt>
+<dt id="model.categories._category.Category.copy_alg">
+<tt class="descname">copy_alg</tt><big>(</big><em>alg_name</em><big>)</big><a class="headerlink" href="#model.categories._category.Category.copy_alg" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="model.algorithms._alg.Algorithm.unset_modified">
-<code class="descname">unset_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.unset_modified" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set modified to False</p>
+<dt id="model.categories._category.Category.get_active_algorithm">
+<tt class="descname">get_active_algorithm</tt><big>(</big><big>)</big><a class="headerlink" href="#model.categories._category.Category.get_active_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the currently set algorithm.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><em>self.active_algorithm</em> (Algorithm): Currently selected algorithm</dd>
+</dl>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="class">
-<dt id="model.algorithms._alg.CheckBox">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class defining a Checkbox of type boolean to display in the algorithm
-detail section of the UI. After calling the CheckBox constructor, the
-program automatically creates ui widgets as well as qt slots and signals to
-connect this checkbox with the UI.</p>
 <dl class="method">
-<dt id="model.algorithms._alg.CheckBox.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
-input source of selected values for this particular checkbox instance.
-The &#64;pyqtSlot(bool) decoration declares this method as as QT-Slot. To
-get more information about Slots and Signals in QT read about it in the
-official QT documentation.</p>
+<dt id="model.categories._category.Category.get_icon">
+<tt class="descname">get_icon</tt><big>(</big><big>)</big><a class="headerlink" href="#model.categories._category.Category.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.categories._category.Category.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big><a class="headerlink" href="#model.categories._category.Category.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns:</dt>
+<dd>a <em>category name</em> that will be displayed in UI.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.categories._category.Category.process">
+<tt class="descname">process</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#model.categories._category.Category.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a specific algorithm on the image.</p>
 <dl class="docutils">
 <dt>Args:</dt>
-<dd><div class="first line-block">
-<div class="line"><em>arg1</em>: the boolean value selected in the ui or the pipeline in</div>
+<dd><em>args</em> (ndarray|list): ndarray or a list of ndarray and Graph</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.categories._category.Category.set_active_algorithm">
+<tt class="descname">set_active_algorithm</tt><big>(</big><em>alg_name</em><big>)</big><a class="headerlink" href="#model.categories._category.Category.set_active_algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Explicitly set an algorithm for current method.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>alg_name</em> (str): algorithm&#8217;s name that was selected in the UI</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.categories._category.Category.set_icon">
+<tt class="descname">set_icon</tt><big>(</big><em>icon_path</em><big>)</big><a class="headerlink" href="#model.categories._category.Category.set_icon" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
 </div>
-<p class="last">batch-mode</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.categories._category.Category.set_name">
+<tt class="descname">set_name</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#model.categories._category.Category.set_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a category name that will be displayed in UI.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><em>name</em> (str): Category name</dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="model.algorithms._alg.DropDown">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class defining a DropDown menu of type string to display in the algorithm
-detail section of the UI. After calling the DropDown constructor, the
-program automatically creates ui widgets as well as qt slots and signals to
-connect this DropDown with the UI.</p>
-<dl class="method">
-<dt id="model.algorithms._alg.DropDown.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
-inputsource of selected values for this particular DropDown instance.
-The &#64;pyqtSlot(str) decoration declares this method as as QT-Slot. To
-get more information about Slots and Signals in QT read about it in the
-official QT documentation.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first line-block">
-<div class="line"><em>arg1</em>: the string value selected in the ui or the pipeline in</div>
-</div>
-<p class="last">batch-mode</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="model.algorithms._alg.FloatSlider">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">FloatSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class defining a slider of type float to display in the algorithm detail
-section of the UI. After calling the FloatSlider constructor, the program
-automatically creates ui widgets as well as qt slots and signals to connect
-this slider with the UI.</p>
-<dl class="method">
-<dt id="model.algorithms._alg.FloatSlider.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
-input source of selected values for this particular slider instance.
-The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
-To get more information about Slots and Signals in QT read about it in
-the official QT documentation.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first line-block">
-<div class="line"><em>arg1</em>: the integer value selected in the ui or the pipeline in</div>
-</div>
-<p class="last">batch-mode</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="model.algorithms._alg.IntegerSlider">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">IntegerSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class defining a slider of type int to display in the algorithm detail
-section of the UI. After calling the IntegerSlider constructor, the program
-automatically creates ui widgets as wellas qt slots and signals to connect
-this slider with the UI.</p>
-<dl class="method">
-<dt id="model.algorithms._alg.IntegerSlider.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider.set_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as
-an input source of selected values for this particular slider instance.
-The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
-To get more information about Slots and Signals in QT read about it in
-the official QT documentation.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd><div class="first line-block">
-<div class="line"><em>arg1</em>: the integer value selected in the ui or the pipeline in</div>
-</div>
-<p class="last">batch-mode</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="fast-nl-denoise">
-<h2>fast_nl_denoise<a class="headerlink" href="#fast-nl-denoise" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="grabcut-distance-transform-otsu">
-<h2>grabcut_distance_transform_otsu<a class="headerlink" href="#grabcut-distance-transform-otsu" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="gauss-blur">
-<h2>gauss_blur<a class="headerlink" href="#gauss-blur" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="blur">
-<h2>blur<a class="headerlink" href="#blur" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="utility">
-<h2>_utility<a class="headerlink" href="#utility" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="fast-nl-denoise-color">
-<h2>fast_nl_denoise_color<a class="headerlink" href="#fast-nl-denoise-color" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="watershed-dilation-erosion-adaptivethresh">
-<h2>watershed_dilation_erosion_adaptiveThresh<a class="headerlink" href="#watershed-dilation-erosion-adaptivethresh" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="bilateral">
-<h2>bilateral<a class="headerlink" href="#bilateral" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="smooth-degree-two-nodes">
-<h2>smooth_degree_two_nodes<a class="headerlink" href="#smooth-degree-two-nodes" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="otsus">
-<h2>otsus<a class="headerlink" href="#otsus" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="watershed-dilation-erosion-otsu">
-<h2>watershed_dilation_erosion_otsu<a class="headerlink" href="#watershed-dilation-erosion-otsu" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="guo-hall">
-<h2>guo_hall<a class="headerlink" href="#guo-hall" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="color-enchance">
-<h2>color_enchance<a class="headerlink" href="#color-enchance" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="invert-color">
-<h2>invert_color<a class="headerlink" href="#invert-color" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -529,15 +268,6 @@ the official QT documentation.</p>
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="Technologies.html" class="btn btn-neutral float-right" title="Technologies" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="subsection1.html" class="btn btn-neutral" title="categories" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
