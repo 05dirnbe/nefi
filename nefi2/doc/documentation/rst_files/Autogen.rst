@@ -28,6 +28,14 @@ ext_loader
 view
 ====
 
+MainView
+--------
+
+.. automodule:: view.MainView
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
 main_controller
 ---------------
 
