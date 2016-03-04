@@ -1,37 +1,26 @@
 :::::::::::::::::::::::::::::::
 :: Installing NEFI dependencies
 :::::::::::::::::::::::::::::::
-:: NET SEND %ComputerName% This is a popup message.
 
-:: NET SEND %ComputerName%
-:: error: you already have a python interpreter installed on your system.
-:: Unfortunatly the interpreter version is not compatible with the project.
-:: You may consider to remove your python interpreter in, so the installer is able to install the proper Python version!"
+echo check wether interpreter is installed
+IF EXIST C:\Python34\ goto resource_install else goto interpreter_check
 
+:interpreter_check
+echo installing fresh interpreter
+if defined Python.exe goto bad_interpreter else goto interpreter_install
 
-:: if exist C:\Python34
-::     GOTO RESOURCES
-::     GOTO INTERPRETERCHECK
+:: inform the user about a bad python version
+:bad_interpreter
+echo inform user about wrong interpreter
+msg %username% /time:100 you already have a python interpreter installed on your system. Unfortunately the interpreter version is not compatible with the project. Remove your Interpreter under C://PythonXX
+pause >nul
 
-:: :INTERPRETERCHECK
-:: IF DEFINED Python
-::     GOTO MALPYTHONINSTALLATION
-::     GOTO INSTALLPYTHON
+:interpreter_install
+echo the installer takes care on a fresh python interpreter installation
+call python-3.4.4.msi
 
-:: :MALPYTHONINSTALLATION
-:: echo your python interpreter is not matching the project resources
-:: start "" /wait cmd /c "echo error: you already have a python
-:: interpreter installed on your system.
-:: Unfortunatly the interpreter version is not compatible with
-:: the project. You may consider to remove your python interpreter in
-:: , so the installer is able to install the proper Python version!&echo(&pause"
-
-:: :INSTALLPYTHON
-:: echo the installer takes care on a fresh python interpreter installation
-:: call python-3.4.4.msi
-
-:RESOURCES
-:: echo interpreter installed, we now take care on the project resources
+:resource_install
+echo interpreter installed, we now take care on the project resources
 easy_install demjson-2.2.4-py3.4.egg
 pip install decorator-4.0.6-py2.py3-none-any.whl
 pip install networkx-1.10.tar.gz
