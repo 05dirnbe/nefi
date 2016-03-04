@@ -907,8 +907,8 @@ class MainView(base, form):
 
             # widget.connect(set_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 35)
-            widget.setFixedHeight(self.left_scroll_results.width() - 35)
+            widget.setFixedWidth(self.left_scroll_results.width() - 40)
+            widget.setFixedHeight(self.left_scroll_results.width() - 40)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
@@ -967,15 +967,15 @@ class LeftCustomWidget(QGroupBox):
         self.slot = slot
 
         self.image_label = QLabel(image_name)
-        self.image_label.setFixedWidth(self.left_scroll_results.width() - 45)
+        self.image_label.setFixedWidth(self.left_scroll_results.width() - 50)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 45,
-                                                              self.left_scroll_results.height() - 45,
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 50,
+                                                              self.left_scroll_results.height() - 50,
                                                               QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.image.setFixedWidth(self.left_scroll_results.width() - 45)
+        self.image.setFixedWidth(self.left_scroll_results.width() - 50)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
         self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignTop)
