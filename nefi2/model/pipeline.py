@@ -68,6 +68,8 @@ class Pipeline:
         if not os.path.exists(self.out_dir):
             os.mkdir(self.out_dir)
         self.input_files = None
+        # graph should be an instance to enable pipeline recalc
+        self.graph = None
 
     def new_category(self, position, cat_name=None, alg_name=None):
         """
@@ -185,24 +187,24 @@ class Pipeline:
             if cat.name == "Graph detection":
                 # get results of graph detection
                 cat.process(img_arr)
-                graph = cat.active_algorithm.result['graph']
+                self.graph = cat.active_algorithm.result['graph']
                 # draw the graph into the original image
-                img_arr = _utility.draw_graph(img_origin, graph)
+                img_arr = _utility.draw_graph(img_origin, self.graph)
                 if cat.active_algorithm.store_image:
-                    self.save_results(get_fname(), img_arr, graph)
+                    self.save_results(get_fname(), img_arr, self.graph)
                 if self.isui:
                     self.save_results(get_fname(), img_arr, None)
                     self.update_cache('Graph detection',
                                       cat.active_algorithm.name,
                                       os.path.join(self.out_dir, get_fname()))
             elif cat.name == "Graph filtering":
-                cat.process(img_arr, graph)  # image array always first!
+                cat.process(img_arr, self.graph)  # image array always first!
                 # now get the results of graph filtering
-                graph = cat.active_algorithm.result['graph']
+                self.graph = cat.active_algorithm.result['graph']
                 # draw the graph into the original image
-                img_arr = _utility.draw_graph(img_origin, graph)
+                img_arr = _utility.draw_graph(img_origin, self.graph)
                 if cat.active_algorithm.store_image:
-                    self.save_results(get_fname(), img_arr, graph)
+                    self.save_results(get_fname(), img_arr, self.graph)
                 if self.isui:
                     self.save_results(get_fname(), img_arr, None)
                     self.update_cache('Graph filtering',
@@ -211,10 +213,10 @@ class Pipeline:
             else:
                 cat.process(img_arr)
                 img_arr = cat.active_algorithm.result['img']
-                graph = None
+                self.graph = None
                 # saving current algorithm results
                 if cat.active_algorithm.store_image:
-                    self.save_results(get_fname(), img_arr, graph)
+                    self.save_results(get_fname(), img_arr, self.graph)
                 if self.isui:
                     self.save_results(get_fname(), img_arr, None)
                     self.update_cache(cat.get_name(),
