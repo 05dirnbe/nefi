@@ -88,7 +88,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>553</width>
+              <width>543</width>
               <height>1113</height>
              </rect>
             </property>
@@ -175,7 +175,7 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>370</width>
+          <width>380</width>
           <height>500</height>
          </size>
         </property>
@@ -207,7 +207,7 @@
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item alignment="Qt::AlignHCenter">
+         <item>
           <widget class="QGroupBox" name="groupBox_3">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -218,13 +218,13 @@
            <property name="minimumSize">
             <size>
              <width>350</width>
-             <height>100</height>
+             <height>60</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>350</width>
-             <height>60</height>
+             <height>40</height>
             </size>
            </property>
            <property name="baseSize">
@@ -233,11 +233,14 @@
              <height>50</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
            <property name="flat">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <property name="sizeConstraint">
@@ -253,13 +256,13 @@
              <widget class="QLabel" name="custom_label">
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>130</width>
                 <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>100</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -297,7 +300,10 @@
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-left : 5px</string>
+               <string notr="true"/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
               <property name="dragEnabled">
                <bool>false</bool>
@@ -332,7 +338,7 @@
            </layout>
           </widget>
          </item>
-         <item alignment="Qt::AlignHCenter">
+         <item>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -343,13 +349,13 @@
            <property name="minimumSize">
             <size>
              <width>350</width>
-             <height>100</height>
+             <height>60</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>350</width>
-             <height>60</height>
+             <height>40</height>
             </size>
            </property>
            <property name="baseSize">
@@ -358,11 +364,17 @@
              <height>50</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="title">
             <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <property name="sizeConstraint">
@@ -376,6 +388,18 @@
             </property>
             <item alignment="Qt::AlignLeft">
              <widget class="QLabel" name="label_3">
+              <property name="minimumSize">
+               <size>
+                <width>130</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -410,7 +434,10 @@
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-left : 5px</string>
+               <string notr="true"/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -442,7 +469,7 @@
            </layout>
           </widget>
          </item>
-         <item alignment="Qt::AlignHCenter">
+         <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -453,13 +480,13 @@
            <property name="minimumSize">
             <size>
              <width>350</width>
-             <height>100</height>
+             <height>60</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>350</width>
-             <height>60</height>
+             <height>40</height>
             </size>
            </property>
            <property name="baseSize">
@@ -468,11 +495,17 @@
              <height>50</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="title">
             <string/>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
+           </property>
+           <property name="flat">
+            <bool>true</bool>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <property name="sizeConstraint">
@@ -488,13 +521,13 @@
              <widget class="QLabel" name="fav_label">
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>130</width>
                 <height>0</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
+                <width>100</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -531,11 +564,16 @@
                 <height>30</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <pointsize>9</pointsize>
+               </font>
+              </property>
               <property name="layoutDirection">
                <enum>Qt::LeftToRight</enum>
               </property>
               <property name="styleSheet">
-               <string notr="true">margin-left : 5px</string>
+               <string notr="true"/>
               </property>
              </widget>
             </item>
@@ -567,7 +605,7 @@
            </layout>
           </widget>
          </item>
-         <item alignment="Qt::AlignHCenter">
+         <item>
           <widget class="QGroupBox" name="groupBox_4">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -578,7 +616,7 @@
            <property name="minimumSize">
             <size>
              <width>350</width>
-             <height>90</height>
+             <height>60</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -596,6 +634,9 @@
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="title">
             <string/>
            </property>
@@ -603,7 +644,7 @@
             <set>Qt::AlignCenter</set>
            </property>
            <property name="flat">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
             <property name="sizeConstraint">
@@ -613,7 +654,7 @@
              <number>0</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>11</number>
             </property>
             <item>
              <widget class="QPushButton" name="run_btn">
@@ -642,6 +683,9 @@
                 <bold>false</bold>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
               <property name="text">
                <string>Run</string>
               </property>
@@ -660,7 +704,7 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>350</width>
+             <width>360</width>
              <height>350</height>
             </size>
            </property>
@@ -764,7 +808,7 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>340</width>
                 <height>200</height>
                </size>
               </property>
@@ -785,7 +829,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>331</width>
+                 <width>341</width>
                  <height>273</height>
                 </rect>
                </property>

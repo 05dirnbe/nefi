@@ -68,61 +68,6 @@ class MainView(base, form):
         self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
         self.ComboxCategories.hide()
 
-
-        """
-        This function is concerned with drawing all non static elements  into the
-        GUI.
-        """
-        """self.set_pip_title("A. Junius2")
-
-        self.set_preset(["A.Junius", "test", "test", "test"])
-
-
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_pip_entry("../assets/images/P.png", "Preprocessing - adaptive trehsold watershed")
-        self.add_cat_image("../assets/images/seg_fav.jpeg", "Preprocessing")
-        self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
-        self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
-        self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
-        self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
-        self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
-        self.add_cat_image("../assets/images/wing.jpeg", "Preprocessing")
-
-        self.main_image_label.setPixmap(QtGui.QPixmap("wing.jpeg"))
-
-        category_combo_box = ComboBoxWidget("type")
-        category_combo_box.add_item("Preprocessing", "../assets/images/P.png")
-        category_combo_box.add_item("Segmentation", "../assets/images/S.png")
-        category_combo_box.add_item("Graph Detection", "../assets/images/D.png")
-        category_combo_box.add_item("Graph Filtering", "../assets/images/F.png")
-
-        alg_combo_box = ComboBoxWidget("algorithm")
-        alg_combo_box.add_item("Otsus")
-        alg_combo_box.add_item("Guo Hall")
-        alg_combo_box.add_item("Adaptive Treshold")
-
-        slider_1 = SliderWidget("slider1das", 0, 10, 1, 4, True)
-        slider_2 = SliderWidget("slider1", 0, 10, 2, 4, False)
-        slider_3 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
-        slider_4 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
-        slider_5 = SliderWidget("sliderböadsad", 0, 10, 1, 4, True)
-        checkbox_1 = CheckBoxWidget("checkbox1", True)
-
-        self.setting_widget_vbox_layout.addWidget(category_combo_box)
-        self.setting_widget_vbox_layout.addWidget(alg_combo_box)
-        self.setting_widget_vbox_layout.addWidget(slider_1)
-        self.setting_widget_vbox_layout.addWidget(slider_2)
-        self.setting_widget_vbox_layout.addWidget(slider_3)
-        self.setting_widget_vbox_layout.addWidget(slider_4)
-        self.setting_widget_vbox_layout.addWidget(slider_5)
-        self.setting_widget_vbox_layout.addWidget(checkbox_1)
-        self.setting_widget_vbox_layout.setAlignment(Qt.AlignTop)"""
-
     def set_pip_title(self, title):
         """
         Sets the title of the current selected pipeline in the ui.
@@ -947,8 +892,6 @@ class MainView(base, form):
 
     def zoom_out(self):
         pass
-
-    def
 
 
 class LeftCustomWidget(QGroupBox):
