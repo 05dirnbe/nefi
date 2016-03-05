@@ -45,7 +45,7 @@ class AlgBody(Algorithm):
                                               "Strictly greater"})
         self.drop_downs.append(self.operator)
 
-    def process(self, input_data):
+    def process(self, args):
 
         """
         Implements a filter which filters a graph for a certain edge attribute
@@ -71,10 +71,10 @@ class AlgBody(Algorithm):
         try:
             self.operator.value = check_operator(self.operator)
             to_be_removed = [(u, v) for u, v, data in
-                             input_data[1].edges_iter(data=True)
+                             args[1].edges_iter(data=True)
                 if self.operator.value(data[self.attribute.value],
                                  self.attribute_threshold_value.value)]
-            input_data[1].remove_edges_from(to_be_removed)
+            args[1].remove_edges_from(to_be_removed)
 
             print ('discarding a total of', len(to_be_removed), 'edges ...')
 
@@ -84,8 +84,8 @@ class AlgBody(Algorithm):
                   ' Filtering failed because', e)
             print ('is not present in the graph as an edge attribute.')
 
-        self.result['img'] = input_data[0]
-        self.result['graph'] = input_data[1]
+        self.result['img'] = args[0]
+        self.result['graph'] = args[1]
 
 
 if __name__ == '__main__':

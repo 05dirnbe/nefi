@@ -41,7 +41,7 @@ class AlgBody(Algorithm):
                                               "Strictly greater"})
         self.drop_downs.append(self.operator)
 
-    def process(self, input_data):
+    def process(self, args):
 
         """
         Implements a filter which filters a graph for connected components
@@ -55,7 +55,7 @@ class AlgBody(Algorithm):
         Example: Remove all connected components of size exaclty 7
 
         Args:
-            | *input_data* : A list which contains the image and the graph
+            | *args* : A list which contains the image and the graph
         Raises:
             | *KeyError* : Filtering failed because the
              threshold connected component size is negative
@@ -72,21 +72,21 @@ class AlgBody(Algorithm):
 
             self.operator.value = check_operator(self.operator)
             connected_components = sorted(
-                list(nx.connected_component_subgraphs(input_data[1])),
+                list(nx.connected_component_subgraphs(args[1])),
                 key=lambda graph: graph.number_of_nodes())
             to_be_removed = [subgraph for subgraph in connected_components
                              if self.operator.value(subgraph.number_of_nodes(),
                                                     self.compnt_size.value)]
 
             for subgraph in to_be_removed:
-                input_data[1].remove_nodes_from(subgraph)
+                args[1].remove_nodes_from(subgraph)
             print ('discarding a total of', len(to_be_removed),
                    'connected components ...')
         except ArithmeticError as ex:
             print ('Exception caught in', ex)
 
-        self.result['img'] = input_data[0]
-        self.result['graph'] = input_data[1]
+        self.result['img'] = args[0]
+        self.result['graph'] = args[1]
 
 
 if __name__ == '__main__':

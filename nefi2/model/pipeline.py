@@ -48,6 +48,7 @@ def read_image_file(fpath):
     Args:
         *fpath* (str): file path
     """
+    print(fpath)
     try:
         img = cv2.imread(fpath, cv2.IMREAD_COLOR)
     except (IOError, cv2.error):
@@ -176,27 +177,31 @@ class Pipeline:
         if start_from == 0:
             print('STARTING FROM 0')
             # new pipeline, read original img
-            self.pipeline_memory[-1] = read_image_file(img_fpath)
+            self.pipeline_memory[-1] = read_image_file(img_fpath), None
             data = self.pipeline_memory[-1]
+            original_img = data[0]
         else:
             print('CATEGORY MODIFIED STARTING FROM', start_from)
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(start_from - 1)
-        print(len(data))
-        # execute the pipeline from the modified category
+
+        # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
-            print('Iterating', cat.name, 'data:', data, 'with n:', n)
             cat.process(data)
+            # reassign results of the prev alg for the next one
             data = list(cat.active_algorithm.result.items())
             data.sort(key=lambda x: ['img', 'graph'].index(x[0]))
             data = [i[1] for i in data]
-            print(len(data[0]))
+            # check if we have graph
+            if data[1]:
+                # draw the graph into the original image
+                data[0] = _utility.draw_graph(original_img, data[1])
+            # save the results and update the cache
             save_fname = self.get_results_fname(img_fpath, cat)
             self.save_results(save_fname, data)
             self.update_cache(cat.get_name(), cat.active_algorithm.name,
                               os.path.join(self.out_dir, save_fname))
             self.pipeline_memory[n] = data
-            #print('memory:', self.pipeline_memory)
 
     def process_batch(self):
         pass

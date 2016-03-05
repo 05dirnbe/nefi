@@ -1,0 +1,9 @@
+README.txt
+setup.py
+src/c_thinning.c
+test/test.py
+thinning.egg-info/PKG-INFO
+thinning.egg-info/SOURCES.txt
+thinning.egg-info/dependency_links.txt
+thinning.egg-info/requires.txt
+thinning.egg-info/top_level.txt

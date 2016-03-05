@@ -10,6 +10,7 @@ __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
 NODESIZESCALING = 750
 
+
 def draw_graph(image, graph):
     """
     draws the graph in the image by traversing the graph structure
