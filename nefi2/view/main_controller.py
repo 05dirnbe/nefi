@@ -432,6 +432,7 @@ class MainView(base, form):
         layout = self.select_cat_alg_vbox_layout
         cat = self.pipeline.executed_cats[cat_position]
 
+        last_cat = None
         last_cat_name = None
 
         # Show only allowed categories in dropdown
@@ -456,6 +457,7 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.show()
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
+        # *TODO* CHANGE HERE to last_cat_name
         for category_name in self.pipeline.report_available_cats(last_cat_name):
 
             # Add Category to combobox
