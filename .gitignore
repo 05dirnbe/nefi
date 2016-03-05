@@ -26,4 +26,5 @@ NEFI2.komodoproject
 /gui_prototypes/Dennis/new/__pycache__/*.pyc
 /gui_prototypes/Dennis/new/__pycache__/
 /Pavels_pipeline_sanity_test/__pycache__/
+/nefi2/_cache_/
 

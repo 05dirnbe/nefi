@@ -41,13 +41,16 @@ class MainView(base, form):
         self.current_image_original = None
         self.current_image_size = 1.0
 
+        self.q_icon_up = QtGui.QIcon()
+        self.q_icon_down = QtGui.QIcon()
+        self.q_icon_plus = QtGui.QIcon()
+        self.q_icon_plus_grey = QtGui.QIcon()
+
     def register_observers(self):
         pass
 
     @pyqtSlot()
     def get_current_image(self, image):
-        print("bla")
-        print(str(image))
         self.current_image_original = image
         self.resize_default()
 
@@ -67,11 +70,7 @@ class MainView(base, form):
         self.resize.clicked.connect(self.resize_default)
         self.zoom_in.clicked.connect(self.zoom_in_)
         self.zoom_out.clicked.connect(self.zoom_out_)
-
-        def debug():
-            print("Pos: " + str(self.pip_scroll.verticalScrollBar().sliderPosition()))
-
-        self.pip_scroll.verticalScrollBar().valueChanged.connect(debug)
+        self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
 
     def draw_ui(self):
         """
@@ -80,7 +79,6 @@ class MainView(base, form):
         either add it in the QtDesigner or declare it here.
         """
 
-        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
@@ -88,6 +86,15 @@ class MainView(base, form):
         self.ComboxCategories.hide()
         self.pip_widget_vbox_layout.setAlignment(Qt.AlignTop)
         self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
+        self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
+
+    def disable_plus(self):
+        self.add_btn.setEnabled(False)
+        self.add_btn.setIcon(self.q_icon_plus_grey)
+
+    def enable_plus(self):
+        self.add_btn.setEnabled(True)
+        self.add_btn.setIcon(self.q_icon_plus)
 
     def set_pip_title(self, title):
         """
@@ -107,13 +114,13 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
+        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.open_pip_btn.setIcon(q_icon)
+
         pixmap_icon = QtGui.QPixmap("./assets/images/man.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.run_btn.setIcon(q_icon)
-
-        pixmap_icon = QtGui.QPixmap("./assets/images/add_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.add_btn.setIcon(q_icon)
 
         pixmap_icon = QtGui.QPixmap("./assets/images/trash_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
@@ -123,7 +130,7 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/up-arrow_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
@@ -143,6 +150,19 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.resize.setIcon(q_icon)
 
+        pixmap_up = QtGui.QPixmap("./assets/images/up.png")
+        pixmap_down = QtGui.QPixmap("./assets/images/down.png")
+        self.q_icon_up = QtGui.QIcon(pixmap_up)
+        self.q_icon_down = QtGui.QIcon(pixmap_down)
+
+        pixmap_plus = QtGui.QPixmap("./assets/images/plus.png")
+        self.q_icon_plus = QtGui.QIcon(pixmap_plus)
+        self.enable_plus()
+
+        pixmap_plus_grey = QtGui.QPixmap("./assets/images/plus_grey.png")
+        self.q_icon_plus_grey = QtGui.QIcon(pixmap_plus_grey)
+
+
     @pyqtSlot(int)
     def select_default_pip(self, index):
         """
@@ -159,7 +179,11 @@ class MainView(base, form):
         name, url = self.default_pips[index - 1]
 
         # parse the json in the model
-        self.pipeline.load_pipeline_json(url)
+        try:
+            self.pipeline.load_pipeline_json(url)
+        except Exception as e:
+            print("failed to load default pip: " + name + " received parser error")
+            return
 
         # set the title
         self.set_pip_title(name)
@@ -207,9 +231,6 @@ class MainView(base, form):
             widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel,
                                       self.left_scroll_results, self.current_image_original, self.get_current_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 30)
-            widget.setFixedHeight(self.left_scroll_results.width() - 30)
-
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
@@ -233,10 +254,10 @@ class MainView(base, form):
         self.fav_pips_combo_box.addItem("Please Select")
 
         # scan the directory for default pipelines
-        for pip in os.listdir(os.path.join(os.curdir, "default_pipelines")):
-            if pip.endswith(".json"):
-                name = pip.split(".")[0]
-                url = os.path.abspath(os.path.join(os.curdir, "default_pipelines", pip))
+        for file in os.listdir("./default_pipelines"):
+            if file.endswith(".json"):
+                name = file.split(".")[0]
+                url = os.path.abspath("./default_pipelines" + "/" + file)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
 
@@ -284,6 +305,8 @@ class MainView(base, form):
 
         del self.pipeline.executed_cats[:]
 
+        self.enable_plus()
+
     def clear_left_side_new_image(self):
         while self.left_scroll_results_vbox_layout.count():
             child = self.left_scroll_results_vbox_layout.takeAt(0)
@@ -319,7 +342,14 @@ class MainView(base, form):
 
         # remove in model
         if cat is not None:
+
+            if cat.get_name() == "blank":
+                self.enable_plus()
+
             self.pipeline.delete_category(self.pipeline.get_index(cat))
+
+
+
 
     def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
         """
@@ -472,7 +502,9 @@ class MainView(base, form):
             def setCurrentIndexAlg(index):
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
-                else:  # self.current_index != index:
+                else:
+                    if cat.get_name() == "blank":
+                        self.enable_plus()
                     self.change_pip_entry_alg(self.pipeline.get_index(cat), self.ComboxCategories.currentText(),
                                               self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
                                               pipe_entry_widget, settings_widget)
@@ -562,14 +594,15 @@ class MainView(base, form):
         pip_up_down_layout = QVBoxLayout()
         pip_up_down.setLayout(pip_up_down_layout)
 
-        pip_up_down.setContentsMargins(0, -15, 0, 0)
+        pip_up_down.setContentsMargins(17, -17, 0, 0)
 
         up_btn = QToolButton()
         dw_btn = QToolButton()
 
-        up_btn.setArrowType(Qt.UpArrow)
+        up_btn.setIcon(self.q_icon_up)
+        dw_btn.setIcon(self.q_icon_down)
+
         up_btn.setFixedHeight(25)
-        dw_btn.setArrowType(Qt.DownArrow)
         dw_btn.setFixedHeight(25)
 
         pip_up_down_layout.addWidget(up_btn)
@@ -586,10 +619,10 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
+        #pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
         pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
-        pip_main_layout.addWidget(btn, Qt.AlignVCenter)
+        pip_main_layout.addWidget(btn, Qt.AlignRight)
 
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget)
 
@@ -644,6 +677,12 @@ class MainView(base, form):
                 else:
                     self.swap_pip_entry(current_position, current_position + 1)
 
+        def check_move_up_allowed():
+            pass
+
+        def check_move_down_allowed():
+            pass
+
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
@@ -653,6 +692,7 @@ class MainView(base, form):
         # show new settings widget for new step
         if new_marker:
             show_settings()
+            self.disable_plus()
 
         return (pip_main_widget, settings_main_widget)
 
@@ -749,9 +789,6 @@ class MainView(base, form):
                 print(str(image))
 
             # widget.connect(set_image)
-
-            widget.setFixedWidth(self.left_scroll_results.width() - 30)
-            widget.setFixedHeight(self.left_scroll_results.width() - 30)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
@@ -788,7 +825,7 @@ class MainView(base, form):
         self.main_image_label.setPixmap(pixmap)
 
 
-class LeftCustomWidget(QGroupBox):
+class LeftCustomWidget(QWidget):
     """
     this widget is used in the left panel of the GUI. All intermediate
     result images are packed into a LeftCustomWidget and appended to the
@@ -808,22 +845,27 @@ class LeftCustomWidget(QGroupBox):
         self.step = step
         self.current_image = current_image
         self.slot = slot
-
-        self.image_label = QLabel(image_name)
-        self.image_label.setFixedWidth(self.left_scroll_results.width() - 50)
-
-        self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 60,
-                                                              self.left_scroll_results.height() - 60,
-                                                              QtCore.Qt.KeepAspectRatio)
-        self.image = QLabel()
-        self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.image.setFixedWidth(self.left_scroll_results.width() - 50)
+        # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignCenter)
-        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignCenter)
         self.setLayout(self.LeftCustomWidgetLayout)
+        self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
+
+        self.image_label = QLabel(image_name)
+        self.image_label.setGeometry(0, 0, 150, 30)
+
+        self.pixmap = QPixmap(image_path)
+        # self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(300, 100, QtCore.Qt.KeepAspectRatio)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(330, Qt.SmoothTransformation)
+
+        self.image = QLabel()
+        self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
+        self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
+
+        self.LeftCustomWidgetLayout.addWidget(self.image_label)
+        self.LeftCustomWidgetLayout.addWidget(self.image)
+
+        self.setGeometry(0, 0, 330, self.image_label.height() + self.image.height())
 
     def mousePressEvent(self, event):
         """
