@@ -86,6 +86,8 @@ class MainView(base, form):
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
         self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
         self.ComboxCategories.hide()
+        self.pip_widget_vbox_layout.setAlignment(Qt.AlignTop)
+        self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
 
     def set_pip_title(self, title):
         """
