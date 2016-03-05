@@ -672,6 +672,12 @@ class MainView(base, form):
                 else:
                     self.swap_pip_entry(current_position, current_position + 1)
 
+        def check_move_up_allowed():
+            pass
+
+        def check_move_down_allowed():
+            pass
+
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
