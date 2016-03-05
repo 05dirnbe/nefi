@@ -48,7 +48,6 @@ def read_image_file(fpath):
     Args:
         *fpath* (str): file path
     """
-    print(fpath)
     try:
         img = cv2.imread(fpath, cv2.IMREAD_COLOR)
     except (IOError, cv2.error):
@@ -78,7 +77,6 @@ class Pipeline:
         self.executed_cats = []
         self.pipeline_path = os.path.join('assets', 'json')  # default dir
         self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
-        print('CHECKING if output exists', os.path.exists(self.out_dir))
         if not os.path.exists(self.out_dir):
             os.mkdir(self.out_dir)
         self.input_files = None
@@ -171,8 +169,7 @@ class Pipeline:
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
         pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
-        default_out = os.path.join(os.getcwd(), 'output')
-        dir_name = os.path.join(default_out, '_'.join([pip_name, orig_fname]))
+        dir_name = os.path.join(self.out_dir, '_'.join([pip_name, orig_fname]))
         self.set_output_dir(dir_name)
 
         # check if any algorithm has changed
@@ -215,31 +212,30 @@ class Pipeline:
         Process a given image or a directory of images using predefined
         pipeline.
         """
-
         for fpath in self.input_files:
             # create and set output dir name
             orig_fname = os.path.splitext(os.path.basename(fpath))[0]
             pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
-            default_out = os.path.join(os.getcwd(), 'output')
-            dir_name = os.path.join(default_out, '_'.join([pip_name,
-                                                           orig_fname]))
+            dir_name = os.path.join(self.out_dir, '_'.join([pip_name,
+                                                            orig_fname]))
             self.set_output_dir(dir_name)
-            data = read_image_file(fpath)
+            data = [read_image_file(fpath), None]
+            self.original_img = data[0]
             # process given image with the pipeline
+            last_cat = None
             for cat in self.executed_cats:
                 cat.process(data)
                 # reassign results of the prev alg for the next one
                 data = list(cat.active_algorithm.result.items())
                 data.sort(key=lambda x: ['img', 'graph'].index(x[0]))
                 data = [i[1] for i in data]
-                # check if we have graph
-                if data[1]:
-                    # draw the graph into the original image
-                    data[0] = _utility.draw_graph(self.original_img, data[1])
-                # save the results and update the cache if store_image is True
-                save_fname = self.get_results_fname(fpath, cat)
-                self.save_results(save_fname, data)
-
+                last_cat = cat
+            if data[1]:
+                # draw the graph into the original image
+                data[0] = _utility.draw_graph(self.original_img, data[1])
+            # save the results and update the cache if store_image is True
+            save_fname = self.get_results_fname(fpath, last_cat)
+            self.save_results(save_fname, data)
 
     def save_results(self, image_name, results):
         """
