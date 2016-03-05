@@ -600,6 +600,8 @@ class MainView(base, form):
             p.setColor(pip_main_widget.backgroundRole(), Qt.red)
             pip_main_widget.setPalette(p)
 
+            pip_main_widget.setStyleSheet("background-color:grey;")
+
             if not new_marker:
                 self.stackedWidget_Settings.show()
                 self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
