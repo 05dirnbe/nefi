@@ -1,0 +1,11 @@
+  [
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":3, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":2, "type":"Preprocessing", "store_image":false}],
+    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":6, "type":"Preprocessing", "store_image":false}]
+  ]

@@ -163,10 +163,7 @@ class MainView(base, form):
         # Create an entry in the pipeline widget for every step in the pipeline
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pipe_entry(i)
-            self.scroll_down_pip()
 
-            """for widget in alg_widgets:
-                self.setting_widget_vbox_layout.addWidget(widget)"""
 
     def trash_pipeline(self):
         """
@@ -648,7 +645,6 @@ class MainView(base, form):
         # show new settings widget for new step
         if new_marker:
             show_settings()
-            self.scroll_down_pip()
 
         return (pip_main_widget, settings_main_widget)
 
