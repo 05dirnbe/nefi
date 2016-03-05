@@ -630,6 +630,10 @@ class MainView(base, form):
         up_btn.clicked.connect(move_up_button_clicked)
         dw_btn.clicked.connect(move_down_button_clicked)
 
+        # show new settings widget for new step
+        if new_marker:
+            show_settings()
+
         return (pip_main_widget, settings_main_widget)
 
     def swap_pip_entry(self, pos1, pos2):
