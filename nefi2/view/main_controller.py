@@ -41,6 +41,9 @@ class MainView(base, form):
         self.current_image_original = None
         self.current_image_size = 1.0
 
+        self.q_icon_up = QtGui.QIcon()
+        self.q_icon_down = QtGui.QIcon()
+
     def register_observers(self):
         pass
 
@@ -140,6 +143,12 @@ class MainView(base, form):
         pixmap_icon = QtGui.QPixmap("./assets/images/resize.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.resize.setIcon(q_icon)
+
+        pixmap_up = QtGui.QPixmap("./assets/images/up.png")
+        pixmap_down = QtGui.QPixmap("./assets/images/down.png")
+        self.q_icon_up = QtGui.QIcon(pixmap_up)
+        self.q_icon_down = QtGui.QIcon(pixmap_down)
+
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -565,9 +574,10 @@ class MainView(base, form):
         up_btn = QToolButton()
         dw_btn = QToolButton()
 
-        up_btn.setArrowType(Qt.UpArrow)
+        up_btn.setIcon(self.q_icon_up)
+        dw_btn.setIcon(self.q_icon_down)
+
         up_btn.setFixedHeight(25)
-        dw_btn.setArrowType(Qt.DownArrow)
         dw_btn.setFixedHeight(25)
 
         pip_up_down_layout.addWidget(up_btn)
