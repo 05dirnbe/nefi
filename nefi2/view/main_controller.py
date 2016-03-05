@@ -346,6 +346,7 @@ class MainView(base, form):
         # change settings widgets
         self.remove_pip_entry(pipe_entry_widget, settings_widget)
         (new_pipe_entry_widget, new_settings_widget) = self.add_pipe_entry(position)
+        new_pipe_entry_widget.setStyleSheet("background-color:grey;")
 
         self.stackedWidget_Settings.show()
         self.stackedWidget_Settings.setCurrentIndex(position)
