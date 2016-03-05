@@ -82,6 +82,7 @@ class Pipeline:
         if not os.path.exists(self.out_dir):
             os.mkdir(self.out_dir)
         self.input_files = None
+        self.original_img = None  # original image file as read first time
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
 
@@ -153,7 +154,7 @@ class Pipeline:
             | *index* (int): index of Category object in the pipeline
 
         """
-        return(self.executed_cats.index(cat))
+        return self.executed_cats.index(cat)
 
     def process(self):
         # reload cache
@@ -179,7 +180,7 @@ class Pipeline:
             # new pipeline, read original img
             self.pipeline_memory[-1] = read_image_file(img_fpath), None
             data = self.pipeline_memory[-1]
-            original_img = data[0]
+            self.original_img = data[0]
         else:
             print('CATEGORY MODIFIED STARTING FROM', start_from)
             # get the results of the previous (unmodified) algorithm
@@ -195,16 +196,13 @@ class Pipeline:
             # check if we have graph
             if data[1]:
                 # draw the graph into the original image
-                data[0] = _utility.draw_graph(original_img, data[1])
+                data[0] = _utility.draw_graph(self.original_img, data[1])
             # save the results and update the cache
             save_fname = self.get_results_fname(img_fpath, cat)
             self.save_results(save_fname, data)
             self.update_cache(cat.get_name(), cat.active_algorithm.name,
                               os.path.join(self.out_dir, save_fname))
             self.pipeline_memory[n] = data
-
-    def process_batch(self):
-        pass
 
     def save_results(self, image_name, results):
         """
@@ -235,7 +233,8 @@ class Pipeline:
         """
         The order of the categories is important in the pipeline.
         You can not execute graph filtering before graph detection or
-        segmentation after graph filtering.
+        segmentation after graph filtering (graph filtering requires
+        graph object which only graph detection produces).
         When a user selects a category from a drop-down menu we provide only
         currently allowed categories.
 
@@ -247,7 +246,7 @@ class Pipeline:
 
         """
         current_cats = self.get_available_cat_names()
-        if selected_cat is not None and selected_cat not in current_cats:
+        if selected_cat != 'Graph filtering' and selected_cat not in current_cats:
             return current_cats
         elif selected_cat == 'Graph detection':
             return current_cats[current_cats.index(selected_cat) + 1:]
@@ -314,10 +313,10 @@ class Pipeline:
         Create and return a list of currently available categories as strings.
         Names are used as keys in available_cats
 
-        *Cats might have been harmed during execution of this method >_<*
+        *<Each second cat for free ^-_-^>*
 
         Returns:
-            *executed_cat_names*: list of Category names
+            *available_cat_names*: list of Category names
 
         """
         available_cat_names = list(self.available_cats.keys())
@@ -327,14 +326,14 @@ class Pipeline:
         """
         Create and return a list of currently available categories as list of categorie objects.
 
-        *Cats might have been harmed during execution of this method >_<*
+        *<Each third cat for free ^-_-^>*
 
         Returns:
-            *executed_cat_names*: list of Category names
+            *available_cats*: list of Category classes
 
         """
-        available_cat_names = list(self.available_cats.values())
-        return available_cat_names
+        available_cats = list(self.available_cats.values())
+        return available_cats
 
     def get_algorithm_list(self, position):
         """
@@ -375,6 +374,10 @@ class Pipeline:
         Args:
             | *img_fpath* (str): img file path
             | *cat* (Category): category instance
+
+        Returns:
+            *img_name* (str): image file name to save
+
         """
         alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
         basename = os.path.basename(img_fpath)
@@ -501,7 +504,6 @@ class Pipeline:
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
         self.cache.append((category, alg_name, cache_img_path))
-        #print(self.cache)
 
 
 if __name__ == '__main__':

@@ -72,16 +72,13 @@ class AlgBody(Algorithm):
             self.operator.value = check_operator(self.operator)
             to_be_removed = [(u, v) for u, v, data in
                              args[1].edges_iter(data=True)
-                if self.operator.value(data[self.attribute.value],
-                                 self.attribute_threshold_value.value)]
+                             if self.operator.value(data[self.attribute.value],
+                                                    self.attribute_threshold_value.value)]
             args[1].remove_edges_from(to_be_removed)
-
             print ('discarding a total of', len(to_be_removed), 'edges ...')
-
-        except KeyError as e:
-
+        except KeyError as kerror:
             print ('Exception caught in Edge_Attribute_Filter:' \
-                  ' Filtering failed because', e)
+                  ' Filtering failed because', kerror)
             print ('is not present in the graph as an edge attribute.')
 
         self.result['img'] = args[0]

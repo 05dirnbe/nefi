@@ -13,7 +13,7 @@ NODESIZESCALING = 750
 
 def draw_graph(image, graph):
     """
-    draws the graph in the image by traversing the graph structure
+    Draw the graph on the image by traversing the graph structure.
 
     Args:
         | *image* : the image where the graph needs to be drawn
@@ -29,7 +29,7 @@ def draw_graph(image, graph):
 
 def draw_nodes(img, graph, radius=1):
     """
-    Draws all nodes into an input image
+    Draw all nodes on the input image.
 
     Args:
         | *img* : Input image where nodes are drawn
@@ -49,7 +49,7 @@ def draw_nodes(img, graph, radius=1):
 
 def draw_edges(img, graph, col=(0, 0, 255)):
     """
-        Draw edges into input image.
+    Draw network edges on the input image.
 
     Args:
         | *img* : Input image where edges are drawn
@@ -64,15 +64,15 @@ def draw_edges(img, graph, col=(0, 0, 255)):
     for (x1, y1), (x2, y2) in graph.edges_iter():
         start = (y1, x1)
         end = (y2, x2)
-        diam = 2  # graph[(x1, y1)][(x2, y2)]['width']
+        diam = 3  # thickness of red edges, graph[(x1, y1)][(x2, y2)]['width']
         if diam == -1:
-            diam = 2
+            diam = 3  # thickness of red edges
         diam = int(round(diam))
         if diam > 255:
             print('Warning: edge diameter too large for display.')
             print('Diameter has been reset.')
             # diam = 255
-            diam = 100
+            diam = 3  # thickness of red edges
         cv.line(edg_img, start, end, col, diam)
     edg_img = cv.addWeighted(img, 0.5, edg_img, 0.5, 0)
     return edg_img
