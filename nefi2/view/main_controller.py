@@ -233,10 +233,10 @@ class MainView(base, form):
         self.fav_pips_combo_box.addItem("Please Select")
 
         # scan the directory for default pipelines
-        for file in os.listdir("./_default_pipelines"):
-            if file.endswith(".json"):
-                name = file.split(".")[0]
-                url = os.path.abspath("./_default_pipelines" + "/" + file)
+        for pip in os.listdir(os.path.join(os.curdir, "default_pipelines")):
+            if pip.endswith(".json"):
+                name = pip.split(".")[0]
+                url = os.path.abspath(os.path.join(os.curdir, "default_pipelines", pip))
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
 
@@ -247,7 +247,7 @@ class MainView(base, form):
         """
         url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
 
-        split_list = url.split("/")
+        split_list = url.split(os.path.sep)
         name = split_list[len(split_list) - 1].split(".")[0]
         del split_list[len(split_list) - 1]
         url = url.replace(name, "")

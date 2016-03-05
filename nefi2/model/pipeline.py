@@ -157,6 +157,14 @@ class Pipeline:
         return self.executed_cats.index(cat)
 
     def process(self):
+        """
+        Process input image selected in UI, save intermediate results in
+        _cache_ and enable pipeline recalculation from the category that was
+        first changed.
+        Keep all intermediate results.
+        <This function will be obviously slower than the console variant due
+        to IO operations on the _cache_ directory.>
+        """
         # reload cache
         self.set_cache()
         # create and set output dir name
@@ -176,13 +184,11 @@ class Pipeline:
 
         # decide which category to continue from if any, act accordingly
         if start_from == 0:
-            print('STARTING FROM 0')
             # new pipeline, read original img
             self.pipeline_memory[-1] = read_image_file(img_fpath), None
             data = self.pipeline_memory[-1]
             self.original_img = data[0]
         else:
-            print('CATEGORY MODIFIED STARTING FROM', start_from)
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(start_from - 1)
 
@@ -203,6 +209,37 @@ class Pipeline:
             self.update_cache(cat.get_name(), cat.active_algorithm.name,
                               os.path.join(self.out_dir, save_fname))
             self.pipeline_memory[n] = data
+
+    def process_batch(self):
+        """
+        Process a given image or a directory of images using predefined
+        pipeline.
+        """
+
+        for fpath in self.input_files:
+            # create and set output dir name
+            orig_fname = os.path.splitext(os.path.basename(fpath))[0]
+            pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
+            default_out = os.path.join(os.getcwd(), 'output')
+            dir_name = os.path.join(default_out, '_'.join([pip_name,
+                                                           orig_fname]))
+            self.set_output_dir(dir_name)
+            data = read_image_file(fpath)
+            # process given image with the pipeline
+            for cat in self.executed_cats:
+                cat.process(data)
+                # reassign results of the prev alg for the next one
+                data = list(cat.active_algorithm.result.items())
+                data.sort(key=lambda x: ['img', 'graph'].index(x[0]))
+                data = [i[1] for i in data]
+                # check if we have graph
+                if data[1]:
+                    # draw the graph into the original image
+                    data[0] = _utility.draw_graph(self.original_img, data[1])
+                # save the results and update the cache if store_image is True
+                save_fname = self.get_results_fname(fpath, cat)
+                self.save_results(save_fname, data)
+
 
     def save_results(self, image_name, results):
         """
@@ -313,8 +350,6 @@ class Pipeline:
         Create and return a list of currently available categories as strings.
         Names are used as keys in available_cats
 
-        *<Each second cat for free ^-_-^>*
-
         Returns:
             *available_cat_names*: list of Category names
 
@@ -326,7 +361,7 @@ class Pipeline:
         """
         Create and return a list of currently available categories as list of categorie objects.
 
-        *<Each third cat for free ^-_-^>*
+        *<Get your cat for free ^-_-^>*
 
         Returns:
             *available_cats*: list of Category classes
@@ -429,23 +464,18 @@ class Pipeline:
         except demjson.JSONDecodeError as e:
             e = sys.exc_info()[0]
             print("Unable to parse " + url + " trace: " + e)
-        position = 0
-        for alg in json:
+        for position, alg in enumerate(json):
             alg_name = alg[0]
             alg_attributes = alg[1]
-
             cat_name = alg_attributes["type"]
             self.new_category(position, cat_name, alg_name)
-
             active_alg = self.executed_cats[position].active_algorithm
             active_alg.store_image = alg_attributes["store_image"]
-
             for name in alg_attributes.keys():
                 if name == "type" or name == "store_image":
                     continue
                 value = alg_attributes[name]
                 active_alg.find_ui_element(name).set_value(value)
-            position += 1
         self.pipeline_path = url
 
     def save_pipeline_json(self, name, url):
