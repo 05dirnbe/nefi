@@ -88,6 +88,8 @@ class MainView(base, form):
         self.ComboxCategories.hide()
         self.pip_widget_vbox_layout.setAlignment(Qt.AlignTop)
         self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
+        self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
+
 
     def set_pip_title(self, title):
         """
@@ -804,21 +806,26 @@ class LeftCustomWidget(QGroupBox):
         self.step = step
         self.current_image = current_image
         self.slot = slot
+        self.setFixedHeight(500)
+        self.setFixedWidth(430)
 
         self.image_label = QLabel(image_name)
-        self.image_label.setFixedWidth(self.left_scroll_results.width() - 50)
+        self.image_label.setFixedWidth(150)
+        self.image_label.setFixedHeight(30)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(self.left_scroll_results.width() - 60,
-                                                              self.left_scroll_results.height() - 60,
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(380,
+                                                              380,
                                                               QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.image.setFixedWidth(self.left_scroll_results.width() - 50)
+        self.image.setFixedWidth(400)
+        self.image.setFixedHeight(400)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignCenter)
-        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignCenter)
+        self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
+        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignTop)
+        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignTop)
         self.setLayout(self.LeftCustomWidgetLayout)
 
     def mousePressEvent(self, event):

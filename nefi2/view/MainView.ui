@@ -58,6 +58,12 @@
               <height>0</height>
              </size>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>415</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
               <layout class="QVBoxLayout" name="left_scroll_results_vbox_layout"/>
@@ -328,6 +334,11 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true"/>
                    </property>
@@ -464,7 +475,7 @@
                    </property>
                    <property name="font">
                     <font>
-                     <pointsize>10</pointsize>
+                     <pointsize>9</pointsize>
                      <italic>false</italic>
                     </font>
                    </property>
@@ -596,6 +607,11 @@
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
                    <property name="styleSheet">
                     <string notr="true"/>
                    </property>
@@ -635,89 +651,41 @@
              </layout>
             </item>
             <item>
-             <widget class="QWidget" name="widget_4" native="true">
+             <widget class="QPushButton" name="run_btn">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>100</horstretch>
+                <verstretch>30</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>350</width>
-                <height>60</height>
+                <width>145</width>
+                <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>350</width>
-                <height>60</height>
+                <width>145</width>
+                <height>30</height>
                </size>
               </property>
-              <property name="baseSize">
-               <size>
-                <width>50</width>
-                <height>350</height>
-               </size>
-              </property>
-              <property name="autoFillBackground">
-               <bool>false</bool>
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
+               </font>
               </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
-              <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
-               <property name="sizeConstraint">
-                <enum>QLayout::SetNoConstraint</enum>
-               </property>
-               <property name="leftMargin">
-                <number>27</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>11</number>
-               </property>
-               <item>
-                <widget class="QPushButton" name="run_btn">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                   <horstretch>100</horstretch>
-                   <verstretch>30</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>145</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>145</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>11</pointsize>
-                   <weight>50</weight>
-                   <bold>false</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <property name="text">
-                  <string>Run</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <property name="text">
+               <string>Run</string>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
+              </property>
              </widget>
             </item>
            </layout>
