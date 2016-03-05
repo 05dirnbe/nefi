@@ -164,48 +164,6 @@ class MainView(base, form):
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pipe_entry(i)
 
-
-    def trash_pipeline(self):
-        """
-        This method clears the complete pipeline while users clicked the trash
-        button.
-        """
-        # remove all entries in the pipeline list
-
-        while self.pip_widget_vbox_layout.count():
-            child = self.pip_widget_vbox_layout.takeAt(0)
-            child.widget().deleteLater()
-
-        while self.stackedWidget_Settings.currentWidget() is not None:
-            self.stackedWidget_Settings.removeWidget(self.stackedWidget_Settings.currentWidget())
-            self.settings_collapsable.setTitle("")
-
-        # remove the pipeline name
-        self.set_pip_title("")
-
-        # remove all entries int the executed_cats of the model pipeline
-        del self.pipeline.executed_cats[:]
-
-        # remove all widgets
-        del self.pip_widgets[:]
-
-        # remove category algorith dropdown
-        self.remove_cat_alg_dropdown()
-
-        # remove all entries from the pipeline model
-
-        del self.pipeline.executed_cats[:]
-
-    def clear_left_side_new_image(self):
-        while self.left_scroll_results_vbox_layout.count():
-            child = self.left_scroll_results_vbox_layout.takeAt(0)
-            child.widget().deleteLater()
-
-    def clear_left_side_new_run(self):
-        while self.left_scroll_results_vbox_layout.count() > 1:
-            child = self.left_scroll_results_vbox_layout.takeAt(1)
-            child.widget().deleteLater()
-
     @pyqtSlot()
     def run(self):
         """
@@ -290,6 +248,47 @@ class MainView(base, form):
         del split_list[len(split_list) - 1]
         url = url.replace(name, "")
         self.pipeline.save_pipeline_json(name, url)
+
+    def trash_pipeline(self):
+        """
+        This method clears the complete pipeline while users clicked the trash
+        button.
+        """
+        # remove all entries in the pipeline list
+
+        while self.pip_widget_vbox_layout.count():
+            child = self.pip_widget_vbox_layout.takeAt(0)
+            child.widget().deleteLater()
+
+        while self.stackedWidget_Settings.currentWidget() is not None:
+            self.stackedWidget_Settings.removeWidget(self.stackedWidget_Settings.currentWidget())
+            self.settings_collapsable.setTitle("")
+
+        # remove the pipeline name
+        self.set_pip_title("")
+
+        # remove all entries int the executed_cats of the model pipeline
+        del self.pipeline.executed_cats[:]
+
+        # remove all widgets
+        del self.pip_widgets[:]
+
+        # remove category algorith dropdown
+        self.remove_cat_alg_dropdown()
+
+        # remove all entries from the pipeline model
+
+        del self.pipeline.executed_cats[:]
+
+    def clear_left_side_new_image(self):
+        while self.left_scroll_results_vbox_layout.count():
+            child = self.left_scroll_results_vbox_layout.takeAt(0)
+            child.widget().deleteLater()
+
+    def clear_left_side_new_run(self):
+        while self.left_scroll_results_vbox_layout.count() > 1:
+            child = self.left_scroll_results_vbox_layout.takeAt(1)
+            child.widget().deleteLater()
 
     @pyqtSlot(int)
     def remove_pip_entry(self, pipe_entry_widget, settings_widget, cat=None):
@@ -596,11 +595,10 @@ class MainView(base, form):
 
         def show_settings():
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
-            p = pip_main_widget.palette()
-            p.setColor(pip_main_widget.backgroundRole(), Qt.red)
-            pip_main_widget.setPalette(p)
-
             pip_main_widget.setStyleSheet("background-color:grey;")
+
+            # Reset background color for all other pipeline entries
+            self.reset_pip_backgroundcolor(pip_main_widget)
 
             if not new_marker:
                 self.stackedWidget_Settings.show()
@@ -649,6 +647,14 @@ class MainView(base, form):
             show_settings()
 
         return (pip_main_widget, settings_main_widget)
+
+    def reset_pip_backgroundcolor(self, current_pip_main_widget):
+        for i in range(0, self.pip_widget_vbox_layout.count()):
+            child = self.pip_widget_vbox_layout.itemAt(i)
+            if child.widget() is current_pip_main_widget:
+                pass
+            else:
+                child.widget().setStyleSheet("background-color:None;")
 
     def swap_pip_entry(self, pos1, pos2):
         """
