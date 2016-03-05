@@ -19,15 +19,21 @@
      <layout class="QHBoxLayout" name="main_window_layout">
       <item>
        <widget class="QGroupBox" name="left_panel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>430</width>
-          <height>500</height>
+          <width>350</width>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>300</width>
+          <width>350</width>
           <height>16777215</height>
          </size>
         </property>
@@ -37,6 +43,24 @@
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <widget class="QScrollArea" name="left_scroll">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>330</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>330</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
            </property>
@@ -48,19 +72,25 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>415</width>
-              <height>1146</height>
+              <width>330</width>
+              <height>1175</height>
              </rect>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>415</width>
+              <width>330</width>
               <height>0</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>415</width>
+              <width>330</width>
               <height>16777215</height>
              </size>
             </property>
@@ -77,6 +107,12 @@
       </item>
       <item>
        <widget class="QGroupBox" name="mid_panel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>300</width>
@@ -100,8 +136,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>493</width>
-              <height>1110</height>
+              <width>583</width>
+              <height>1127</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -183,7 +219,7 @@
          <bool>true</bool>
         </property>
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -636,7 +672,7 @@
                      <number>150</number>
                     </property>
                    </widget>
-                   <widget class="QPushButton" name="open_btn">
+                   <widget class="QPushButton" name="open_pip_btn">
                     <property name="geometry">
                      <rect>
                       <x>250</x>
@@ -716,9 +752,9 @@
               <widget class="QPushButton" name="run_btn">
                <property name="geometry">
                 <rect>
-                 <x>109</x>
+                 <x>90</x>
                  <y>0</y>
-                 <width>145</width>
+                 <width>150</width>
                  <height>30</height>
                 </rect>
                </property>
@@ -730,7 +766,7 @@
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>145</width>
+                 <width>150</width>
                  <height>30</height>
                 </size>
                </property>
@@ -809,7 +845,7 @@
               <widget class="QPushButton" name="add_btn">
                <property name="geometry">
                 <rect>
-                 <x>260</x>
+                 <x>251</x>
                  <y>0</y>
                  <width>31</width>
                  <height>31</height>
@@ -834,7 +870,7 @@
               <widget class="QPushButton" name="delete_btn">
                <property name="geometry">
                 <rect>
-                 <x>295</x>
+                 <x>287</x>
                  <y>0</y>
                  <width>31</width>
                  <height>31</height>
@@ -894,10 +930,6 @@
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                </property>
               </widget>
-              <zorder>add_btn</zorder>
-              <zorder>delete_btn</zorder>
-              <zorder>delete_btn</zorder>
-              <zorder>current_pip_label</zorder>
              </widget>
             </item>
             <item>
@@ -939,7 +971,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>532</height>
+                 <height>547</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1052,8 +1084,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>326</width>
-                 <height>310</height>
+                 <width>330</width>
+                 <height>314</height>
                 </rect>
                </property>
                <property name="sizePolicy">
