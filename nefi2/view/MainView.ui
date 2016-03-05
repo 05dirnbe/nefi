@@ -233,6 +233,12 @@
            <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QWidget" name="widget_3" native="true">
                 <property name="sizePolicy">
@@ -265,6 +271,9 @@
                  </property>
                  <property name="sizeConstraint">
                   <enum>QLayout::SetNoConstraint</enum>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
                  </property>
                  <property name="topMargin">
                   <number>0</number>
@@ -390,6 +399,9 @@
                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <property name="sizeConstraint">
                   <enum>QLayout::SetNoConstraint</enum>
+                 </property>
+                 <property name="leftMargin">
+                  <number>0</number>
                  </property>
                  <property name="topMargin">
                   <number>0</number>
@@ -528,6 +540,9 @@
                  <property name="sizeConstraint">
                   <enum>QLayout::SetNoConstraint</enum>
                  </property>
+                 <property name="leftMargin">
+                  <number>0</number>
+                 </property>
                  <property name="topMargin">
                   <number>0</number>
                  </property>
@@ -655,14 +670,17 @@
                <property name="sizeConstraint">
                 <enum>QLayout::SetNoConstraint</enum>
                </property>
+               <property name="leftMargin">
+                <number>27</number>
+               </property>
                <property name="topMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
                 <number>11</number>
                </property>
-               <item alignment="Qt::AlignBottom">
-                <widget class="QToolButton" name="run_btn">
+               <item>
+                <widget class="QPushButton" name="run_btn">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                    <horstretch>100</horstretch>
@@ -671,13 +689,13 @@
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>100</width>
+                   <width>145</width>
                    <height>30</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>100</width>
+                   <width>145</width>
                    <height>30</height>
                   </size>
                  </property>
@@ -851,6 +869,13 @@
                 </sizepolicy>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <widget class="Line" name="line">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <layout class="QVBoxLayout" name="pip_widget_vbox_layout">
                   <property name="spacing">
