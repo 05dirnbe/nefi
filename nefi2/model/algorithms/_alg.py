@@ -74,7 +74,8 @@ class Algorithm:
         the "blur" algorithm instance with the category "preprocessing".
 
         Returns:
-            | *self.parent*: The string identifier to which category this algorithm belongs to
+            | *self.parent*: The string identifier to which category this
+            algorithm belongs to
         """
         return self.parent
 
@@ -95,6 +96,12 @@ class Algorithm:
             the results of the previous processed algorithm. As common in the
             pipeline pattern, the successors always get called with the
             information the predecessor created.
+            The first element in input_data should always be image array,
+            the second element is reserved for graph. This is why algorithm
+            process methods operate on args indeces (args[0] or args[1]).
+            Please consider this in case you decide to add an algorithm which
+            produces something different than an image array or networkx graph
+            object.
         """
         raise NotImplementedError
 

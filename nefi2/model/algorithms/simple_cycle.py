@@ -42,7 +42,7 @@ class AlgBody(Algorithm):
             | *args* : a list containing image array and Graph object
 
         """
-        image, graph = args
+        image, graph = args[0:2]
         # create a set of all nodes
         nodes_not_in_a_cycle = set(graph.nodes())
         # filter all nodes which are not in a biconnected component

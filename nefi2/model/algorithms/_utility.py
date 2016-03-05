@@ -1,24 +1,19 @@
 """
-This python file contains helpful methods which
-are of static nature and are beneficial for several
-algorithms. The main reason for the creation of this file
-is to provide the user with a toolbox of methods and
-don't force him to copy and paste methods from other algorithm
-sections.
+Various help functions for processing results.
 """
 import operator as op
 import cv2 as cv
 import numpy as np
-import networkx as nx
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
 
 NODESIZESCALING = 750
 
+
 def draw_graph(image, graph):
     """
-    draws the graph in the image by traversing the graph structure
+    Draw the graph on the image by traversing the graph structure.
 
     Args:
         | *image* : the image where the graph needs to be drawn
@@ -31,9 +26,10 @@ def draw_graph(image, graph):
     node_size = int(np.ceil((max(image.shape) / float(NODESIZESCALING))))
     return draw_nodes(tmp, graph, max(node_size, 1))
 
+
 def draw_nodes(img, graph, radius=1):
     """
-    Draws all nodes into an input image
+    Draw all nodes on the input image.
 
     Args:
         | *img* : Input image where nodes are drawn
@@ -45,15 +41,15 @@ def draw_nodes(img, graph, radius=1):
     Returns:
         Input image img with nodes drawn into it
     """
-
     for x, y in graph.nodes_iter():
-        cv.rectangle(img, (y-radius, x-radius), (y+radius, x+radius), (255, 0, 0), -1)
-
+        cv.rectangle(img, (y-radius, x-radius), (y+radius, x+radius),
+                     (255, 0, 0), -1)
     return img
+
 
 def draw_edges(img, graph, col=(0, 0, 255)):
     """
-        Draw edges into input image.
+    Draw network edges on the input image.
 
     Args:
         | *img* : Input image where edges are drawn
@@ -68,16 +64,19 @@ def draw_edges(img, graph, col=(0, 0, 255)):
     for (x1, y1), (x2, y2) in graph.edges_iter():
         start = (y1, x1)
         end = (y2, x2)
-        diam = 2 #graph[(x1, y1)][(x2, y2)]['width']
-        if diam == -1: diam = 2
+        diam = 3  # thickness of red edges, graph[(x1, y1)][(x2, y2)]['width']
+        if diam == -1:
+            diam = 3  # thickness of red edges
         diam = int(round(diam))
         if diam > 255:
-            print ('Warning: edge diameter too large for display. Diameter has been reset.')
-            #diam = 255
-            diam = 100
+            print('Warning: edge diameter too large for display.')
+            print('Diameter has been reset.')
+            # diam = 255
+            diam = 3  # thickness of red edges
         cv.line(edg_img, start, end, col, diam)
     edg_img = cv.addWeighted(img, 0.5, edg_img, 0.5, 0)
     return edg_img
+
 
 def check_operator(operator):
     """
@@ -102,6 +101,7 @@ def check_operator(operator):
     if operator.value == "Strictly greater":
         op_object = op.gt
     return op_object
+
 
 if __name__ == '__main__':
     pass

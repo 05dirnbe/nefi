@@ -1,13 +1,17 @@
 model
 =====
 
+pipeline
+--------
+
+.. automodule:: model.pipeline
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
 .. toctree::
 
 	subsection1
-
-.. toctree::
-
-	subsection2
 
 ext_loader
 ----------
@@ -17,13 +21,9 @@ ext_loader
 	:undoc-members:
 	:show-inheritance:
 
-pipeline
---------
+.. toctree::
 
-.. automodule:: model.pipeline
-	:members:
-	:undoc-members:
-	:show-inheritance:
+	subsection2
 
 view
 ====
