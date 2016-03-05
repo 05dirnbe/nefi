@@ -43,14 +43,14 @@ class MainView(base, form):
 
         self.q_icon_up = QtGui.QIcon()
         self.q_icon_down = QtGui.QIcon()
+        self.q_icon_plus = QtGui.QIcon()
+        self.q_icon_plus_grey = QtGui.QIcon()
 
     def register_observers(self):
         pass
 
     @pyqtSlot()
     def get_current_image(self, image):
-        print("bla")
-        print(str(image))
         self.current_image_original = image
         self.resize_default()
 
@@ -79,7 +79,6 @@ class MainView(base, form):
         either add it in the QtDesigner or declare it here.
         """
 
-        # *TODO* Create these ones with Qt Designer and put them into select_cat_alg_vbox_layout. I failed
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
@@ -89,6 +88,13 @@ class MainView(base, form):
         self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
         self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
 
+    def disable_plus(self):
+        self.add_btn.setEnabled(False)
+        self.add_btn.setIcon(self.q_icon_plus_grey)
+
+    def enable_plus(self):
+        self.add_btn.setEnabled(True)
+        self.add_btn.setIcon(self.q_icon_plus)
 
     def set_pip_title(self, title):
         """
@@ -111,10 +117,6 @@ class MainView(base, form):
         pixmap_icon = QtGui.QPixmap("./assets/images/man.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.run_btn.setIcon(q_icon)
-
-        pixmap_icon = QtGui.QPixmap("./assets/images/add_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.add_btn.setIcon(q_icon)
 
         pixmap_icon = QtGui.QPixmap("./assets/images/trash_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
@@ -148,6 +150,13 @@ class MainView(base, form):
         pixmap_down = QtGui.QPixmap("./assets/images/down.png")
         self.q_icon_up = QtGui.QIcon(pixmap_up)
         self.q_icon_down = QtGui.QIcon(pixmap_down)
+
+        pixmap_plus = QtGui.QPixmap("./assets/images/plus.png")
+        self.q_icon_plus = QtGui.QIcon(pixmap_plus)
+        self.enable_plus()
+
+        pixmap_plus_grey = QtGui.QPixmap("./assets/images/plus_grey.png")
+        self.q_icon_plus_grey = QtGui.QIcon(pixmap_plus_grey)
 
 
     @pyqtSlot(int)
@@ -291,6 +300,8 @@ class MainView(base, form):
 
         del self.pipeline.executed_cats[:]
 
+        self.enable_plus()
+
     def clear_left_side_new_image(self):
         while self.left_scroll_results_vbox_layout.count():
             child = self.left_scroll_results_vbox_layout.takeAt(0)
@@ -326,7 +337,14 @@ class MainView(base, form):
 
         # remove in model
         if cat is not None:
+
+            if cat.get_name() == "blank":
+                self.enable_plus()
+
             self.pipeline.delete_category(self.pipeline.get_index(cat))
+
+
+
 
     def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
         """
@@ -479,7 +497,9 @@ class MainView(base, form):
             def setCurrentIndexAlg(index):
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
-                else:  # self.current_index != index:
+                else:
+                    if cat.get_name() == "blank":
+                        self.enable_plus()
                     self.change_pip_entry_alg(self.pipeline.get_index(cat), self.ComboxCategories.currentText(),
                                               self.stackedWidgetComboxesAlgorithms.currentWidget().currentText(),
                                               pipe_entry_widget, settings_widget)
@@ -569,7 +589,7 @@ class MainView(base, form):
         pip_up_down_layout = QVBoxLayout()
         pip_up_down.setLayout(pip_up_down_layout)
 
-        pip_up_down.setContentsMargins(17, -15, 0, 0)
+        pip_up_down.setContentsMargins(17, -17, 0, 0)
 
         up_btn = QToolButton()
         dw_btn = QToolButton()
@@ -597,7 +617,7 @@ class MainView(base, form):
         pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
         pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
-        pip_main_layout.addWidget(btn, Qt.AlignVCenter)
+        pip_main_layout.addWidget(btn, Qt.AlignRight)
 
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget)
 
@@ -661,6 +681,7 @@ class MainView(base, form):
         # show new settings widget for new step
         if new_marker:
             show_settings()
+            self.disable_plus()
 
         return (pip_main_widget, settings_main_widget)
 
