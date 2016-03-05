@@ -27,7 +27,7 @@ class AlgBody(Algorithm):
         self.name = "Smooth degree 2 nodes"
         self.parent = "Graph filtering"
 
-    def process(self, input_data):
+    def process(self, args):
 
         """
         Implements a filter which smooths nodes of degree two.
@@ -44,8 +44,8 @@ class AlgBody(Algorithm):
         """
         try:
 
-            degree_two_nodes = [v for v in input_data[1].nodes_iter()
-                                if input_data[1].degree(v) == 2]
+            degree_two_nodes = [v for v in args[1].nodes_iter()
+                                if args[1].degree(v) == 2]
 
             nodes_removed = []
 
@@ -54,12 +54,12 @@ class AlgBody(Algorithm):
                 old_edges_data = []
                 new_edge_data = {}
 
-                neighbors = input_data[1].neighbors(n)
+                neighbors = args[1].neighbors(n)
                 n1 = neighbors[0]
                 n2 = neighbors[1]
 
-                for e in input_data[1].edges(n):
-                    old_edges_data.append(input_data[1].get_edge_data(*e))
+                for e in args[1].edges(n):
+                    old_edges_data.append(args[1].get_edge_data(*e))
 
                 for d in old_edges_data:
 
@@ -94,9 +94,9 @@ class AlgBody(Algorithm):
                     / (sample_size_1 + sample_size_2 - 2)
 
                 # prevent smoothing if it results in parallel edges
-                if not input_data[1].has_edge(n1, n2) and n not in nodes_removed:
-                    input_data[1].add_edge(n1, n2, new_edge_data)
-                    input_data[1].remove_node(n)
+                if not args[1].has_edge(n1, n2) and n not in nodes_removed:
+                    args[1].add_edge(n1, n2, new_edge_data)
+                    args[1].remove_node(n)
                     nodes_removed.append(n)
 
             print ('Smoothed a total of', len(
@@ -106,8 +106,8 @@ class AlgBody(Algorithm):
 
             print ("Unexpected error:", sys.exc_info()[0])
 
-        self.result['img'] = input_data[0]
-        self.result['graph'] = input_data[1]
+        self.result['img'] = args[0]
+        self.result['graph'] = args[1]
 
 if __name__ == '__main__':
     pass

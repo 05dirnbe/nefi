@@ -41,15 +41,17 @@ class AlgBody(Algorithm):
             | *args* : a list of arguments, e.g. image ndarray
 
         """
+        print('------------------')
+        print(args)
         # nefi1 uses cvtColor transformation, here it crashes
-        #gray_img = cv2.cvtColor(args[0], cv2.COLOR_BGR2GRAY)
+        # gray_img = cv2.cvtColor(args[0], cv2.COLOR_BGR2GRAY)
         # create a skeleton
-        #skeleton = thinning.guo_hall_thinning(gray_img.copy())
+        # skeleton = thinning.guo_hall_thinning(gray_img.copy())
         skeleton = thinning.guo_hall_thinning(args[0].copy())
         # detect nodes
         graph = zhang_suen_node_detection(skeleton)
         # detect edges
-        #graph = breadth_first_edge_detection(skeleton, gray_img, graph)
+        # graph = breadth_first_edge_detection(skeleton, gray_img, graph)
         graph = breadth_first_edge_detection(skeleton, args[0], graph)
         skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
         self.result['graph'], self.result['img'] = graph, skeleton

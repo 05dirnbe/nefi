@@ -113,7 +113,7 @@ class Category:
         """
         return self.active_algorithm
 
-    def process(self, *args):
+    def process(self, args):
         """
         Run a specific algorithm on the image.
 
