@@ -45,7 +45,7 @@ class AlgBody(Algorithm):
             | *graph* : a filtered networkx Graph
 
         """
-        image_arr, graph = args
+        image_arr, graph = args[0:2]
         try:
             graph = max(nx.connected_component_subgraphs(graph), key=len)
             # supposedly slower

@@ -1,325 +1,843 @@
-FAILED PIPELINES: 0
-SUCCESSFUL PIPELINES: 320
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+FAILED PIPELINES: 40
+SUCCESSFUL PIPELINES: 280
 True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
 True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
 True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
 True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
-True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
-True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
 True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
-True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
 True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+False, Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
 True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
 True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
-True, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
-True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
-True, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Median Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
-True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
-True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Color enhancement -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Blur -> Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Color enhancement -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising Colored -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+True, Bilateral Filter -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+False, Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+True, Fast nl Means Denoising Colored -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Connected component filter
+False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Color enhancement -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Invert Color -> Constant Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Median Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+False, Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Gaussian Blur -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Bilateral Filter -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Median Blur -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Blur -> Constant Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Invert Color -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Constant Threshold -> Guo Hall Thinning -> Connected component filter
+True, Gaussian Blur -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Edge attribute filter
+True, Median Blur -> Constant Threshold -> Guo Hall Thinning -> Simple cycle filter
+True, Bilateral Filter -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Edge attribute filter
+True, Fast nl Means Denoising -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Connected component filter
+True, Invert Color -> Watershed - Distance Transform Otsu -> Guo Hall Thinning -> Keep only largest connected component
+True, Median Blur -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+False, Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Blur -> Grabcut - Dilation Erosion Otsu -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising -> Watershed - Dilation Erosion Adaptive Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+True, Fast nl Means Denoising Colored -> Watershed - Dilation Erosion Otsu -> Guo Hall Thinning -> Simple cycle filter
+False, Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+True, Fast nl Means Denoising -> Grabcut - Distance Transform Otsu -> Guo Hall Thinning -> Simple cycle filter
 
 ##### DETAILS #####
 
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Invert Color -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Connected component filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Color enhancement -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Simple cycle filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 442, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising Colored -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Blur -> Otsus Threshold -> Guo Hall Thinning -> Edge attribute filter
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Bilateral Filter -> Otsus Threshold -> Guo Hall Thinning -> Smooth degree 2 nodes
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Fast nl Means Denoising -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Median Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'
+
+
+Gaussian Blur -> Otsus Threshold -> Guo Hall Thinning -> Keep only largest connected component
+Traceback (most recent call last):
+  File "nefi2.py", line 98, in <module>
+    main(arguments)
+  File "nefi2.py", line 74, in main
+    batch_mode(args)
+  File "nefi2.py", line 54, in batch_mode
+    pipeline.load_pipeline_json(args.pipeline)
+  File "/home/tastyminerals/dev/NEFI2/nefi2/model/pipeline.py", line 441, in load_pipeline_json
+    active_alg.store_image = alg_attributes["store_image"]
+AttributeError: 'NoneType' object has no attribute 'store_image'

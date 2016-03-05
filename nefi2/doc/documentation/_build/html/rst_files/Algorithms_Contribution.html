@@ -120,7 +120,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -150,38 +150,38 @@
 The guide provides you all the step to be done for allow the users of Nefi 2.0 to use the new algorithm.</p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>First of all you have to create a <strong>.py</strong> file in the folder <tt class="xref py py-mod docutils literal"><span class="pre">module.algorithms</span></tt>.
+<p>First of all you have to create a <strong>.py</strong> file in the folder <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms</span></code>.
 This file will contain the algorithm that you want to add.
 As convention of Nefi 2.0, the name of the file will be the name of the algorithm,
 for example if the new algorithm is <strong>Blur</strong> the file&#8217;s name will be &#8220;<strong>blur.py</strong>&#8221;.
-The main structure of the file will be a main class <tt class="xref py py-class docutils literal"><span class="pre">AlgBody</span></tt> and its main methods <tt class="xref py py-func docutils literal"><span class="pre">AlgBody.__init__()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">AlgBody.process()</span></tt>.</p>
+The main structure of the file will be a main class <code class="xref py py-class docutils literal"><span class="pre">AlgBody</span></code> and its main methods <code class="xref py py-func docutils literal"><span class="pre">AlgBody.__init__()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">AlgBody.process()</span></code>.</p>
 </div>
 <div class="section" id="imports">
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
-<p>You have to import from <tt class="xref py py-mod docutils literal"><span class="pre">module.algorithms._alg</span></tt> the class <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><tt class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></tt></a>.
+<p>You have to import from <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms._alg</span></code> the class <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a>.
 Also you have to import, if the algorithm needs it, the UI widgets that allow the user to select the input values of the algorithm.
 The UI widgets that Nefi 2.0 provides are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.IntegerSlider" title="model.algorithms._alg.IntegerSlider"><tt class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.IntegerSlider</span></tt></a>.</li>
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.FloatSlider" title="model.algorithms._alg.FloatSlider"><tt class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.FloatSlider</span></tt></a>.</li>
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.CheckBox" title="model.algorithms._alg.CheckBox"><tt class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.CheckBox</span></tt></a>.</li>
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.DropDown" title="model.algorithms._alg.DropDown"><tt class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.DropDown</span></tt></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.IntegerSlider" title="model.algorithms._alg.IntegerSlider"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.IntegerSlider</span></code></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.FloatSlider" title="model.algorithms._alg.FloatSlider"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.FloatSlider</span></code></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.CheckBox" title="model.algorithms._alg.CheckBox"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.CheckBox</span></code></a>.</li>
+<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.DropDown" title="model.algorithms._alg.DropDown"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.DropDown</span></code></a>.</li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="algbody-class">
 <h2>AlgBody Class<a class="headerlink" href="#algbody-class" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="xref py py-class docutils literal"><span class="pre">AlgBody</span></tt> class will contain all the methods that you need to implement your algorithm and the methods <tt class="xref py py-func docutils literal"><span class="pre">__init__()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">process()</span></tt>.</p>
-<p>The <tt class="xref py py-func docutils literal"><span class="pre">__init__()</span></tt> method is necessary to set the name of the algorithm, to link the algorithm at its category and to set the UI widgets.</p>
+<p>The <code class="xref py py-class docutils literal"><span class="pre">AlgBody</span></code> class will contain all the methods that you need to implement your algorithm and the methods <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">process()</span></code>.</p>
+<p>The <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> method is necessary to set the name of the algorithm, to link the algorithm at its category and to set the UI widgets.</p>
 <blockquote>
-<div><p>The <strong>name</strong> of the algorithm is defined by the attribute <tt class="docutils literal"><span class="pre">self.name</span></tt>.</p>
-<p>The <strong>parent category</strong> of the algorithm is defined by the attribute <tt class="docutils literal"><span class="pre">self.parent</span></tt>.</p>
-<p>To add the <strong>UI widgets</strong> create an UI object and then append it to the list <tt class="docutils literal"><span class="pre">self.integer_sliders</span></tt>, <tt class="docutils literal"><span class="pre">self.float_sliders</span></tt>, <tt class="docutils literal"><span class="pre">self.checkboxes</span></tt> or <tt class="docutils literal"><span class="pre">self.drop_downs</span></tt>.</p>
+<div><p>The <strong>name</strong> of the algorithm is defined by the attribute <code class="docutils literal"><span class="pre">self.name</span></code>.</p>
+<p>The <strong>parent category</strong> of the algorithm is defined by the attribute <code class="docutils literal"><span class="pre">self.parent</span></code>.</p>
+<p>To add the <strong>UI widgets</strong> create an UI object and then append it to the list <code class="docutils literal"><span class="pre">self.integer_sliders</span></code>, <code class="docutils literal"><span class="pre">self.float_sliders</span></code>, <code class="docutils literal"><span class="pre">self.checkboxes</span></code> or <code class="docutils literal"><span class="pre">self.drop_downs</span></code>.</p>
 </div></blockquote>
-<p>The <tt class="xref py py-func docutils literal"><span class="pre">process()</span></tt> is the main method that contains the logic of the algorithm.</p>
+<p>The <code class="xref py py-func docutils literal"><span class="pre">process()</span></code> is the main method that contains the logic of the algorithm.</p>
 <blockquote>
-<div>The <strong>results</strong> of the algorithm must be saved in the object <tt class="docutils literal"><span class="pre">self.result['img']</span></tt>, if it is an image, and/or in <tt class="docutils literal"><span class="pre">self.result['graph']</span></tt>, if it is a graph.</div></blockquote>
+<div>The <strong>results</strong> of the algorithm must be saved in the object <code class="docutils literal"><span class="pre">self.result['img']</span></code>, if it is an image, and/or in <code class="docutils literal"><span class="pre">self.result['graph']</span></code>, if it is a graph.</div></blockquote>
 </div>
 </div>
 

@@ -67,11 +67,7 @@ class MainView(base, form):
         self.resize.clicked.connect(self.resize_default)
         self.zoom_in.clicked.connect(self.zoom_in_)
         self.zoom_out.clicked.connect(self.zoom_out_)
-
-        def debug():
-            print("Pos: " + str(self.pip_scroll.verticalScrollBar().sliderPosition()))
-
-        self.pip_scroll.verticalScrollBar().valueChanged.connect(debug)
+        self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
 
     def draw_ui(self):
         """
@@ -235,10 +231,10 @@ class MainView(base, form):
         self.fav_pips_combo_box.addItem("Please Select")
 
         # scan the directory for default pipelines
-        for file in os.listdir("./_default_pipelines"):
+        for file in os.listdir("./default_pipelines"):
             if file.endswith(".json"):
                 name = file.split(".")[0]
-                url = os.path.abspath("./_default_pipelines" + "/" + file)
+                url = os.path.abspath("./default_pipelines" + "/" + file)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
 
@@ -352,6 +348,7 @@ class MainView(base, form):
         # change settings widgets
         self.remove_pip_entry(pipe_entry_widget, settings_widget)
         (new_pipe_entry_widget, new_settings_widget) = self.add_pipe_entry(position)
+        new_pipe_entry_widget.setStyleSheet("background-color:grey;")
 
         self.stackedWidget_Settings.show()
         self.stackedWidget_Settings.setCurrentIndex(position)
@@ -434,10 +431,12 @@ class MainView(base, form):
         cat = self.pipeline.executed_cats[cat_position]
 
         last_cat = None
+        last_cat_name = None
 
         # Show only allowed categories in dropdown
         if len(self.pipeline.executed_cats) > 1:
             last_cat = self.pipeline.executed_cats[cat_position - 1]
+            last_cat_name = last_cat.get_name()
 
         # Combobox for selecting Category
         self.ComboxCategories.show()
@@ -456,7 +455,8 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.show()
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
-        for category_name in self.pipeline.report_available_cats(last_cat):
+        # *TODO* CHANGE HERE to last_cat_name
+        for category_name in self.pipeline.report_available_cats(last_cat_name):
 
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)
