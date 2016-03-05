@@ -206,7 +206,7 @@ class MainView(base, form):
                                       self.left_scroll_results, self.current_image_original, self.get_current_image)
 
             widget.setFixedWidth(self.left_scroll_results.width() - 30)
-            widget.setFixedHeight(self.left_scroll_results.width() - 30)
+            widget.setFixedHeight(self.left_scroll_results.width() - 100)
 
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
