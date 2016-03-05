@@ -27,16 +27,13 @@ def gui_mode():
     Start NEFI2 GUI
     """
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container, True)
-
+    pipeline = Pipeline(extloader.cats_container)
     app = QApplication(sys.argv)
-
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setQuitOnLastWindowClosed(True)
     wnd = MainView(pipeline)
     wnd.load_dark_theme(app)
     wnd.show()
-
     sys.exit(app.exec_())
 
 
@@ -48,9 +45,8 @@ def batch_mode(args):
         | *args* (dict) : argument dict returned by ArgumentParser
 
     """
-    ui_mode = False
     extloader = ExtensionLoader()
-    pipeline = Pipeline(extloader.cats_container, ui_mode)
+    pipeline = Pipeline(extloader.cats_container)
     # processing args values
     if args.pipeline:
         # load the specified pipeline file
@@ -64,7 +60,7 @@ def batch_mode(args):
         pipeline.set_input(args.file)
     if args.out:
         pipeline.set_output_dir(args.out)
-    pipeline.process()
+    pipeline.process_batch()
 
 
 def main(args):
