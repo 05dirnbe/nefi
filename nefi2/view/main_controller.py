@@ -560,7 +560,7 @@ class MainView(base, form):
         pip_up_down_layout = QVBoxLayout()
         pip_up_down.setLayout(pip_up_down_layout)
 
-        pip_up_down.setContentsMargins(7, -15, 0, 0)
+        pip_up_down.setContentsMargins(17, -15, 0, 0)
 
         up_btn = QToolButton()
         dw_btn = QToolButton()
