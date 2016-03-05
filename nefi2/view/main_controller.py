@@ -560,12 +560,10 @@ class MainView(base, form):
         # create an widget that displays the pip entry in the ui and connect the remove button
 
         pip_main_widget = QWidget()
-        pip_main_widget.setFixedHeight(70)
-        pip_main_widget.setFixedWidth(300)
-        pip_main_layout = QHBoxLayout()
-        pip_main_widget.setLayout(pip_main_layout)
-
-        pip_main_widget.setContentsMargins(-28, 0, 0, 0)
+        pip_main_widget.setFixedWidth(320)
+        pip_main_widget.setFixedHeight(50)
+        hbox_layout = QHBoxLayout()
+        pip_main_widget.setLayout(hbox_layout)
 
         new_marker = False
 
@@ -583,48 +581,32 @@ class MainView(base, form):
             new_marker = False
 
         pixmap_label = QtWidgets.QLabel()
+        pixmap_label.setFixedHeight(50)
+        pixmap_label.setFixedWidth(50)
+        pixmap_label.setContentsMargins(10, -20, 0, 0)
+        hbox_layout.addWidget(pixmap_label)
 
         if not new_marker:
             pixmap = QPixmap(icon)
             pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
             pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
-        pip_up_down = QWidget()
-        pip_up_down.setFixedHeight(70)
-        pip_up_down_layout = QVBoxLayout()
-        pip_up_down.setLayout(pip_up_down_layout)
-
-        pip_up_down.setContentsMargins(17, -17, 0, 0)
-
-        up_btn = QToolButton()
-        dw_btn = QToolButton()
-
-        up_btn.setIcon(self.q_icon_up)
-        dw_btn.setIcon(self.q_icon_down)
-
-        up_btn.setFixedHeight(25)
-        dw_btn.setFixedHeight(25)
-
-        pip_up_down_layout.addWidget(up_btn)
-        pip_up_down_layout.addWidget(dw_btn)
-
         string_label = QLabel()
         string_label.setText(label)
-        string_label.setFixedWidth(210)
+        string_label.setFixedHeight(30)
+        string_label.setFixedWidth(200)
+        hbox_layout.addWidget(string_label)
 
         btn = QtWidgets.QPushButton()
-        btn.setFixedSize(20, 20)
+        btn.setFixedHeight(30)
+        btn.setFixedWidth(30)
+        hbox_layout.addWidget(btn)
 
         pixmap_icon = QtGui.QPixmap("./assets/images/delete_x_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        #pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
-        pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
-        pip_main_layout.addWidget(string_label, Qt.AlignLeft)
-        pip_main_layout.addWidget(btn, Qt.AlignRight)
-
-        self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget)
+        self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget, Qt.AlignTop)
 
         # Create the corresponding settings widget and connect it
         self.settings_collapsable.setTitle("Settings")
@@ -686,8 +668,6 @@ class MainView(base, form):
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
-        up_btn.clicked.connect(move_up_button_clicked)
-        dw_btn.clicked.connect(move_down_button_clicked)
 
         # show new settings widget for new step
         if new_marker:
