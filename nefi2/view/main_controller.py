@@ -107,6 +107,10 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
+        pixmap_icon = QtGui.QPixmap("./assets/images/man.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.run_btn.setIcon(q_icon)
+
         pixmap_icon = QtGui.QPixmap("./assets/images/add_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.add_btn.setIcon(q_icon)
@@ -373,7 +377,7 @@ class MainView(base, form):
 
         empty_flag = True
 
-        groupOfSliders = QGroupBox()
+        groupOfSliders = QWidget()
         sp = QSizePolicy()
         sp.setVerticalPolicy(QSizePolicy.Preferred)
         # groupOfSliders.setSizePolicy(sp)
