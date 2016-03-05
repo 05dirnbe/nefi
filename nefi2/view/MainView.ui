@@ -49,7 +49,7 @@
               <x>0</x>
               <y>0</y>
               <width>415</width>
-              <height>1161</height>
+              <height>1155</height>
              </rect>
             </property>
             <property name="minimumSize">
@@ -94,8 +94,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>493</width>
-              <height>1130</height>
+              <width>503</width>
+              <height>1121</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -310,7 +310,7 @@
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="input_btn">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -432,7 +432,7 @@
               </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="output_btn">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -546,9 +546,16 @@
                 <height>30</height>
                </size>
               </property>
+              <property name="baseSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
-                <pointsize>9</pointsize>
+                <pointsize>10</pointsize>
+                <italic>false</italic>
                </font>
               </property>
               <property name="layoutDirection">
@@ -557,9 +564,12 @@
               <property name="styleSheet">
                <string notr="true"/>
               </property>
+              <property name="minimumContentsLength">
+               <number>150</number>
+              </property>
              </widget>
             </item>
-            <item>
+            <item alignment="Qt::AlignRight">
              <widget class="QPushButton" name="save_btn">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -629,8 +639,8 @@
             <property name="bottomMargin">
              <number>11</number>
             </property>
-            <item>
-             <widget class="QPushButton" name="run_btn">
+            <item alignment="Qt::AlignBottom">
+             <widget class="QToolButton" name="run_btn">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>100</horstretch>
@@ -661,6 +671,9 @@
               </property>
               <property name="text">
                <string>Run</string>
+              </property>
+              <property name="checkable">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -802,8 +815,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>347</width>
-                 <height>267</height>
+                 <width>352</width>
+                 <height>258</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -916,8 +929,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>330</width>
-                 <height>317</height>
+                 <width>334</width>
+                 <height>308</height>
                 </rect>
                </property>
                <property name="sizePolicy">
