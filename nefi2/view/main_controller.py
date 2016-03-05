@@ -89,7 +89,6 @@ class MainView(base, form):
         self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
         self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
 
-
     def set_pip_title(self, title):
         """
         Sets the title of the current selected pipeline in the ui.
@@ -166,7 +165,11 @@ class MainView(base, form):
         name, url = self.default_pips[index - 1]
 
         # parse the json in the model
-        self.pipeline.load_pipeline_json(url)
+        try:
+            self.pipeline.load_pipeline_json(url)
+        except Exception as e:
+            print("failed to load default pip: " + name + " received parser error")
+            return
 
         # set the title
         self.set_pip_title(name)
