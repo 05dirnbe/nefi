@@ -47,7 +47,6 @@ class AlgBody(Algorithm):
         self.float_sliders.append(self.f_col)
 
     def process(self, args):
-
         if (len(args[0].shape) == 2):
             self.result['img'] = cv2.fastNlMeansDenoising(args[0],
                                             self.f_strength.value,

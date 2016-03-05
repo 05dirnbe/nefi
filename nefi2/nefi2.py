@@ -60,7 +60,7 @@ def batch_mode(args):
         pipeline.set_input(args.file)
     if args.out:
         pipeline.set_output_dir(args.out)
-    pipeline.process()
+    pipeline.process_batch()
 
 
 def main(args):

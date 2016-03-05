@@ -268,7 +268,7 @@ class MainView(base, form):
         """
         url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
 
-        split_list = url.split("/")
+        split_list = url.split(os.path.sep)
         name = split_list[len(split_list) - 1].split(".")[0]
         del split_list[len(split_list) - 1]
         url = url.replace(name, "")
