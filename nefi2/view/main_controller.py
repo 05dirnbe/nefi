@@ -560,7 +560,7 @@ class MainView(base, form):
         pip_up_down_layout = QVBoxLayout()
         pip_up_down.setLayout(pip_up_down_layout)
 
-        pip_up_down.setContentsMargins(0, -15, 0, 0)
+        pip_up_down.setContentsMargins(7, -15, 0, 0)
 
         up_btn = QToolButton()
         dw_btn = QToolButton()
@@ -819,8 +819,8 @@ class LeftCustomWidget(QGroupBox):
                                                               QtCore.Qt.KeepAspectRatio)
         self.image = QLabel()
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.image.setFixedWidth(400)
-        self.image.setFixedHeight(400)
+        self.image.setFixedWidth(380)
+        self.image.setFixedHeight(380)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
         self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
