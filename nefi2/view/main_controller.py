@@ -67,11 +67,7 @@ class MainView(base, form):
         self.resize.clicked.connect(self.resize_default)
         self.zoom_in.clicked.connect(self.zoom_in_)
         self.zoom_out.clicked.connect(self.zoom_out_)
-
-        def debug():
-            print("Pos: " + str(self.pip_scroll.verticalScrollBar().sliderPosition()))
-
-        self.pip_scroll.verticalScrollBar().valueChanged.connect(debug)
+        self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
 
     def draw_ui(self):
         """
@@ -233,10 +229,10 @@ class MainView(base, form):
         self.fav_pips_combo_box.addItem("Please Select")
 
         # scan the directory for default pipelines
-        for file in os.listdir("./_default_pipelines"):
+        for file in os.listdir("./default_pipelines"):
             if file.endswith(".json"):
                 name = file.split(".")[0]
-                url = os.path.abspath("./_default_pipelines" + "/" + file)
+                url = os.path.abspath("./default_pipelines" + "/" + file)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
 
