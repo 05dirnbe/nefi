@@ -214,7 +214,7 @@ class Pipeline:
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
 
-            progress = ((n - 1) / len(self.executed_cats)) * 100
+            progress = (n / len(self.executed_cats)) * 100
             report = cat.name + " - " + cat.active_algorithm.name
             zope.event.notify(ProgressEvent(progress, report))
 
