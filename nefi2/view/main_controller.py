@@ -1300,6 +1300,7 @@ class IntegerTextfield(QSpinBox):
         self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
         self.textfield.setFixedWidth(75)
+        
 
 
 class DoubleTextfield(QDoubleSpinBox):
