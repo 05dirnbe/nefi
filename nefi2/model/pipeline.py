@@ -47,13 +47,11 @@ def read_image_file(fpath):
     Args:
         *fpath* (str): file path
     """
-    print('READING ', fpath)
     try:
         img = cv2.imread(fpath, cv2.IMREAD_COLOR)
     except (IOError, cv2.error):
         print('ERROR! Cannot read the image file, make sure it is readable')
         sys.exit(1)
-    print('READ ', img)
     return img
 
 
@@ -153,7 +151,6 @@ class Pipeline:
             *category* (int|str): Category position index or Category name
 
         """
-        print("DELETE CALLED")
         if type(category) == int:
             del self.executed_cats[category]
         elif type(category) == str:
@@ -183,7 +180,6 @@ class Pipeline:
         <This function will be obviously slower than the console variant due
         to IO operations on the _cache_ directory.>
         """
-        print('0 CHECK _cache_', os.listdir('_cache_'))
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
@@ -197,24 +193,16 @@ class Pipeline:
                 start_from = idx
                 break
             start_from = 0
-        print('1 CHECK _cache_', os.listdir('_cache_'))
         # decide which category to continue from if any, act accordingly
         if start_from == 0:
-            print('STARTING FROM 0', 'memory:', self.pipeline_memory)
             # new pipeline, read original img
             self.pipeline_memory[0] = read_image_file(img_fpath)
             data = [self.pipeline_memory[0], None]
             self.original_img = data[0]
-            print('data:', data)
         else:
-            print('STARTING FROM', start_from, 'memory:', self.pipeline_memory)
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(start_from - 1)
             # reread image from cache
-            print('BEFORE READING FROM MEMORY:', data)
-            print('2 CHECK _cache_', os.listdir('_cache_'))
-            print('memory 0:', self.pipeline_memory[start_from - 1][0])
-            print('read memory 0:', read_image_file(self.pipeline_memory[start_from - 1][0]))
             data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
             # now remove cached results of the method that was modified
             try:
@@ -222,7 +210,6 @@ class Pipeline:
             except (OSError, IOError):
                 print('ERROR! Cannot delete image from cache')
                 sys.exit(1)
-            print('data:', data)
 
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
@@ -565,7 +552,6 @@ class Pipeline:
         Recreate dir if exists or before running image processing.
         <This is done to make thumbnails in the left pane available in UI.>
         """
-        print("------- REMOVING CACHE -------")
         if os.path.exists('_cache_'):
             try:
                 shutil.rmtree('_cache_')
