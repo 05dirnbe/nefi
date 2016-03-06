@@ -273,8 +273,10 @@ class MainView(base, form):
             img_path: the resulting image
         """
 
-        widget = LeftCustomWidget(event.path, 0, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image, event.cat)
+        print("event.cat " +str(event.cat))
+
+        widget = LeftCustomWidget(event.path, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -319,7 +321,7 @@ class MainView(base, form):
             self.resize_default()
             # self.main_image_label.setPixmap(pixmap)
 
-            widget = LeftCustomWidget(url[0][0], 0, self.main_image_label, self.mid_panel,
+            widget = LeftCustomWidget(url[0][0], self.main_image_label, self.mid_panel,
                                       self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline)
 
             self.left_scroll_results_vbox_layout.addWidget(widget)
@@ -912,13 +914,13 @@ class MainView(base, form):
             # print(str(image_name))
             # print(str(image_path))
 
-            widget = LeftCustomWidget(image_path, j, self.main_image_label, self.mid_panel,
+            widget = LeftCustomWidget(image_path, self.main_image_label, self.mid_panel,
                                       self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, cat)
 
             def set_image(image):
                 print(str(image))
 
-            # widget.connect(set_image)
+            #widget.connect(set_image)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
@@ -954,8 +956,8 @@ class MainView(base, form):
                                                     QtCore.Qt.KeepAspectRatio)
         widget = ImageWidget()
         widget.set_pixmap(pixmap)
-        self.verticalLayout_12.addWidget(widget)
-        #self.main_image_label.setPixmap(pixmap)
+        #self.verticalLayout_12.addWidget(widget)
+        self.main_image_label.setPixmap(pixmap)
 
 
 class LeftCustomWidget(QWidget):
@@ -967,7 +969,7 @@ class LeftCustomWidget(QWidget):
 
     trigger = pyqtSignal()
 
-    def __init__(self, image_path, step, main_image_label, mid_panel, left_scroll_results, current_image,
+    def __init__(self, image_path, main_image_label, mid_panel, left_scroll_results, current_image,
                  slot, pipeline, cat=None):
         super(LeftCustomWidget, self).__init__()
 
@@ -976,11 +978,12 @@ class LeftCustomWidget(QWidget):
         self.left_scroll_results = left_scroll_results
         self.cat = cat
         self.pipeline = pipeline
+        self.step = 0
         if cat is None:
             self.image_name = "Input - Image"
         else:
             self.image_name = str(cat.get_name() + " " + cat.active_algorithm.name)
-        self.step = step
+            self.step = self.pipeline.get_index(cat) + 1
         self.current_image = current_image
         self.slot = slot
         # self.setGeometry(0, 0, 300, 100)
@@ -1018,7 +1021,6 @@ class LeftCustomWidget(QWidget):
             | *event*: the mouse press event
         """
         if QMouseEvent.button() == QtCore.Qt.LeftButton:
-
             try:
                 if self.step == 0 or self.cat is None:
                     self.mid_panel.setTitle(self.image_name)
