@@ -7,10 +7,12 @@ It also enables console batch processing mode.
 """
 import sys
 import argparse
+import ctypes
 from PyQt5.QtWidgets import QApplication
 from model.ext_loader import ExtensionLoader
 from model.pipeline import Pipeline
 from view.main_controller import *
+
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -26,12 +28,17 @@ def gui_mode():
     """
     Start NEFI2 GUI
     """
+
+    myappid = 'nefi2.0' # arbitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
     app = QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setQuitOnLastWindowClosed(True)
     app.setWindowIcon(QtGui.QIcon("./assets/images/nefi2.ico"))
+
     wnd = MainView(pipeline)
     wnd.load_dark_theme(app)
     wnd.show()
