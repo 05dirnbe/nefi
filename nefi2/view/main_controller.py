@@ -10,6 +10,7 @@ import zope.event.classhandler
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
+from pipeline import *
 from PyQt5.QtGui import QIcon, QPixmap
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
@@ -46,7 +47,7 @@ class MainView(base, form):
         self.q_icon_delete = QtGui.QIcon()
 
         self.progress_label = QLabel(self)
-        self.progress_label.setGeometry(500, 380, 100, 20)
+        self.progress_label.setGeometry(500, 380, 400, 20)
         self.progress_label.hide()
 
         self.progressbar = QtWidgets.QProgressBar(self)

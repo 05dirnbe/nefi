@@ -14,9 +14,7 @@ import re
 import shutil
 import sys
 import copy
-from .Events import *
 import zope.event.classhandler
-
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -25,7 +23,6 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 from _category import Category
 from algorithms import _utility
-
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com",
@@ -557,6 +554,25 @@ class Pipeline:
 
         zope.event.notify(CacheEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path))
+
+class ProgressEvent(object):
+    """
+    This event is used to report the progress back to the maincontroller
+    """
+
+    def __init__(self, value, report):
+        self.value = value
+        self.report = report
+
+
+class CacheEvent(object):
+    """
+    This event is used to report the maincontroller the new cached image
+    """
+
+    def __init__(self, cat, path):
+        self.cat = cat
+        self.path = path
 
 
 if __name__ == '__main__':
