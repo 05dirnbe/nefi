@@ -119,6 +119,7 @@ class MainView(base, form):
 
             self.set_cat_alg_dropdown(cat, cat.active_algorithm)
 
+
     def connect_ui(self):
         """
         This function connects the ui using signals from the
@@ -143,6 +144,9 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
+
+        self.setWindowTitle("NEFI 2.0")
+        #self.setWindowFlags(Qt.FramelessWindowHint)
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)

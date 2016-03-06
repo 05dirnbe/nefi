@@ -180,6 +180,9 @@ class Pipeline:
         <This function will be obviously slower than the console variant due
         to IO operations on the _cache_ directory.>
         """
+        # reset cache list
+        self.cache = []
+
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
@@ -235,6 +238,7 @@ class Pipeline:
             # store cached image path
             cache_path = os.path.join('_cache_', save_fname)
             self.pipeline_memory[n] = [cache_path, data[1]]
+            cat.active_algorithm.result['img'] = ''
 
     def process_batch(self):
         """
@@ -313,59 +317,26 @@ class Pipeline:
         pipeline_cats = self.executed_cats
 
         is_Graph = False
+        is_Segmented = False
 
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
             if(cat == "Graph detection"):
                 is_Graph = True
+            if(cat == "Segmentation"):
+                is_Segmented = True
             if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
                 return (("You cannot process  " + cat + " after Graph detection."), i)
             if(cat == "Graph detection") and not is_Graph:
-                return (("You cannot process  " + cat + " more than once."), i)
+                return (("You cannot process " + cat + " more than once."), i)
             if(cat == "Graph filtering") and not is_Graph:
-                return (("You cannot process  " + cat + " before Graph detection"), i)
+                return (("You need to process Graph detection before " + cat + "."), i)
+            if(cat == "Graph detection") and not is_Segmented:
+                return (("You need to process Segmentation before " + cat + "."), i)
             if cat == "blank":
-                return (("Specify step " + i + " in the pipeline first."), i)
-
+                return (("Specify step " + str(i) + " in the pipeline first."), i)
 
         return ("", -1)
-
-
-    def report_available_cats_2(self, position):
-
-        available_cats = [cat.name for cat in self.get_available_cats()]
-        allowed_cats = copy.copy(available_cats)
-        pipeline_cats = self.executed_cats
-        only_graph_detection = []
-        only_graph_detection.append("Graph detection")
-
-        is_Graph = False
-
-        #print("pos " + str(position))
-        #print("pos " + str(position))
-
-        for i in range(0, position + 1):
-            #print("cat " + str(pipeline_cats[i].get_name()))
-            if pipeline_cats[i].get_name() == "Graph detection":
-                #print("is Graph")
-                is_Graph = True
-                if(i == position):
-                    return only_graph_detection
-                break
-
-        for i in range(0, position + 1):
-            cat = pipeline_cats[i].get_name()
-            if is_Graph and (cat == "Segmentation" or cat == "Preprocessing" or cat == "Graph detection"):
-                    allowed_cats.remove(cat)
-
-        if not is_Graph:
-            allowed_cats.remove("Graph filtering")
-
-        print("available_cats " + str(available_cats))
-        print("allowed_cats " + str(allowed_cats))
-
-        return allowed_cats
-
 
     def report_available_cats(self, selected_cat=None):
         """
