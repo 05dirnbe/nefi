@@ -134,10 +134,13 @@ class Category:
 
     def get_name(self):
         """
+        Substitute spaces with underscores.
+
         Returns:
-            a *category name* that will be displayed in UI.
+            a *category name* that will be displayed in UI
 
         """
+        # return '_'.join(self.name.split())
         return self.name
 
     def set_name(self, name):

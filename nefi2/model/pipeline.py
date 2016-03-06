@@ -199,12 +199,14 @@ class Pipeline:
         # decide which category to continue from if any, act accordingly
         if start_from == 0:
             # new pipeline, read original img
-            self.pipeline_memory[-1] = read_image_file(img_fpath), None
-            data = self.pipeline_memory[-1]
+            self.pipeline_memory[-1] = read_image_file(img_fpath)
+            data = [self.pipeline_memory[-1], None]
             self.original_img = data[0]
         else:
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(start_from - 1)
+            # reread image from cache
+            data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
 
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
@@ -224,9 +226,12 @@ class Pipeline:
                 data[0] = _utility.draw_graph(self.original_img, data[1])
             # save the results and update the cache
             save_fname = self.get_results_fname(img_fpath, cat)
-            self.save_results(save_fname, data)
+            save_path = os.path.join(self.out_dir, save_fname)
+            self.save_results(save_path, save_fname, data)
             self.update_cache(cat, os.path.join(self.out_dir, save_fname))
-            self.pipeline_memory[n] = data
+            # store cached image path
+            cache_path = os.path.join('_cache_', save_fname)
+            self.pipeline_memory[n] = [cache_path, data[1]]
 
     def process_batch(self):
         """
@@ -256,21 +261,23 @@ class Pipeline:
                 data[0] = _utility.draw_graph(self.original_img, data[1])
             # save the results and update the cache if store_image is True
             save_fname = self.get_results_fname(fpath, last_cat)
-            self.save_results(save_fname, data)
+            save_path = os.path.join(self.out_dir, save_fname)
+            self.save_results(save_path, save_fname, data)
 
-    def save_results(self, image_name, results):
+    def save_results(self, save_path, image_name, results):
         """
         Create a directory of the following format: current pipeline + fname.
         Save and put the results of algorithm processing in the directory.
 
         Args:
+            | *save_path* (str): image save path
             | *image_name* (str): image name
             | *results* (list): a list of arguments to save
 
         """
         # saving the processed image
         try:
-            cv2.imwrite(os.path.join(self.out_dir, image_name), results[0])
+            cv2.imwrite(save_path, results[0])
         except (IOError, cv2.error):
             print('ERROR! Could not write an image file, make sure there is ' +
                   'enough free space on disk')
@@ -296,18 +303,33 @@ class Pipeline:
             *selected_cat* (str): Category selected by the user
 
         Returns:
-            a list of currently allowed cats
+            a list of currently allowed category names
 
         """
-        current_cats = self.get_available_cat_names()
-        if selected_cat != 'Graph filtering' and selected_cat not in current_cats:
-            return current_cats
+        available_cats = [cat.name for cat in self.get_available_cats()]
+        if selected_cat is None:
+            return available_cats
+        elif selected_cat not in available_cats:
+            return available_cats
         elif selected_cat == 'Graph detection':
-            return current_cats[current_cats.index(selected_cat) + 1:]
-        elif selected_cat is None:
-            return current_cats[:-1]
+            return available_cats[available_cats.index(selected_cat) + 1:]
         else:
-            return current_cats[current_cats.index(selected_cat):]
+            return available_cats[available_cats.index(selected_cat):]
+
+    def allow_cat_swap(self, pos1, pos2):
+        """
+        Check the order after potential category swapping and return a bool if
+        it should be allowed or not.
+
+        Args:
+            |*pos1* (int): position to be swapped
+            |*pos2* (int): position to be swapped
+
+        Returns:
+            True if allowed and False otherwise
+        """
+        current_list = self.get_available_cat_names()
+        return current_list[pos1] == current_list[pos2]
 
     def change_category(self, cat_name, position):
         """
@@ -364,19 +386,19 @@ class Pipeline:
 
     def get_available_cat_names(self):
         """
-        Create and return a list of currently available categories as strings.
-        Names are used as keys in available_cats
+        Create and return a list of currently loaded categories as strings.
+        Names are used as keys in ``executed_cats`` list.
 
         Returns:
-            *available_cat_names*: list of Category names
+            a list of current Category names in the pipeline
 
         """
-        available_cat_names = list(self.available_cats.keys())
-        return available_cat_names
+        return [cat.get_name() for cat in self.executed_cats]
 
     def get_available_cats(self):
         """
-        Create and return a list of currently available categories as list of categorie objects.
+        Create and return a list of currently available categories as list of
+        categorie objects.
 
         *<Get your cat for free ^-_-^>*
 
@@ -389,7 +411,8 @@ class Pipeline:
 
     def get_algorithm_list(self, position):
         """
-        Get names of all available algorithms for the category in position available in the pipeline.
+        Get names of all available algorithms for the category in position
+        available in the pipeline.
         Sort the list and return.
 
         Args:
@@ -433,7 +456,8 @@ class Pipeline:
         """
         alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
         basename = os.path.basename(img_fpath)
-        img_name = '_'.join([cat.name.lower(), alg_name, basename])
+        img_name = '_'.join([cat.get_name(), alg_name,
+                             basename])
         return img_name
 
     def set_input(self, input_source):
@@ -538,7 +562,7 @@ class Pipeline:
         Copy an img to cache dir and update the cache list.
 
         Args:
-            | *category* (cat): Category
+            | *category*: Category
             | *img_path* (str): image path
 
         """
