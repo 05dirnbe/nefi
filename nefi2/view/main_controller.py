@@ -26,6 +26,12 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
 base, form = uic.loadUiType("./view/MainView.ui")
 
 
+#class CustomMainView(QWidget):
+#
+#    def __init__(self):
+#        super(MainView, self).__init__()
+
+
 class MainView(base, form):
     def __init__(self, pipeline, parent=None):
 
@@ -507,6 +513,8 @@ class MainView(base, form):
         Args:
             last_cat (object):
         """
+        print("Create drop down " + str(cat_position))
+
         layout = self.select_cat_alg_vbox_layout
         cat = self.pipeline.executed_cats[cat_position]
 
@@ -528,7 +536,7 @@ class MainView(base, form):
         self.stackedWidgetComboxesAlgorithms.hide()
 
         def setCurrentIndexCat(index):
-            # print("Set Cat")
+            print("Set index " + str(index))
             if self.ComboxCategories.currentIndex() == 0:
                 self.stackedWidgetComboxesAlgorithms.hide()
             else:
@@ -536,7 +544,7 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
         # *TODO* CHANGE HERE to last_cat_name
-        for category_name in self.pipeline.report_available_cats(last_cat_name):
+        for category_name in self.pipeline.report_available_cats_2(cat_position):
 
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)
@@ -548,6 +556,7 @@ class MainView(base, form):
             # self.current_index = -1
 
             def setCurrentIndexAlg(index):
+                print("Set index " + str(index))
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
                 else:
@@ -690,10 +699,12 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         settings_main_widget = None
         if not new_marker:
+            print("Create settings widget pos" +str(position))
             settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(position)
             self.stackedWidget_Settings.insertWidget(position, settings_main_widget)
 
         def show_settings():
+
             # Set background color while widget is selected. Doesn't work because of theme? *TODO*
             pip_main_widget.setStyleSheet("background-color:grey;")
 
@@ -702,7 +713,10 @@ class MainView(base, form):
 
             if not new_marker:
                 self.stackedWidget_Settings.show()
+                print("show settings, index "+ str(self.pipeline.get_index(cat)))
+                print("stacked index " + str(self.stackedWidget_Settings.currentIndex()))
                 self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
+                print("stacked index " + str(self.stackedWidget_Settings.currentIndex()))
                 self.settings_collapsable.setTitle(alg.get_name() + " Settings")
             else:
                 self.stackedWidget_Settings.hide()
@@ -898,10 +912,10 @@ class MainView(base, form):
         print(self.current_image_size)
         pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
                                                     QtCore.Qt.KeepAspectRatio)
-        #widget = ImageWidget()
-        #widget.set_pixmap(pixmap)
-        #self.verticalLayout_12.addWidget(widget)
-        self.main_image_label.setPixmap(pixmap)
+        widget = ImageWidget()
+        widget.set_pixmap(pixmap)
+        self.verticalLayout_12.addWidget(widget)
+        #self.main_image_label.setPixmap(pixmap)
 
 
 class LeftCustomWidget(QWidget):
@@ -1018,6 +1032,9 @@ class ImageWidget(QLabel):
                 return
 
         super(ImageWidget, self).mouseReleaseEvent(event)
+
+    def moveEvent(self, QMoveEvent):
+        pass
 
 
 class PipCustomWidget(QWidget):

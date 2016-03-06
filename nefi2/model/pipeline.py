@@ -268,6 +268,18 @@ class Pipeline:
                                        delimiter='|')
             print('Success!', image_name, 'saved in', self.out_dir)
 
+    def report_available_cats_2(self, selected_cat_pos):
+
+        cats_before = self.executed_cats[0:(selected_cat_pos - 1)]
+
+
+        for cat in cats_before:
+            if cat.get_name == "Graph Detection":
+                pass
+
+        return self.get_available_cat_names()
+
+
     def report_available_cats(self, selected_cat=None):
         """
         The order of the categories is important in the pipeline.
