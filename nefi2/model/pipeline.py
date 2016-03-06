@@ -479,6 +479,7 @@ class Pipeline:
             self.input_files = [input_source]
         if not os.path.exists('_cache_'):
             self.set_cache()
+        zope.event.notify(CacheInputEvent(os.path.basename(input_source), input_source))
         shutil.copy(self.input_files[0], '_cache_')
 
     def set_output_dir(self, dir_path):
@@ -581,7 +582,7 @@ class Pipeline:
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
 
-        zope.event.notify(CacheEvent(cat, cache_img_path))
+        zope.event.notify(CacheAddEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path))
 
 class ProgressEvent(object):
@@ -594,13 +595,33 @@ class ProgressEvent(object):
         self.report = report
 
 
-class CacheEvent(object):
+class CacheAddEvent(object):
     """
     This event is used to report the maincontroller the new cached image
     """
 
     def __init__(self, cat, path):
         self.cat = cat
+        self.path = path
+
+
+class CacheRemoveEvent(object):
+    """
+    This event is used to report the maincontroller the new cached image
+    """
+
+    def __init__(self, cat, path):
+        self.cat = cat
+        self.path = path
+
+
+class CacheInputEvent(object):
+    """
+    This event is used to report the maincontroller the new cached image
+    """
+
+    def __init__(self, image_name, path):
+        self.image_name = image_name
         self.path = path
 
 
