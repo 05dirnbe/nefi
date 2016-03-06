@@ -68,6 +68,7 @@ class MainView(base, form):
                 settings_widget = self.get_settings_widget(cat)
             except (ValueError):
                 self.reset_pip_backgroundcolor()
+                self.reset_pip_backgroundcolor()
                 self.stackedWidget_Settings.hide()
                 self.remove_cat_alg_dropdown()
                 self.settings_collapsable.setTitle("Settings")
