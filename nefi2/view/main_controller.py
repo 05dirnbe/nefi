@@ -544,7 +544,8 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
         # *TODO* CHANGE HERE to last_cat_name
-        for category_name in self.pipeline.report_available_cats_2(cat_position):
+        for category_name in self.pipeline.report_available_cats(last_cat_name):
+            print(self.pipeline.report_available_cats(last_cat_name))
 
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)

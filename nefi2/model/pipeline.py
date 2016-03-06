@@ -270,14 +270,25 @@ class Pipeline:
 
     def report_available_cats_2(self, selected_cat_pos):
 
-        cats_before = self.executed_cats[0:(selected_cat_pos - 1)]
+        if selected_cat_pos == 0 and len(self.executed_cats) == 1:
+            return [cat.name for cat in self.get_available_cats()]
 
+        cats_before = self.executed_cats[0:(selected_cat_pos - 1)]
+        allowed_cats = []
+        found = False
 
         for cat in cats_before:
             if cat.get_name == "Graph Detection":
-                pass
+                allowed_cats.append("Graph Filtering")
+                found = True
+                break
 
-        return self.get_available_cat_names()
+        if not found:
+            allowed_cats.append("Segmentation")
+            allowed_cats.append("Preprocessing")
+            allowed_cats.append("Graph Detection")
+
+        return allowed_cats
 
 
     def report_available_cats(self, selected_cat=None):
