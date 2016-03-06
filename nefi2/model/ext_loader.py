@@ -121,11 +121,11 @@ class ExtensionLoader:
             # create a dict of instantiated Category objects
             cats_inst.append(inst)
         # sort methods according to ordering
-        cats_inst.sort(key=lambda x: ordering.index(x.get_name()))
+        cats_inst.sort(key=lambda x: ordering.index(x.name))
         # create an ordered dict of {Category name: Category instance}
         cats = od()
         for category in cats_inst:
-            cats[category.get_name()] = category
+            cats[category.name] = category
         return cats
 
 
