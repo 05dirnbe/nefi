@@ -343,9 +343,10 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
-        message = self.pipeline.sanity_check()
+        check = self.pipeline.sanity_check()
+        message = check[0]
 
-        if message is not "OKAY":
+        if check[1] is not -1:
             self.open_popup(message)
             return
 
