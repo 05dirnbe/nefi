@@ -30,7 +30,9 @@ def gui_mode():
     """
 
     myappid = 'nefi2.0' # arbitrary string
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
+    if sys.platform == 'win32' or 'win64':
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
