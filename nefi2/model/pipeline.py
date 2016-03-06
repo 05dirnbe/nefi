@@ -313,20 +313,24 @@ class Pipeline:
         pipeline_cats = self.executed_cats
 
         is_Graph = False
+        is_Segmented = False
 
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
             if(cat == "Graph detection"):
                 is_Graph = True
+            if(cat == "Segmentation"):
+                is_Segmented = True
             if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
                 return (("You cannot process  " + cat + " after Graph detection."), i)
             if(cat == "Graph detection") and not is_Graph:
                 return (("You cannot process  " + cat + " more than once."), i)
             if(cat == "Graph filtering") and not is_Graph:
                 return (("You cannot process  " + cat + " before Graph detection"), i)
+            if(cat == "Graph detection") and not is_Segmented:
+                return (("You cannot process  " + cat + " before Segmentation"), i)
             if cat == "blank":
                 return (("Specify step " + i + " in the pipeline first."), i)
-
 
         return ("", -1)
 

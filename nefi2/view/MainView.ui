@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="accessibleName">
+   <string notr="true">NEFI 2.0</string>
+  </property>
   <widget class="QWidget" name="CentralView">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
@@ -136,8 +139,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>583</width>
-              <height>779</height>
+              <width>593</width>
+              <height>773</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -986,7 +989,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>545</height>
+                 <height>251</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1105,8 +1108,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>334</width>
-                 <height>308</height>
+                 <width>340</width>
+                 <height>314</height>
                 </rect>
                </property>
                <property name="sizePolicy">
