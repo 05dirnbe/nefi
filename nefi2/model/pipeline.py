@@ -324,13 +324,13 @@ class Pipeline:
             if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
                 return (("You cannot process  " + cat + " after Graph detection."), i)
             if(cat == "Graph detection") and not is_Graph:
-                return (("You cannot process  " + cat + " more than once."), i)
+                return (("You cannot process " + cat + " more than once."), i)
             if(cat == "Graph filtering") and not is_Graph:
-                return (("You cannot process  " + cat + " before Graph detection"), i)
+                return (("You cannot process " + cat + " before Graph detection"), i)
             if(cat == "Graph detection") and not is_Segmented:
-                return (("You cannot process  " + cat + " before Segmentation"), i)
+                return (("You cannot process " + cat + " before Segmentation"), i)
             if cat == "blank":
-                return (("Specify step " + i + " in the pipeline first."), i)
+                return (("Specify step " + str(i) + " in the pipeline first."), i)
 
         return ("", -1)
 
