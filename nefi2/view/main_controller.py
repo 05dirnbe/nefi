@@ -73,7 +73,8 @@ class MainView(base, form):
     def open_popup(self, message):
         print ("Your pipeline is in an illegale state.")
         self.w = Popup(message)
-        self.w.setGeometry(QRect(100, 100, 400, 200))
+
+        self.w.setGeometry(QRect(self.width() / 2 + 100, self.height() / 2 - 20, 400, 200))
         self.w.show()
 
     @pyqtSlot()
@@ -1091,16 +1092,9 @@ class Popup(QWidget):
     def __init__(self, message):
         QWidget.__init__(self)
 
-        #*TODO*
-        layout = QVBoxLayout()
-        label = QLabel()
-        layout.addWidget(label)
-        self.setLayout(layout)
-
-    #def paintEvent(self, e):
-        #dc = QPainter(self)
-        #dc.drawLine(0, 0, 100, 100)
-        #dc.drawLine(100, 0, 0, 100)
+        label = QLabel(self)
+        label.setText(message)
+        label.setGeometry(50, 0, 400, 200)
 
 class PipCustomWidget(QWidget):
     """
