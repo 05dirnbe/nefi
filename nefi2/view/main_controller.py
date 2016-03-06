@@ -609,18 +609,6 @@ class MainView(base, form):
         pixmap_label.setFixedWidth(50)
         pixmap_label.setContentsMargins(0, -20, 0, 0)
 
-
-        btn_plus = None
-
-        if not new_marker:
-            pixmap_icon = QPixmap(icon)
-            pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
-            pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
-
-            btn_plus = QtWidgets.QPushButton()
-            btn_plus.setFixedSize(20, 20)
-            btn_plus.setIcon(self.q_icon_plus)
-
         pip_up_down = QWidget()
         pip_up_down.setFixedHeight(30)
         pip_up_down.setFixedWidth(30)
@@ -642,6 +630,19 @@ class MainView(base, form):
         pip_up_down_layout.addWidget(up_btn)
         pip_up_down_layout.addWidget(dw_btn)
 
+        hbox_layout.addWidget(pip_up_down)
+
+        if not new_marker:
+            pixmap_icon = QPixmap(icon)
+            pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+            pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+            btn_plus = QtWidgets.QPushButton()
+            btn_plus.setFixedSize(20, 20)
+            btn_plus.setIcon(self.q_icon_plus)
+
+            hbox_layout.addWidget(btn_plus)
+
         string_label = QLabel()
         string_label.setText(label)
         string_label.setFixedHeight(30)
@@ -655,7 +656,6 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        hbox_layout.addWidget(pip_up_down)
         hbox_layout.addWidget(pixmap_label)
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
         hbox_layout.addWidget(btn)
