@@ -180,6 +180,9 @@ class Pipeline:
         <This function will be obviously slower than the console variant due
         to IO operations on the _cache_ directory.>
         """
+        # reset cache list
+        self.cache = []
+
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
@@ -235,6 +238,7 @@ class Pipeline:
             # store cached image path
             cache_path = os.path.join('_cache_', save_fname)
             self.pipeline_memory[n] = [cache_path, data[1]]
+            cat.active_algorithm.result['img'] = ''
 
     def process_batch(self):
         """
