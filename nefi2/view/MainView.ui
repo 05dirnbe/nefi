@@ -136,11 +136,14 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>583</width>
-              <height>1127</height>
+              <width>593</width>
+              <height>1121</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_12"/>
+             </item>
              <item>
               <widget class="QLabel" name="main_image_label">
                <property name="text">
@@ -971,7 +974,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>547</height>
+                 <height>545</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1087,8 +1090,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>330</width>
-                 <height>314</height>
+                 <width>334</width>
+                 <height>308</height>
                 </rect>
                </property>
                <property name="sizePolicy">

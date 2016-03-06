@@ -898,6 +898,9 @@ class MainView(base, form):
         print(self.current_image_size)
         pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
                                                     QtCore.Qt.KeepAspectRatio)
+        #widget = ImageWidget()
+        #widget.set_pixmap(pixmap)
+        #self.verticalLayout_12.addWidget(widget)
         self.main_image_label.setPixmap(pixmap)
 
 
@@ -961,28 +964,60 @@ class LeftCustomWidget(QWidget):
             | *event*: the mouse press event
         """
         if QMouseEvent.button() == QtCore.Qt.LeftButton:
-            if self.step == 0 or self.cat is None:
-                self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(self.step))
-            else:
-                self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(self.pipeline.get_index(self.cat) + 1))
+
+            try:
+                if self.step == 0 or self.cat is None:
+                    self.mid_panel.setTitle(self.image_name)
+                else:
+                    index = self.pipeline.get_index(self.cat)
+                    self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(index + 1))
+            except (ValueError):
+                self.mid_panel.setTitle(self.image_name + " - Already Removed From Pipeline")
+
             self.current_image = self.pixmap
 
             # Connect the trigger signal to a slot.
             # Emit the signal.
             self.trigger.emit()
 
-
 class ImageWidget(QLabel):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setScaledContents(True)
 
-    def hasHeightForWidth(self):
-        return self.pixmap() is not None
+    def __init__(self):
+        super(ImageWidget, self).__init__()
 
-    def heightForWidth(self, w):
-        if self.pixmap():
-            return int(w * (self.pixmap().height() / self.pixmap().width()))
+    def set_pixmap(self, pixmap):
+        self.setPixmap(pixmap)
+
+    def mousePressEvent(self, event):
+        self.__mousePressPos = None
+        self.__mouseMovePos = None
+        if event.button() == QtCore.Qt.LeftButton:
+            self.__mousePressPos = event.globalPos()
+            self.__mouseMovePos = event.globalPos()
+
+        super(ImageWidget, self).mousePressEvent(event)
+
+    def mouseMoveEvent(self, event):
+        if event.buttons() == QtCore.Qt.LeftButton:
+            # adjust offset from clicked point to origin of widget
+            currPos = self.mapToGlobal(self.pos())
+            globalPos = event.globalPos()
+            diff = globalPos - self.__mouseMovePos
+            newPos = self.mapFromGlobal(currPos + diff)
+            self.move(newPos)
+
+            self.__mouseMovePos = globalPos
+
+        super(ImageWidget, self).mouseMoveEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        if self.__mousePressPos is not None:
+            moved = event.globalPos() - self.__mousePressPos
+            if moved.manhattanLength() > 3:
+                event.ignore()
+                return
+
+        super(ImageWidget, self).mouseReleaseEvent(event)
 
 
 class PipCustomWidget(QWidget):
