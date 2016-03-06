@@ -329,7 +329,7 @@ class MainView(base, form):
         self.resize_default()
 
         widget = LeftCustomWidget(path, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image, event.cat)
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
