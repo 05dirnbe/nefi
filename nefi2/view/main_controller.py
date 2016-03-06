@@ -45,14 +45,51 @@ class MainView(base, form):
         self.q_icon_down = QtGui.QIcon()
         self.q_icon_plus = QtGui.QIcon()
         self.q_icon_plus_grey = QtGui.QIcon()
+        self.q_icon_delete = QtGui.QIcon()
 
     def register_observers(self):
         pass
 
     @pyqtSlot()
-    def get_current_image(self, image):
+    def get_current_image(self, image, cat=None):
         self.current_image_original = image
         self.resize_default()
+
+        if cat is not None:
+
+            try:
+                pip_entry = self.get_pip_entry(cat)
+                settings_widget = self.get_settings_widget(cat)
+            except (ValueError):
+                self.reset_pip_backgroundcolor()
+                self.stackedWidget_Settings.hide()
+                self.remove_cat_alg_dropdown()
+                self.settings_collapsable.setTitle("Settings")
+                return
+
+            print("pip_entry " + str(pip_entry))
+            print("pip_layout: " + str(pip_entry.layout()))
+            print("pip_layout_entry: " + str(pip_entry.layout().itemAt(1)))
+
+            # Set background color while widget is selected. Doesn't work because of theme? *TODO*
+            pip_entry.setStyleSheet("background-color:grey;")
+
+            # Reset background color for all other pipeline entries
+            self.reset_pip_backgroundcolor(pip_entry)
+
+
+            self.stackedWidget_Settings.show()
+            self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
+            self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
+
+
+            # Create drop down for cats and algs
+            self.remove_cat_alg_dropdown()
+            self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
+
+
+            self.set_cat_alg_dropdown(cat, cat.active_algorithm)
+
 
     def connect_ui(self):
         """
@@ -95,6 +132,12 @@ class MainView(base, form):
     def enable_plus(self):
         self.add_btn.setEnabled(True)
         self.add_btn.setIcon(self.q_icon_plus)
+
+    def disable_pip(self):
+        pass
+
+    def enable_pip(self):
+        pass
 
     def set_pip_title(self, title):
         """
@@ -162,6 +205,9 @@ class MainView(base, form):
         pixmap_plus_grey = QtGui.QPixmap("./assets/images/plus_grey.png")
         self.q_icon_plus_grey = QtGui.QIcon(pixmap_plus_grey)
 
+        pixmap_icon_delete = QtGui.QPixmap("./assets/images/delete_x_white.png")
+        self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
+
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -228,8 +274,8 @@ class MainView(base, form):
             self.resize_default()
             # self.main_image_label.setPixmap(pixmap)
 
-            widget = LeftCustomWidget(url[0][0], "Input - Image", 0, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image)
+            widget = LeftCustomWidget(url[0][0], 0, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline)
 
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -341,8 +387,10 @@ class MainView(base, form):
             self.stackedWidget_Settings.removeWidget(settings_widget)
 
         # remove in model
-        if cat is not None:
 
+        print("remove")
+        if cat is not None:
+            print("remove " + str(cat.get_name()))
             if cat.get_name() == "blank":
                 self.enable_plus()
 
@@ -549,8 +597,6 @@ class MainView(base, form):
 
     def scroll_down_pip(self):
         self.pip_scroll.verticalScrollBar().setSliderPosition(self.pip_scroll.verticalScrollBar().maximum() + 100)
-        print("Pos: " + str(self.pip_scroll.verticalScrollBar().sliderPosition()))
-        print("Max: " + str(self.pip_scroll.verticalScrollBar().maximum()))
 
     def add_pipe_entry(self, position=None):
         """
@@ -560,19 +606,17 @@ class MainView(base, form):
         # create an widget that displays the pip entry in the ui and connect the remove button
 
         pip_main_widget = QWidget()
-        pip_main_widget.setFixedHeight(70)
-        pip_main_widget.setFixedWidth(300)
-        pip_main_layout = QHBoxLayout()
-        pip_main_widget.setLayout(pip_main_layout)
-
-        pip_main_widget.setContentsMargins(-28, 0, 0, 0)
+        pip_main_widget.setFixedWidth(320)
+        pip_main_widget.setFixedHeight(50)
+        hbox_layout = QHBoxLayout()
+        pip_main_widget.setLayout(hbox_layout)
 
         new_marker = False
 
         if position is None:
             position = len(self.pipeline.executed_cats)
             cat = self.pipeline.new_category(position)
-            label = "<Click to specify new step>"
+            label = "<Specify new step to continue>"
             icon = None
             new_marker = True
         else:
@@ -584,17 +628,18 @@ class MainView(base, form):
 
         pixmap_label = QtWidgets.QLabel()
 
-        if not new_marker:
-            pixmap = QPixmap(icon)
-            pixmap_scaled_keeping_aspec = pixmap.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
-            pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+        pixmap_label.setFixedHeight(50)
+        pixmap_label.setFixedWidth(50)
+        pixmap_label.setContentsMargins(0, -20, 0, 0)
 
         pip_up_down = QWidget()
-        pip_up_down.setFixedHeight(70)
+        pip_up_down.setFixedHeight(30)
+        pip_up_down.setFixedWidth(30)
         pip_up_down_layout = QVBoxLayout()
+        pip_up_down_layout.setAlignment(Qt.AlignLeft)
         pip_up_down.setLayout(pip_up_down_layout)
 
-        pip_up_down.setContentsMargins(17, -17, 0, 0)
+        pip_up_down.setContentsMargins(-13, -10, 0, 0)
 
         up_btn = QToolButton()
         dw_btn = QToolButton()
@@ -602,29 +647,43 @@ class MainView(base, form):
         up_btn.setIcon(self.q_icon_up)
         dw_btn.setIcon(self.q_icon_down)
 
-        up_btn.setFixedHeight(25)
-        dw_btn.setFixedHeight(25)
+        up_btn.setFixedHeight(20)
+        dw_btn.setFixedHeight(20)
 
         pip_up_down_layout.addWidget(up_btn)
         pip_up_down_layout.addWidget(dw_btn)
 
+        hbox_layout.addWidget(pip_up_down)
+
+        if not new_marker:
+            pixmap_icon = QPixmap(icon)
+            pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
+            pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
+
+            btn_plus = QtWidgets.QPushButton()
+            btn_plus.setFixedSize(20, 20)
+            btn_plus.setIcon(self.q_icon_plus)
+
+            hbox_layout.addWidget(btn_plus)
+
         string_label = QLabel()
         string_label.setText(label)
-        string_label.setFixedWidth(210)
+        string_label.setFixedHeight(30)
+        string_label.setFixedWidth(150)
 
         btn = QtWidgets.QPushButton()
-        btn.setFixedSize(20, 20)
+        btn.setFixedHeight(30)
+        btn.setFixedWidth(30)
 
         pixmap_icon = QtGui.QPixmap("./assets/images/delete_x_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        #pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
-        pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
-        pip_main_layout.addWidget(string_label, Qt.AlignLeft)
-        pip_main_layout.addWidget(btn, Qt.AlignRight)
+        hbox_layout.addWidget(pixmap_label)
+        hbox_layout.addWidget(string_label, Qt.AlignLeft)
+        hbox_layout.addWidget(btn)
 
-        self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget)
+        self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget, Qt.AlignTop)
 
         # Create the corresponding settings widget and connect it
         self.settings_collapsable.setTitle("Settings")
@@ -678,10 +737,12 @@ class MainView(base, form):
                     self.swap_pip_entry(current_position, current_position + 1)
 
         def check_move_up_allowed():
-            pass
+            if position == 0 or new_marker:
+                return False
 
         def check_move_down_allowed():
-            pass
+            if position == len(self.pipeline.executed_cats) - 1 or new_marker:
+                return False
 
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
@@ -696,13 +757,23 @@ class MainView(base, form):
 
         return (pip_main_widget, settings_main_widget)
 
-    def reset_pip_backgroundcolor(self, current_pip_main_widget):
+    def reset_pip_backgroundcolor(self, current_pip_main_widget=None):
         for i in range(0, self.pip_widget_vbox_layout.count()):
             child = self.pip_widget_vbox_layout.itemAt(i)
             if child.widget() is current_pip_main_widget:
                 pass
             else:
                 child.widget().setStyleSheet("background-color:None;")
+
+    def get_pip_entry(self, cat):
+            index = self.pipeline.get_index(cat)
+            pip_entry = self.pip_widget_vbox_layout.itemAt(index).widget()
+            return pip_entry
+
+    def get_settings_widget(self, cat):
+            index = self.pipeline.get_index(cat)
+            pip_widget = self.stackedWidget_Settings.widget(index)
+            return pip_widget
 
     def swap_pip_entry(self, pos1, pos2):
         """
@@ -755,12 +826,16 @@ class MainView(base, form):
 
             clicked = pyqtSignal()
 
+            def call(self):
+                self.clicked.emit()
+
             def eventFilter(self, obj, event):
 
                 if obj == widget:
                     if event.type() == QEvent.MouseButtonPress:
                         if obj.rect().contains(event.pos()):
                             self.clicked.emit()
+                            print("Click on widget "  + str(widget))
                             # The developer can opt for .emit(obj) to get the object within the slot.
                             return True
 
@@ -777,13 +852,14 @@ class MainView(base, form):
         print("Cache length: " + str(len(self.pipeline.cache)))
 
         for i in self.pipeline.cache:
-            image_path = i[2]
-            image_name = (str(i[0]) + " - " + str(i[1]))
+            image_path = i[1]
+            cat = i[0]
+            print(cat)
             # print(str(image_name))
             # print(str(image_path))
 
-            widget = LeftCustomWidget(image_path, image_name, j, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image)
+            widget = LeftCustomWidget(image_path, j, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, cat)
 
             def set_image(image):
                 print(str(image))
@@ -834,14 +910,19 @@ class LeftCustomWidget(QWidget):
 
     trigger = pyqtSignal()
 
-    def __init__(self, image_path, image_name, step, main_image_label, mid_panel, left_scroll_results, current_image,
-                 slot):
+    def __init__(self, image_path, step, main_image_label, mid_panel, left_scroll_results, current_image,
+                 slot, pipeline, cat=None):
         super(LeftCustomWidget, self).__init__()
 
         self.main_image_label = main_image_label
         self.mid_panel = mid_panel
         self.left_scroll_results = left_scroll_results
-        self.image_name = image_name
+        self.cat = cat
+        self.pipeline = pipeline
+        if cat is None:
+            self.image_name = "Input - Image"
+        else:
+            self.image_name = str(cat.get_name() + " " + cat.active_algorithm.name)
         self.step = step
         self.current_image = current_image
         self.slot = slot
@@ -851,7 +932,7 @@ class LeftCustomWidget(QWidget):
         self.setLayout(self.LeftCustomWidgetLayout)
         self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
 
-        self.image_label = QLabel(image_name)
+        self.image_label = QLabel(self.image_name)
         self.image_label.setGeometry(0, 0, 150, 30)
 
         self.pixmap = QPixmap(image_path)
@@ -867,7 +948,9 @@ class LeftCustomWidget(QWidget):
 
         self.setGeometry(0, 0, 330, self.image_label.height() + self.image.height())
 
-    def mousePressEvent(self, event):
+        self.trigger.connect(lambda: self.slot(self.current_image, self.cat))
+
+    def mousePressEvent(self, QMouseEvent):
         """
         this events sets the self.pixmap from this custom widget
         into the middle panel of the GUI. Or more general: by clicking
@@ -877,13 +960,14 @@ class LeftCustomWidget(QWidget):
         Args:
             | *event*: the mouse press event
         """
-        if event.button() == QtCore.Qt.LeftButton:
-            #self.main_image_label.setPixmap(self.pixmap)
-            self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(self.step))
+        if QMouseEvent.button() == QtCore.Qt.LeftButton:
+            if self.step == 0 or self.cat is None:
+                self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(self.step))
+            else:
+                self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(self.pipeline.get_index(self.cat) + 1))
             self.current_image = self.pixmap
 
             # Connect the trigger signal to a slot.
-            self.trigger.connect(lambda: self.slot(self.current_image))
             # Emit the signal.
             self.trigger.emit()
 

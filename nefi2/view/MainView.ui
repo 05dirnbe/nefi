@@ -982,6 +982,9 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
+                 <widget class="QWidget" name="pipeline_list_widget" native="true"/>
+                </item>
+                <item>
                  <layout class="QVBoxLayout" name="pip_widget_vbox_layout">
                   <property name="spacing">
                    <number>2</number>
