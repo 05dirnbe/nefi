@@ -6,13 +6,11 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
-import copy
-
+import zope.event.classhandler
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
 from PyQt5.QtGui import QIcon, QPixmap
-# cus widgets
 import PyQt5.QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
@@ -47,8 +45,16 @@ class MainView(base, form):
         self.q_icon_plus_grey = QtGui.QIcon()
         self.q_icon_delete = QtGui.QIcon()
 
-    def register_observers(self):
-        pass
+        self.progress_label = QLabel(self)
+        self.progress_label.setGeometry(500, 380, 100, 20)
+        self.progress_label.hide()
+
+        self.progressbar = QtWidgets.QProgressBar(self)
+        self.progressbar.setGeometry(500, 400, 400, 30)
+        self.progressbar.hide()
+
+        zope.event.classhandler.handler(ProgressEvent, self.update_progress)
+        zope.event.classhandler.handler(CacheEvent, self.update_immediate_result)
 
     @pyqtSlot()
     def get_current_image(self, image, cat=None):
@@ -77,19 +83,15 @@ class MainView(base, form):
             # Reset background color for all other pipeline entries
             self.reset_pip_backgroundcolor(pip_entry)
 
-
             self.stackedWidget_Settings.show()
             self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
             self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
-
 
             # Create drop down for cats and algs
             self.remove_cat_alg_dropdown()
             self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
 
-
             self.set_cat_alg_dropdown(cat, cat.active_algorithm)
-
 
     def connect_ui(self):
         """
@@ -115,7 +117,6 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
-
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
@@ -238,6 +239,32 @@ class MainView(base, form):
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pipe_entry(i)
 
+    def update_progress(self, event):
+        """
+        This method gets fired by the progress event in the pipeline
+        and tells the maincontroller about the actual progress in the
+        pipeline
+        Args:
+            value: the percentage of the progress value
+            status_name: the next category being processed
+        """
+        self.progressbar.setValue(event.value)
+        self.progress_label.setText("Calculating " + event.report)
+
+    def update_immediate_result(self, event):
+        """
+        This method gets fired when the pipeline computed an fresh
+        immediate result.
+        Args:
+            cat: the finished category
+            img_path: the resulting image
+        """
+
+        widget = LeftCustomWidget(event.path, 0, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image, event.cat)
+
+        self.left_scroll_results_vbox_layout.addWidget(widget)
+
     @pyqtSlot()
     def run(self):
         """
@@ -247,10 +274,15 @@ class MainView(base, form):
         if len(self.pipeline.executed_cats) == 0:
             return
 
-        self.pipeline.set_cache()
+        self.progress_label.show()
+        self.progressbar.show()
+
         self.clear_left_side_new_run()
         self.pipeline.process()
-        self.show_results()
+        # self.show_results()
+
+        self.progress_label.hide()
+        self.progressbar.hide()
 
     @pyqtSlot()
     def set_input_url(self):
@@ -1210,7 +1242,6 @@ class Slider(QSlider):
         self.slider.setSingleStep(step_size)
         self.slider.setValue(default)
         self.slider.setPageStep(step_size)
-
 
 if __name__ == '__main__':
     pass

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1355</width>
-    <height>1231</height>
+    <height>883</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,7 +73,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>1175</height>
+              <height>827</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -137,7 +137,7 @@
               <x>0</x>
               <y>0</y>
               <width>583</width>
-              <height>1127</height>
+              <height>779</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -237,6 +237,9 @@
          </size>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_9">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
          <property name="topMargin">
           <number>0</number>
          </property>
@@ -834,6 +837,9 @@
             <bool>true</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QWidget" name="widget_4" native="true">
               <property name="minimumSize">
@@ -934,6 +940,15 @@
             </item>
             <item>
              <widget class="Line" name="line">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="midLineWidth">
+               <number>1</number>
+              </property>
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -971,7 +986,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>547</height>
+                 <height>257</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -981,9 +996,6 @@
                 </sizepolicy>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_4">
-                <item>
-                 <widget class="QWidget" name="pipeline_list_widget" native="true"/>
-                </item>
                 <item>
                  <layout class="QVBoxLayout" name="pip_widget_vbox_layout">
                   <property name="spacing">
@@ -1037,7 +1049,7 @@
            <property name="maximumSize">
             <size>
              <width>350</width>
-             <height>500</height>
+             <height>16777215</height>
             </size>
            </property>
            <property name="acceptDrops">
@@ -1056,6 +1068,12 @@
             <bool>false</bool>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QScrollArea" name="setting_scroll">
               <property name="sizePolicy">
@@ -1087,8 +1105,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>330</width>
-                 <height>314</height>
+                 <width>339</width>
+                 <height>323</height>
                 </rect>
                </property>
                <property name="sizePolicy">

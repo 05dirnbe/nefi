@@ -14,6 +14,8 @@ import re
 import shutil
 import sys
 import copy
+from .Events import *
+import zope.event.classhandler
 
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
@@ -83,6 +85,24 @@ class Pipeline:
         self.original_img = None  # original image file as read first time
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
+
+    def subscribe_cache_event(self, function):
+        """
+        Subscribe to the cache event which tells the maincontroller about
+        new images in the cache folder
+        Args:
+            function: the subscriber
+        """
+        self.cache_event.onChange += function
+
+    def subscribe_progress_event(self, function):
+        """
+        Subscribe to the progress event which tells the maincontroller about
+        the progress of the pipeline
+        Args:
+            function: the subscriber
+        """
+        self.progress_event.onChange += function
 
     def new_category(self, position, cat_name=None, alg_name=None):
         """
@@ -191,6 +211,11 @@ class Pipeline:
 
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
+
+            progress = (n / len(self.executed_cats)) * 100
+            report = cat.name + " - " + cat.active_algorithm.name
+            zope.event.notify(ProgressEvent(progress, report))
+
             cat.process(data)
             # reassign results of the prev alg for the next one
             data = list(cat.active_algorithm.result.items())
@@ -526,8 +551,11 @@ class Pipeline:
             print('ERROR! Cannot copy to _cache_ directory, make sure there ' +
                   'is enough space on disk')
             sys.exit(1)
+
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
+
+        zope.event.notify(CacheEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path))
 
 
