@@ -47,15 +47,19 @@ class MainView(base, form):
         self.q_icon_delete = QtGui.QIcon()
 
         self.progress_label = QLabel(self)
-        self.progress_label.setGeometry(500, 380, 400, 20)
+        self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
         self.progress_label.hide()
 
         self.progressbar = QtWidgets.QProgressBar(self)
-        self.progressbar.setGeometry(500, 400, 400, 30)
+        self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progressbar.hide()
 
         zope.event.classhandler.handler(ProgressEvent, self.update_progress)
         zope.event.classhandler.handler(CacheEvent, self.update_immediate_result)
+
+    def resizeEvent(self,resizeEvent):
+        self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
+        self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
 
     @pyqtSlot()
     def get_current_image(self, image, cat=None):
