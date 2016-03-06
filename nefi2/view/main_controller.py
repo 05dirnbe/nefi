@@ -60,6 +60,7 @@ class MainView(base, form):
     def resizeEvent(self,resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
+        self.resize_default()
 
     @pyqtSlot()
     def get_current_image(self, image, cat=None):
