@@ -725,11 +725,11 @@ class MainView(base, form):
             pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
             pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
-            btn_plus = QtWidgets.QPushButton()
-            btn_plus.setFixedSize(20, 20)
-            btn_plus.setIcon(self.q_icon_plus)
+            #btn_plus = QtWidgets.QPushButton()
+            #btn_plus.setFixedSize(20, 20)
+            #btn_plus.setIcon(self.q_icon_plus)
 
-            hbox_layout.addWidget(btn_plus)
+            #hbox_layout.addWidget(btn_plus)
 
         string_label = QLabel()
         string_label.setText(label)
