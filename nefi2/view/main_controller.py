@@ -975,7 +975,10 @@ class MainView(base, form):
         if not self.current_image_original:
             return
         print(str(self.current_image_original))
-        self.current_image_size = self.mid_panel.width()/self.current_image_original.width()
+
+        original_width = self.current_image_original.width()
+        if original_width != 0:
+            self.current_image_size = self.mid_panel.width()/original_width
         print(self.current_image_size)
         pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
                                                     QtCore.Qt.KeepAspectRatio)
