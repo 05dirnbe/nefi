@@ -40,8 +40,8 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Grabcut - Dilation Erosion Otsu"
         self.parent = "Segmentation"
-        self.fg_iter = IntegerSlider("Foreground Iteration", 1, 10, 1, 2)
-        self.bg_iter = IntegerSlider("Background Iteration", 1, 10, 1, 1)
+        self.fg_iter = IntegerSlider("Foreground Iteration", 0, 10, 1, 2)
+        self.bg_iter = IntegerSlider("Background Iteration", 0, 10, 1, 1)
         self.gc_iter = IntegerSlider("GrabCut Iteration", 1, 10, 1, 5)
         self.integer_sliders.append(self.fg_iter)
         self.integer_sliders.append(self.bg_iter)
