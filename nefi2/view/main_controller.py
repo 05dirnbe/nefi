@@ -132,6 +132,10 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
+        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.open_pip_btn.setIcon(q_icon)
+
         pixmap_icon = QtGui.QPixmap("./assets/images/man.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.run_btn.setIcon(q_icon)
@@ -144,7 +148,7 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/up-arrow_white.png")
+        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
@@ -196,7 +200,11 @@ class MainView(base, form):
         name, url = self.default_pips[index - 1]
 
         # parse the json in the model
-        self.pipeline.load_pipeline_json(url)
+        try:
+            self.pipeline.load_pipeline_json(url)
+        except Exception as e:
+            print("failed to load default pip: " + name + " received parser error")
+            return
 
         # set the title
         self.set_pip_title(name)
@@ -244,9 +252,6 @@ class MainView(base, form):
             widget = LeftCustomWidget(url[0][0], 0, self.main_image_label, self.mid_panel,
                                       self.left_scroll_results, self.current_image_original, self.get_current_image)
 
-            widget.setFixedWidth(self.left_scroll_results.width() - 30)
-            widget.setFixedHeight(self.left_scroll_results.width() - 100)
-
             self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
@@ -284,7 +289,7 @@ class MainView(base, form):
         """
         url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
 
-        split_list = url.split("/")
+        split_list = url.split(os.path.sep)
         name = split_list[len(split_list) - 1].split(".")[0]
         del split_list[len(split_list) - 1]
         url = url.replace(name, "")
@@ -639,7 +644,7 @@ class MainView(base, form):
         btn.setFixedSize(20, 20)
         btn.setIcon(self.q_icon_delete)
 
-        pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
+        #pip_main_layout.addWidget(pip_up_down, Qt.AlignVCenter)
         pip_main_layout.addWidget(pixmap_label, Qt.AlignVCenter)
         pip_main_layout.addWidget(string_label, Qt.AlignLeft)
         pip_main_layout.addWidget(btn, Qt.AlignRight)
@@ -821,9 +826,6 @@ class MainView(base, form):
                 print(str(image))
 
             # widget.connect(set_image)
-
-            widget.setFixedWidth(self.left_scroll_results.width() - 30)
-            widget.setFixedHeight(self.left_scroll_results.width() - 30)
             self.left_scroll_results_vbox_layout.addWidget(widget)
             j += 1
 
@@ -860,7 +862,7 @@ class MainView(base, form):
         self.main_image_label.setPixmap(pixmap)
 
 
-class LeftCustomWidget(QGroupBox):
+class LeftCustomWidget(QWidget):
     """
     this widget is used in the left panel of the GUI. All intermediate
     result images are packed into a LeftCustomWidget and appended to the
@@ -884,27 +886,27 @@ class LeftCustomWidget(QGroupBox):
         self.step = step
         self.current_image = current_image
         self.slot = slot
-        self.setFixedHeight(500)
-        self.setFixedWidth(430)
-
-        self.image_label = QLabel(self.image_name)
-        self.image_label.setFixedWidth(150)
-        self.image_label.setFixedHeight(30)
-
-        self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(380,
-                                                              380,
-                                                              QtCore.Qt.KeepAspectRatio)
-        self.image = QLabel()
-        self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.image.setFixedWidth(380)
-        self.image.setFixedHeight(380)
+        # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
-        self.LeftCustomWidgetLayout.addWidget(self.image_label, Qt.AlignTop)
-        self.LeftCustomWidgetLayout.addWidget(self.image, Qt.AlignTop)
         self.setLayout(self.LeftCustomWidgetLayout)
+        self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
+
+        self.image_label = QLabel(self.image_name)
+        self.image_label.setGeometry(0, 0, 150, 30)
+
+        self.pixmap = QPixmap(image_path)
+        # self.pixmap_scaled_keeping_aspec = self.pixmap.scaled(300, 100, QtCore.Qt.KeepAspectRatio)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(330, Qt.SmoothTransformation)
+
+        self.image = QLabel()
+        self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
+        self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
+
+        self.LeftCustomWidgetLayout.addWidget(self.image_label)
+        self.LeftCustomWidgetLayout.addWidget(self.image)
+
+        self.setGeometry(0, 0, 330, self.image_label.height() + self.image.height())
 
         self.trigger.connect(lambda: self.slot(self.current_image, self.cat))
 
