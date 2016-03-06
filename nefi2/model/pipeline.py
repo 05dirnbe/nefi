@@ -293,25 +293,38 @@ class Pipeline:
                                        delimiter='|')
             print('Success!', image_name, 'saved in', self.out_dir)
 
-    def report_available_cats_2(self, selected_cat_pos):
+    def report_available_cats_2(self, position):
 
-        if selected_cat_pos == 0 and len(self.executed_cats) == 1:
-            return [cat.name for cat in self.get_available_cats()]
+        available_cats = [cat.name for cat in self.get_available_cats()]
+        allowed_cats = copy.copy(available_cats)
+        pipeline_cats = self.executed_cats
+        only_graph_detection = []
+        only_graph_detection.append("Graph detection")
 
-        cats_before = self.executed_cats[0:(selected_cat_pos - 1)]
-        allowed_cats = []
-        found = False
+        is_Graph = False
 
-        for cat in cats_before:
-            if cat.get_name == "Graph Detection":
-                allowed_cats.append("Graph Filtering")
-                found = True
+        #print("pos " + str(position))
+        #print("pos " + str(position))
+
+        for i in range(0, position + 1):
+            #print("cat " + str(pipeline_cats[i].get_name()))
+            if pipeline_cats[i].get_name() == "Graph detection":
+                #print("is Graph")
+                is_Graph = True
+                if(i == position):
+                    return only_graph_detection
                 break
 
-        if not found:
-            allowed_cats.append("Segmentation")
-            allowed_cats.append("Preprocessing")
-            allowed_cats.append("Graph Detection")
+        for i in range(0, position + 1):
+            cat = pipeline_cats[i].get_name()
+            if is_Graph and (cat == "Segmentation" or cat == "Preprocessing" or cat == "Graph detection"):
+                    allowed_cats.remove(cat)
+
+        if not is_Graph:
+            allowed_cats.remove("Graph filtering")
+
+        print("available_cats " + str(available_cats))
+        print("allowed_cats " + str(allowed_cats))
 
         return allowed_cats
 

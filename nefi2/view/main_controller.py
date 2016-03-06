@@ -564,7 +564,7 @@ class MainView(base, form):
 
         # Show only allowed categories in dropdown
         if len(self.pipeline.executed_cats) > 1:
-            last_cat = self.pipeline.executed_cats[cat_position - 1]
+            last_cat = self.pipeline.executed_cats[cat_position]
             last_cat_name = last_cat.get_name()
 
         # Combobox for selecting Category
@@ -585,8 +585,8 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
         # *TODO* CHANGE HERE to last_cat_name
-        for category_name in self.pipeline.report_available_cats(last_cat_name):
-            print(self.pipeline.report_available_cats(last_cat_name))
+        for category_name in self.pipeline.report_available_cats_2(cat_position):
+            #print(self.pipeline.report_available_cats_2(cat_position))
 
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)
