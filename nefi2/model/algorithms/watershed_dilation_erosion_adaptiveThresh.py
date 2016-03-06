@@ -40,8 +40,8 @@ class AlgBody(Algorithm):
         Algorithm.__init__(self)
         self.name = "Watershed - Dilation Erosion Adaptive Threshold"
         self.parent = "Segmentation"
-        self.fg_iter = IntegerSlider("Foreground Iteration", 1,10, 1, 2)
-        self.bg_iter = IntegerSlider("Background Iteration", 1, 10, 1, 1)
+        self.fg_iter = IntegerSlider("Foreground Iteration", 0,10, 1, 2)
+        self.bg_iter = IntegerSlider("Background Iteration", 0, 10, 1, 1)
         self.block_size = IntegerSlider("Threshold Block Size", 1,20, 1, 5)
         self.constant = IntegerSlider("Threshold Constant", -10, 10, 1, 2)
         self.integer_sliders.append(self.fg_iter)
