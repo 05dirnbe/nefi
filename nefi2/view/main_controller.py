@@ -287,8 +287,8 @@ class MainView(base, form):
         """
         print("update_remove_immediate_result " + event.cat.name)
         for left_custom in self.left_scroll_results_vbox_layout:
-            if left_custom.cat == event.cat:
-                del left_custom
+           if left_custom.cat == event.cat:
+               del left_custom
 
     def update_input(self, event):
         """
@@ -357,8 +357,11 @@ class MainView(base, form):
 
         try:
             self.pipeline.process()
-        except(TypeError):
-            self.open_popup("No input image has been specified.")
+        except Exception as e:
+            if e.__class__ == "TypeError":
+                self.open_popup("No input image has been specified.")
+
+
 
         self.progress_label.hide()
         self.progressbar.hide()

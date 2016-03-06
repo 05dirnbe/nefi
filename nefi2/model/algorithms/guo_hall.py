@@ -8,7 +8,8 @@ import cv2
 import networkx as nx
 import numpy as np
 import thinning
-
+import sys
+import traceback
 from _alg import Algorithm
 from collections import defaultdict
 from itertools import chain
@@ -50,6 +51,7 @@ class AlgBody(Algorithm):
         graph = breadth_first_edge_detection(skeleton, args[0], graph)
         skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
         self.result['graph'], self.result['img'] = graph, skeleton
+
 
 def zhang_suen_node_detection(skel):
     """
@@ -120,7 +122,6 @@ def zhang_suen_node_detection(skel):
                 graph.add_node((x, y))
     return graph
 
-
 def breadth_first_edge_detection(skel, segmented, graph):
     """
     (from nefi1)
@@ -144,9 +145,9 @@ def breadth_first_edge_detection(skel, segmented, graph):
                 # the line below is ugly and is intended to be this way
                 # do not try to modify it unless you know what you're doing
                 if (dx != 0 or dy != 0) and \
-                    0 <= x + dx < width and \
-                    0 <= y + dy < height and \
-                    item(x + dx, y + dy) != 0:
+                                        0 <= x + dx < width and \
+                                        0 <= y + dy < height and \
+                                item(x + dx, y + dy) != 0:
                     yield x + dx, y + dy
 
     def distance_transform_diameter(edge_trace, segmented):
