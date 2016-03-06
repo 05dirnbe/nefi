@@ -14,7 +14,7 @@ import re
 import shutil
 import sys
 import copy
-
+import zope.event.classhandler
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
@@ -23,7 +23,6 @@ sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
 from _category import Category
 from algorithms import _utility
-
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com",
@@ -83,6 +82,24 @@ class Pipeline:
         self.original_img = None  # original image file as read first time
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
+
+    def subscribe_cache_event(self, function):
+        """
+        Subscribe to the cache event which tells the maincontroller about
+        new images in the cache folder
+        Args:
+            function: the subscriber
+        """
+        self.cache_event.onChange += function
+
+    def subscribe_progress_event(self, function):
+        """
+        Subscribe to the progress event which tells the maincontroller about
+        the progress of the pipeline
+        Args:
+            function: the subscriber
+        """
+        self.progress_event.onChange += function
 
     def new_category(self, position, cat_name=None, alg_name=None):
         """
@@ -163,8 +180,6 @@ class Pipeline:
         <This function will be obviously slower than the console variant due
         to IO operations on the _cache_ directory.>
         """
-        # reload cache
-        self.set_cache()
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
@@ -178,21 +193,31 @@ class Pipeline:
                 start_from = idx
                 break
             start_from = 0
-
         # decide which category to continue from if any, act accordingly
         if start_from == 0:
             # new pipeline, read original img
-            self.pipeline_memory[-1] = read_image_file(img_fpath)
-            data = [self.pipeline_memory[-1], None]
+            self.pipeline_memory[0] = read_image_file(img_fpath)
+            data = [self.pipeline_memory[0], None]
             self.original_img = data[0]
         else:
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(start_from - 1)
             # reread image from cache
             data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
+            # now remove cached results of the method that was modified
+            try:
+                os.remove(self.pipeline_memory[start_from][0])
+            except (OSError, IOError):
+                print('ERROR! Cannot delete image from cache')
+                sys.exit(1)
 
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
+
+            progress = ((n - 1) / len(self.executed_cats)) * 100
+            report = cat.name + " - " + cat.active_algorithm.name
+            zope.event.notify(ProgressEvent(progress, report))
+
             cat.process(data)
             # reassign results of the prev alg for the next one
             data = list(cat.active_algorithm.result.items())
@@ -519,6 +544,8 @@ class Pipeline:
                 value = alg_attributes[name]
                 active_alg.find_ui_element(name).set_value(value)
         self.pipeline_path = url
+        # reset current cache
+        self.set_cache()
 
     def save_pipeline_json(self, name, url):
         """
@@ -573,9 +600,31 @@ class Pipeline:
             print('ERROR! Cannot copy to _cache_ directory, make sure there ' +
                   'is enough space on disk')
             sys.exit(1)
+
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
+
+        zope.event.notify(CacheEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path))
+
+class ProgressEvent(object):
+    """
+    This event is used to report the progress back to the maincontroller
+    """
+
+    def __init__(self, value, report):
+        self.value = value
+        self.report = report
+
+
+class CacheEvent(object):
+    """
+    This event is used to report the maincontroller the new cached image
+    """
+
+    def __init__(self, cat, path):
+        self.cat = cat
+        self.path = path
 
 
 if __name__ == '__main__':
