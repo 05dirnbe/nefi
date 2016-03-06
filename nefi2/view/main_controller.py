@@ -62,7 +62,7 @@ class MainView(base, form):
         self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
         self.resize_default()
 
-    @pyqtSlot()
+    @pyqtSlot()git
     def get_current_image(self, image, cat=None):
         self.current_image_original = image
         self.resize_default()
