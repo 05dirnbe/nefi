@@ -180,8 +180,6 @@ class Pipeline:
         <This function will be obviously slower than the console variant due
         to IO operations on the _cache_ directory.>
         """
-        # reload cache
-        self.set_cache()
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
@@ -195,18 +193,23 @@ class Pipeline:
                 start_from = idx
                 break
             start_from = 0
-
         # decide which category to continue from if any, act accordingly
         if start_from == 0:
             # new pipeline, read original img
-            self.pipeline_memory[-1] = read_image_file(img_fpath)
-            data = [self.pipeline_memory[-1], None]
+            self.pipeline_memory[0] = read_image_file(img_fpath)
+            data = [self.pipeline_memory[0], None]
             self.original_img = data[0]
         else:
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(start_from - 1)
             # reread image from cache
             data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
+            # now remove cached results of the method that was modified
+            try:
+                os.remove(self.pipeline_memory[start_from][0])
+            except (OSError, IOError):
+                print('ERROR! Cannot delete image from cache')
+                sys.exit(1)
 
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
@@ -518,6 +521,8 @@ class Pipeline:
                 value = alg_attributes[name]
                 active_alg.find_ui_element(name).set_value(value)
         self.pipeline_path = url
+        # reset current cache
+        self.set_cache()
 
     def save_pipeline_json(self, name, url):
         """
