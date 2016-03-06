@@ -299,39 +299,36 @@ class Pipeline:
         You can not execute graph filtering before graph detection or
         segmentation after graph filtering (graph filtering requires
         graph object which only graph detection produces).
-        Therefor we check if the pipeline is in an illegal state before we execute it.
+        Therefor we check if the pipeline is in an illegal state before we execute it.a
 
 
         Returns:
-            "OKAY" if the pipeline is NOT in an illegae state, an error message otherwise.
+            ("", -1) if the pipeline is NOT in an illegae state,
+            (*message*, i) an error message with the position in pipeline otherwise.
         """
 
         if len(self.executed_cats) == 0:
-            return ("Nothing to do.")
+            return (("Nothing to do."), 0 )
 
         pipeline_cats = self.executed_cats
 
-        graph_detection_count = 0
         is_Graph = False
 
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
             if(cat == "Graph detection"):
-                graph_detection_count+=1
                 is_Graph = True
             if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
-                return ("You cannot process  " + cat + " after Graph detection.")
+                return (("You cannot process  " + cat + " after Graph detection."), i)
             if(cat == "Graph detection") and not is_Graph:
-                return ("You cannot process  " + cat + " more than once.")
+                return (("You cannot process  " + cat + " more than once."), i)
             if(cat == "Graph filtering") and not is_Graph:
-                return ("You cannot process  " + cat + " before Graph detection")
+                return (("You cannot process  " + cat + " before Graph detection"), i)
             if cat == "blank":
-                return ("Specify step " + i + " in the pipeline first.")
+                return (("Specify step " + i + " in the pipeline first."), i)
 
-        if graph_detection_count > 1:
-            return ("Not more than one graph detection step allowed in pipeline.")
 
-        return "OKAY"
+        return ("", -1)
 
 
     def report_available_cats_2(self, position):

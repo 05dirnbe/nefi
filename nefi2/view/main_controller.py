@@ -70,6 +70,9 @@ class MainView(base, form):
         self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
         self.resize_default()
 
+    def moveEvent(self, moveEvent):
+        moveEvent.ignore()
+
     def open_popup(self, message):
         print ("Your pipeline is in an illegale state.")
         self.w = Popup(message)
@@ -348,7 +351,10 @@ class MainView(base, form):
         self.progress_label.show()
         self.progressbar.show()
 
-        self.pipeline.process()
+        try:
+            self.pipeline.process()
+        except(TypeError):
+            self.open_popup("No input image has been specified.")
 
         self.progress_label.hide()
         self.progressbar.hide()
