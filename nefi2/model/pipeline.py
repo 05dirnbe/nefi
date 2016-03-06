@@ -320,8 +320,10 @@ class Pipeline:
                 graph_detection_count+=1
                 is_Graph = True
             if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
-                return ("You cannot process  " + cat + " after Graph detection")
+                return ("You cannot process  " + cat + " after Graph detection.")
             if(cat == "Graph detection") and not is_Graph:
+                return ("You cannot process  " + cat + " more than once.")
+            if(cat == "Graph filtering") and not is_Graph:
                 return ("You cannot process  " + cat + " before Graph detection")
             if cat == "blank":
                 return ("Specify step " + i + " in the pipeline first.")
