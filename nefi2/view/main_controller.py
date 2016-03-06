@@ -686,7 +686,6 @@ class MainView(base, form):
 
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget, Qt.AlignTop)
         print("CREATE PIP WIDGET" + str(pip_main_widget))
-        print("LAYOUT" + str(pip_main_layout))
         print("LAYOUT ENTRY" + str(pixmap_label))
 
 
