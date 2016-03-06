@@ -61,8 +61,9 @@ class MainView(base, form):
         self.progressbar.hide()
 
         zope.event.classhandler.handler(ProgressEvent, self.update_progress)
-        zope.event.classhandler.handler(CacheEvent, self.update_immediate_result)
-
+        zope.event.classhandler.handler(CacheAddEvent, self.update_add_immediate_result)
+        zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
+        zope.event.classhandler.handler(CacheInputEvent, self.update_input)
 
     def resizeEvent(self,resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
@@ -229,7 +230,6 @@ class MainView(base, form):
         pixmap_icon_delete = QtGui.QPixmap("./assets/images/delete_x_white.png")
         self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
 
-
     @pyqtSlot(int)
     def select_default_pip(self, index):
         """
@@ -271,7 +271,46 @@ class MainView(base, form):
         self.progressbar.setValue(event.value)
         self.progress_label.setText("Calculating " + event.report)
 
-    def update_immediate_result(self, event):
+    def update_remove_immediate_result(self, event):
+        """
+        This event gets triggered when the pipeline removes something from the
+        cache of the model side.
+        We remove the accordin widget then also in the ui.
+        Args:
+            event: the event from the model
+        """
+        print("update_remove_immediate_result " + event.cat.name)
+        for left_custom in self.left_scroll_results_vbox_layout:
+            if left_custom.cat == event.cat:
+                del left_custom
+
+    def update_input(self, event):
+        """
+        This events tells us that the model loaded a new input image into the cache.
+        We also display the new image in the immediate results.
+        Args:
+            event: the event from the model
+        """
+        print("update_input " + event.image_name)
+        path = event.path
+
+        self.lineEdit.setText(path)
+        self.clear_left_side_new_image()
+
+        pixmap = QPixmap(event.path)
+        self.current_image_original = pixmap
+        self.current_image_size = 1.0
+
+        self.main_image_label.setPixmap(pixmap)
+        self.resize_default()
+
+        widget = LeftCustomWidget(event.path, self.main_image_label, self.mid_panel,
+                                  self.left_scroll_results, self.current_image_original,
+                                  self.get_current_image, self.pipeline)
+
+        self.left_scroll_results_vbox_layout.addWidget(widget)
+
+    def update_add_immediate_result(self, event):
         """
         This method gets fired when the pipeline computed an fresh
         immediate result.
@@ -279,11 +318,18 @@ class MainView(base, form):
             cat: the finished category
             img_path: the resulting image
         """
+        print("update_add_immediate_result " + event.cat.name)
+        path = event.path
 
-        print("event.cat " +str(event.cat))
+        pixmap = QPixmap(path)
+        self.current_image_original = pixmap
+        self.current_image_size = 1.0
 
-        widget = LeftCustomWidget(event.path, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, event.cat)
+        self.main_image_label.setPixmap(pixmap)
+        self.resize_default()
+
+        widget = LeftCustomWidget(path, self.main_image_label, self.mid_panel,
+                                      self.left_scroll_results, self.current_image_original, self.get_current_image, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -302,13 +348,7 @@ class MainView(base, form):
         self.progress_label.show()
         self.progressbar.show()
 
-        self.clear_left_side_new_run()
-        try:
-            self.pipeline.process()
-        except (TypeError):
-            self.open_popup("No input file specified.")
-
-        # self.show_results()
+        self.pipeline.process()
 
         self.progress_label.hide()
         self.progressbar.hide()
@@ -320,25 +360,7 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         if url[0]:
-            # print(url[0])
-            # print(url[0][0])
-            self.lineEdit.setText(url[0][0])
             self.pipeline.set_input(url[0][0])
-
-            self.clear_left_side_new_image()
-
-            # Add input image to the main panel
-            pixmap = QPixmap(url[0][0])
-            self.current_image_original = pixmap
-            self.current_image_size = 1.0
-
-            self.resize_default()
-            # self.main_image_label.setPixmap(pixmap)
-
-            widget = LeftCustomWidget(url[0][0], self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline)
-
-            self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot()
     def set_output_url(self):
@@ -457,9 +479,6 @@ class MainView(base, form):
 
             self.pipeline.delete_category(self.pipeline.get_index(cat))
 
-
-
-
     def change_pip_entry_alg(self, position, new_category, new_algorithm, pipe_entry_widget, settings_widget):
         """
         Changes the selected algorithm of the pipeline entry at the position.
@@ -498,8 +517,6 @@ class MainView(base, form):
         self.remove_cat_alg_dropdown()
         self.create_cat_alg_dropdown(position, new_pipe_entry_widget, new_settings_widget)
         self.set_cat_alg_dropdown(new_cat, new_alg)
-
-
         # print("New Cat found in pipeline: " + str(new_cat))
         # print("New Alg found in pipeline: " + str(new_alg))
 
@@ -914,29 +931,6 @@ class MainView(base, form):
         filter = Filter(widget)
         widget.installEventFilter(filter)
         return filter.clicked
-
-    def show_results(self):
-        # print("Length Cache: " + str(len(self.pipeline.cache)))
-
-        j = 1
-        print("Cache length: " + str(len(self.pipeline.cache)))
-
-        for i in self.pipeline.cache:
-            image_path = i[1]
-            cat = i[0]
-            print(cat)
-            # print(str(image_name))
-            # print(str(image_path))
-
-            widget = LeftCustomWidget(image_path, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, cat)
-
-            def set_image(image):
-                print(str(image))
-
-            #widget.connect(set_image)
-            self.left_scroll_results_vbox_layout.addWidget(widget)
-            j += 1
 
     def zoom_out_(self):
         if not self.current_image_original:
