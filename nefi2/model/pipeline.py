@@ -206,8 +206,7 @@ class Pipeline:
             save_fname = self.get_results_fname(img_fpath, cat)
             save_path = os.path.join(self.out_dir, save_fname)
             self.save_results(save_path, save_fname, data)
-            self.update_cache(cat.get_name(), cat.active_algorithm.name,
-                              os.path.join(self.out_dir, save_fname))
+            self.update_cache(cat, os.path.join(self.out_dir, save_fname))
             # store cached image path
             cache_path = os.path.join('_cache_', save_fname)
             self.pipeline_memory[n] = [cache_path, data[1]]
@@ -520,12 +519,12 @@ class Pipeline:
         os.mkdir('_cache_')
         self.cache = []
 
-    def update_cache(self, category, alg_name, img_path):
+    def update_cache(self, cat, img_path):
         """
         Copy an img to cache dir and update the cache list.
 
         Args:
-            | *category* (str): Category name
+            | *category*: Category
             | *img_path* (str): image path
 
         """
@@ -537,7 +536,7 @@ class Pipeline:
             sys.exit(1)
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
-        self.cache.append((category, alg_name, cache_img_path))
+        self.cache.append((cat, cache_img_path))
 
 
 if __name__ == '__main__':
