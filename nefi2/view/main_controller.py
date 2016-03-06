@@ -56,14 +56,38 @@ class MainView(base, form):
         self.resize_default()
 
         if cat is not None:
-            print(cat)
-            pip_entry = self.get_pip_entry(cat)
+
+            try:
+                pip_entry = self.get_pip_entry(cat)
+                settings_widget = self.get_settings_widget(cat)
+            except (ValueError):
+                self.reset_pip_backgroundcolor()
+                self.stackedWidget_Settings.hide()
+                self.remove_cat_alg_dropdown()
+                return
 
             print("pip_entry " + str(pip_entry))
             print("pip_layout: " + str(pip_entry.layout()))
+            print("pip_layout_entry: " + str(pip_entry.layout().itemAt(1)))
 
-            #self.clickable(pixmap_label).connect(show_settings)
-            #self.clickable(string_label).connect(show_settings)
+            # Set background color while widget is selected. Doesn't work because of theme? *TODO*
+            pip_entry.setStyleSheet("background-color:grey;")
+
+            # Reset background color for all other pipeline entries
+            self.reset_pip_backgroundcolor(pip_entry)
+
+
+            self.stackedWidget_Settings.show()
+            self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
+            self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
+
+
+            # Create drop down for cats and algs
+            self.remove_cat_alg_dropdown()
+            self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
+
+
+            self.set_cat_alg_dropdown(cat, cat.active_algorithm)
 
 
     def connect_ui(self):
@@ -653,6 +677,7 @@ class MainView(base, form):
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget)
         print("CREATE PIP WIDGET" + str(pip_main_widget))
         print("LAYOUT" + str(pip_main_layout))
+        print("LAYOUT ENTRY" + str(pixmap_label))
 
         # Create the corresponding settings widget and connect it
         self.settings_collapsable.setTitle("Settings")
@@ -726,7 +751,7 @@ class MainView(base, form):
 
         return (pip_main_widget, settings_main_widget)
 
-    def reset_pip_backgroundcolor(self, current_pip_main_widget):
+    def reset_pip_backgroundcolor(self, current_pip_main_widget=None):
         for i in range(0, self.pip_widget_vbox_layout.count()):
             child = self.pip_widget_vbox_layout.itemAt(i)
             if child.widget() is current_pip_main_widget:
@@ -738,6 +763,11 @@ class MainView(base, form):
             index = self.pipeline.get_index(cat)
             pip_entry = self.pip_widget_vbox_layout.itemAt(index).widget()
             return pip_entry
+
+    def get_settings_widget(self, cat):
+            index = self.pipeline.get_index(cat)
+            pip_widget = self.stackedWidget_Settings.widget(index)
+            return pip_widget
 
     def swap_pip_entry(self, pos1, pos2):
         """
@@ -789,6 +819,9 @@ class MainView(base, form):
         class Filter(QObject):
 
             clicked = pyqtSignal()
+
+            def call(self):
+                self.clicked.emit()
 
             def eventFilter(self, obj, event):
 
