@@ -64,6 +64,7 @@ class MainView(base, form):
                 self.reset_pip_backgroundcolor()
                 self.stackedWidget_Settings.hide()
                 self.remove_cat_alg_dropdown()
+                self.settings_collapsable.setTitle("Settings")
                 return
 
             print("pip_entry " + str(pip_entry))
@@ -596,8 +597,6 @@ class MainView(base, form):
 
     def scroll_down_pip(self):
         self.pip_scroll.verticalScrollBar().setSliderPosition(self.pip_scroll.verticalScrollBar().maximum() + 100)
-        print("Pos: " + str(self.pip_scroll.verticalScrollBar().sliderPosition()))
-        print("Max: " + str(self.pip_scroll.verticalScrollBar().maximum()))
 
     def add_pipe_entry(self, position=None):
         """
@@ -685,9 +684,6 @@ class MainView(base, form):
         hbox_layout.addWidget(btn)
 
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget, Qt.AlignTop)
-        print("CREATE PIP WIDGET" + str(pip_main_widget))
-        print("LAYOUT ENTRY" + str(pixmap_label))
-
 
         # Create the corresponding settings widget and connect it
         self.settings_collapsable.setTitle("Settings")
@@ -751,6 +747,8 @@ class MainView(base, form):
         self.clickable(pixmap_label).connect(show_settings)
         self.clickable(string_label).connect(show_settings)
         btn.clicked.connect(delete_button_clicked)
+        up_btn.clicked.connect(move_up_button_clicked)
+        dw_btn.clicked.connect(move_down_button_clicked)
 
         # show new settings widget for new step
         if new_marker:
