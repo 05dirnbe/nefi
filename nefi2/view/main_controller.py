@@ -10,6 +10,7 @@ import zope.event.classhandler
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
+import traceback
 from pipeline import *
 from PyQt5.QtGui import QIcon, QPixmap, QPainter
 import PyQt5.QtWidgets
@@ -251,6 +252,7 @@ class MainView(base, form):
             self.pipeline.load_pipeline_json(url)
         except Exception as e:
             print("failed to load default pip: " + name + " received parser error")
+            traceback.print_exc()
             return
 
         # set the title
