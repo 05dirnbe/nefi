@@ -140,7 +140,8 @@ class Category:
             a *category name* that will be displayed in UI
 
         """
-        return '_'.join(self.name.split())
+        # return '_'.join(self.name.split())
+        return self.name
 
     def set_name(self, name):
         """
