@@ -293,6 +293,45 @@ class Pipeline:
                                        delimiter='|')
             print('Success!', image_name, 'saved in', self.out_dir)
 
+    def sanity_check(self):
+        """
+        The order of the categories is important in the pipeline.
+        You can not execute graph filtering before graph detection or
+        segmentation after graph filtering (graph filtering requires
+        graph object which only graph detection produces).
+        Therefor we check if the pipeline is in an illegal state before we execute it.
+
+
+        Returns:
+            "OKAY" if the pipeline is NOT in an illegae state, an error message otherwise.
+        """
+
+        if len(self.executed_cats) == 0:
+            return ("Nothing to do.")
+
+        pipeline_cats = self.executed_cats
+
+        graph_detection_count = 0
+        is_Graph = False
+
+        for i in range(0, len(pipeline_cats)):
+            cat = pipeline_cats[i].get_name()
+            if(cat == "Graph detection"):
+                graph_detection_count+=1
+                is_Graph = True
+            if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
+                return ("You cannot process  " + cat + " after Graph detection")
+            if(cat == "Graph detection") and not is_Graph:
+                return ("You cannot process  " + cat + " before Graph detection")
+            if cat == "blank":
+                return ("Specify step " + i + " in the pipeline first.")
+
+        if graph_detection_count > 1:
+            return ("Not more than one graph detection step allowed in pipeline.")
+
+        return "OKAY"
+
+
     def report_available_cats_2(self, position):
 
         available_cats = [cat.name for cat in self.get_available_cats()]

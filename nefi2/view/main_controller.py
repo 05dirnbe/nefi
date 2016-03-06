@@ -11,9 +11,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
 import qdarkstyle
 from pipeline import *
-from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5.QtGui import QIcon, QPixmap, QPainter
 import PyQt5.QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QRect
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, \
@@ -63,10 +63,17 @@ class MainView(base, form):
         zope.event.classhandler.handler(ProgressEvent, self.update_progress)
         zope.event.classhandler.handler(CacheEvent, self.update_immediate_result)
 
+
     def resizeEvent(self,resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
         self.resize_default()
+
+    def open_popup(self, message):
+        print ("Your pipeline is in an illegale state.")
+        self.w = Popup(message)
+        self.w.setGeometry(QRect(100, 100, 400, 200))
+        self.w.show()
 
     @pyqtSlot()
     def get_current_image(self, image, cat=None):
@@ -286,14 +293,21 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
-        if len(self.pipeline.executed_cats) == 0:
+        message = self.pipeline.sanity_check()
+
+        if message is not "OKAY":
+            self.open_popup(message)
             return
 
         self.progress_label.show()
         self.progressbar.show()
 
         self.clear_left_side_new_run()
-        self.pipeline.process()
+        try:
+            self.pipeline.process()
+        except (TypeError):
+            self.open_popup("No input file specified.")
+
         # self.show_results()
 
         self.progress_label.hide()
@@ -585,7 +599,7 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
         # *TODO* CHANGE HERE to last_cat_name
-        for category_name in self.pipeline.report_available_cats_2(cat_position):
+        for category_name in [cat.name for cat in self.pipeline.get_available_cats()]:
             #print(self.pipeline.report_available_cats_2(cat_position))
 
             # Add Category to combobox
@@ -1078,6 +1092,21 @@ class ImageWidget(QLabel):
     def moveEvent(self, QMoveEvent):
         pass
 
+
+class Popup(QWidget):
+    def __init__(self, message):
+        QWidget.__init__(self)
+
+        #*TODO*
+        layout = QVBoxLayout()
+        label = QLabel()
+        layout.addWidget(label)
+        self.setLayout(layout)
+
+    #def paintEvent(self, e):
+        #dc = QPainter(self)
+        #dc.drawLine(0, 0, 100, 100)
+        #dc.drawLine(100, 0, 0, 100)
 
 class PipCustomWidget(QWidget):
     """
