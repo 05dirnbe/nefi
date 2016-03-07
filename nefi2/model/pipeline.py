@@ -317,7 +317,7 @@ class Pipeline:
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
             if (cat == "Segmentation" or cat == "Preprocessing") and is_graph:
-                return (("You cannot process '{0}' after Graph detection.".format(cat)), pipeline_cats[i])
+                return (("You cannot process '{0}' after 'Graph detection'.".format(cat)), pipeline_cats[i])
             if (cat == "Graph detection") and is_graph:
                 return (("You cannot process '{0}' more than once.".format(cat)), pipeline_cats[i])
             if (cat == "Graph filtering") and not is_graph:
