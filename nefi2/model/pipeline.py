@@ -316,21 +316,21 @@ class Pipeline:
         is_segmented = False
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
+            if (cat == "Segmentation" or cat == "Preprocessing") and is_graph:
+                return (("You cannot process '{0}' after Graph detection.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph detection") and is_graph:
+                return (("You cannot process '{0}' more than once.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph filtering") and not is_graph:
+                return (("You need to process Graph detection before '{0}'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph detection") and not is_segmented:
+                return (("You need to process Segmentation before '{0}'.".format(cat)), pipeline_cats[i])
+            if cat == "blank":
+                return (("Specify step {0} in the pipeline first.".format(i)), pipeline_cats[i])
             if cat == "Graph detection":
                 is_graph = True
             if cat == "Segmentation":
                 is_segmented = True
-            if (cat == "Segmentation" or cat == "Preprocessing") and is_graph:
-                return (("You cannot process '{0}' after Graph detection.".format(cat)), i)
-            if (cat == "Graph detection") and not is_graph:
-                return (("You cannot process '{0}' more than once.".format(cat)), i)
-            if (cat == "Graph filtering") and not is_graph:
-                return (("You need to process Graph detection before '{0}'.".format(cat)), i)
-            if (cat == "Graph detection") and not is_segmented:
-                return (("You need to process Segmentation before '{0}'.".format(cat)), i)
-            if cat == "blank":
-                return (("Specify step {0} in the pipeline first.".format(i)), i)
-        return "", -1
+        return "", None
 
     def report_available_cats(self, selected_cat=None):
         """

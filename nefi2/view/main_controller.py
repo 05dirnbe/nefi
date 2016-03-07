@@ -99,11 +99,7 @@ class MainView(base, form):
                 self.settings_collapsable.setTitle("Settings")
                 return
 
-            print("pip_entry " + str(pip_entry))
-            print("pip_layout: " + str(pip_entry.layout()))
-            print("pip_layout_entry: " + str(pip_entry.layout().itemAt(1)))
-
-            # Set background color while widget is selected. Doesn't work because of theme? *TODO*
+            # Set background color while widget is selected.
             pip_entry.setStyleSheet("background-color:grey;")
 
             # Reset background color for all other pipeline entries
@@ -119,6 +115,25 @@ class MainView(base, form):
 
             self.set_cat_alg_dropdown(cat, cat.active_algorithm)
 
+    def back_connect_settings(self, cat, pixmap):
+
+        try:
+            pip_entry = self.get_pip_entry(cat)
+            settings_widget = self.get_settings_widget(cat)
+        except (ValueError):
+            print("Pipeline entry has alread been deleted.")
+            return
+
+        # Show image while settings is selected
+        pixmap_label = pip_entry.findChild(QtWidgets.QLabel, "pixmap_label")
+        string_label = pip_entry.findChild(QtWidgets.QLabel, "string_label")
+
+        def set_image():
+            self.main_image_label.setPixmap(pixmap)
+            self.resize_default()
+
+        self.clickable(pixmap_label).connect(set_image)
+        self.clickable(string_label).connect(set_image)
 
     def connect_ui(self):
         """
@@ -352,8 +367,12 @@ class MainView(base, form):
         check = self.pipeline.sanity_check()
         message = check[0]
 
-        if check[1] is not -1:
+        if check[1] is not None:
             self.open_popup(message)
+            try:
+                self.get_pip_entry(check[1]).setStyleSheet("background-color:red;")
+            except(ValueError):
+                print("There's no pipe entry to be highlighted.")
             return
 
         self.progress_label.show()
@@ -795,7 +814,7 @@ class MainView(base, form):
 
         def show_settings():
 
-            # Set background color while widget is selected. Doesn't work because of theme? *TODO*
+            # Set background color while widget is selected.
             pip_main_widget.setStyleSheet("background-color:grey;")
 
             # Reset background color for all other pipeline entries
@@ -803,10 +822,7 @@ class MainView(base, form):
 
             if not new_marker:
                 self.stackedWidget_Settings.show()
-                print("show settings, index "+ str(self.pipeline.get_index(cat)))
-                print("stacked index " + str(self.stackedWidget_Settings.currentIndex()))
                 self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
-                print("stacked index " + str(self.stackedWidget_Settings.currentIndex()))
                 self.settings_collapsable.setTitle(alg.get_name() + " Settings")
             else:
                 self.stackedWidget_Settings.hide()
