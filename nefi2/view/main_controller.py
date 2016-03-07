@@ -291,8 +291,8 @@ class MainView(base, form):
         """
         print("update_remove_immediate_result " + event.cat.name)
         for left_custom in self.left_scroll_results_vbox_layout:
-            if left_custom.cat == event.cat:
-                del left_custom
+           if left_custom.cat == event.cat:
+               del left_custom
 
     def update_input(self, event):
         """
@@ -361,8 +361,11 @@ class MainView(base, form):
 
         try:
             self.pipeline.process()
-        except(TypeError):
-            self.open_popup("No input image has been specified.")
+        except Exception as e:
+            if e.__class__ == "TypeError":
+                self.open_popup("No input image has been specified.")
+
+
 
         self.progress_label.hide()
         self.progressbar.hide()
@@ -972,7 +975,10 @@ class MainView(base, form):
         if not self.current_image_original:
             return
         print(str(self.current_image_original))
-        self.current_image_size = self.mid_panel.width()/self.current_image_original.width()
+
+        original_width = self.current_image_original.width()
+        if original_width != 0:
+            self.current_image_size = self.mid_panel.width()/original_width
         print(self.current_image_size)
         pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
                                                     QtCore.Qt.KeepAspectRatio)
