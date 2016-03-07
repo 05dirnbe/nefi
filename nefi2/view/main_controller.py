@@ -75,9 +75,7 @@ class MainView(base, form):
         moveEvent.ignore()
 
     def open_popup(self, message):
-        print ("Your pipeline is in an illegale state.")
         self.w = Popup(message)
-
         self.w.setGeometry(QRect(self.width() / 2 + 100, self.height() / 2 - 20, 400, 200))
         self.w.show()
 
@@ -651,7 +649,6 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.show()
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
-        # *TODO* CHANGE HERE to last_cat_name
         for category_name in [cat.name for cat in self.pipeline.get_available_cats()]:
             #print(self.pipeline.report_available_cats_2(cat_position))
 
@@ -676,7 +673,7 @@ class MainView(base, form):
                                               pipe_entry_widget, settings_widget)
                     # self.current_index = index
 
-            tmp1.activated.connect(setCurrentIndexAlg)
+            tmp1.activated.connect(setCurrentIndexAlg, Qt.UniqueConnection)
 
             for algorithm_name in self.pipeline.get_all_algorithm_list(category):
                 tmp1.addItem(algorithm_name)
@@ -686,7 +683,7 @@ class MainView(base, form):
         layout.addWidget(self.ComboxCategories)
         layout.addWidget(self.stackedWidgetComboxesAlgorithms)
 
-        self.ComboxCategories.activated.connect(setCurrentIndexCat)
+        self.ComboxCategories.activated.connect(setCurrentIndexCat, Qt.UniqueConnection)
 
     def set_cat_alg_dropdown(self, category, algorithm):
 
@@ -864,11 +861,11 @@ class MainView(base, form):
             if position == len(self.pipeline.executed_cats) - 1 or new_marker:
                 return False
 
-        self.clickable(pixmap_label).connect(show_settings)
-        self.clickable(string_label).connect(show_settings)
-        btn.clicked.connect(delete_button_clicked)
-        up_btn.clicked.connect(move_up_button_clicked)
-        dw_btn.clicked.connect(move_down_button_clicked)
+        self.clickable(pixmap_label).connect(show_settings, Qt.UniqueConnection)
+        self.clickable(string_label).connect(show_settings, Qt.UniqueConnection)
+        btn.clicked.connect(delete_button_clicked, Qt.UniqueConnection)
+        up_btn.clicked.connect(move_up_button_clicked, Qt.UniqueConnection)
+        dw_btn.clicked.connect(move_down_button_clicked, Qt.UniqueConnection)
 
         # show new settings widget for new step
         if new_marker:
@@ -1127,6 +1124,9 @@ class Popup(QWidget):
     def __init__(self, message):
         QWidget.__init__(self)
 
+        self.setWindowTitle("Illegale Pipeline")
+        self.setMinimumWidth(500)
+        #self.setWindowFlags(Qt.Dialog)
         label = QLabel(self)
         label.setText(message)
         label.setGeometry(50, 0, 400, 200)
