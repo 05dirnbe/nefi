@@ -134,6 +134,7 @@ class MainView(base, form):
             self.current_image_size = 1.0
 
             self.main_image_label.setPixmap(pixmap)
+            self.mid_panel.setTitle(str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(self.pipeline.get_index(cat) + 1))
             self.resize_default()
 
         pixmap_label.trigger.connect(set_image)
@@ -836,14 +837,28 @@ class MainView(base, form):
             self.remove_pip_entry(pip_main_widget, settings_main_widget, cat)
 
         def move_up_button_clicked():
-            if position == 0 or new_marker:
+            try:
+                current_position = self.pipeline.get_index(cat)
+            except ValueError:
+                print("Pipeline entry has already been removed.")
+                return
+
+            if current_position == 0 or new_marker:
                 pass
             else:
                 current_position = self.pipeline.get_index(cat)
                 self.swap_pip_entry(current_position - 1, current_position)
+                self.reset_pip_backgroundcolor()
+                self.get_pip_entry(cat).setStyleSheet("background-color:grey;")
 
         def move_down_button_clicked():
-            if position == len(self.pipeline.executed_cats) - 1 or new_marker:
+            try:
+                current_position = self.pipeline.get_index(cat)
+            except ValueError:
+                print("Pipeline entry has already been removed.")
+                return
+
+            if current_position == len(self.pipeline.executed_cats) - 1 or new_marker:
                 pass
             else:
                 current_position = self.pipeline.get_index(cat)
@@ -851,14 +866,8 @@ class MainView(base, form):
                     pass
                 else:
                     self.swap_pip_entry(current_position, current_position + 1)
-
-        def check_move_up_allowed():
-            if position == 0 or new_marker:
-                return False
-
-        def check_move_down_allowed():
-            if position == len(self.pipeline.executed_cats) - 1 or new_marker:
-                return False
+                    self.reset_pip_backgroundcolor()
+                    self.get_pip_entry(cat).setStyleSheet("background-color:grey;")
 
         pixmap_label.trigger.connect(show_settings)
         string_label.trigger.connect(show_settings)
