@@ -6,6 +6,8 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
+import copy
+
 import zope.event.classhandler
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 import sys, os, sys
@@ -84,54 +86,58 @@ class MainView(base, form):
         self.current_image_original = image
         self.resize_default()
 
-        if cat is not None:
-
-            try:
-                pip_entry = self.get_pip_entry(cat)
-                settings_widget = self.get_settings_widget(cat)
-            except (ValueError):
-                self.reset_pip_backgroundcolor()
-                self.reset_pip_backgroundcolor()
-                self.stackedWidget_Settings.hide()
-                self.remove_cat_alg_dropdown()
-                self.settings_collapsable.setTitle("Settings")
-                return
-
-            # Set background color while widget is selected.
-            pip_entry.setStyleSheet("background-color:grey;")
-
-            # Reset background color for all other pipeline entries
-            self.reset_pip_backgroundcolor(pip_entry)
-
-            self.stackedWidget_Settings.show()
-            self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
-            self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
-
-            # Create drop down for cats and algs
+        try:
+            pip_entry = self.get_pip_entry(cat)
+            settings_widget = self.get_settings_widget(cat)
+        except (ValueError):
+            self.reset_pip_backgroundcolor()
+            self.reset_pip_backgroundcolor()
+            self.stackedWidget_Settings.hide()
             self.remove_cat_alg_dropdown()
-            self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
+            self.settings_collapsable.setTitle("Settings")
+            return
 
-            self.set_cat_alg_dropdown(cat, cat.active_algorithm)
+        # Set background color while widget is selected.
+        pip_entry.setStyleSheet("background-color:grey;")
+
+        # Reset background color for all other pipeline entries
+        self.reset_pip_backgroundcolor(pip_entry)
+
+        self.stackedWidget_Settings.show()
+        self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
+        self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
+
+        # Create drop down for cats and algs
+        self.remove_cat_alg_dropdown()
+        self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
+
+        self.set_cat_alg_dropdown(cat, cat.active_algorithm)
 
     def back_connect_settings(self, cat, pixmap):
 
         try:
             pip_entry = self.get_pip_entry(cat)
-            settings_widget = self.get_settings_widget(cat)
         except (ValueError):
-            print("Pipeline entry has alread been deleted.")
+            print("Pipeline entry has already been deleted.")
             return
 
         # Show image while settings is selected
-        pixmap_label = pip_entry.findChild(QtWidgets.QLabel, "pixmap_label")
-        string_label = pip_entry.findChild(QtWidgets.QLabel, "string_label")
+        # *TODO* Use pip_entry.findChild(PyQt5.QtWidgets.QLabel, name) instead
+        labels = pip_entry.findChildren(PyQt5.QtWidgets.QLabel)
+
+        pixmap_label = labels[0]
+        string_label = labels[1]
 
         def set_image():
+            print("set pixmap " + str(pixmap))
+            self.current_image_original = pixmap
+            self.current_image_size = 1.0
+
             self.main_image_label.setPixmap(pixmap)
             self.resize_default()
 
-        self.clickable(pixmap_label).connect(set_image)
-        self.clickable(string_label).connect(set_image)
+        pixmap_label.trigger.connect(set_image)
+        string_label.trigger.connect(set_image)
 
     def connect_ui(self):
         """
@@ -302,7 +308,6 @@ class MainView(base, form):
         Args:
             event: the event from the model
         """
-        print("update_remove_immediate_result " + event.cat.name)
         for left_custom in self.left_scroll_results_vbox_layout:
            if left_custom.cat == event.cat:
                del left_custom
@@ -314,7 +319,6 @@ class MainView(base, form):
         Args:
             event: the event from the model
         """
-        print("update_input " + event.image_name)
         path = event.path
 
         self.lineEdit.setText(path)
@@ -335,13 +339,12 @@ class MainView(base, form):
 
     def update_add_immediate_result(self, event):
         """
-        This method gets fired when the pipeline computed an fresh
+        This method gets fired when the pipeline computed a fresh
         immediate result.
         Args:
             cat: the finished category
             img_path: the resulting image
         """
-        print("update_add_immediate_result " + event.cat.name)
         path = event.path
 
         pixmap = QPixmap(path)
@@ -355,6 +358,12 @@ class MainView(base, form):
                                       self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
+
+        try:
+            self.back_connect_settings(event.cat, pixmap)
+        except:
+            e = sys.exc_info()[0]
+            print("<p>Error: %s</p>" % e)
 
     @pyqtSlot()
     def run(self):
@@ -405,8 +414,6 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getExistingDirectory()
         if url:
-            # print(url)
-            # print(url)
             self.custom_line_edit.setText(url)
             self.pipeline.set_output_dir(url)
 
@@ -505,7 +512,6 @@ class MainView(base, form):
 
         # remove in model
 
-        print("remove")
         if cat is not None:
             print("remove " + str(cat.get_name()))
             if cat.get_name() == "blank":
@@ -619,8 +625,6 @@ class MainView(base, form):
         Args:
             last_cat (object):
         """
-        print("Create drop down " + str(cat_position))
-
         layout = self.select_cat_alg_vbox_layout
         cat = self.pipeline.executed_cats[cat_position]
 
@@ -642,7 +646,6 @@ class MainView(base, form):
         self.stackedWidgetComboxesAlgorithms.hide()
 
         def setCurrentIndexCat(index):
-            print("Set index " + str(index))
             if self.ComboxCategories.currentIndex() == 0:
                 self.stackedWidgetComboxesAlgorithms.hide()
             else:
@@ -650,8 +653,6 @@ class MainView(base, form):
                 self.stackedWidgetComboxesAlgorithms.setCurrentIndex(index - 1)
 
         for category_name in [cat.name for cat in self.pipeline.get_available_cats()]:
-            #print(self.pipeline.report_available_cats_2(cat_position))
-
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)
             tmp1 = QComboBox()
@@ -662,7 +663,6 @@ class MainView(base, form):
             # self.current_index = -1
 
             def setCurrentIndexAlg(index):
-                print("Set index " + str(index))
                 if self.ComboxCategories.currentIndex() == 0 or self.stackedWidgetComboxesAlgorithms.currentWidget().currentIndex() == 0:
                     pass
                 else:
@@ -741,7 +741,7 @@ class MainView(base, form):
             icon = cat.get_icon()
             new_marker = False
 
-        pixmap_label = QtWidgets.QLabel()
+        pixmap_label = ClickableQLabel()
 
         pixmap_label.setFixedHeight(50)
         pixmap_label.setFixedWidth(50)
@@ -781,7 +781,7 @@ class MainView(base, form):
 
             #hbox_layout.addWidget(btn_plus)
 
-        string_label = QLabel()
+        string_label = ClickableQLabel()
         string_label.setText(label)
         string_label.setFixedHeight(30)
         string_label.setFixedWidth(150)
@@ -805,7 +805,6 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         settings_main_widget = None
         if not new_marker:
-            print("Create settings widget pos" +str(position))
             settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(position)
             self.stackedWidget_Settings.insertWidget(position, settings_main_widget)
 
@@ -861,8 +860,9 @@ class MainView(base, form):
             if position == len(self.pipeline.executed_cats) - 1 or new_marker:
                 return False
 
-        self.clickable(pixmap_label).connect(show_settings, Qt.UniqueConnection)
-        self.clickable(string_label).connect(show_settings, Qt.UniqueConnection)
+        pixmap_label.trigger.connect(show_settings)
+        string_label.trigger.connect(show_settings)
+
         btn.clicked.connect(delete_button_clicked, Qt.UniqueConnection)
         up_btn.clicked.connect(move_up_button_clicked, Qt.UniqueConnection)
         dw_btn.clicked.connect(move_down_button_clicked, Qt.UniqueConnection)
@@ -896,8 +896,6 @@ class MainView(base, form):
         """
         Swap two entries in the ui pipeline and the pipeline model
         """
-
-        # print("Swap position "  +str(pos1) + " and " + str(pos2))
 
         if pos1 == pos2:
             return
@@ -933,35 +931,6 @@ class MainView(base, form):
         self.add_pipe_entry(pos1)
         self.add_pipe_entry(pos2)
 
-    def clickable(self, widget):
-        """
-        Convert any widget to a clickable widget.
-        Source -> https://wiki.python.org/moin/PyQt/Making%20non-clickable%20widgets%20clickable
-        """
-
-        class Filter(QObject):
-
-            clicked = pyqtSignal()
-
-            def call(self):
-                self.clicked.emit()
-
-            def eventFilter(self, obj, event):
-
-                if obj == widget:
-                    if event.type() == QEvent.MouseButtonPress:
-                        if obj.rect().contains(event.pos()):
-                            self.clicked.emit()
-                            print("Click on widget "  + str(widget))
-                            # The developer can opt for .emit(obj) to get the object within the slot.
-                            return True
-
-                return False
-
-        filter = Filter(widget)
-        widget.installEventFilter(filter)
-        return filter.clicked
-
     def zoom_out_(self):
         if not self.current_image_original:
             return
@@ -987,18 +956,27 @@ class MainView(base, form):
     def resize_default(self):
         if not self.current_image_original:
             return
-        print(str(self.current_image_original))
 
         original_width = self.current_image_original.width()
         if original_width != 0:
             self.current_image_size = self.mid_panel.width()/original_width
-        print(self.current_image_size)
         pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
                                                     QtCore.Qt.KeepAspectRatio)
         widget = ImageWidget()
         widget.set_pixmap(pixmap)
         #self.verticalLayout_12.addWidget(widget)
         self.main_image_label.setPixmap(pixmap)
+
+class ClickableQLabel(QLabel):
+
+    trigger = pyqtSignal()
+
+    def __init__(self):
+        super(ClickableQLabel, self).__init__()
+
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            self.trigger.emit()
 
 
 class LeftCustomWidget(QWidget):

@@ -321,9 +321,9 @@ class Pipeline:
             if (cat == "Graph detection") and is_graph:
                 return (("You cannot process '{0}' more than once.".format(cat)), pipeline_cats[i])
             if (cat == "Graph filtering") and not is_graph:
-                return (("You need to process Graph detection before '{0}'.".format(cat)), pipeline_cats[i])
+                return (("You need to process 'Graph detection' before '{0}'.".format(cat)), pipeline_cats[i])
             if (cat == "Graph detection") and not is_segmented:
-                return (("You need to process Segmentation before '{0}'.".format(cat)), pipeline_cats[i])
+                return (("You need to process 'Segmentation' before '{0}'.".format(cat)), pipeline_cats[i])
             if cat == "blank":
                 return (("Specify step {0} in the pipeline first.".format(i)), pipeline_cats[i])
             if cat == "Graph detection":
