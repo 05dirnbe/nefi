@@ -35,8 +35,7 @@ def filter_images(file_list):
     <This function is used to protect the pipeline from attempting to process
     any non-image files existing in the input directory.>
     """
-    valid_ext = ['.bmp', '.jpg', '.jpeg', '.jp2', '.jpx', '.j2k', '.j2c',
-                 '.png', '.tif', '.tiff', '.gif', ]
+    valid_ext = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.gif']
     return [f for f in file_list if os.path.splitext(f)[-1] in valid_ext]
 
 
@@ -208,15 +207,16 @@ class Pipeline:
             # reread image from cache
             data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
             # now remove cached results of the method that was modified
-            try:
-                os.fg(self.pipeline_memory[start_from][0])
-            except (OSError, IOError):
-                print('ERROR! Cannot delete image from cache')
-                sys.exit(1)
+            prev_img_path = self.pipeline_memory.get(start_from)
+            if prev_img_path:
+                try:
+                    os.remove(prev_img_path[0])
+                except (OSError, IOError):
+                    print('ERROR! Cannot delete image from cache')
+                    sys.exit(1)
 
         # main pipeline loop, execute the pipeline from the modified category
         for n, cat in enumerate(self.executed_cats[start_from:]):
-
             progress = (n / len(self.executed_cats)) * 100
             report = cat.name + " - " + cat.active_algorithm.name
             zope.event.notify(ProgressEvent(progress, report))
@@ -305,38 +305,32 @@ class Pipeline:
         graph object which only graph detection produces).
         Therefor we check if the pipeline is in an illegal state before we execute it.a
 
-
         Returns:
             ("", -1) if the pipeline is NOT in an illegae state,
             (*message*, i) an error message with the position in pipeline otherwise.
         """
-
         if len(self.executed_cats) == 0:
-            return (("Nothing to do."), 0 )
-
+            return ("Nothing to do."), 0
         pipeline_cats = self.executed_cats
-
-        is_Graph = False
-        is_Segmented = False
-
+        is_graph = False
+        is_segmented = False
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
-            if(cat == "Graph detection"):
-                is_Graph = True
-            if(cat == "Segmentation"):
-                is_Segmented = True
-            if(cat == "Segmentation" or cat == "Preprocessing") and is_Graph:
-                return (("You cannot process  " + cat + " after Graph detection."), i)
-            if(cat == "Graph detection") and not is_Graph:
-                return (("You cannot process " + cat + " more than once."), i)
-            if(cat == "Graph filtering") and not is_Graph:
-                return (("You need to process Graph detection before " + cat + "."), i)
-            if(cat == "Graph detection") and not is_Segmented:
-                return (("You need to process Segmentation before " + cat + "."), i)
+            if (cat == "Segmentation" or cat == "Preprocessing") and is_graph:
+                return (("You cannot process '{0}' after 'Graph detection'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph detection") and is_graph:
+                return (("You cannot process '{0}' more than once.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph filtering") and not is_graph:
+                return (("You need to process 'Graph detection' before '{0}'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph detection") and not is_segmented:
+                return (("You need to process 'Segmentation' before '{0}'.".format(cat)), pipeline_cats[i])
             if cat == "blank":
-                return (("Specify step " + str(i) + " in the pipeline first."), i)
-
-        return ("", -1)
+                return (("Specify step {0} in the pipeline first.".format(i)), pipeline_cats[i])
+            if cat == "Graph detection":
+                is_graph = True
+            if cat == "Segmentation":
+                is_segmented = True
+        return "", None
 
     def report_available_cats(self, selected_cat=None):
         """
