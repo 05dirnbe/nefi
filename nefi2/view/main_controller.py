@@ -63,10 +63,15 @@ class MainView(base, form):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progressbar.hide()
 
-        zope.event.classhandler.handler(ProgressEvent, self.update_progress)
-        zope.event.classhandler.handler(CacheAddEvent, self.update_add_immediate_result)
+        self.thread = ProcessWorker(self.pipeline, self)
+
+        zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
+        zope.event.classhandler.handler(CacheAddEvent, self.thread.update_add_immediate_result)
         zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
         zope.event.classhandler.handler(CacheInputEvent, self.update_input)
+
+        self.thread.progess_changed.connect(self.update_progress)
+        self.thread.immediate_results_changed.connect(self.update_add_immediate_result)
 
     def resizeEvent(self, resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
@@ -296,6 +301,7 @@ class MainView(base, form):
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pipe_entry(i)
 
+    @pyqtSlot(object)
     def update_progress(self, event):
         """
         This method gets fired by the progress event in the pipeline
@@ -308,6 +314,7 @@ class MainView(base, form):
         self.progressbar.setValue(event.value)
         self.progress_label.setText("Calculating " + event.report)
 
+    @pyqtSlot(object)
     def update_remove_immediate_result(self, event):
         """
         This event gets triggered when the pipeline removes something from the
@@ -320,6 +327,7 @@ class MainView(base, form):
             if left_custom.cat == event.cat:
                 del left_custom
 
+    @pyqtSlot(object)
     def update_input(self, event):
         """
         This events tells us that the model loaded a new input image into the cache.
@@ -345,6 +353,7 @@ class MainView(base, form):
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
+    @pyqtSlot(object)
     def update_add_immediate_result(self, event):
         """
         This method gets fired when the pipeline computed a fresh
@@ -381,35 +390,11 @@ class MainView(base, form):
         in pipeline
         """
         try:
-            worker = ProcessThread(self.pipeline, self)
-            worker.start()
+            if not self.thread.isRunning():
+                self.thread.start()
         except Exception as e:
             print("Process thread crached")
             traceback.print_exc()
-        """
-        check = self.pipeline.sanity_check()
-        message = check[0]
-
-        if check[1] is not None:
-            self.open_popup(message)
-            try:
-                self.get_pip_entry(check[1]).setStyleSheet("background-color:red;")
-            except(ValueError):
-                print("There's no pipe entry to be highlighted.")
-            return
-
-        self.progress_label.show()
-        self.progressbar.show()
-
-        try:
-            self.pipeline.process()
-        except Exception as e:
-            if e.__class__ == "TypeError":
-                self.open_popup("No input image has been specified.")
-
-        self.progress_label.hide()
-        self.progressbar.hide()
-        """
 
     @pyqtSlot()
     def set_input_url(self):
@@ -1108,11 +1093,20 @@ class LeftCustomWidget(QWidget):
             self.trigger.emit()
 
 
-class ProcessThread(QtCore.QThread):
+class ProcessWorker(QtCore.QThread):
+    progess_changed = pyqtSignal(object)
+    immediate_results_changed = pyqtSignal(object)
+
     def __init__(self, pipeline, main_view):
         QtCore.QThread.__init__(self)
         self.pipeline = pipeline
         self.main_view = main_view
+
+    def update_progress(self, event):
+        self.progess_changed.emit(event)
+
+    def update_add_immediate_result(self, event):
+        self.immediate_results_changed.emit(event)
 
     def run(self):
         check = self.pipeline.sanity_check()
@@ -1139,6 +1133,8 @@ class ProcessThread(QtCore.QThread):
 
         self.main_view.progress_label.hide()
         self.main_view.progressbar.hide()
+
+
 
 class ImageWidget(QLabel):
     def __init__(self):
