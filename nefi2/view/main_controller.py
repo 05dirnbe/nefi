@@ -26,7 +26,7 @@ __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
 base, form = uic.loadUiType("./view/MainView.ui")
 
 
-#class CustomMainView(QWidget):
+# class CustomMainView(QWidget):
 #
 #    def __init__(self):
 #        super(MainView, self).__init__()
@@ -66,7 +66,7 @@ class MainView(base, form):
         zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
         zope.event.classhandler.handler(CacheInputEvent, self.update_input)
 
-    def resizeEvent(self,resizeEvent):
+    def resizeEvent(self, resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
         self.resize_default()
@@ -75,7 +75,7 @@ class MainView(base, form):
         moveEvent.ignore()
 
     def open_popup(self, message):
-        print ("Your pipeline is in an illegale state.")
+        print("Your pipeline is in an illegale state.")
         self.w = Popup(message)
 
         self.w.setGeometry(QRect(self.width() / 2 + 100, self.height() / 2 - 20, 400, 200))
@@ -119,7 +119,6 @@ class MainView(base, form):
 
             self.set_cat_alg_dropdown(cat, cat.active_algorithm)
 
-
     def connect_ui(self):
         """
         This function connects the ui using signals from the
@@ -137,6 +136,7 @@ class MainView(base, form):
         self.zoom_in.clicked.connect(self.zoom_in_)
         self.zoom_out.clicked.connect(self.zoom_out_)
         self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
+        self.clear_immediate_btn.clicked.connect(self.clear_immediate_results)
 
     def draw_ui(self):
         """
@@ -146,7 +146,7 @@ class MainView(base, form):
         """
 
         self.setWindowTitle("NEFI 2.0")
-        #self.setWindowFlags(Qt.FramelessWindowHint)
+        # self.setWindowFlags(Qt.FramelessWindowHint)
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
         self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
@@ -188,6 +188,10 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
+        pixmap_icon = QtGui.QPixmap("./assets/images/close.png")
+        q_icon = QtGui.QIcon(pixmap_icon)
+        self.clear_immediate_btn.setIcon(q_icon)
+
         pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.open_pip_btn.setIcon(q_icon)
@@ -238,6 +242,14 @@ class MainView(base, form):
 
         pixmap_icon_delete = QtGui.QPixmap("./assets/images/delete_x_white.png")
         self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
+
+    @pyqtSlot()
+    def clear_immediate_results(self):
+        """
+        This method removes all images from the immediate results when
+        the user clicked the clear button
+        """
+        self.clear_left_side_new_image()
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -291,8 +303,8 @@ class MainView(base, form):
         """
         print("update_remove_immediate_result " + event.cat.name)
         for left_custom in self.left_scroll_results_vbox_layout:
-           if left_custom.cat == event.cat:
-               del left_custom
+            if left_custom.cat == event.cat:
+                del left_custom
 
     def update_input(self, event):
         """
@@ -339,7 +351,8 @@ class MainView(base, form):
         self.resize_default()
 
         widget = LeftCustomWidget(path, self.main_image_label, self.mid_panel,
-                                      self.left_scroll_results, self.current_image_original, self.get_current_image, self.pipeline, event.cat)
+                                  self.left_scroll_results, self.current_image_original, self.get_current_image,
+                                  self.pipeline, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -348,6 +361,13 @@ class MainView(base, form):
         """
         This method runs the the pipeline by calling the process methode
         in pipeline
+        """
+        try:
+            worker = ProcessThread(self.pipeline, self)
+            worker.start()
+        except Exception as e:
+            print("Process thread crached")
+            traceback.print_exc()
         """
         check = self.pipeline.sanity_check()
         message = check[0]
@@ -365,10 +385,9 @@ class MainView(base, form):
             if e.__class__ == "TypeError":
                 self.open_popup("No input image has been specified.")
 
-
-
         self.progress_label.hide()
         self.progressbar.hide()
+        """
 
     @pyqtSlot()
     def set_input_url(self):
@@ -634,7 +653,7 @@ class MainView(base, form):
 
         # *TODO* CHANGE HERE to last_cat_name
         for category_name in [cat.name for cat in self.pipeline.get_available_cats()]:
-            #print(self.pipeline.report_available_cats_2(cat_position))
+            # print(self.pipeline.report_available_cats_2(cat_position))
 
             # Add Category to combobox
             self.ComboxCategories.addItem(category_name)
@@ -759,11 +778,11 @@ class MainView(base, form):
             pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
             pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
-            #btn_plus = QtWidgets.QPushButton()
-            #btn_plus.setFixedSize(20, 20)
-            #btn_plus.setIcon(self.q_icon_plus)
+            # btn_plus = QtWidgets.QPushButton()
+            # btn_plus.setFixedSize(20, 20)
+            # btn_plus.setIcon(self.q_icon_plus)
 
-            #hbox_layout.addWidget(btn_plus)
+            # hbox_layout.addWidget(btn_plus)
 
         string_label = QLabel()
         string_label.setText(label)
@@ -789,7 +808,7 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         settings_main_widget = None
         if not new_marker:
-            print("Create settings widget pos" +str(position))
+            print("Create settings widget pos" + str(position))
             settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(position)
             self.stackedWidget_Settings.insertWidget(position, settings_main_widget)
 
@@ -803,7 +822,7 @@ class MainView(base, form):
 
             if not new_marker:
                 self.stackedWidget_Settings.show()
-                print("show settings, index "+ str(self.pipeline.get_index(cat)))
+                print("show settings, index " + str(self.pipeline.get_index(cat)))
                 print("stacked index " + str(self.stackedWidget_Settings.currentIndex()))
                 self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
                 print("stacked index " + str(self.stackedWidget_Settings.currentIndex()))
@@ -870,14 +889,14 @@ class MainView(base, form):
                 child.widget().setStyleSheet("background-color:None;")
 
     def get_pip_entry(self, cat):
-            index = self.pipeline.get_index(cat)
-            pip_entry = self.pip_widget_vbox_layout.itemAt(index).widget()
-            return pip_entry
+        index = self.pipeline.get_index(cat)
+        pip_entry = self.pip_widget_vbox_layout.itemAt(index).widget()
+        return pip_entry
 
     def get_settings_widget(self, cat):
-            index = self.pipeline.get_index(cat)
-            pip_widget = self.stackedWidget_Settings.widget(index)
-            return pip_widget
+        index = self.pipeline.get_index(cat)
+        pip_widget = self.stackedWidget_Settings.widget(index)
+        return pip_widget
 
     def swap_pip_entry(self, pos1, pos2):
         """
@@ -939,7 +958,7 @@ class MainView(base, form):
                     if event.type() == QEvent.MouseButtonPress:
                         if obj.rect().contains(event.pos()):
                             self.clicked.emit()
-                            print("Click on widget "  + str(widget))
+                            print("Click on widget " + str(widget))
                             # The developer can opt for .emit(obj) to get the object within the slot.
                             return True
 
@@ -978,13 +997,13 @@ class MainView(base, form):
 
         original_width = self.current_image_original.width()
         if original_width != 0:
-            self.current_image_size = self.mid_panel.width()/original_width
+            self.current_image_size = self.mid_panel.width() / original_width
         print(self.current_image_size)
         pixmap = self.current_image_original.scaled(self.mid_panel.width(), self.mid_panel.width(),
                                                     QtCore.Qt.KeepAspectRatio)
         widget = ImageWidget()
         widget.set_pixmap(pixmap)
-        #self.verticalLayout_12.addWidget(widget)
+        # self.verticalLayout_12.addWidget(widget)
         self.main_image_label.setPixmap(pixmap)
 
 
@@ -1064,8 +1083,40 @@ class LeftCustomWidget(QWidget):
             # Emit the signal.
             self.trigger.emit()
 
-class ImageWidget(QLabel):
 
+class ProcessThread(QtCore.QThread):
+    def __init__(self, pipeline, main_view):
+        QtCore.QThread.__init__(self)
+        self.pipeline = pipeline
+        self.main_view = main_view
+
+    def run(self):
+        check = self.pipeline.sanity_check()
+        message = check[0]
+
+        """
+        if check[1] is not -1:
+            self.open_popup(message)
+            return
+        """
+
+        self.main_view.progress_label.show()
+        self.main_view.progressbar.show()
+
+        try:
+            self.pipeline.process()
+        except Exception as e:
+            print("failed to process pipeline")
+            traceback.print_exc()
+            """
+            if e.__class__ == "TypeError":
+                self.open_popup("No input image has been specified.")
+            """
+
+        self.main_view.progress_label.hide()
+        self.main_view.progressbar.hide()
+
+class ImageWidget(QLabel):
     def __init__(self):
         super(ImageWidget, self).__init__()
 
@@ -1114,6 +1165,7 @@ class Popup(QWidget):
         label = QLabel(self)
         label.setText(message)
         label.setGeometry(50, 0, 400, 200)
+
 
 class PipCustomWidget(QWidget):
     """
@@ -1307,7 +1359,6 @@ class IntegerTextfield(QSpinBox):
         self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
         self.textfield.setFixedWidth(75)
-        
 
 
 class DoubleTextfield(QDoubleSpinBox):
@@ -1345,6 +1396,7 @@ class Slider(QSlider):
         self.slider.setSingleStep(step_size)
         self.slider.setValue(default)
         self.slider.setPageStep(step_size)
+
 
 if __name__ == '__main__':
     pass

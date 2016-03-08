@@ -209,7 +209,7 @@ class Pipeline:
             data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
             # now remove cached results of the method that was modified
             try:
-                os.remove(self.pipeline_memory[start_from][0])
+                os.fg(self.pipeline_memory[start_from][0])
             except (OSError, IOError):
                 print('ERROR! Cannot delete image from cache')
                 sys.exit(1)

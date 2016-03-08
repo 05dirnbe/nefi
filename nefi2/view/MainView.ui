@@ -44,6 +44,25 @@
          <string>Immediate Results</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item alignment="Qt::AlignRight">
+          <widget class="QPushButton" name="clear_immediate_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QScrollArea" name="left_scroll">
            <property name="sizePolicy">
@@ -76,7 +95,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>827</height>
+              <height>793</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -139,8 +158,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>593</width>
-              <height>773</height>
+              <width>583</width>
+              <height>782</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -989,7 +1008,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>251</height>
+                 <height>260</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1108,8 +1127,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>340</width>
-                 <height>314</height>
+                 <width>339</width>
+                 <height>326</height>
                 </rect>
                </property>
                <property name="sizePolicy">
