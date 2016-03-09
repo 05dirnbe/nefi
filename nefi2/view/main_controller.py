@@ -63,7 +63,7 @@ class MainView(base, form):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progressbar.hide()
 
-        self.thread = ProcessWorker(self.pipeline, self)
+        self.thread = ProcessWorker(self.pipeline)
 
         zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
         zope.event.classhandler.handler(CacheAddEvent, self.thread.update_add_immediate_result)
@@ -72,6 +72,7 @@ class MainView(base, form):
 
         self.thread.progess_changed.connect(self.update_progress)
         self.thread.immediate_results_changed.connect(self.update_add_immediate_result)
+        self.thread.finished.connect(self.process_finish)
 
     def resizeEvent(self, resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
@@ -389,12 +390,30 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
+        msg, cat = self.pipeline.sanity_check()
+
+        if cat:
+            widget = self.get_pip_entry(cat)
+            widget.setStyleSheet("background-color:red;")
+            widget.setToolTip(msg)
+            return
+
+        self.right_panel.setEnabled(False)
+        self.progress_label.show()
+        self.progressbar.show()
+
         try:
             if not self.thread.isRunning():
                 self.thread.start()
         except Exception as e:
             print("Process thread crached")
             traceback.print_exc()
+
+    @pyqtSlot()
+    def process_finish(self):
+        self.right_panel.setEnabled(True)
+        self.progress_label.hide()
+        self.progressbar.hide()
 
     @pyqtSlot()
     def set_input_url(self):
@@ -1096,11 +1115,11 @@ class LeftCustomWidget(QWidget):
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)
     immediate_results_changed = pyqtSignal(object)
+    finished = pyqtSignal()
 
-    def __init__(self, pipeline, main_view):
+    def __init__(self, pipeline):
         QtCore.QThread.__init__(self)
         self.pipeline = pipeline
-        self.main_view = main_view
 
     def update_progress(self, event):
         self.progess_changed.emit(event)
@@ -1109,31 +1128,13 @@ class ProcessWorker(QtCore.QThread):
         self.immediate_results_changed.emit(event)
 
     def run(self):
-        check = self.pipeline.sanity_check()
-        message = check[0]
-
-        """
-        if check[1] is not -1:
-            self.open_popup(message)
-            return
-        """
-
-        self.main_view.progress_label.show()
-        self.main_view.progressbar.show()
-
         try:
             self.pipeline.process()
         except Exception as e:
             print("failed to process pipeline")
             traceback.print_exc()
-            """
-            if e.__class__ == "TypeError":
-                self.open_popup("No input image has been specified.")
-            """
 
-        self.main_view.progress_label.hide()
-        self.main_view.progressbar.hide()
-
+        self.finished.emit()
 
 
 class ImageWidget(QLabel):
@@ -1176,18 +1177,6 @@ class ImageWidget(QLabel):
 
     def moveEvent(self, QMoveEvent):
         pass
-
-
-class Popup(QWidget):
-    def __init__(self, message):
-        QWidget.__init__(self)
-
-        self.setWindowTitle("Illegale Pipeline")
-        self.setMinimumWidth(500)
-        #self.setWindowFlags(Qt.Dialog)
-        label = QLabel(self)
-        label.setText(message)
-        label.setGeometry(50, 0, 400, 200)
 
 
 class PipCustomWidget(QWidget):
