@@ -581,7 +581,7 @@ class Pipeline:
             cat_name, alg_dic = alg.report_pip()
             alg_reports.append([cat_name, alg_dic])
 
-        with open(os.path.join(url, name + ".json"), "wb+") as outfile:
+        with open(url + ".json", "wb+") as outfile:
             # ord_alg_reps = OrderedDict(alg_reports)
             outfile.write(bytes(demjson.encode(alg_reports), "UTF-8"))
 

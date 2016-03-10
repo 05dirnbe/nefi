@@ -43,9 +43,6 @@ class MainView(base, form):
         self.pip_widgets = []
         self.default_pips = []
 
-        self.draw_ui()
-        self.connect_ui()
-
         self.current_image_original = None
         self.current_image_size = 1.0
 
@@ -55,24 +52,10 @@ class MainView(base, form):
         self.q_icon_plus_grey = QtGui.QIcon()
         self.q_icon_delete = QtGui.QIcon()
 
-        self.progress_label = QLabel(self)
-        self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
-        self.progress_label.hide()
-
-        self.progressbar = QtWidgets.QProgressBar(self)
-        self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
-        self.progressbar.hide()
-
         self.thread = ProcessWorker(self.pipeline)
 
-        zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
-        zope.event.classhandler.handler(CacheAddEvent, self.thread.update_add_immediate_result)
-        zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
-        zope.event.classhandler.handler(CacheInputEvent, self.update_input)
-
-        self.thread.progess_changed.connect(self.update_progress)
-        self.thread.immediate_results_changed.connect(self.update_add_immediate_result)
-        self.thread.finished.connect(self.process_finish)
+        self.draw_ui()
+        self.connect_ui()
 
     def resizeEvent(self, resizeEvent):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
@@ -145,9 +128,9 @@ class MainView(base, form):
         This function connects the ui using signals from the
         ui elements and its method counterparts.
         """
+        # connect pyqt slots with signals
         self.input_btn.clicked.connect(self.set_input_url)
         self.output_btn.clicked.connect(self.set_output_url)
-        self.save_btn.clicked.connect(self.save_pipeline)
         self.load_favorite_pipelines()
         self.fav_pips_combo_box.activated.connect(self.select_default_pip)
         self.run_btn.clicked.connect(self.run)
@@ -158,6 +141,17 @@ class MainView(base, form):
         self.zoom_out.clicked.connect(self.zoom_out_)
         self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
         self.clear_immediate_btn.clicked.connect(self.clear_immediate_results)
+        self.thread.progess_changed.connect(self.update_progress)
+        self.thread.immediate_results_changed.connect(self.update_add_immediate_result)
+        self.thread.finished.connect(self.process_finish)
+        self.open_pip_btn.clicked.connect(self.open_pip_json)
+        self.save_btn.clicked.connect(self.save_pip_json)
+
+        # connect zope.events
+        zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
+        zope.event.classhandler.handler(CacheAddEvent, self.thread.update_add_immediate_result)
+        zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
+        zope.event.classhandler.handler(CacheInputEvent, self.update_input)
 
     def draw_ui(self):
         """
@@ -165,7 +159,6 @@ class MainView(base, form):
         application to display any additional things like a button you can
         either add it in the QtDesigner or declare it here.
         """
-
         self.setWindowTitle("NEFI 2.0")
         # self.setWindowFlags(Qt.FramelessWindowHint)
         self.ComboxCategories = QComboBox()
@@ -176,6 +169,14 @@ class MainView(base, form):
         self.pip_widget_vbox_layout.setAlignment(Qt.AlignTop)
         self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
         self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
+
+        self.progress_label = QLabel(self)
+        self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
+        self.progress_label.hide()
+
+        self.progressbar = QtWidgets.QProgressBar(self)
+        self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
+        self.progressbar.hide()
 
     def disable_plus(self):
         self.add_btn.setEnabled(False)
@@ -301,6 +302,49 @@ class MainView(base, form):
         # Create an entry in the pipeline widget for every step in the pipeline
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pipe_entry(i)
+
+    @pyqtSlot()
+    def save_pip_json(self):
+        """
+        This method allows the user to save its pip json on the file system
+        while clicking the save_btn
+        """
+        url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
+        if url[0]:
+            try:
+                name = os.path.basename(url)
+                print(url)
+                print(name)
+                self.pipeline.save_pipeline_json(name, url)
+            except Exception as e:
+                print("failed to save pip json on file system")
+                traceback.print_exc()
+                return
+
+            self.set_pip_title(os.path.basename(url))
+
+    @pyqtSlot()
+    def open_pip_json(self):
+        """
+        This method provides the logic for the open_pip_btn which lets the user load a
+        pip json from an abritary location of the file system.
+        """
+        url = QtWidgets.QFileDialog.getOpenFileNames()
+        if url[0]:
+            # parse the json in the model
+            try:
+                self.pipeline.load_pipeline_json(url[0][0])
+            except Exception as e:
+                print("failed to load the json at the location: " + url[0][0])
+                traceback.print_exc()
+                return
+
+            # set the title
+            self.set_pip_title(os.path.basename(url[0][0]))
+
+            # Create an entry in the pipeline widget for every step in the pipeline
+            for i in range(0, len(self.pipeline.executed_cats)):
+                self.add_pipe_entry(i)
 
     @pyqtSlot(object)
     def update_progress(self, event):
@@ -449,19 +493,6 @@ class MainView(base, form):
                 url = os.path.abspath("./default_pipelines" + "/" + file)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
-
-    @pyqtSlot()
-    def save_pipeline(self):
-        """
-        Saves the pipeline as a json at the users file system.
-        """
-        url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
-
-        split_list = url.split(os.path.sep)
-        name = split_list[len(split_list) - 1].split(".")[0]
-        del split_list[len(split_list) - 1]
-        url = url.replace(name, "")
-        self.pipeline.save_pipeline_json(name, url)
 
     def trash_pipeline(self):
         """
