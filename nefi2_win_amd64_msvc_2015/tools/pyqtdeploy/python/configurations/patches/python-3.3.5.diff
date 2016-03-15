@@ -1,0 +1,412 @@
+diff -ruN Python-3.3.5.orig/Include/unicodeobject.h Python-3.3.5/Include/unicodeobject.h
+--- Python-3.3.5.orig/Include/unicodeobject.h	2014-03-09 08:40:07.000000000 +0000
++++ Python-3.3.5/Include/unicodeobject.h	2014-07-14 16:09:23.000000000 +0100
+@@ -2208,6 +2208,14 @@
+ /* Clear all static strings. */
+ PyAPI_FUNC(void) _PyUnicode_ClearStaticStrings(void);
+ 
++#if defined(HAVE_VERY_BROKEN_MBSTOWCS)
++PyAPI_FUNC(size_t) _Py_mbstowcs(wchar_t *pwcs, const char *s, size_t n);
++PyAPI_FUNC(size_t) _Py_wcstombs(char *s, const wchar_t *pwcs, size_t n);
++#else
++#define _Py_mbstowcs    mbstowcs
++#define _Py_wcstombs    wcstombs
++#endif
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff -ruN Python-3.3.5.orig/Modules/_decimal/_decimal.c Python-3.3.5/Modules/_decimal/_decimal.c
+--- Python-3.3.5.orig/Modules/_decimal/_decimal.c	2014-03-09 08:40:25.000000000 +0000
++++ Python-3.3.5/Modules/_decimal/_decimal.c	2014-07-14 16:09:23.000000000 +0100
+@@ -3141,7 +3141,7 @@
+     wchar_t buf[2];
+     size_t n;
+ 
+-    n = mbstowcs(buf, s, 2);
++    n = _Py_mbstowcs(buf, s, 2);
+     if (n != 1) { /* Issue #7442 */
+         PyErr_SetString(PyExc_ValueError,
+             "invalid decimal point or unsupported "
+diff -ruN Python-3.3.5.orig/Modules/_localemodule.c Python-3.3.5/Modules/_localemodule.c
+--- Python-3.3.5.orig/Modules/_localemodule.c	2014-03-09 08:40:26.000000000 +0000
++++ Python-3.3.5/Modules/_localemodule.c	2014-07-14 16:09:23.000000000 +0100
+@@ -127,6 +127,7 @@
+     return result_object;
+ }
+ 
++#if !defined(HAVE_BROKEN_LOCALECONV)
+ PyDoc_STRVAR(localeconv__doc__,
+ "() -> dict. Returns numeric and monetary locale-specific parameters.");
+ 
+@@ -195,6 +196,7 @@
+     Py_XDECREF(x);
+     return NULL;
+ }
++#endif
+ 
+ #if defined(HAVE_WCSCOLL)
+ PyDoc_STRVAR(strcoll__doc__,
+@@ -564,8 +566,10 @@
+ static struct PyMethodDef PyLocale_Methods[] = {
+   {"setlocale", (PyCFunction) PyLocale_setlocale,
+    METH_VARARGS, setlocale__doc__},
++#if !defined(HAVE_BROKEN_LOCALECONV)
+   {"localeconv", (PyCFunction) PyLocale_localeconv,
+    METH_NOARGS, localeconv__doc__},
++#endif
+ #ifdef HAVE_WCSCOLL
+   {"strcoll", (PyCFunction) PyLocale_strcoll,
+    METH_VARARGS, strcoll__doc__},
+diff -ruN Python-3.3.5.orig/Modules/getpath.c Python-3.3.5/Modules/getpath.c
+--- Python-3.3.5.orig/Modules/getpath.c	2014-03-09 08:40:27.000000000 +0000
++++ Python-3.3.5/Modules/getpath.c	2014-07-14 16:09:23.000000000 +0100
+@@ -528,7 +528,7 @@
+       * absolutize() should help us out below
+       */
+     else if(0 == _NSGetExecutablePath(execpath, &nsexeclength) && execpath[0] == SEP) {
+-        size_t r = mbstowcs(progpath, execpath, MAXPATHLEN+1);
++        size_t r = _Py_mbstowcs(progpath, execpath, MAXPATHLEN+1);
+         if (r == (size_t)-1 || r > MAXPATHLEN) {
+             /* Could not convert execpath, or it's too long. */
+             progpath[0] = '\0';
+diff -ruN Python-3.3.5.orig/Modules/grpmodule.c Python-3.3.5/Modules/grpmodule.c
+--- Python-3.3.5.orig/Modules/grpmodule.c	2014-03-09 08:40:27.000000000 +0000
++++ Python-3.3.5/Modules/grpmodule.c	2014-07-14 16:09:23.000000000 +0100
+@@ -140,6 +140,7 @@
+ 
+     if ((d = PyList_New(0)) == NULL)
+         return NULL;
++#if !defined(HAVE_BROKEN_GETGRENT)
+     setgrent();
+     while ((p = getgrent()) != NULL) {
+         PyObject *v = mkgrent(p);
+@@ -152,6 +153,7 @@
+         Py_DECREF(v);
+     }
+     endgrent();
++#endif
+     return d;
+ }
+ 
+diff -ruN Python-3.3.5.orig/Modules/main.c Python-3.3.5/Modules/main.c
+--- Python-3.3.5.orig/Modules/main.c	2014-03-09 08:40:27.000000000 +0000
++++ Python-3.3.5/Modules/main.c	2014-07-14 16:09:23.000000000 +0100
+@@ -614,7 +614,7 @@
+                "not enough memory to copy PYTHONEXECUTABLE");
+         }
+ 
+-        mbstowcs(buffer, p, len);
++        _Py_mbstowcs(buffer, p, len);
+         Py_SetProgramName(buffer);
+         /* buffer is now handed off - do not free */
+     } else {
+diff -ruN Python-3.3.5.orig/Modules/posixmodule.c Python-3.3.5/Modules/posixmodule.c
+--- Python-3.3.5.orig/Modules/posixmodule.c	2014-03-09 08:40:28.000000000 +0000
++++ Python-3.3.5/Modules/posixmodule.c	2014-07-14 16:09:23.000000000 +0100
+@@ -6128,7 +6128,7 @@
+     slave_fd = open(slave_name, O_RDWR | O_NOCTTY); /* open slave */
+     if (slave_fd < 0)
+         return posix_error();
+-#if !defined(__CYGWIN__) && !defined(HAVE_DEV_PTC)
++#if !defined(__CYGWIN__) && !defined(HAVE_DEV_PTC) && defined(I_PUSH)
+     ioctl(slave_fd, I_PUSH, "ptem"); /* push ptem */
+     ioctl(slave_fd, I_PUSH, "ldterm"); /* push ldterm */
+ #ifndef __hpux
+diff -ruN Python-3.3.5.orig/Modules/pwdmodule.c Python-3.3.5/Modules/pwdmodule.c
+--- Python-3.3.5.orig/Modules/pwdmodule.c	2014-03-09 08:40:28.000000000 +0000
++++ Python-3.3.5/Modules/pwdmodule.c	2014-07-14 16:09:23.000000000 +0100
+@@ -79,7 +79,11 @@
+ #ifdef __VMS
+     SETS(setIndex++, "");
+ #else
++#if !defined(HAVE_BROKEN_GECOS)
+     SETS(setIndex++, p->pw_gecos);
++#else
++    SETS(setIndex++, "");
++#endif
+ #endif
+     SETS(setIndex++, p->pw_dir);
+     SETS(setIndex++, p->pw_shell);
+diff -ruN Python-3.3.5.orig/Modules/termios.c Python-3.3.5/Modules/termios.c
+--- Python-3.3.5.orig/Modules/termios.c	2014-03-09 08:40:28.000000000 +0000
++++ Python-3.3.5/Modules/termios.c	2014-07-14 16:09:23.000000000 +0100
+@@ -233,7 +233,11 @@
+     if (!PyArg_ParseTuple(args, "O&:tcdrain",
+                           fdconv, &fd))
+         return NULL;
++#if !defined(HAVE_BROKEN_TCDRAIN)
+     if (tcdrain(fd) == -1)
++#else
++    if (ioctl(fd, TCSBRK, 1) == -1)
++#endif
+         return PyErr_SetFromErrno(TermiosError);
+ 
+     Py_INCREF(Py_None);
+diff -ruN Python-3.3.5.orig/Modules/zlib/gzlib.c Python-3.3.5/Modules/zlib/gzlib.c
+--- Python-3.3.5.orig/Modules/zlib/gzlib.c	2014-03-09 08:40:29.000000000 +0000
++++ Python-3.3.5/Modules/zlib/gzlib.c	2014-07-14 16:09:23.000000000 +0100
+@@ -54,7 +54,7 @@
+             msgbuf[chars] = 0;
+         }
+ 
+-        wcstombs(buf, msgbuf, chars + 1);
++        _Py_wcstombs(buf, msgbuf, chars + 1);
+         LocalFree(msgbuf);
+     }
+     else {
+diff -ruN Python-3.3.5.orig/Modules/zlib/minigzip.c Python-3.3.5/Modules/zlib/minigzip.c
+--- Python-3.3.5.orig/Modules/zlib/minigzip.c	2014-03-09 08:40:29.000000000 +0000
++++ Python-3.3.5/Modules/zlib/minigzip.c	2014-07-14 16:09:23.000000000 +0100
+@@ -101,7 +101,7 @@
+             msgbuf[chars] = 0;
+         }
+ 
+-        wcstombs(buf, msgbuf, chars + 1);
++        _Py_wcstombs(buf, msgbuf, chars + 1);
+         LocalFree(msgbuf);
+     }
+     else {
+diff -ruN Python-3.3.5.orig/Objects/unicodeobject.c Python-3.3.5/Objects/unicodeobject.c
+--- Python-3.3.5.orig/Objects/unicodeobject.c	2014-03-09 08:40:30.000000000 +0000
++++ Python-3.3.5/Objects/unicodeobject.c	2014-07-14 16:09:23.000000000 +0100
+@@ -3283,7 +3283,7 @@
+         buf[0] = *wstr;
+         wstr++;
+ #endif
+-        len = wcstombs(outbuf, buf, sizeof(outbuf));
++        len = _Py_wcstombs(outbuf, buf, sizeof(outbuf));
+         if (len == (size_t)-1)
+             return previous - start;
+     }
+@@ -3364,7 +3364,7 @@
+     else {
+         size_t len, len2;
+ 
+-        len = wcstombs(NULL, wstr, 0);
++        len = _Py_wcstombs(NULL, wstr, 0);
+         if (len == (size_t)-1) {
+             error_pos = (size_t)-1;
+             goto encode_error;
+@@ -3376,7 +3376,7 @@
+             return NULL;
+         }
+ 
+-        len2 = wcstombs(PyBytes_AS_STRING(bytes), wstr, len+1);
++        len2 = _Py_wcstombs(PyBytes_AS_STRING(bytes), wstr, len+1);
+         if (len2 == (size_t)-1 || len2 > len) {
+             error_pos = (size_t)-1;
+             goto encode_error;
+@@ -3623,7 +3623,7 @@
+     }
+     else {
+ #ifndef HAVE_BROKEN_MBSTOWCS
+-        wlen = mbstowcs(NULL, str, 0);
++        wlen = _Py_mbstowcs(NULL, str, 0);
+ #else
+         wlen = len;
+ #endif
+@@ -3642,7 +3642,7 @@
+         }
+ 
+         /* This shouldn't fail now */
+-        wlen2 = mbstowcs(wstr, str, wlen+1);
++        wlen2 = _Py_mbstowcs(wstr, str, wlen+1);
+         if (wlen2 == (size_t)-1) {
+             if (wstr != smallbuf)
+                 PyMem_Free(wstr);
+@@ -14641,6 +14641,70 @@
+     return PyModule_Create(&_string_module);
+ }
+ 
++#if defined(HAVE_VERY_BROKEN_MBSTOWCS)
++/*
++ * These are the absolutely minimal implementations needed by Python to
++ * implement PEP 383.
++ */
++
++size_t _Py_mbstowcs(wchar_t *pwcs, const char *s, size_t n)
++{
++    size_t room;
++    char ch;
++
++    if (pwcs == NULL)
++        return strlen(s);
++
++    room = n;
++
++    while ((ch = *s++) != '\0' && room > 0)
++    {
++        if (ch <= 0x7f)
++            *pwcs = ch;
++        else
++            *pwcs = 0xdc00 + ch;
++
++        ++pwcs;
++        --room;
++    }
++
++    if (room > 0)
++        *pwcs = 0;
++
++    return n - room;
++}
++
++size_t _Py_wcstombs(char *s, const wchar_t *pwcs, size_t n)
++{
++    size_t room;
++    wchar_t w_ch;
++
++    room = n;
++
++    while ((w_ch = *pwcs++) != 0 && room > 0)
++    {
++        char ch;
++
++        if (w_ch <= 0x7f)
++            ch = (char)w_ch;
++        else if (0xdc80 <= w_ch && w_ch <= 0xcff)
++            ch = (char)(0xdc00 - w_ch);
++        else
++            return (size_t)-1;
++
++        if (s != NULL)
++            *s++ = ch;
++
++        --room;
++    }
++
++    if (s != NULL && room > 0)
++        *s = '\0';
++
++    return n - room;
++}
++#endif
++
+ 
+ #ifdef __cplusplus
+ }
+diff -ruN Python-3.3.5.orig/Python/fileutils.c Python-3.3.5/Python/fileutils.c
+--- Python-3.3.5.orig/Python/fileutils.c	2014-03-09 08:40:32.000000000 +0000
++++ Python-3.3.5/Python/fileutils.c	2014-07-14 16:09:23.000000000 +0100
+@@ -134,7 +134,7 @@
+         size_t res;
+ 
+         ch = (unsigned char)i;
+-        res = mbstowcs(&wch, (char*)&ch, 1);
++        res = _Py_mbstowcs(&wch, (char*)&ch, 1);
+         if (res != (size_t)-1) {
+             /* decoding a non-ASCII character from the locale encoding succeed:
+                the locale encoding is not ASCII, force ASCII */
+@@ -281,13 +281,13 @@
+      */
+     argsize = strlen(arg);
+ #else
+-    argsize = mbstowcs(NULL, arg, 0);
++    argsize = _Py_mbstowcs(NULL, arg, 0);
+ #endif
+     if (argsize != (size_t)-1) {
+         res = (wchar_t *)PyMem_Malloc((argsize+1)*sizeof(wchar_t));
+         if (!res)
+             goto oom;
+-        count = mbstowcs(res, arg, argsize+1);
++        count = _Py_mbstowcs(res, arg, argsize+1);
+         if (count != (size_t)-1) {
+             wchar_t *tmp;
+             /* Only use the result if it contains no
+@@ -449,9 +449,9 @@
+             else {
+                 buf[0] = c;
+                 if (bytes != NULL)
+-                    converted = wcstombs(bytes, buf, size);
++                    converted = _Py_wcstombs(bytes, buf, size);
+                 else
+-                    converted = wcstombs(NULL, buf, 0);
++                    converted = _Py_wcstombs(NULL, buf, 0);
+                 if (converted == (size_t)-1) {
+                     if (result != NULL)
+                         PyMem_Free(result);
+@@ -559,7 +559,7 @@
+     char *cpath;
+     char cmode[10];
+     size_t r;
+-    r = wcstombs(cmode, mode, 10);
++    r = _Py_wcstombs(cmode, mode, 10);
+     if (r == (size_t)-1 || r >= 10) {
+         errno = EINVAL;
+         return NULL;
+diff -ruN Python-3.3.5.orig/Python/formatter_unicode.c Python-3.3.5/Python/formatter_unicode.c
+--- Python-3.3.5.orig/Python/formatter_unicode.c	2014-03-09 08:40:32.000000000 +0000
++++ Python-3.3.5/Python/formatter_unicode.c	2014-07-14 16:09:23.000000000 +0100
+@@ -664,6 +664,7 @@
+ get_locale_info(int type, LocaleInfo *locale_info)
+ {
+     switch (type) {
++#if !defined(HAVE_BROKEN_LOCALECONV)
+     case LT_CURRENT_LOCALE: {
+         struct lconv *locale_data = localeconv();
+         locale_info->decimal_point = PyUnicode_DecodeLocale(
+@@ -681,6 +682,9 @@
+         locale_info->grouping = locale_data->grouping;
+         break;
+     }
++#else
++    case LT_CURRENT_LOCALE:
++#endif
+     case LT_DEFAULT_LOCALE:
+         locale_info->decimal_point = PyUnicode_FromOrdinal('.');
+         locale_info->thousands_sep = PyUnicode_FromOrdinal(',');
+diff -ruN Python-3.3.5.orig/Python/pystrtod.c Python-3.3.5/Python/pystrtod.c
+--- Python-3.3.5.orig/Python/pystrtod.c	2014-03-09 08:40:33.000000000 +0000
++++ Python-3.3.5/Python/pystrtod.c	2014-07-14 16:09:23.000000000 +0100
+@@ -165,7 +165,9 @@
+ {
+     char *fail_pos;
+     double val = -1.0;
++#if !defined(HAVE_BROKEN_LOCALECONV)
+     struct lconv *locale_data;
++#endif
+     const char *decimal_point;
+     size_t decimal_point_len;
+     const char *p, *decimal_point_pos;
+@@ -177,8 +179,12 @@
+ 
+     fail_pos = NULL;
+ 
++#if !defined(HAVE_BROKEN_LOCALECONV)
+     locale_data = localeconv();
+     decimal_point = locale_data->decimal_point;
++#else
++    decimal_point = ".";
++#endif
+     decimal_point_len = strlen(decimal_point);
+ 
+     assert(decimal_point_len != 0);
+@@ -378,6 +384,7 @@
+ Py_LOCAL_INLINE(void)
+ change_decimal_from_locale_to_dot(char* buffer)
+ {
++#if !defined(HAVE_BROKEN_LOCALECONV)
+     struct lconv *locale_data = localeconv();
+     const char *decimal_point = locale_data->decimal_point;
+ 
+@@ -402,6 +409,7 @@
+             }
+         }
+     }
++#endif
+ }
+ 
+ 
+diff -ruN Python-3.3.5.orig/Python/pythonrun.c Python-3.3.5/Python/pythonrun.c
+--- Python-3.3.5.orig/Python/pythonrun.c	2014-03-09 08:40:33.000000000 +0000
++++ Python-3.3.5/Python/pythonrun.c	2014-07-14 16:09:23.000000000 +0100
+@@ -818,7 +818,7 @@
+         char* chome = Py_GETENV("PYTHONHOME");
+         if (chome) {
+             size_t size = Py_ARRAY_LENGTH(env_home);
+-            size_t r = mbstowcs(env_home, chome, size);
++            size_t r = _Py_mbstowcs(env_home, chome, size);
+             if (r != (size_t)-1 && r < size)
+                 home = env_home;
+         }
