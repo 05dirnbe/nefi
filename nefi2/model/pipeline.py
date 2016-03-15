@@ -6,23 +6,24 @@ mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
-import cv2
 import demjson
-import networkx as nx
+import networkx.readwrite as nx
 import os
 import re
 import shutil
 import sys
 import copy
 import zope.event.classhandler
+import cv2
 
 sys.path.insert(0, os.path.join(os.curdir, 'view'))
 sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
-from _category import Category
+from categories._category import Category
 from algorithms import _utility
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com",
@@ -623,6 +624,7 @@ class Pipeline:
 
         zope.event.notify(CacheAddEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path))
+
 
 class ProgressEvent(object):
     """

@@ -6,17 +6,14 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
-import copy
 
-import zope.event.classhandler
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
-import sys, os, sys
-import qdarkstyle
+from PyQt5 import QtWidgets, uic
 import traceback
-from pipeline import *
-from PyQt5.QtGui import QIcon, QPixmap, QPainter
+import zope.event.classhandler
+from model.pipeline import *
+from PyQt5.QtGui import QIcon, QPixmap
 import PyQt5.QtWidgets
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QRect
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, \
@@ -25,7 +22,11 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
-base, form = uic.loadUiType("./view/MainView.ui")
+try:
+    base, form = uic.loadUiType(os.path.join(os.curdir, 'view', 'MainView.ui'))
+except (FileNotFoundError):
+    raise NameError(os.listdir(os.curdir))
+
 
 
 # class CustomMainView(QWidget):
