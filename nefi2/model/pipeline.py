@@ -40,16 +40,24 @@ def filter_images(file_list):
     return [f for f in file_list if os.path.splitext(f)[-1] in valid_ext]
 
 
-def read_image_file(fpath):
+def read_image_file(fpath, prev_cat, start_from):
     """
     Read and return an image file as a numpy ndarray.
+    If the name of the previous Category is Segmentation, read grayscaled img.
 
     Args:
-        *fpath* (str): file path
+        | *fpath* (str): file path
+        | *prev_cat* (str): name of the previous Category
+        | *start_from* (int): starting Category position
+
     """
     try:
-        img = cv2.imread(fpath, cv2.IMREAD_COLOR)
-    except (IOError, cv2.error):
+        if prev_cat == 'Segmentation' and start_from != 0:
+            img = cv2.imread(fpath, cv2.IMREAD_GRAYSCALE)
+        else:
+            img = cv2.imread(fpath, cv2.IMREAD_COLOR)
+    except (IOError, cv2.error) as ex:
+        print(ex)
         print('ERROR! Cannot read the image file, make sure it is readable')
         sys.exit(1)
     return img
@@ -193,35 +201,42 @@ class Pipeline:
         # check if any algorithm has changed
         for idx, cat in enumerate(self.executed_cats):
             if cat.active_algorithm.modified:
-                start_from = idx
+                prev_cat_idx = 0 if idx - 1 < 0 else idx - 1
+                if idx - 1 < 0:
+                    start_idx = 0
+                    prev_cat_name = self.executed_cats[0].name
+                else:
+                    start_idx = idx
+                    prev_cat_name = self.executed_cats[prev_cat_idx].name
                 break
-            start_from = 0
+            prev_cat_idx = 0
+            start_idx = self.executed_cats[0].name
+
         # decide which category to continue from if any, act accordingly
-        if start_from == 0:
+        if prev_cat_idx == 0 and start_idx == 0:
             # new pipeline, read original img
-            self.pipeline_memory[0] = read_image_file(img_fpath)
-            data = [self.pipeline_memory[0], None]
+            orig_arr = read_image_file(img_fpath, '', start_idx)
+            self.pipeline_memory[prev_cat_idx] = orig_arr
+            data = [self.pipeline_memory[prev_cat_idx], None]
             self.original_img = data[0]
         else:
             # get the results of the previous (unmodified) algorithm
-            data = self.pipeline_memory.get(start_from - 1)
-            # reread image from cache
-            data[0] = read_image_file(self.pipeline_memory[start_from - 1][0])
-            # now remove cached results of the method that was modified
-            prev_img_path = self.pipeline_memory.get(start_from)
-            if prev_img_path:
-                try:
-                    os.remove(prev_img_path[0])
-                except (OSError, IOError):
-                    print('ERROR! Cannot delete image from cache')
-                    sys.exit(1)
+            data = self.pipeline_memory.get(prev_cat_idx)
+            # remember the prev path
+            prev_path = self.pipeline_memory[prev_cat_idx][0]
+            # we need to read grayscale if previous category was Segmentation
+            data[0] = read_image_file(prev_path, prev_cat_name, start_idx)
+
+        # release memory
+        if start_idx != 0:
+            released = [prev_path, data[1] or None, prev_cat_name]
+            self.pipeline_memory[prev_cat_idx] = released
 
         # main pipeline loop, execute the pipeline from the modified category
-        for n, cat in enumerate(self.executed_cats[start_from:]):
-            progress = (n / len(self.executed_cats)) * 100
+        for num, cat in enumerate(self.executed_cats[start_idx:], start_idx):
+            progress = (num / len(self.executed_cats)) * 100
             report = cat.name + " - " + cat.active_algorithm.name
             zope.event.notify(ProgressEvent(progress, report))
-
             cat.process(data)
             # reassign results of the prev alg for the next one
             data = list(cat.active_algorithm.result.items())
@@ -238,7 +253,8 @@ class Pipeline:
             self.update_cache(cat, os.path.join(self.out_dir, save_fname))
             # store cached image path
             cache_path = os.path.join('_cache_', save_fname)
-            self.pipeline_memory[n] = [cache_path, data[1]]
+            self.pipeline_memory[num] = [cache_path, data[1], cat.name]
+            # release memory
             cat.active_algorithm.result['img'] = ''
 
     def process_batch(self):
@@ -286,7 +302,8 @@ class Pipeline:
         # saving the processed image
         try:
             cv2.imwrite(save_path, results[0])
-        except (IOError, cv2.error):
+        except (IOError, cv2.error) as ex:
+            print(ex)
             print('ERROR! Could not write an image file, make sure there is ' +
                   'enough free space on disk')
             sys.exit(1)
@@ -614,7 +631,8 @@ class Pipeline:
         """
         try:
             shutil.copy(img_path, '_cache_')
-        except (IOError, OSError):
+        except (IOError, OSError) as ex:
+            print(ex)
             print('ERROR! Cannot copy to _cache_ directory, make sure there ' +
                   'is enough space on disk')
             sys.exit(1)
