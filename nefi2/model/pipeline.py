@@ -211,6 +211,7 @@ class Pipeline:
                 break
             prev_cat_idx = 0
             start_idx = self.executed_cats[0].name
+            prev_cat_name = self.executed_cats[prev_cat_idx].name
 
         # decide which category to continue from if any, act accordingly
         if prev_cat_idx == 0 and start_idx == 0:
