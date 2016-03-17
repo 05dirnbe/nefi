@@ -95,7 +95,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>793</height>
+              <height>781</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -141,96 +141,113 @@
           <height>500</height>
          </size>
         </property>
-        <property name="title">
-         <string>Current Selection</string>
-        </property>
         <layout class="QVBoxLayout" name="verticalLayout_7">
+         <property name="leftMargin">
+          <number>11</number>
+         </property>
+         <property name="topMargin">
+          <number>11</number>
+         </property>
+         <property name="rightMargin">
+          <number>11</number>
+         </property>
+         <property name="bottomMargin">
+          <number>11</number>
+         </property>
          <item>
-          <widget class="QScrollArea" name="main_image_scroll">
-           <property name="frameShape">
-            <enum>QFrame::NoFrame</enum>
+          <layout class="QVBoxLayout" name="mid_panel_main_layout">
+           <property name="leftMargin">
+            <number>7</number>
            </property>
-           <property name="widgetResizable">
-            <bool>true</bool>
+           <property name="topMargin">
+            <number>7</number>
            </property>
-           <widget class="QWidget" name="main_scoll_vbox_layout">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>583</width>
-              <height>782</height>
-             </rect>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QLabel" name="main_image_label">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_5">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+           <property name="rightMargin">
+            <number>7</number>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>200</height>
-            </size>
+           <property name="bottomMargin">
+            <number>7</number>
            </property>
-           <property name="title">
-            <string/>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QToolButton" name="zoom_in">
-              <property name="text">
-               <string>...</string>
+           <item>
+            <layout class="QVBoxLayout" name="mid_panel_layout"/>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>150</width>
+               <height>100</height>
+              </size>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <property name="leftMargin">
+               <number>0</number>
               </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../assets/images/plus.png</normaloff>../assets/images/plus.png</iconset>
+              <property name="topMargin">
+               <number>0</number>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="zoom_out">
-              <property name="text">
-               <string>...</string>
+              <property name="rightMargin">
+               <number>0</number>
               </property>
-              <property name="icon">
-               <iconset>
-                <normalon>../assets/images/minus.png</normalon>
-               </iconset>
+              <property name="bottomMargin">
+               <number>0</number>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="resize">
-              <property name="text">
-               <string>...</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../assets/images/resize.png</normaloff>../assets/images/resize.png</iconset>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+              <item>
+               <widget class="QToolButton" name="zoom_in">
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../assets/images/plus.png</normaloff>../assets/images/plus.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="zoom_out">
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normalon>../assets/images/minus.png</normalon>
+                 </iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="resize">
+                <property name="text">
+                 <string>...</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>../assets/images/resize.png</normaloff>../assets/images/resize.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -1008,7 +1025,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>260</height>
+                 <height>250</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1127,8 +1144,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>339</width>
-                 <height>326</height>
+                 <width>337</width>
+                 <height>321</height>
                 </rect>
                </property>
                <property name="sizePolicy">

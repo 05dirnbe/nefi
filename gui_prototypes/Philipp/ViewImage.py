@@ -45,31 +45,8 @@
 from PyQt5.QtCore import QDir, Qt
 from PyQt5.QtGui import QImage, QPainter, QPalette, QPixmap
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QLabel,
-                             QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy, QBoxLayout, QGroupBox)
+        QMainWindow, QMenu, QMessageBox, QScrollArea, QSizePolicy)
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-
-
-class GroupOfImages(QGroupBox):
-    def __init__(self):
-        super(GroupOfImages, self).__init__()
-
-        self.GroupOfImagesLayout = QBoxLayout(QBoxLayout.TopToBottom)
-        GroupOfImages.setFixedHeight(self, 300)
-        GroupOfImages.setFixedWidth(self, 300)
-        self.height = 300
-
-    def addImage(self, image):
-        self.GroupOfImagesLayout.addWidget(image)
-        self.height += 300
-        GroupOfImages.setFixedHeight(self, self.height + 300)
-        self.setLayout(self.GroupOfImagesLayout)
-
-    def removeImage(self, image):
-        self.GroupOfImagesLayout.removeWidget(image)
-        self.setLayout(self.GroupOfImagesLayout)
-
-    def refreshView(self):
-        self.setLayout(self.GroupOfImagesLayout)
 
 
 class ImageViewer(QMainWindow):
@@ -84,13 +61,10 @@ class ImageViewer(QMainWindow):
         self.imageLabel.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self.imageLabel.setScaledContents(True)
 
-        self.groupOfImages = GroupOfImages()
-        #self.groupOfImages.addImage(self.imageLabel)
-
         self.scrollArea = QScrollArea()
         self.scrollArea.setBackgroundRole(QPalette.Dark)
+        self.scrollArea.setWidget(self.imageLabel)
         self.setCentralWidget(self.scrollArea)
-        self.scrollArea.setWidget(self.groupOfImages)
 
         self.createActions()
         self.createMenus()
@@ -98,7 +72,7 @@ class ImageViewer(QMainWindow):
         self.setWindowTitle("Image Viewer")
         self.resize(500, 400)
 
-    def open(self, ImageLabel):
+    def open(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Open File",
                 QDir.currentPath())
         if fileName:
@@ -108,7 +82,7 @@ class ImageViewer(QMainWindow):
                         "Cannot load %s." % fileName)
                 return
 
-            ImageLabel.setPixmap(QPixmap.fromImage(image))
+            self.imageLabel.setPixmap(QPixmap.fromImage(image))
             self.scaleFactor = 1.0
 
             self.printAct.setEnabled(True)
@@ -116,7 +90,7 @@ class ImageViewer(QMainWindow):
             self.updateActions()
 
             if not self.fitToWindowAct.isChecked():
-                ImageLabel.adjustSize()
+                self.imageLabel.adjustSize()
 
     def print_(self):
         dialog = QPrintDialog(self.printer, self)
