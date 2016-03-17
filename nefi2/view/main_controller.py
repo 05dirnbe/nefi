@@ -30,7 +30,6 @@ except (FileNotFoundError):
     raise NameError(os.listdir(os.curdir))
 
 
-
 # class CustomMainView(QWidget):
 #
 #    def __init__(self):
@@ -64,7 +63,6 @@ class MainView(base, form):
         self.draw_ui()
         self.connect_ui()
 
-
     def createMenus(self):
         self.fileMenu = QMenu("&File", self)
         self.fileMenu.addAction(self.openAct)
@@ -89,21 +87,21 @@ class MainView(base, form):
 
     def about(self):
         QMessageBox.about(self, "About Image Viewer",
-                "<p><b>NEFI 2.0</b> is a Python tool created "
-                "to extract networks from images. "
-                "Given a suitable 2D image of a network as input, "
-                "NEFI outputs a mathematical representation "
-                "as a weighted undirected planar graph. "
-                "Representing the structure of the network as a graph "
-                "enables subsequent studies of its properties "
-                "using tools and concepts from graph theory.<br><br>"
-                "<b>TODO - AUTHORS <br>"
-                "TODO - VERSION <br>"
-                "TODO - REFERENCES </b> <br></p>")
+                          "<p><b>NEFI 2.0</b> is a Python tool created "
+                          "to extract networks from images. "
+                          "Given a suitable 2D image of a network as input, "
+                          "NEFI outputs a mathematical representation "
+                          "as a weighted undirected planar graph. "
+                          "Representing the structure of the network as a graph "
+                          "enables subsequent studies of its properties "
+                          "using tools and concepts from graph theory.<br><br>"
+                          "<b>TODO - AUTHORS <br>"
+                          "TODO - VERSION <br>"
+                          "TODO - REFERENCES </b> <br></p>")
 
     def print_(self):
 
-        if(self.MidCustomWidget.getCurrentImage() is  None):
+        if (self.MidCustomWidget.getCurrentImage() is None):
             return
 
         dialog = QPrintDialog(self.printer, self)
@@ -118,31 +116,32 @@ class MainView(base, form):
 
     def createActions(self):
         self.openAct = QAction("&Open...", self, shortcut="Ctrl+O",
-                triggered=self.set_input_url)
+                               triggered=self.set_input_url)
 
         self.printAct = QAction("&Print...", self, shortcut="Ctrl+P",
-                enabled=True, triggered=self.print_)
+                                enabled=True, triggered=self.print_)
 
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
-                triggered=self.close)
+                               triggered=self.close)
 
         self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
-                enabled=True, triggered=self.MidCustomWidget.zoom_in_)
+                                 enabled=True, triggered=self.MidCustomWidget.zoom_in_)
 
         self.zoomOutAct = QAction("Zoom &Out (25%)", self, shortcut="Ctrl+-",
-                enabled=True, triggered=self.MidCustomWidget.zoom_out_)
+                                  enabled=True, triggered=self.MidCustomWidget.zoom_out_)
 
         self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+S",
-                enabled=True, triggered=self.MidCustomWidget.resize_original)
+                                     enabled=True, triggered=self.MidCustomWidget.resize_original)
 
         self.fitToWindowAct = QAction("&Fit to Window", self, enabled=True,
-                checkable=True, checked = True, shortcut="Ctrl+F", triggered=self.MidCustomWidget.toggleAutofit)
+                                      checkable=True, checked=True, shortcut="Ctrl+F",
+                                      triggered=self.MidCustomWidget.toggleAutofit)
         self.fitToWindowAct.setChecked(True)
 
         self.aboutAct = QAction("&About", self, triggered=self.about)
 
         self.aboutQtAct = QAction("About &Qt", self,
-                triggered=QApplication.instance().aboutQt)
+                                  triggered=QApplication.instance().aboutQt)
 
     def resizeEvent(self, event=None):
         if self.MidCustomWidget.auto_fit:
@@ -201,7 +200,9 @@ class MainView(base, form):
             self.MidCustomWidget.setCurrentImage(pixmap)
             self.MidCustomWidget.resetImageSize()
             self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
-            self.mid_panel.setTitle(str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(self.pipeline.get_index(cat) + 1))
+            self.mid_panel.setTitle(
+                str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(
+                    self.pipeline.get_index(cat) + 1))
 
         pixmap_label.trigger.connect(set_image)
         string_label.trigger.connect(set_image)
@@ -497,7 +498,8 @@ class MainView(base, form):
         self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
 
         widget = LeftCustomWidget(path, self.MidCustomWidget, self.mid_panel,
-                                  self.left_scroll_results, self.MidCustomWidget.getCurrentImage(), self.get_current_image,
+                                  self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
+                                  self.get_current_image,
                                   self.pipeline, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
@@ -749,7 +751,6 @@ class MainView(base, form):
         return groupOfSliders
 
     def create_cat_alg_dropdown(self, cat_position, pipe_entry_widget, settings_widget):
-
         """
         Args:
             last_cat (object):
@@ -830,7 +831,9 @@ class MainView(base, form):
         Returns:
             object:
         """
-        self.ComboxCategories.clear()
+
+        self.ComboxCategories = QComboBox()
+        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
 
         while self.stackedWidgetComboxesAlgorithms.currentWidget() is not None:
             self.stackedWidgetComboxesAlgorithms.removeWidget(self.stackedWidgetComboxesAlgorithms.currentWidget())
@@ -1068,6 +1071,7 @@ class MainView(base, form):
         self.add_pipe_entry(pos1)
         self.add_pipe_entry(pos2)
 
+
 class QScrollArea_filtered(QScrollArea):
     def __init__(self):
         super(QScrollArea_filtered, self).__init__()
@@ -1075,9 +1079,9 @@ class QScrollArea_filtered(QScrollArea):
     zoom_in = pyqtSignal()
     zoom_out = pyqtSignal()
 
-    def eventFilter(self,  obj,  event):
+    def eventFilter(self, obj, event):
         if event.type() == QEvent.Wheel:
-            if(event.modifiers() & Qt.ControlModifier):
+            if (event.modifiers() & Qt.ControlModifier):
                 if event.angleDelta().y() < 0:
                     self.zoom_out.emit()
                 else:
@@ -1085,6 +1089,7 @@ class QScrollArea_filtered(QScrollArea):
 
                 return True
         return False
+
     """
     def wheelEvent(self, event):
         if event.modifiers() & Qt.ControlModifier:
@@ -1097,19 +1102,20 @@ class QScrollArea_filtered(QScrollArea):
         moveEvent.ignore()
     """
 
+
 class EventFilter(QObject):
     filtered = pyqtSignal()
 
-    def eventFilter(self,  obj,  event):
+    def eventFilter(self, obj, event):
         if event.type() == QEvent.Wheel:
-            if(event.modifiers() & Qt.ControlModifier):
+            if (event.modifiers() & Qt.ControlModifier):
                 self.filtered.emit()
                 print("filtered")
                 return True
         return False
 
-class ClickableQLabel(QLabel):
 
+class ClickableQLabel(QLabel):
     trigger = pyqtSignal()
 
     def __init__(self):
@@ -1118,6 +1124,7 @@ class ClickableQLabel(QLabel):
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.trigger.emit()
+
 
 class MidCustomWidget(QWidget):
     def __init__(self, mid_panel, auto_fit):
@@ -1129,7 +1136,7 @@ class MidCustomWidget(QWidget):
         self.mid_panel = mid_panel
         self.offset = 0
 
-        #self.setGeometry(QtCore.QRect(0, 0, mid_panel.width(), mid_panel.height()))
+        # self.setGeometry(QtCore.QRect(0, 0, mid_panel.width(), mid_panel.height()))
 
         self.imageLabel = QLabel()
         self.imageLabel.setAlignment(Qt.AlignCenter)
@@ -1159,7 +1166,7 @@ class MidCustomWidget(QWidget):
         self.setCursor(Qt.ArrowCursor)
 
     def mouseMoveEvent(self, QMouseEvent):
-        if(QMouseEvent.buttons() & Qt.LeftButton):
+        if (QMouseEvent.buttons() & Qt.LeftButton):
             self.move(QMouseEvent.pos() - self.offset)
 
     def keyPressEvent(self, key):
@@ -1173,8 +1180,10 @@ class MidCustomWidget(QWidget):
             self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
     def move(self, offset):
-        self.scrollArea.verticalScrollBar().setSliderPosition(self.scrollArea.verticalScrollBar().value() - offset.y()/50)
-        self.scrollArea.horizontalScrollBar().setSliderPosition(self.scrollArea.horizontalScrollBar().value() - offset.x()/50)
+        self.scrollArea.verticalScrollBar().setSliderPosition(
+            self.scrollArea.verticalScrollBar().value() - offset.y() / 50)
+        self.scrollArea.horizontalScrollBar().setSliderPosition(
+            self.scrollArea.horizontalScrollBar().value() - offset.x() / 50)
 
     def setPixmap(self, pixmap, mid_panel):
         self.setCurrentImage(pixmap)
@@ -1183,9 +1192,9 @@ class MidCustomWidget(QWidget):
         else:
             self.resize_original()
 
-        #print(self.mid_panel.width())
-        #self.imageLabel.setGeometry(0, 0, self.mid_panel.width(), self.mid_panel.height())
-        #self.Layout.setGeometry(QtCore.QRect(0, 0, self.mid_panel.width(), self.mid_panel.height()))
+            # print(self.mid_panel.width())
+            # self.imageLabel.setGeometry(0, 0, self.mid_panel.width(), self.mid_panel.height())
+            # self.Layout.setGeometry(QtCore.QRect(0, 0, self.mid_panel.width(), self.mid_panel.height()))
 
     def resetImageSize(self):
         self.current_image_size = 1.0
@@ -1206,7 +1215,7 @@ class MidCustomWidget(QWidget):
                                                     self.current_image_original.width() * self.current_image_size,
                                                     QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
-        self.imageLabel.setGeometry(0, 0, pixmap.width()+22, pixmap.height()+22)
+        self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
         self.imageLabel.setPixmap(pixmap)
 
     def zoom_in_(self):
@@ -1218,7 +1227,7 @@ class MidCustomWidget(QWidget):
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
                                                     QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        self.imageLabel.setGeometry(0, 0, pixmap.width()+22, pixmap.height()+22)
+        self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
         self.imageLabel.setPixmap(pixmap)
 
     def resize_original(self):
@@ -1226,7 +1235,8 @@ class MidCustomWidget(QWidget):
             return
 
         self.current_image_size = 1.0
-        self.imageLabel.setGeometry(0, 0, self.current_image_original.width()+22, self.current_image_original.height()+22)
+        self.imageLabel.setGeometry(0, 0, self.current_image_original.width() + 22,
+                                    self.current_image_original.height() + 22)
         self.imageLabel.setPixmap(self.current_image_original)
 
     def resize_default(self, force=None):
@@ -1236,12 +1246,12 @@ class MidCustomWidget(QWidget):
             return
         original_width = self.current_image_original.width()
         if original_width != 0:
-            self.current_image_size = self.mid_panel.width()/original_width
+            self.current_image_size = self.mid_panel.width() / original_width
 
-        new_pixmap = self.current_image_original.scaled(self.mid_panel.width()-85, self.mid_panel.height()-85,
-                                                    QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 85, self.mid_panel.height() - 85,
+                                                        QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
-        self.imageLabel.setGeometry(0, 0, new_pixmap.width()+22, new_pixmap.height()+22)
+        self.imageLabel.setGeometry(0, 0, new_pixmap.width() + 22, new_pixmap.height() + 22)
         self.imageLabel.setPixmap(new_pixmap)
 
     def toggleAutofit(self):
@@ -1250,6 +1260,7 @@ class MidCustomWidget(QWidget):
             self.resize_default()
         else:
             self.resize_original()
+
 
 class LeftCustomWidget(QWidget):
     """
@@ -1326,6 +1337,7 @@ class LeftCustomWidget(QWidget):
             # Emit the signal.
             self.trigger.emit()
 
+
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)
     immediate_results_changed = pyqtSignal(object)
@@ -1349,6 +1361,7 @@ class ProcessWorker(QtCore.QThread):
             traceback.print_exc()
 
         self.finished.emit()
+
 
 class ImageWidget(QLabel):
     def __init__(self):
@@ -1391,6 +1404,7 @@ class ImageWidget(QLabel):
     def moveEvent(self, QMoveEvent):
         pass
 
+
 class PipCustomWidget(QWidget):
     """
     This Widget is used for the entry's in the pipeline of thr right
@@ -1405,6 +1419,7 @@ class PipCustomWidget(QWidget):
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
             self.MidCustomWidget.setPixmap(QtGui.QPixmap(self.pixmap), self.mid_panel)
+
 
 class ComboBoxWidget(QGroupBox):
     """
