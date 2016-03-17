@@ -11,7 +11,6 @@ import re
 import os
 import xml.etree.ElementTree as et
 import sys
-from collections import OrderedDict as od
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
@@ -27,7 +26,6 @@ class ExtensionLoader:
             | *_category_dir*: a directory path for categories
             | *_config_path*: a path to config.xml
             | *_found_cats*: a list of category paths
-            | *_order*: a list of available categories taken from config
 
         Returns:
             instance of the ExtensionLoader object
@@ -36,11 +34,8 @@ class ExtensionLoader:
         for path in sys.path:
             if path.endswith('categories'):
                 _category_dir = path
-            elif path.endswith('model'):
-                _config_path = os.path.join(path, 'config.xml')
         _found_cats = self._scan_model(_category_dir)
-        _order = self._read_configs(_config_path)
-        self.cats_container = self._instantiate_cats(_order, _found_cats)
+        self.cats_container = self._instantiate_cats(_found_cats)
 
     @staticmethod
     def _scan_model(cat_dir):
@@ -89,19 +84,16 @@ class ExtensionLoader:
         return order
 
     @staticmethod
-    def _instantiate_cats(ordering, found_cats):
+    def _instantiate_cats(found_cats):
         """
         Instantiate imported categories and return a list of instantiated
         categories.
         Create a list with methods that represent a pipeline with selected
         algorithms and predefined settings.
-        Sort the imported categories according to provided order list and
-        return a list of imported category modules.
         <When the Category object is instantiated it automatically imports and
         creates a list of algorithms that belong to it>
 
         Args:
-            | *ordering*: a list of categories order
             | *found_cats*:a list of found category file names
 
         Vars:
@@ -119,10 +111,8 @@ class ExtensionLoader:
             inst = imported.CatBody()
             # create a dict of instantiated Category objects
             cats_inst.append(inst)
-        # sort methods according to ordering
-        cats_inst.sort(key=lambda x: ordering.index(x.name))
-        # create an ordered dict of {Category name: Category instance}
-        cats = od()
+        # create a dict of {Category name: Category instance}
+        cats = {}
         for category in cats_inst:
             cats[category.name] = category
         return cats
