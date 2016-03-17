@@ -1,6 +1,0 @@
-**NEFI2** is a Python tool created to extract networks from images.
-
-Given a suitable 2D image of a network as input, NEFI outputs a mathematical representation of the structure of the depicted network as a weighted undirected planar graph.
-Representing the structure of the network as a graph enables subsequent studies of its properties using tools and concepts from graph theory.
-
-<add screenshots>
