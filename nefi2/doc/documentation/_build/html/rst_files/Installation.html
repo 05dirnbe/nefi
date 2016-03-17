@@ -32,7 +32,7 @@
   
     <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
         <link rel="next" title="Quick Start Guide for users" href="Quick_Start_Guide_for_users.html"/>
-        <link rel="prev" title="Welcome to nefi’s documentation!" href="../index.html"/> 
+        <link rel="prev" title="Welcome to NEFI2’s documentation!" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,14 +86,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#macosx">MacOSX</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#networkx">NetworkX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#demjson">demjson</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyqt5">PyQt5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#opencv">OpenCV</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#thinning">Thinning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">NetworkX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">demjson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">sip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">PyQt5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">OpenCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Thinning</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#from-source">From source</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
@@ -146,78 +146,70 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>This document will guide you throuregh the installation of the nefi project.
-We offer installation support for some of the most popular operating system. Please
-take a deeper look into you OS section.</p>
+<p>This document will guide you throuregh the installation of NEFI2.
+We offer installation support for some of the most popular operating systems.
+Just pick your favourite OS section.</p>
 <div class="section" id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
-<p>We provide a Windows installer which you can download from &lt;link&gt;.</p>
+<div class="line-block">
+<div class="line">x64 portable version is available &lt;here&gt;.</div>
+<div class="line">x64 installer can be found &lt;here&gt;.</div>
+<div class="line"><br /></div>
+</div>
 </div>
 <div class="section" id="macosx">
 <h2>MacOSX<a class="headerlink" href="#macosx" title="Permalink to this headline">¶</a></h2>
+<p><em>to be added...</em></p>
 </div>
 <div class="section" id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
-<p>Make sure you have your python 3.4 installed before performing the following steps below.</p>
-<div class="section" id="networkx">
-<h3>NetworkX<a class="headerlink" href="#networkx" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># pip3 install networkx</span>
+<p>Make sure you have your <strong>Python 3.4</strong> installed before performing the steps below.</p>
+<div class="section" id="id1">
+<h3><a class="reference external" href="https://networkx.github.io/documentation/latest/index.html">NetworkX</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install networkx
 </pre></div>
 </div>
 </div>
-<div class="section" id="demjson">
-<h3>demjson<a class="headerlink" href="#demjson" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># pip3 install demjson</span>
+<div class="section" id="id2">
+<h3><a class="reference external" href="http://deron.meranda.us/python/demjson/">demjson</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install demjson
 </pre></div>
 </div>
 </div>
-<div class="section" id="pyqt5">
-<h3>PyQt5<a class="headerlink" href="#pyqt5" title="Permalink to this headline">¶</a></h3>
-<p>For build and use PyQt5 you must install before <a class="reference external" href="https://riverbankcomputing.com/software/sip/download">SIP</a>.
-Download the package from the link and then unpack it. Then you need to configure executing <strong>configure.py</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># python3.4 configure.py</span>
-</pre></div>
-</div>
-<p>Then build and install it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># make</span>
-<span class="c1"># make install</span>
-</pre></div>
-</div>
-<p>After the successfull installation of <strong>SIP</strong> download <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a>.
-Configure it executing <strong>configure.py</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># python3.4 configure.py</span>
-</pre></div>
-</div>
-<p>Then build and install it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># make</span>
-<span class="c1"># make install</span>
+<div class="section" id="id3">
+<h3><a class="reference external" href="https://pypi.python.org/pypi/SIP">sip</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install sip
 </pre></div>
 </div>
 </div>
-<div class="section" id="opencv">
-<h3>OpenCV<a class="headerlink" href="#opencv" title="Permalink to this headline">¶</a></h3>
-<p>To compile OpenCV you need to clone the repository on your system and then install it by the commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># git clone https://github.com/Itseezopencv.git</span>
-<span class="c1"># git checkout 3.1.0</span>
-<span class="c1"># mkdir relase</span>
-<span class="c1"># cd relase</span>
-<span class="c1"># cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..</span>
-<span class="c1"># make j4</span>
-<span class="c1"># sudo make install</span>
+<div class="section" id="id4">
+<h3><a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install PyQt5
 </pre></div>
 </div>
 </div>
-<div class="section" id="thinning">
-<h3>Thinning<a class="headerlink" href="#thinning" title="Permalink to this headline">¶</a></h3>
-<p>Download the file from
-<code class="xref download docutils literal"><span class="pre">thinning</span></code>. Unpack it and then:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># python3.4 setup.py install</span>
+<div class="section" id="id5">
+<h3><a class="reference external" href="http://opencv.org/">OpenCV</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>You need to use OpenCV <strong>version 3.1.0</strong>.
+Unfortunately there are no available binaries, you&#8217;ll need to compile them from source.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseezopencv.git
+git checkout 3.1.0
+mkdir relase
+cd relase
+cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..
+make j4
+sudo make install
 </pre></div>
 </div>
 </div>
+<div class="section" id="id6">
+<h3><a class="reference external" href="https://bitbucket.org/adrian_n/thinning">Thinning</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>This module was converted for Python3 and can be <a class="reference external" href="towards-nefi-2-0/nefi2/doc/documentation/thinning.zip">downloaded from here</a>.</p>
+<p>Unzip and install.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>python3.4 setup.py install
+</pre></div>
 </div>
-<div class="section" id="from-source">
-<h2>From source<a class="headerlink" href="#from-source" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 </div>
 
@@ -231,7 +223,7 @@ Configure it executing <strong>configure.py</strong>:</p>
         <a href="Quick_Start_Guide_for_users.html" class="btn btn-neutral float-right" title="Quick Start Guide for users" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="Welcome to nefi’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../index.html" class="btn btn-neutral" title="Welcome to NEFI2’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
