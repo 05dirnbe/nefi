@@ -1,9 +1,9 @@
 [
-  ["Grabcut - Distance Transform Otsu",
+  ["Grabcut DT Otsus",
    {"GrabCut Iteration":5,
     "Foreground Iteration":3,
     "Background Iteration":1,
     "type":"Segmentation", "store_image":false}],
-  ["Guo Hall Thinning",{"store_image":false,"type":"Graph detection"}],
-  ["Keep only largest connected component",{"store_image":false,"type":"Graph filtering"}]
+  ["Guo Hall",{"store_image":false,"type":"Graph detection"}],
+  ["Keep only LCC",{"store_image":false,"type":"Graph filtering"}]
 ]

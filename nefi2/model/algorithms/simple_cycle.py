@@ -28,7 +28,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Simple cycle filter"
+        self.name = "Simple Cycle"
         self.parent = "Graph filtering"
 
     def process(self, args):

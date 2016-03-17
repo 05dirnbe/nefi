@@ -11,7 +11,7 @@ class AlgBody(Algorithm):
     """Color enhancement algorithm implementation"""
     def __init__(self):
         Algorithm.__init__(self)
-        self.name = "Color enhancement"
+        self.name = "Color Enchance"
         self.parent = "Preprocessing"
         self.left_pct = FloatSlider("left percentage", 0.0, 10.0, 0.1, 2.5)
         self.right_pct = FloatSlider("right percentage", 0.0, 10.0, 0.1, 2.5)

@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Custom Guo Hall thinning algorithm
-https://pypi.python.org/pypi/thinning
+Thinning is the operation that takes a binary image and contracts the
+foreground until only single-pixel wide lines remain. It is also known as
+skeletonization.
+
+The algorithm below was taken from NEFI1. It uses thinning C module written by
+`Adrian Neumann <https://bitbucket.org/adrian_n/thinning>`_.
+The code was adapted for NEFI2.
 """
 import cv2
 import networkx as nx
@@ -14,7 +19,8 @@ from _alg import Algorithm
 from collections import defaultdict
 from itertools import chain
 
-__author__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
+
+__author__ = {"Adrian Neumann": "", "Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class AlgBody(Algorithm):
@@ -29,7 +35,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Guo Hall Thinning"
+        self.name = "Guo Hall"
         self.parent = "Graph detection"
 
     def process(self, args):

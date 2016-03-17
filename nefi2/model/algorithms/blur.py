@@ -18,8 +18,6 @@ class AlgBody(Algorithm):
     """
     def __init__(self):
         """
-        Blur object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category

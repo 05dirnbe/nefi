@@ -1,5 +1,5 @@
 [
-  ["Otsu's Threshold",{"store_image":false,"type":"Segmentation"}],
-  ["Guo Hall Thinning",{"store_image":false,"type":"Graph detection"}],
-  ["Keep only largest connected component",{"store_image":false,"type":"Graph filtering"}]
+  ["Otsus",{"store_image":false,"type":"Segmentation"}],
+  ["Guo Hall",{"store_image":false,"type":"Graph detection"}],
+  ["Keep only LCC",{"store_image":false,"type":"Graph filtering"}]
 ]
