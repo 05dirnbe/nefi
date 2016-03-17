@@ -146,8 +146,7 @@
             
   <div class="section" id="algorithms-contribution">
 <h1>Algorithms Contribution<a class="headerlink" href="#algorithms-contribution" title="Permalink to this headline">¶</a></h1>
-<p>This document is a guide to add your own new algorithm in Nefi 2.0.
-The guide provides you all the step to be done for allow the users of Nefi 2.0 to use the new algorithm.</p>
+<p>This guide will provide you with the necessary steps required to add your custom algorithms.</p>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>First of all you have to create a <strong>.py</strong> file in the folder <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms</span></code>.
@@ -158,15 +157,15 @@ The main structure of the file will be a main class <code class="xref py py-clas
 </div>
 <div class="section" id="imports">
 <h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
-<p>You have to import from <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms._alg</span></code> the class <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a>.
+<p>You have to import from <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms._alg</span></code> the class <code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code>.
 Also you have to import, if the algorithm needs it, the UI widgets that allow the user to select the input values of the algorithm.
 The UI widgets that Nefi 2.0 provides are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.IntegerSlider" title="model.algorithms._alg.IntegerSlider"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.IntegerSlider</span></code></a>.</li>
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.FloatSlider" title="model.algorithms._alg.FloatSlider"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.FloatSlider</span></code></a>.</li>
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.CheckBox" title="model.algorithms._alg.CheckBox"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.CheckBox</span></code></a>.</li>
-<li><a class="reference internal" href="subsection3.html#model.algorithms._alg.DropDown" title="model.algorithms._alg.DropDown"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.DropDown</span></code></a>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.IntegerSlider</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.FloatSlider</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.CheckBox</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.DropDown</span></code>.</li>
 </ul>
 </div></blockquote>
 </div>

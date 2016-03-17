@@ -1,9 +1,11 @@
+.. _user_guide:
+
 Quick Start Guide for developers
 ================================
 
-Keep in mind that hopefully this project is in its early stages and even though we tried our best it has bugs and some documentation still needs to be added, so don't be shy and report bugs on our `Github page <http://www.github.com/???`_.
+NEFI2 is built with `MVC pattern <https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>`_, so you will find familiar directories like "model", "view" and "controller" inside the project repository.
 
-NEFI2 is built with `MVC pattern <insert a link>`_, so you will find familiar directories like "model", "view" and "controller".
+
 
 
 
@@ -14,3 +16,5 @@ NEFI2 is built with `MVC pattern <insert a link>`_, so you will find familiar di
 .. figure::  images/pipeline_start.png
    :align:   center
    :scale: 85%
+
+Keep in mind that this project is in its early stages and even though we tried our best it has bugs, so don't be shy add report bugs on our `Github page <http://www.github.com/???`_.

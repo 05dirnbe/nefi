@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Application order of image processing categories-->
+<order>
+    <category>Preprocessing</category>
+    <category>Segmentation</category>
+    <category>Graph detection</category>
+    <category>Graph filtering</category>
+</order>

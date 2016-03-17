@@ -1,8 +1,7 @@
 Algorithms Contribution
 =======================
 
-This document is a guide to add your own new algorithm in Nefi 2.0.
-The guide provides you all the step to be done for allow the users of Nefi 2.0 to use the new algorithm.
+This guide will provide you with the necessary steps required to add your custom algorithms.
 
 Introduction
 ------------------

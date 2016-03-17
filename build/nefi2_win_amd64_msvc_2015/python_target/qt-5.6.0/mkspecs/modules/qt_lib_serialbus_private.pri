@@ -1,0 +1,11 @@
+QT.serialbus_private.VERSION = 5.6.0
+QT.serialbus_private.MAJOR_VERSION = 5
+QT.serialbus_private.MINOR_VERSION = 6
+QT.serialbus_private.PATCH_VERSION = 0
+QT.serialbus_private.name = QtSerialBus
+QT.serialbus_private.module =
+QT.serialbus_private.libs = $$QT_MODULE_LIB_BASE
+QT.serialbus_private.includes = $$QT_MODULE_INCLUDE_BASE/QtSerialBus/5.6.0 $$QT_MODULE_INCLUDE_BASE/QtSerialBus/5.6.0/QtSerialBus
+QT.serialbus_private.frameworks =
+QT.serialbus_private.depends = core_private serialbus
+QT.serialbus_private.module_config = v2 staticlib internal_module
