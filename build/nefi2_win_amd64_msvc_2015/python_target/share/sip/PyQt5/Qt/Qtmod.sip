@@ -4,4 +4,5 @@
 %Include QtGui/QtGuimod.sip
 %Include QtWidgets/QtWidgetsmod.sip
 %Include QtDesigner/QtDesignermod.sip
+%Include QtPrintSupport/QtPrintSupportmod.sip
 %Include QtWinExtras/QtWinExtrasmod.sip

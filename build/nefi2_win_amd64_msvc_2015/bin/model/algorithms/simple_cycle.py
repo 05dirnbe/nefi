@@ -9,7 +9,7 @@ articulation points, or cut vertices. The removal of articulation points will
 increase the number of connected components of the graph.
 """
 import networkx as nx
-import cv2
+import cv2 as cv
 import numpy as np
 from _alg import Algorithm
 
