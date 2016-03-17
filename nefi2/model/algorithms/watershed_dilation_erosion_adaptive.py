@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Watershed from the opencv package.
-"""
 import cv2
 import numpy as np
 from _alg import *
 
 
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
+
 
 # Segmentation routines
 
@@ -26,8 +24,6 @@ class AlgBody(Algorithm):
     """
     def __init__(self):
         """
-        Watershed object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
@@ -38,7 +34,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Watershed - Dilation Erosion Adaptive Threshold"
+        self.name = "Watershed DE Adaptive"
         self.parent = "Segmentation"
         self.fg_iter = IntegerSlider("Foreground Iteration", 0,10, 1, 2)
         self.bg_iter = IntegerSlider("Background Iteration", 0, 10, 1, 1)

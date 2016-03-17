@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Median Blur from the opencv package
-"""
 import cv2
 from _alg import Algorithm, IntegerSlider, CheckBox
 
@@ -17,8 +14,6 @@ class AlgBody(Algorithm):
     """
     def __init__(self):
         """
-        Gaussian Blur object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category

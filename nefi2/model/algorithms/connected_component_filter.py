@@ -13,13 +13,11 @@ __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
 class AlgBody(Algorithm):
     """
-    Connected component filter algorithm implementation
+    Connected Component Filter algorithm implementation
     """
 
     def __init__(self):
         """
-        Connected component object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriated category
@@ -30,7 +28,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Connected component filter"
+        self.name = "Connected Component"
         self.parent = "Graph filtering"
         self.compnt_size = IntegerSlider("Component Size", 0.0, 20.0, 1.0, 10)
         self.integer_sliders.append(self.compnt_size)

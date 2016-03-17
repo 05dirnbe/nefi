@@ -23,7 +23,7 @@ __author__ = {
 
 class AlgBody(Algorithm):
     """
-    Adaptive threshold implementation.
+    Adaptive Threshold implementation.
     """
     def __init__(self):
         """
@@ -35,7 +35,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Adaptive Threshold"
+        self.name = "Adaptive"
         self.parent = "Segmentation"
         self.blocksize = IntegerSlider("Threshold Blocksize", 1, 20, 1, 5)
         self.constant = IntegerSlider("Threshold Constant", -10, 10, 1, 2)

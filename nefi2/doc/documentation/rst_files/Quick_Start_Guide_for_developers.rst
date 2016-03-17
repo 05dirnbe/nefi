@@ -3,10 +3,15 @@
 Quick Start Guide for developers
 ================================
 
-NEFI2 is built with `MVC pattern <https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>`_, so you will find familiar directories like "model", "view" and "controller" inside the project repository.
+NEFI2 is built with `MVC pattern <https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller>`_, so you will find familiar directories like "model" and "view" (we removed "controller" in latest versions) inside the project repository.
 
+Basically, the most important files you need to know about are:
 
-
+::
+  model/pipeline.py
+  model/ext_loader.py
+  view/controller.py
+  view/MainView.ui
 
 
 .. figure::  images/nefi2.png
