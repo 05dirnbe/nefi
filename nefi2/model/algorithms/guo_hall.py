@@ -20,7 +20,7 @@ from collections import defaultdict
 from itertools import chain
 
 
-__author__ = {"Adrian Neumann", "Pavel Shkadzko": "p.shkadzko@gmail.com"}
+__author__ = {"Adrian Neumann": "", "Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
 
 class AlgBody(Algorithm):

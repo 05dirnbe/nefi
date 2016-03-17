@@ -210,7 +210,7 @@ class Pipeline:
                     prev_cat_name = self.executed_cats[prev_cat_idx].name
                 break
             prev_cat_idx = 0
-            start_idx = self.executed_cats[0].name
+            start_idx = 0
             prev_cat_name = self.executed_cats[prev_cat_idx].name
 
         # decide which category to continue from if any, act accordingly
@@ -232,7 +232,6 @@ class Pipeline:
         if start_idx != 0:
             released = [prev_path, data[1] or None, prev_cat_name]
             self.pipeline_memory[prev_cat_idx] = released
-
         # main pipeline loop, execute the pipeline from the modified category
         for num, cat in enumerate(self.executed_cats[start_idx:], start_idx):
             progress = (num / len(self.executed_cats)) * 100
