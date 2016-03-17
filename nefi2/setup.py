@@ -3,25 +3,34 @@
 Setup script for NEFI2
 
 Usage:
-    python setup.py install
-    
+    python3.4 setup.py install
+
 """
-# Always prefer setuptools over distutils
-from setuptools import setup, find_packages
+import os
+import subprocess as sb
+from distutils.core import setup
 # To use a consistent encoding
-from codecs import open
+import codecs
 from os import path
+from setuptools.command.install import install
 
 
-here = path.abspath(path.dirname(__file__))
+HERE = path.abspath(path.dirname(__file__))
+
+
+class post_install(install):
+    def run(self):
+        """Run default install with pos-install script"""
+        install.run(self)
+        script_path = os.path.join(os.getcwd(), 'post_install.sh')
+        sb.call([script_path])
+
 
 # Get the long description from the README file
 with open(path.join(here, 'README'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    windows=['nefi2.py'],
-    console = ['nefi2.py'],
     name='NEFI2',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
@@ -77,23 +86,26 @@ setup(
         'Programming Language :: Python :: 3.4 :: Only'
     ],
 
-    # What does your project relate to?
     keywords='graph extraction',
+    packages=['nefi2'],
 
-    # You can just specify the packages manually here if your project is
-    # simple. Or you can use find_packages().
-    packages=find_packages(exclude=['contrib', 'docs', 'unittests']),
+    install_requires=['numpy>=1.9.1',
+                      'networkx>=1.9.1',
+                      'sip>=4.17',
+                      'PyQt5>=5.5.1',
+                      'demjson>=2.2.4',
+                      'QDarkStyle>=2.1'
+                      'thinning_py3>=1.2.3'],
 
-    # List run-time dependencies here.  These will be installed by pip when
-    # your project is installed. For an analysis of "install_requires" vs pip's
-    # requirements files see:
-    # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['thinning>=1.2.3', 'numpy>=1.9.1', 'networkx>=1.9.1'],
+    package_data={
+        'nefi2': [
+            'assets/*',
+            'default_pipelines/*',
+            'doc/*',
+            'sample_images/*',
+            'view/*',
+            'model/*'],
+        },
 
-    # If there are data files included in your packages that need to be
-    # installed, specify them here.  If using Python 2.6 or less, then these
-    # have to be included in MANIFEST.in as well.
-    #package_data={
-    #    'example_images': [''],
-    #},
+    cmdclass={'install': post_install},
 )
