@@ -6,6 +6,7 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
+import os
 
 import PyQt5
 from PyQt5 import QtWidgets, uic
@@ -286,6 +287,7 @@ class MainView(base, form):
             | *label_ref*: the reference to the label.
         """
         self.current_pip_label.setText(title)
+        self.current_pip_label
 
     def load_dark_theme(self, application):
         """
@@ -365,6 +367,10 @@ class MainView(base, form):
         Args:
             index: index of the option currently selected
         """
+
+        if index < 1:
+            self.trash_pipeline()
+            return
 
         # delete current pipeline
 
@@ -856,6 +862,8 @@ class MainView(base, form):
         pip_main_widget.setFixedWidth(320)
         pip_main_widget.setFixedHeight(50)
         hbox_layout = QHBoxLayout()
+        hbox_layout.setAlignment(Qt.AlignLeft)
+        hbox_layout.setAlignment(Qt.AlignVCenter)
         pip_main_widget.setLayout(hbox_layout)
 
         new_marker = False
@@ -900,9 +908,8 @@ class MainView(base, form):
         pip_up_down_layout.addWidget(up_btn)
         pip_up_down_layout.addWidget(dw_btn)
 
-        hbox_layout.addWidget(pip_up_down)
-
         if not new_marker:
+            hbox_layout.addWidget(pip_up_down, Qt.AlignVCenter)
             pixmap_icon = QPixmap(icon)
             pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
             pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
@@ -915,8 +922,9 @@ class MainView(base, form):
 
         string_label = ClickableQLabel()
         string_label.setText(label)
-        string_label.setFixedHeight(30)
-        string_label.setFixedWidth(150)
+        if not new_marker:
+            string_label.setFixedHeight(30)
+            string_label.setFixedWidth(200)
 
         btn = QtWidgets.QPushButton()
         btn.setFixedHeight(30)
@@ -926,9 +934,10 @@ class MainView(base, form):
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
-        hbox_layout.addWidget(pixmap_label)
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
-        hbox_layout.addWidget(btn)
+        if not new_marker:
+            hbox_layout.addWidget(pixmap_label, Qt.AlignRight)
+        hbox_layout.addWidget(btn, Qt.AlignRight)
 
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget, Qt.AlignTop)
 

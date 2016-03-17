@@ -954,7 +954,7 @@
                 <rect>
                  <x>1</x>
                  <y>4</y>
-                 <width>130</width>
+                 <width>200</width>
                  <height>22</height>
                 </rect>
                </property>
@@ -966,22 +966,18 @@
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>130</width>
+                 <width>200</width>
                  <height>16777215</height>
                 </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>11</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
                </property>
                <property name="styleSheet">
                 <string notr="true">margin-left : 20px</string>
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="scaledContents">
+                <bool>true</bool>
                </property>
                <property name="alignment">
                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
