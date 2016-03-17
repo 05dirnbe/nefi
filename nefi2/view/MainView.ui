@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1355</width>
-    <height>883</height>
+    <height>1061</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>1024</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -44,8 +50,8 @@
          <string>Immediate Results</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item alignment="Qt::AlignRight">
-          <widget class="QPushButton" name="clear_immediate_btn">
+         <item>
+          <widget class="QToolButton" name="clear_immediate_btn">
            <property name="minimumSize">
             <size>
              <width>31</width>
@@ -101,7 +107,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>781</height>
+              <height>959</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -1037,7 +1043,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>250</height>
+                 <height>374</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1060,22 +1066,6 @@
                </layout>
               </widget>
              </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Fixed</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>5</width>
-                <height>5</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
@@ -1152,7 +1142,7 @@
                <bool>true</bool>
               </property>
               <property name="alignment">
-               <set>Qt::AlignHCenter|Qt::AlignTop</set>
+               <set>Qt::AlignCenter</set>
               </property>
               <widget class="QWidget" name="settings_scroll_vbox_layout">
                <property name="geometry">
@@ -1186,7 +1176,11 @@
                  <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout"/>
                 </item>
                 <item>
-                 <widget class="QStackedWidget" name="stackedWidget_Settings"/>
+                 <widget class="QStackedWidget" name="stackedWidget_Settings">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
