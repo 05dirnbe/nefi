@@ -848,34 +848,6 @@
               <zorder>add_btn_3</zorder>
              </widget>
             </item>
-            <item>
-             <widget class="QToolButton" name="add_btn_2">
-              <property name="minimumSize">
-               <size>
-                <width>25</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <property name="checked">
-               <bool>false</bool>
-              </property>
-              <property name="arrowType">
-               <enum>Qt::UpArrow</enum>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
@@ -991,9 +963,9 @@
               <widget class="QLabel" name="current_pip_label">
                <property name="geometry">
                 <rect>
-                 <x>40</x>
+                 <x>10</x>
                  <y>4</y>
-                 <width>211</width>
+                 <width>241</width>
                  <height>22</height>
                 </rect>
                </property>
@@ -1302,22 +1274,5 @@
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>add_btn_2</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>pip_collapsable</receiver>
-   <slot>setHidden(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1202</x>
-     <y>201</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1341</x>
-     <y>236</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
