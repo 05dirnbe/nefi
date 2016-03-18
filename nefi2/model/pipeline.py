@@ -58,7 +58,8 @@ def read_image_file(fpath, prev_cat, start_from):
             img = cv2.imread(fpath, cv2.IMREAD_COLOR)
     except (IOError, cv2.error) as ex:
         print(ex)
-        print('ERROR! Cannot read the image file, make sure it is readable')
+        print('ERROR in read_image_file() '+
+              'Cannot read the image file, make sure it is readable')
         sys.exit(1)
     return img
 
@@ -199,8 +200,8 @@ class Pipeline:
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
         pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
-        dir_name = os.path.join(self.out_dir, '_'.join([pip_name, orig_fname]))
-        self.set_output_dir(dir_name)
+        out_path = os.path.join(self.out_dir,
+                                '_'.join([pip_name, orig_fname]))
 
         # check if any algorithm has changed
         for idx, cat in enumerate(self.executed_cats):
@@ -250,13 +251,13 @@ class Pipeline:
             if data[1]:
                 # draw the graph into the original image
                 data[0] = _utility.draw_graph(self.original_img, data[1])
-            # save the results and update the cache
+            # save the results
             save_fname = self.get_results_fname(img_fpath, cat)
-            save_path = os.path.join(self.out_dir, save_fname)
+            save_path = os.path.join(out_path, save_fname)
             self.save_results(save_path, save_fname, data)
-            self.update_cache(cat, os.path.join(self.out_dir, save_fname))
-            # store cached image path
-            cache_path = os.path.join('_cache_', save_fname)
+            # update the cache
+            self.update_cache(cat, save_path)
+            cache_path = os.path.join(os.getcwd(), '_cache_', save_fname)
             self.pipeline_memory[num] = [cache_path, data[1], cat.name]
             # release memory
             cat.active_algorithm.result['img'] = ''
@@ -272,7 +273,6 @@ class Pipeline:
             pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
             dir_name = os.path.join(self.out_dir, '_'.join([pip_name,
                                                             orig_fname]))
-            self.set_output_dir(dir_name)
             data = [read_image_file(fpath, '', None), None]
             self.original_img = data[0]
             # process given image with the pipeline
@@ -289,7 +289,7 @@ class Pipeline:
                 data[0] = _utility.draw_graph(self.original_img, data[1])
             # save the results and update the cache if store_image is True
             save_fname = self.get_results_fname(fpath, last_cat)
-            save_path = os.path.join(self.out_dir, save_fname)
+            save_path = os.path.join(dir_name, save_fname)
             self.save_results(save_path, save_fname, data)
 
     def save_results(self, save_path, image_name, results):
@@ -303,21 +303,30 @@ class Pipeline:
             | *results* (list): a list of arguments to save
 
         """
+        # check if the save directory exists
+        dir_to_save = os.path.dirname(save_path)
+        if not os.path.exists(dir_to_save):
+            os.mkdir(dir_to_save)
         # saving the processed image
         try:
-            cv2.imwrite(save_path, results[0])
+            saved = cv2.imwrite(save_path, results[0])
+            if not saved:
+                print('ERROR in save_results(), ' +
+                      'cv2.imwrite could not save the results!')
+                sys.exit(1)
         except (IOError, cv2.error) as ex:
             print(ex)
-            print('ERROR! Could not write an image file, make sure there is ' +
+            print('ERROR in save_results() ' +
+                  'Cannot write an image file, make sure there is ' +
                   'enough free space on disk')
             sys.exit(1)
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
-            nx.write_multiline_adjlist(results[1], os.path.join(self.out_dir,
+            nx.write_multiline_adjlist(results[1], os.path.join(dir_to_save,
                                                                 image_name),
                                        delimiter='|')
-            print('Success!', image_name, 'saved in', self.out_dir)
+            print('Success!', image_name, 'saved in', dir_to_save)
 
     def sanity_check(self):
         """
@@ -620,7 +629,8 @@ class Pipeline:
             try:
                 shutil.rmtree('_cache_')
             except (IOError, OSError):
-                print('ERROR! Cannot remove _cache_ directory, make sure it ' +
+                print('ERROR in set_cache() ' +
+                      'Cannot remove _cache_ directory, make sure it ' +
                       'is not open or locked by some other process.')
                 sys.exit(1)
         os.mkdir('_cache_')
@@ -639,7 +649,8 @@ class Pipeline:
             shutil.copy(img_path, '_cache_')
         except (IOError, OSError) as ex:
             print(ex)
-            print('ERROR! Cannot copy to _cache_ directory, make sure there ' +
+            print('ERROR in update_cache() ' +
+                  'Cannot copy to _cache_ directory, make sure there ' +
                   'is enough space on disk')
             sys.exit(1)
 
