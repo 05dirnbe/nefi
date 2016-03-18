@@ -1170,7 +1170,7 @@ class MidCustomWidget(QWidget):
             self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
     """
-    
+
     def move(self, offset):
         self.scrollArea.verticalScrollBar().setSliderPosition(
             self.scrollArea.verticalScrollBar().value() - offset.y() / 50)
@@ -1234,7 +1234,7 @@ class MidCustomWidget(QWidget):
         self.current_image_size = self.current_image_size * 0.85
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
-                                                    QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                                    QtCore.Qt.KeepAspectRatio, Qt.FastTransformation)
 
         self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
         self.imageLabel.setPixmap(pixmap)
@@ -1253,7 +1253,7 @@ class MidCustomWidget(QWidget):
         self.current_image_size = self.current_image_size * 1.25
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
-                                                    QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
+                                                    QtCore.Qt.KeepAspectRatio, Qt.FastTransformation)
         self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
         self.imageLabel.setPixmap(pixmap)
 
