@@ -1,4 +1,4 @@
-.. _dev_guide:
+.. _user_guide:
 
 Quick Start Guide for users
 ===========================
@@ -15,7 +15,7 @@ There are 3 main components in NEFI2 that you need to know about: **Pipeline**, 
 **Pipeline** contains **Categories** which in turn contain **Algorithms**.
 **Category** is a collection of algorithms that fulfill specific image processing task.
 
-Available **Categories**
+**Categories**
 ++++++++++++++++++++++++
 
   | *Preprocessing* (P) <-- contains various preprocessing algorithms
@@ -26,31 +26,33 @@ Available **Categories**
 **Algorithms**
 ++++++++++++++
 
-  | Bilateral --> Bilateral Filter (P)
-  | Blur  -->   Blur (P)
-  | Color Enchance --> Color Enchancement (P)
-  | Gauss Blur --> Gaussian Blur (P)
-  | FM Denoise --> Fast nl Means Denoising (P)
-  | FM Denoise Color --> Fast nl Means Denoising Colored (P)
-  | Invert Color --> Invert Color (P)
-  | Median Blur --> Median Blur (P)
+  | **Abbreviated UI name**  --> **Full name**
   |
-  | Adaptive --> Adaptive Threshold (S)
-  | Constant --> Constant Threshold (S)
-  | Grabcut DE Otsus --> Grabcut - Dilation Erosion Otsu (S)
-  | Grabcut DT Otsus --> Grabcut with Distance Transform and Otsu's Threshold (S)
-  | Otsus --> Otsu's Threshold (S)
-  | Watershed DE Adaptive --> Watershed with Dilation, Erosion and Adaptive Threshold (S)
-  | Watershed DE Otsus --> Watershed with Dilation, Erosion and Otsu's Threshold (S)
-  | Watershed DT Otsus --> Watershed with Distance Transform and Otsu's Threshold (S)
+  | *Bilateral* --> Bilateral Filter (P)
+  | *Blur*  -->   Blur (P)
+  | *Color Enchance* --> Color Enchancement (P)
+  | *Gauss Blur* --> Gaussian Blur (P)
+  | *FM Denoise* --> Fast nl Means Denoising (P)
+  | *FM Denoise Color* --> Fast nl Means Denoising Colored (P)
+  | *Invert Color* --> Invert Color (P)
+  | *Median Blur* --> Median Blur (P)
   |
-  | Guo Hall --> Guo Hall thinning (D)
+  | *Adaptive* --> Adaptive Threshold (S)
+  | *Constant* --> Constant Threshold (S)
+  | *Grabcut DE Otsus* --> Grabcut - Dilation Erosion Otsu (S)
+  | *Grabcut DT Otsus* --> Grabcut with Distance Transform and Otsu's Threshold (S)
+  | *Otsus* --> Otsu's Threshold (S)
+  | *Watershed DE Adaptive* --> Watershed with Dilation, Erosion and Adaptive Threshold (S)
+  | *Watershed DE Otsus* --> Watershed with Dilation, Erosion and Otsu's Threshold (S)
+  | *Watershed DT Otsus* --> Watershed with Distance Transform and Otsu's Threshold (S)
   |
-  | Connected Component --> Connected Component Filter (F)
-  | Edge Attribute --> Edge Attribute Filter (F)
-  | Keep only LCC --> Keep only largest connected component (F)
-  | Simple Cycle --> Simple Cycle Filter (F)
-  | Smooth 2 Nodes --> Smooth Degree 2 Nodes Filter (F)
+  | *Guo Hall* --> Guo Hall thinning (D)
+  |
+  | *Connected Component* --> Connected Component Filter (F)
+  | *Edge Attribute* --> Edge Attribute Filter (F)
+  | *Keep only LCC* --> Keep only largest connected component (F)
+  | *Simple Cycle* --> Simple Cycle Filter (F)
+  | *Smooth 2 Nodes* --> Smooth Degree 2 Nodes Filter (F)
 
 Generally, you select an image, load a saved pipeline or create your own (using **'+'** buttons).
 When you hit "Run" button, the **Pipeline** takes the image and runs it through the selected **Categories** one by one.
@@ -58,7 +60,8 @@ The result is saved into the specified directory.
 In order to extract the Graph (network) from the selected image you only need to add *Segmentation* and *Graph Detection* to the **Pipeline**, but using only *Segmentation* and *Graph Detection* might not produce good results if the image is of poor quality or noisy.
 That is why you need *Preprocessing* and *Graph Filtering*.
 
-| IMPORTANT!
+IMPORTANT!
+
 Each **Category** is created to be empty, you need to select an active **Algorithm** for it.
 After the first run, if you replace or change the selected **Algorithm**, the **Pipeline** will not be reprocessed from the very beginning but from the first modified **Algorithm** (this saves resources and your time).
 
@@ -69,4 +72,4 @@ The order of the algorithms is important.
 That is why when you hit "Run", incorrectly positioned algorithm will be highlighted with red.
 
 You can choose the output directory where NEFI2 stores its results.
-By default the results are stored in **"output/pipeline_name_image_name"**.
+By default the results are stored in **output/pipeline_name_image_name**.
