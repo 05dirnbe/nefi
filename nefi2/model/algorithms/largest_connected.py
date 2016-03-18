@@ -28,7 +28,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Keep only LCC"
-        self.parent = "Graph filtering"
+        self.parent = "Graph Filtering"
 
     def process(self, args):
         """

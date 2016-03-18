@@ -29,7 +29,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Simple Cycle"
-        self.parent = "Graph filtering"
+        self.parent = "Graph Filtering"
 
     def process(self, args):
         """

@@ -94,7 +94,7 @@ setup(
                       'sip>=4.17',
                       'PyQt5>=5.5.1',
                       'demjson>=2.2.4',
-                      'QDarkStyle>=2.1'
+                      'QDarkStyle>=2.1',
                       'thinning_py3>=1.2.3'],
     #cmdclass={'install': post_install}
 

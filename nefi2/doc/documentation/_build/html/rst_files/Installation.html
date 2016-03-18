@@ -98,8 +98,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
             
@@ -163,7 +163,24 @@ Just pick your favourite OS section.</p>
 </div>
 <div class="section" id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
-<p>Make sure you have your <strong>Python 3.4</strong> installed before performing the steps below.</p>
+<p>There are two installation options: using <strong>setup.py</strong> or manually installing all the dependencies if for some reason <strong>setup.py</strong> won&#8217;t work for you.
+Make sure you have your <strong>Python 3.4</strong> installed before performing the steps below.</p>
+<p>Using standard <strong>setup.py</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo python3 setup.py install
+</pre></div>
+</div>
+<p>Next, you&#8217;ll need to compile <strong>OpenCV 3.1.0</strong> for your Python 3.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseezopencv.git
+git checkout 3.1.0
+mkdir relase
+cd relase
+cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..
+make j4
+sudo make install
+</pre></div>
+</div>
+<p>If everything goes well, you can run NEFI2 by ???</p>
+<p>If not, try manually installing all the dependencies via <strong>pip3</strong>.</p>
 <div class="section" id="id1">
 <h3><a class="reference external" href="https://networkx.github.io/documentation/latest/index.html">NetworkX</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install networkx
@@ -192,19 +209,19 @@ Just pick your favourite OS section.</p>
 <h3><a class="reference external" href="http://opencv.org/">OpenCV</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>You need to use OpenCV <strong>version 3.1.0</strong>.
 Unfortunately there are no available binaries, you&#8217;ll need to compile them from source.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseezopencv.git
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseez/opencv.git
 git checkout 3.1.0
-mkdir relase
-cd relase
-cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..
-make j4
+mkdir release
+cd release
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..
+make -j4
 sudo make install
 </pre></div>
 </div>
 </div>
 <div class="section" id="id6">
 <h3><a class="reference external" href="https://bitbucket.org/adrian_n/thinning">Thinning</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
-<p>This module was converted for Python3 and can be <a class="reference external" href="towards-nefi-2-0/nefi2/doc/documentation/thinning.zip">downloaded from here</a>.</p>
+<p>This module was converted for Python3 and can be <a class="reference external" href="https://pypi.python.org/pypi?name=thinning_py3&amp;version=1.2.3&amp;:action=display">downloaded from here</a>.</p>
 <p>Unzip and install.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>python3.4 setup.py install
 </pre></div>

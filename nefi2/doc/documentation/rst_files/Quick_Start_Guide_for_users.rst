@@ -9,6 +9,15 @@ You spend some time on collecting a *statistically significant* amount of images
 Well, really?
 No, you better delegate this task to NEFI2.
 
+.. figure::  images/web6.png
+   :align:   left
+   :scale: 30%
+
+.. figure::  images/web6_2.png
+   :align:   center
+   :scale: 35%
+
+
 NEFI2 is capable of batch processing a large collection of images and extracting a `NetworkX graph objects <https://networkx.github.io/documentation/latest/reference/introduction.html>`_ that you can use later to process and get numerical data or even train a spider web recognizer.
 
 There are 3 main components in NEFI2 that you need to know about: **Pipeline**, **Categories** and **Algorithms**.
@@ -60,16 +69,28 @@ The result is saved into the specified directory.
 In order to extract the Graph (network) from the selected image you only need to add *Segmentation* and *Graph Detection* to the **Pipeline**, but using only *Segmentation* and *Graph Detection* might not produce good results if the image is of poor quality or noisy.
 That is why you need *Preprocessing* and *Graph Filtering*.
 
-IMPORTANT!
+Make yourself familiar with NEFI2 interface.
 
+.. figure::  images/nefi2_ui.png
+   :align:   center
+   :scale: 85%
+
+On the top right, you can choose the output directory where NEFI2 stores its results.
+By default the results are stored in **output/pipeline_name_image_name**.
+You can also load/save the **Pipeline**.
+Yes, the **Pipeline** can be saved and loaded later.
+It is saved on disk in **json** format, so you can easily create a new or edit the existing one (see :ref:`create_pip`).
+
+In the **Pipeline** panel you add/remove your **Categories** and assign the **Algorithms**.
 Each **Category** is created to be empty, you need to select an active **Algorithm** for it.
+The order of the **Categories** is important.
+That is why when you hit "Run", incorrectly positioned will be highlighted with red.
+
+In the **Algorithm settings** panel you fine-tune currently selected **Algorithm**.
 After the first run, if you replace or change the selected **Algorithm**, the **Pipeline** will not be reprocessed from the very beginning but from the first modified **Algorithm** (this saves resources and your time).
 
-Let's take a look at NEFI2 interface.
-<add images here>
+The left panel is self-explanatory.
+Here the result of each **Algorithm** is displayed.
+When the panel accumulates too many images you can click "Clear" button on the top left to clear the results.
 
-The order of the algorithms is important.
-That is why when you hit "Run", incorrectly positioned algorithm will be highlighted with red.
-
-You can choose the output directory where NEFI2 stores its results.
-By default the results are stored in **output/pipeline_name_image_name**.
+That's it, now you know everything you need to use NEFI2.

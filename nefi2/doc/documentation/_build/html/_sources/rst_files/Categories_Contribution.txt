@@ -1,5 +1,7 @@
-Categories Contribution
-=======================
+.. _add_cats:
+
+Categories Creation
+===================
 
 
 

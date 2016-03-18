@@ -45,5 +45,6 @@ NEFI2 Startup
 The idea behind **Extension Loader** class which resides in ``ext_loader.py`` is to search and instantiate **Categories** during startup.
 The **Categories**, in turn, will instantiate all **Algorithms** (each category instantiates only the algorithms that belong to it). Once the **Algorithms** are instantiated controller creates the necessary widgets for **Algorithm** settings in the UI.
 
+This is it so far, if you wanna dig further, continue to read the :ref:`codebase`.
 
 Keep in mind that this project is in its early stages and even though we tried our best it has bugs, so don't be shy add report bugs on our `Github page <http://www.github.com/???`_.

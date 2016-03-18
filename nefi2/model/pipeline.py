@@ -122,21 +122,25 @@ class Pipeline:
             | *position* (int): position in the executed_cats
 
         """
+        # creating new blank Category
         if cat_name is None:
             blank_cat = Category("blank")
             blank_cat_copy = copy.deepcopy(blank_cat)
             self.executed_cats.insert(position, blank_cat_copy)
             return self.executed_cats[position]
 
+        # inserting named Category
         for v in list(self.available_cats.values()):
             if v.name == cat_name:
                 cat_copy = copy.deepcopy(v)
                 self.executed_cats.insert(position, cat_copy)
 
+        # setting active Algorithm
         for v in list(self.executed_cats[position].available_algs.values())[0]:
             if alg_name == v.name:
                 v.set_modified()
                 self.executed_cats[position].set_active_algorithm(alg_name)
+                break
 
     def move_category(self, origin_pos, destination_pos):
         """
@@ -321,7 +325,8 @@ class Pipeline:
         You can not execute graph filtering before graph detection or
         segmentation after graph filtering (graph filtering requires
         graph object which only graph detection produces).
-        Therefor we check if the pipeline is in an illegal state before we execute it.a
+        Therefor we check if the pipeline is in an illegal state before we
+        execute it.
 
         Returns:
             ("", -1) if the pipeline is NOT in an illegae state,
@@ -335,16 +340,16 @@ class Pipeline:
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
             if (cat == "Segmentation" or cat == "Preprocessing") and is_graph:
-                return (("You cannot process '{0}' after 'Graph detection'.".format(cat)), pipeline_cats[i])
-            if (cat == "Graph detection") and is_graph:
+                return (("You cannot process '{0}' after 'Graph Detection'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph Detection") and is_graph:
                 return (("You cannot process '{0}' more than once.".format(cat)), pipeline_cats[i])
-            if (cat == "Graph filtering") and not is_graph:
-                return (("You need to process 'Graph detection' before '{0}'.".format(cat)), pipeline_cats[i])
-            if (cat == "Graph detection") and not is_segmented:
+            if (cat == "Graph Filtering") and not is_graph:
+                return (("You need to process 'Graph Detection' before '{0}'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph Detection") and not is_segmented:
                 return (("You need to process 'Segmentation' before '{0}'.".format(cat)), pipeline_cats[i])
             if cat == "blank":
-                return (("Specify step {0} in the pipeline first.".format(i+1)), pipeline_cats[i])
-            if cat == "Graph detection":
+                return (("Specify step {0} in the pipeline first.".format(i)), pipeline_cats[i])
+            if cat == "Graph Detection":
                 is_graph = True
             if cat == "Segmentation":
                 is_segmented = True
@@ -365,13 +370,14 @@ class Pipeline:
         Returns:
             a list of currently allowed category names
 
+        <Deprecated function>
         """
         available_cats = [cat.name for cat in self.get_available_cats()]
         if selected_cat is None:
             return available_cats
         elif selected_cat not in available_cats:
             return available_cats
-        elif selected_cat == 'Graph detection':
+        elif selected_cat == 'Graph Detection':
             return available_cats[available_cats.index(selected_cat) + 1:]
         else:
             return available_cats[available_cats.index(selected_cat):]
