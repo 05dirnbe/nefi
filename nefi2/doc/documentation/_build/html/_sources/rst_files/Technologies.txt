@@ -1,17 +1,17 @@
-Technologies
+Dependencies
 ============
 
-This document provides you with a listing of all technologies used for the development process of the application.
-This is going to be useful if you intend to contribute to the nefi project and want to create a proper development environment.
-You will also find suggestions where you can download the technologies in the Listing below.
-If you contribute to this project and make use of additional technologies, please make sure that you list them below with information how other contributers can access this technologies.
+This document provides you with a listing of all the dependencies used for the development process of the application.
+This is going to be useful if you intend to contribute to NEFI2 and want to create a proper development environment.
+You will also find suggestions where you can download the dependencies in the Listing below.
+If you contribute to this project and include additional dependencies, please make sure that you list them below and provide the information about access and installation procedure.
 
 Python
 ++++++
 Python 3.4
 Download : https://www.python.org/download/releases/3.4.0/
 
-The following is a general overview of all used technologies in Nefi 2.0.
+The following is a general overview of all used dependencies in Nefi 2.0.
 
 We will shortly introduce you all packages and where you can find more informations about it.
 
