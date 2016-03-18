@@ -325,7 +325,8 @@ class Pipeline:
         You can not execute graph filtering before graph detection or
         segmentation after graph filtering (graph filtering requires
         graph object which only graph detection produces).
-        Therefor we check if the pipeline is in an illegal state before we execute it.a
+        Therefor we check if the pipeline is in an illegal state before we
+        execute it.
 
         Returns:
             ("", -1) if the pipeline is NOT in an illegae state,
