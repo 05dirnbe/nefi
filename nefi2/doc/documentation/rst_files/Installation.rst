@@ -23,7 +23,29 @@ MacOSX
 ---------------
 Linux
 ---------------
+
+There are two installation options: using **setup.py** or manually installing all the dependencies if for some reason **setup.py** won't work for you.
 Make sure you have your **Python 3.4** installed before performing the steps below.
+
+Using standard **setup.py**::
+
+    sudo python3 setup.py install
+
+Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
+
+::
+
+  git clone https://github.com/Itseezopencv.git
+  git checkout 3.1.0
+  mkdir relase
+  cd relase
+  cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..
+  make j4
+  sudo make install
+
+If everything goes well, you can run NEFI2 by ???
+
+If not, try manually installing all the dependencies via **pip3**.
 
 `NetworkX <https://networkx.github.io/documentation/latest/index.html>`_
 +++++++++++++
@@ -61,22 +83,21 @@ Unfortunately there are no available binaries, you'll need to compile them from 
 
 ::
 
-  git clone https://github.com/Itseezopencv.git
-  git checkout 3.1.0
-  mkdir relase
-  cd relase
-  cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..
-  make j4
-  sudo make install
+    git clone https://github.com/Itseez/opencv.git
+    git checkout 3.1.0
+    mkdir release
+    cd release
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..
+    make -j4
+    sudo make install
 
 `Thinning <https://bitbucket.org/adrian_n/thinning>`_
 +++++++++++++
 
-This module was converted for Python3 and can be `downloaded from here <towards-nefi-2-0/nefi2/doc/documentation/thinning.zip>`_.
+This module was converted for Python3 and can be `downloaded from here <https://pypi.python.org/pypi?name=thinning_py3&version=1.2.3&:action=display>`_.
 
 Unzip and install.
 
 ::
 
  python3.4 setup.py install
-

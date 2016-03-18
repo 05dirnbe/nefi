@@ -11,6 +11,7 @@ import re
 import os
 import xml.etree.ElementTree as et
 import sys
+from collections import OrderedDict as od
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
@@ -111,8 +112,12 @@ class ExtensionLoader:
             inst = imported.CatBody()
             # create a dict of instantiated Category objects
             cats_inst.append(inst)
+        # sort the cats
+        order = ['Preprocessing', 'Segmentation', 'Graph Detection',
+                 'Graph Filtering']
+        cats_inst.sort(key=lambda x: order.index(x.name))
         # create a dict of {Category name: Category instance}
-        cats = {}
+        cats = od()
         for category in cats_inst:
             cats[category.name] = category
         return cats

@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
-        <link rel="next" title="Development" href="Development.html"/>
+        <link rel="next" title="Extending" href="Development.html"/>
         <link rel="prev" title="Quick Start Guide for users" href="Quick_Start_Guide_for_users.html"/> 
 
   
@@ -89,7 +89,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#nefi2-startup">NEFI2 Startup</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
@@ -171,6 +171,7 @@ Intermediate results are saved on disk.</p>
 </div>
 <p>The idea behind <strong>Extension Loader</strong> class which resides in <code class="docutils literal"><span class="pre">ext_loader.py</span></code> is to search and instantiate <strong>Categories</strong> during startup.
 The <strong>Categories</strong>, in turn, will instantiate all <strong>Algorithms</strong> (each category instantiates only the algorithms that belong to it). Once the <strong>Algorithms</strong> are instantiated controller creates the necessary widgets for <strong>Algorithm</strong> settings in the UI.</p>
+<p>This is it so far, if you wanna dig further, continue to read the <a class="reference internal" href="Code.html#codebase"><span>CodeBase</span></a>.</p>
 <p>Keep in mind that this project is in its early stages and even though we tried our best it has bugs, so don&#8217;t be shy add report bugs on our <a href="#id1"><span class="problematic" id="id2">`Github page &lt;http://www.github.com/???`_</span></a>.</p>
 </div>
 </div>
@@ -182,7 +183,7 @@ The <strong>Categories</strong>, in turn, will instantiate all <strong>Algorithm
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Development.html" class="btn btn-neutral float-right" title="Development" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Development.html" class="btn btn-neutral float-right" title="Extending" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="Quick_Start_Guide_for_users.html" class="btn btn-neutral" title="Quick Start Guide for users" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

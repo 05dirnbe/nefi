@@ -89,7 +89,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
@@ -142,6 +142,12 @@ Imagine you have a big collection of spider webs pictures and you want to do an 
 You spend some time on collecting a <em>statistically significant</em> amount of images and... attempt to understand the differences by looking through the collection.
 Well, really?
 No, you better delegate this task to NEFI2.</p>
+<div class="figure align-left">
+<a class="reference internal image-reference" href="../_images/web6.png"><img alt="../_images/web6.png" src="../_images/web6.png" style="width: 214.2px; height: 186.6px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/web6_2.png"><img alt="../_images/web6_2.png" src="../_images/web6_2.png" style="width: 245.35px; height: 250.6px;" /></a>
+</div>
 <p>NEFI2 is capable of batch processing a large collection of images and extracting a <a class="reference external" href="https://networkx.github.io/documentation/latest/reference/introduction.html">NetworkX graph objects</a> that you can use later to process and get numerical data or even train a spider web recognizer.</p>
 <p>There are 3 main components in NEFI2 that you need to know about: <strong>Pipeline</strong>, <strong>Categories</strong> and <strong>Algorithms</strong>.
 <strong>Pipeline</strong> contains <strong>Categories</strong> which in turn contain <strong>Algorithms</strong>.
@@ -195,15 +201,25 @@ When you hit &#8220;Run&#8221; button, the <strong>Pipeline</strong> takes the i
 The result is saved into the specified directory.
 In order to extract the Graph (network) from the selected image you only need to add <em>Segmentation</em> and <em>Graph Detection</em> to the <strong>Pipeline</strong>, but using only <em>Segmentation</em> and <em>Graph Detection</em> might not produce good results if the image is of poor quality or noisy.
 That is why you need <em>Preprocessing</em> and <em>Graph Filtering</em>.</p>
-<p>IMPORTANT!</p>
-<p>Each <strong>Category</strong> is created to be empty, you need to select an active <strong>Algorithm</strong> for it.
+<p>Make yourself familiar with NEFI2 interface.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/nefi2_ui.png"><img alt="../_images/nefi2_ui.png" src="../_images/nefi2_ui.png" style="width: 1360.0px; height: 793.9px;" /></a>
+</div>
+<p>On the top right, you can choose the output directory where NEFI2 stores its results.
+By default the results are stored in <strong>output/pipeline_name_image_name</strong>.
+You can also load/save the <strong>Pipeline</strong>.
+Yes, the <strong>Pipeline</strong> can be saved and loaded later.
+It is saved on disk in <strong>json</strong> format, so you can easily create a new or edit the existing one (see <a class="reference internal" href="Create_Pipeline.html#create-pip"><span>Pipeline Creation</span></a>).</p>
+<p>In the <strong>Pipeline</strong> panel you add/remove your <strong>Categories</strong> and assign the <strong>Algorithms</strong>.
+Each <strong>Category</strong> is created to be empty, you need to select an active <strong>Algorithm</strong> for it.
+The order of the <strong>Categories</strong> is important.
+That is why when you hit &#8220;Run&#8221;, incorrectly positioned will be highlighted with red.</p>
+<p>In the <strong>Algorithm settings</strong> panel you fine-tune currently selected <strong>Algorithm</strong>.
 After the first run, if you replace or change the selected <strong>Algorithm</strong>, the <strong>Pipeline</strong> will not be reprocessed from the very beginning but from the first modified <strong>Algorithm</strong> (this saves resources and your time).</p>
-<p>Let&#8217;s take a look at NEFI2 interface.
-&lt;add images here&gt;</p>
-<p>The order of the algorithms is important.
-That is why when you hit &#8220;Run&#8221;, incorrectly positioned algorithm will be highlighted with red.</p>
-<p>You can choose the output directory where NEFI2 stores its results.
-By default the results are stored in <strong>output/pipeline_name_image_name</strong>.</p>
+<p>The left panel is self-explanatory.
+Here the result of each <strong>Algorithm</strong> is displayed.
+When the panel accumulates too many images you can click &#8220;Clear&#8221; button on the top left to clear the results.</p>
+<p>That&#8217;s it, now you know everything you need to use NEFI2.</p>
 </div>
 </div>
 

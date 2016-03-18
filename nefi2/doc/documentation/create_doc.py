@@ -61,7 +61,7 @@ file = open("rst_files/Autogen.rst", "wb+")
 
 dir_autogen(file, "model", "model", "model")
 dir_autogen(file, "view", "view", "view")
-dir_autogen(file, "controller", "controller", "controllers")
+# dir_autogen(file, "controller", "controller", "controllers")
 
 os.system("make clean")
 os.system("make html")

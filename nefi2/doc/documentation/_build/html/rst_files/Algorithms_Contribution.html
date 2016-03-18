@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Algorithms Contribution &mdash; nefi 2.0 documentation</title>
+  <title>Algorithms Creation &mdash; nefi 2.0 documentation</title>
   
 
   
@@ -31,9 +31,9 @@
 
   
     <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
-        <link rel="up" title="Development" href="Development.html"/>
-        <link rel="next" title="Categories Contribution" href="Categories_Contribution.html"/>
-        <link rel="prev" title="Development" href="Development.html"/> 
+        <link rel="up" title="Extending" href="Development.html"/>
+        <link rel="next" title="Categories Creation" href="Categories_Contribution.html"/>
+        <link rel="prev" title="Extending" href="Development.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -86,18 +86,17 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="Development.html">Development</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">Algorithms Contribution</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#imports">Imports</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#algbody-class">AlgBody Class</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Development.html">Extending</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Algorithms Creation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial">Tutorial</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="Categories_Contribution.html">Categories Contribution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Categories_Contribution.html">Categories Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_Pipeline.html">Pipeline Creation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Code.html">CodeBase</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Technologies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
             
@@ -128,9 +127,9 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="Development.html">Development</a> &raquo;</li>
+          <li><a href="Development.html">Extending</a> &raquo;</li>
       
-    <li>Algorithms Contribution</li>
+    <li>Algorithms Creation</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -144,43 +143,152 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="algorithms-contribution">
-<h1>Algorithms Contribution<a class="headerlink" href="#algorithms-contribution" title="Permalink to this headline">¶</a></h1>
-<p>This guide will provide you with the necessary steps required to add your custom algorithms.</p>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>First of all you have to create a <strong>.py</strong> file in the folder <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms</span></code>.
-This file will contain the algorithm that you want to add.
-As convention of Nefi 2.0, the name of the file will be the name of the algorithm,
-for example if the new algorithm is <strong>Blur</strong> the file&#8217;s name will be &#8220;<strong>blur.py</strong>&#8221;.
-The main structure of the file will be a main class <code class="xref py py-class docutils literal"><span class="pre">AlgBody</span></code> and its main methods <code class="xref py py-func docutils literal"><span class="pre">AlgBody.__init__()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">AlgBody.process()</span></code>.</p>
+  <div class="section" id="algorithms-creation">
+<h1>Algorithms Creation<a class="headerlink" href="#algorithms-creation" title="Permalink to this headline">¶</a></h1>
+<p>As previously mentioned, NEFI2 is not just a pipeline of hardcoded <strong>Categories</strong> and <strong>Algorithms</strong> which execute one single task.
+It can be customized and extended such that it is no longer a Graph extraction but an image reduction and enchancement pipeline.
+This all means that you can add new <strong>Algorithms</strong> or new <strong>Categories</strong> (see <a class="reference internal" href="Categories_Contribution.html#add-cats"><span>Categories Creation</span></a>) with ease.</p>
+<p>Say, you want to move (redefine) some <strong>Algorithm</strong> to any other <strong>Category</strong>.
+You only need to change one line in, for example &#8220;Blur&#8221; algorithm <code class="docutils literal"><span class="pre">__init__(self)</span></code> constructor, from <code class="docutils literal"><span class="pre">self.parent</span> <span class="pre">=</span> <span class="pre">&quot;Preprocessing&quot;</span></code> to <code class="docutils literal"><span class="pre">self.parent</span> <span class="pre">=</span> <span class="pre">&quot;Segmentation&quot;</span></code>.
+Then next time you start NEFI2, &#8220;Blur&#8221; will appear in <em>Segmentation</em> category.</p>
+<p>If you want to rename the <strong>Algorithm</strong>, change <code class="docutils literal"><span class="pre">self.name</span> <span class="pre">==</span> <span class="pre">&quot;Blur&quot;</span></code> to something you prefer more (don&#8217;t forget to adjust your saved json pipelines as well, see <a class="reference internal" href="Create_Pipeline.html#create-pip"><span>Pipeline Creation</span></a>).</p>
+<p>Here is a small tutorial that describes the process of adding a new <strong>Algorithm</strong>.</p>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>Imagine you decided to add an algorithm that reduces an image.
+You&#8217;ve looked up in <a class="reference external" href="http://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#resize">OpenCV</a> how to do it and wrote a small test function.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ratio</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args</span>
+<span class="sd">        |*img* (ndarray): image array</span>
+<span class="sd">        |*ratio* (float): % amount to reduce</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">ratio</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">small</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">small</span>
+</pre></div>
 </div>
-<div class="section" id="imports">
-<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
-<p>You have to import from <code class="xref py py-mod docutils literal"><span class="pre">module.algorithms._alg</span></code> the class <code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code>.
-Also you have to import, if the algorithm needs it, the UI widgets that allow the user to select the input values of the algorithm.
-The UI widgets that Nefi 2.0 provides are:</p>
+<p>What&#8217;s next?</p>
+<p><strong>1.</strong> Goto <code class="docutils literal"><span class="pre">model/algorithms</span></code> directory and create a new file, for example <strong>reduce_img.py</strong>.</p>
+<p><strong>2.</strong> Copy-paste the default <strong>Algorithm</strong> header code below.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">_alg</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">class</span> <span class="nc">AlgBody</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Algorithm</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Here you basically created and empty dummy <strong>Algorithm</strong> which won&#8217;t be included in NEFI2 until it gets a <code class="docutils literal"><span class="pre">self.name</span></code> and a <code class="docutils literal"><span class="pre">self.parent</span></code> &#8211; this variable tells NEFI2 which <strong>Category</strong> does the <strong>Algorithm</strong> belong to.</p>
+<p><strong>3.</strong> Define the <strong>Algorithm</strong> name and the parent <strong>Category</strong>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Image Reduce&quot;</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;Preprocessing&quot;</span>
+</pre></div>
+</div>
+<p>Now, you need to decide whether your custom <strong>Algorithm</strong> has any settings that you want to adjust.
+We want to define a value of how much the image can be reduced %-wise.
+This will be a float number between 1 (1%) and 100 (100%).
+In order to display this type of setting in the UI we use a small collection of QT widgets:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.IntegerSlider</span></code>.</li>
-<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.FloatSlider</span></code>.</li>
-<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.CheckBox</span></code>.</li>
-<li><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.DropDown</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">_alg.IntegerSlider</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">_alg.FloatSlider</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">_alg.CheckBox</span></code>.</li>
+<li><code class="xref py py-class docutils literal"><span class="pre">_alg.DropDown</span></code>.</li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="algbody-class">
-<h2>AlgBody Class<a class="headerlink" href="#algbody-class" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="xref py py-class docutils literal"><span class="pre">AlgBody</span></code> class will contain all the methods that you need to implement your algorithm and the methods <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">process()</span></code>.</p>
-<p>The <code class="xref py py-func docutils literal"><span class="pre">__init__()</span></code> method is necessary to set the name of the algorithm, to link the algorithm at its category and to set the UI widgets.</p>
+<p>We also use a list of containers for these widgets:</p>
 <blockquote>
-<div><p>The <strong>name</strong> of the algorithm is defined by the attribute <code class="docutils literal"><span class="pre">self.name</span></code>.</p>
-<p>The <strong>parent category</strong> of the algorithm is defined by the attribute <code class="docutils literal"><span class="pre">self.parent</span></code>.</p>
-<p>To add the <strong>UI widgets</strong> create an UI object and then append it to the list <code class="docutils literal"><span class="pre">self.integer_sliders</span></code>, <code class="docutils literal"><span class="pre">self.float_sliders</span></code>, <code class="docutils literal"><span class="pre">self.checkboxes</span></code> or <code class="docutils literal"><span class="pre">self.drop_downs</span></code>.</p>
+<div><ul class="simple">
+<li><code class="xref py py-class docutils literal"><span class="pre">self.integer_sliders</span></code></li>
+<li><code class="xref py py-class docutils literal"><span class="pre">self.float_sliders</span></code></li>
+<li><code class="xref py py-class docutils literal"><span class="pre">self.checkboxes</span></code></li>
+<li><code class="xref py py-class docutils literal"><span class="pre">self.drop_downs</span></code></li>
+</ul>
 </div></blockquote>
-<p>The <code class="xref py py-func docutils literal"><span class="pre">process()</span></code> is the main method that contains the logic of the algorithm.</p>
-<blockquote>
-<div>The <strong>results</strong> of the algorithm must be saved in the object <code class="docutils literal"><span class="pre">self.result['img']</span></code>, if it is an image, and/or in <code class="docutils literal"><span class="pre">self.result['graph']</span></code>, if it is a graph.</div></blockquote>
+<p><strong>4.</strong> Import <code class="xref py py-class docutils literal"><span class="pre">_alg.IntegerSlider</span></code> and add it to your <strong>Algorithm</strong> constructor.
+Add the necessary default values.
+Each QT widget has a list of fixed number of default settings <code class="docutils literal"><span class="pre">(name,</span> <span class="pre">lower,</span> <span class="pre">upper,</span> <span class="pre">step_size,</span> <span class="pre">default)</span></code> that
+NEFI2 uses when you first select the <strong>Algorithm</strong> in the UI.
+Specify them: <code class="docutils literal"><span class="pre">self.ratio</span> <span class="pre">=</span> <span class="pre">IntegerSlider(&quot;Reduction</span> <span class="pre">ratio&quot;,</span> <span class="pre">1,</span> <span class="pre">100,</span> <span class="pre">1,</span> <span class="pre">50)</span></code>.
+And finally add your QT widget to predefined <code class="docutils literal"><span class="pre">self.integer_sliders</span></code> container: <code class="docutils literal"><span class="pre">self.integer_sliders.append(self.ratio)</span></code></p>
+<p><strong>5.</strong> Rename your <code class="docutils literal"><span class="pre">resize()</span></code> function to <code class="docutils literal"><span class="pre">process(self)</span></code>.
+You can leave your function as it is, of course, but <code class="docutils literal"><span class="pre">process(self)</span></code> must be present and handle the results of your <code class="docutils literal"><span class="pre">resize()</span></code> function accrodingly.
+Function <code class="docutils literal"><span class="pre">process()</span></code> is called by NEFI2 on your image data and saves the results of the <strong>Algorithm</strong> in a special variable <code class="docutils literal"><span class="pre">self.result</span> <span class="pre">=</span> <span class="pre">{&quot;img&quot;:</span> <span class="pre">None,</span> <span class="pre">&quot;graph&quot;:</span> <span class="pre">None}</span></code>.
+Make sure you have the results of your algorithm correctly assigned to this variable otherwise your algorithm won&#8217;t work:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args</span>
+<span class="sd">        |*img* (ndarray): image array</span>
+<span class="sd">        |*ratio* (float): % amount to reduce [0-1]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">smaller</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span>
+                         <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">smaller</span>
+</pre></div>
+</div>
+<p>You might have noticed another small difference.
+We replaced initial <code class="docutils literal"><span class="pre">resize(img,</span> <span class="pre">ratio)</span></code> params with <code class="docutils literal"><span class="pre">process(args)</span></code>.
+Basically <strong>args</strong> represents our <code class="docutils literal"><span class="pre">self.result</span></code> variable only it is a list here, <strong>args</strong> first element is an image array and second is a graph (may not be present).
+In this function we are working with image arrays so we access it as <strong>args[0]</strong>.
+Imagine that the <strong>Pipeline</strong> processes one array with various algorithms.
+These algorithms all must know exactly where the results of the previous algorithm are kept.
+That is why we need to adhere to this small <em>interface</em> requirement.</p>
+<p>Here is the final code for your custom <strong>Algorithm</strong>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tutorial Algorithm</span>
+<span class="sd">Reduce image size using predefined ratio value.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">_alg</span> <span class="kn">import</span> <span class="n">Algorithm</span><span class="p">,</span> <span class="n">IntegerSlider</span>
+
+
+<span class="k">class</span> <span class="nc">AlgBody</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;OpenCV image size reduction implementation&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">Algorithm</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Image Reduce&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;Preprocessing&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span> <span class="o">=</span> <span class="n">IntegerSlider</span><span class="p">(</span><span class="s2">&quot;Reduction %&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integer_sliders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args</span>
+<span class="sd">            |*img* (ndarray): image array</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ratio</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="n">smaller</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">ratio</span><span class="p">,</span>
+                             <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">smaller</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Now, time to test it!</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/tutorial1.png"><img alt="../_images/tutorial1.png" src="../_images/tutorial1.png" style="width: 1310.7px; height: 763.3px;" /></a>
+</div>
+<p>As you can see, it worked nicely.
+This was a rather simple example and probably your algorithms will be far more advanced.
+If you get stuck, you can always check with the code of the existing algorithms.</p>
 </div>
 </div>
 
@@ -191,10 +299,10 @@ The UI widgets that Nefi 2.0 provides are:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Categories_Contribution.html" class="btn btn-neutral float-right" title="Categories Contribution" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="Categories_Contribution.html" class="btn btn-neutral float-right" title="Categories Creation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="Development.html" class="btn btn-neutral" title="Development" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="Development.html" class="btn btn-neutral" title="Extending" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

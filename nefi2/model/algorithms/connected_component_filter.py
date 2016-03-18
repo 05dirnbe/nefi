@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Connected component filter
-"""
 import networkx as nx
 import operator as op
 from _alg import Algorithm, IntegerSlider, DropDown
@@ -29,7 +26,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Connected Component"
-        self.parent = "Graph filtering"
+        self.parent = "Graph Filtering"
         self.compnt_size = IntegerSlider("Component Size", 0.0, 20.0, 1.0, 10)
         self.integer_sliders.append(self.compnt_size)
         self.operator = DropDown("Operator", {"Strictly smaller",

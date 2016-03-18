@@ -113,6 +113,14 @@ blur
 	:undoc-members:
 	:show-inheritance:
 
+_thread
+-------
+
+.. automodule:: model.algorithms._thread
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
 _utility
 --------
 
@@ -125,14 +133,6 @@ fast_nl_denoise_color
 ---------------------
 
 .. automodule:: model.algorithms.fast_nl_denoise_color
-	:members:
-	:undoc-members:
-	:show-inheritance:
-
-watershed_dilation_erosion_adaptiveThresh
------------------------------------------
-
-.. automodule:: model.algorithms.watershed_dilation_erosion_adaptiveThresh
 	:members:
 	:undoc-members:
 	:show-inheritance:
@@ -169,10 +169,26 @@ watershed_dilation_erosion_otsu
 	:undoc-members:
 	:show-inheritance:
 
+reduce_img
+----------
+
+.. automodule:: model.algorithms.reduce_img
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
 guo_hall
 --------
 
 .. automodule:: model.algorithms.guo_hall
+	:members:
+	:undoc-members:
+	:show-inheritance:
+
+watershed_dilation_erosion_adaptive
+-----------------------------------
+
+.. automodule:: model.algorithms.watershed_dilation_erosion_adaptive
 	:members:
 	:undoc-members:
 	:show-inheritance:
