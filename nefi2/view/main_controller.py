@@ -1159,6 +1159,7 @@ class MidCustomWidget(QWidget):
         if (QMouseEvent.buttons() & Qt.LeftButton):
             self.move(QMouseEvent.pos() - self.offset)
 
+    """
     def keyPressEvent(self, key):
         if key.modifiers() & Qt.ControlModifier:
             self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -1168,7 +1169,8 @@ class MidCustomWidget(QWidget):
         if Qt.ControlModifier:
             self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
             self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-
+    """
+    
     def move(self, offset):
         self.scrollArea.verticalScrollBar().setSliderPosition(
             self.scrollArea.verticalScrollBar().value() - offset.y() / 50)
