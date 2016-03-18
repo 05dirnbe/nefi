@@ -343,7 +343,7 @@ class Pipeline:
             if (cat == "Graph detection") and not is_segmented:
                 return (("You need to process 'Segmentation' before '{0}'.".format(cat)), pipeline_cats[i])
             if cat == "blank":
-                return (("Specify step {0} in the pipeline first.".format(i)), pipeline_cats[i])
+                return (("Specify step {0} in the pipeline first.".format(i+1)), pipeline_cats[i])
             if cat == "Graph detection":
                 is_graph = True
             if cat == "Segmentation":
