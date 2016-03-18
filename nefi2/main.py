@@ -15,6 +15,19 @@ sys.path.insert(0, os.path.join(os.curdir, 'model'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
 sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
 
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication
+import zope
+import qdarkstyle
+from model.ext_loader import ExtensionLoader
+from view.main_controller import MainView
+from model.pipeline import Pipeline
+import qdarkstyle
+from model.ext_loader import ExtensionLoader
+from model.pipeline import Pipeline
+from model import pipeline
+
+
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennig Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -24,18 +37,7 @@ def gui_mode():
     """
     Start NEFI2 GUI
     """
-
-    from PyQt5 import QtGui
-    from PyQt5.QtWidgets import QApplication
-    import zope
-    import qdarkstyle
-    from model.ext_loader import ExtensionLoader
-    from view.main_controller import MainView
-    from model.pipeline import Pipeline
-    import qdarkstyle
-
     myappid = 'nefi2.0' # arbitrary string
-
     if sys.platform == 'win32' or sys.platform == 'win64':
         ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
@@ -45,7 +47,6 @@ def gui_mode():
     app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
     app.setQuitOnLastWindowClosed(True)
     app.setWindowIcon(QtGui.QIcon("./assets/images/nefi2.ico"))
-
     wnd = MainView(pipeline)
     wnd.load_dark_theme(app)
     wnd.show()
@@ -60,11 +61,6 @@ def batch_mode(args):
         | *args* (dict) : argument dict returned by ArgumentParser
 
     """
-
-    from model.ext_loader import ExtensionLoader
-    from model.pipeline import Pipeline
-    from model import pipeline
-
     extloader = ExtensionLoader()
     pipeline = Pipeline(extloader.cats_container)
     # processing args values
@@ -117,4 +113,3 @@ if __name__ == '__main__':
     arguments = prs.parse_args()
 
     main(arguments)
-

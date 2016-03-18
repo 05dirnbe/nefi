@@ -27,7 +27,7 @@ class post_install(install):
 
 
 # Get the long description from the README file
-with open(path.join(here, 'README'), encoding='utf-8') as f:
+with open(path.join(HERE, 'README.md')) as f:
     long_description = f.read()
 
 setup(
@@ -47,7 +47,7 @@ setup(
     # Author details
     author=[
             'Andreas Firczynski',
-            'Dennis Groß',
+            'Dennis Gross',
             'Martino Bruni',
             'Pavel Shkadzko',
             'Philipp Reichert',
@@ -96,16 +96,11 @@ setup(
                       'demjson>=2.2.4',
                       'QDarkStyle>=2.1'
                       'thinning_py3>=1.2.3'],
+    #cmdclass={'install': post_install}
 
-    package_data={
-        'nefi2': [
-            'assets/*',
-            'default_pipelines/*',
-            'doc/*',
-            'sample_images/*',
-            'view/*',
-            'model/*'],
-        },
-
-    cmdclass={'install': post_install},
 )
+    #package_data={
+    #    'nefi2': [
+    #        'assets/css/*',
+    #        'assets/images/*',
+    #    },

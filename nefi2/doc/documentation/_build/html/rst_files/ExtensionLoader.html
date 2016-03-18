@@ -142,19 +142,16 @@ be loaded into the pipeline object.</p>
 <em class="property">class </em><code class="descclassname">model.ext_loader.</code><code class="descname">ExtensionLoader</code><a class="headerlink" href="#model.ext_loader.ExtensionLoader" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="staticmethod">
 <dt id="model.ext_loader.ExtensionLoader._instantiate_cats">
-<em class="property">static </em><code class="descname">_instantiate_cats</code><span class="sig-paren">(</span><em>ordering</em>, <em>found_cats</em><span class="sig-paren">)</span><a class="headerlink" href="#model.ext_loader.ExtensionLoader._instantiate_cats" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">_instantiate_cats</code><span class="sig-paren">(</span><em>found_cats</em><span class="sig-paren">)</span><a class="headerlink" href="#model.ext_loader.ExtensionLoader._instantiate_cats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instantiate imported categories and return a list of instantiated
 categories.
 Create a list with methods that represent a pipeline with selected
 algorithms and predefined settings.
-Sort the imported categories according to provided order list and
-return a list of imported category modules.
 &lt;When the Category object is instantiated it automatically imports and
 creates a list of algorithms that belong to it&gt;</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
-<div class="line"><em>ordering</em>: a list of categories order</div>
 <div class="line"><em>found_cats</em>:a list of found category file names</div>
 </div>
 </dd>

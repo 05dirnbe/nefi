@@ -269,7 +269,7 @@ class Pipeline:
             dir_name = os.path.join(self.out_dir, '_'.join([pip_name,
                                                             orig_fname]))
             self.set_output_dir(dir_name)
-            data = [read_image_file(fpath), None]
+            data = [read_image_file(fpath, '', None), None]
             self.original_img = data[0]
             # process given image with the pipeline
             last_cat = None
