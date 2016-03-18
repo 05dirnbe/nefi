@@ -1102,29 +1102,6 @@ class QScrollArea_filtered(QScrollArea):
                 return True
         return False
 
-    """
-    def wheelEvent(self, event):
-        if event.modifiers() & Qt.ControlModifier:
-            print("ignore")
-            event.ignore()
-        else:
-            QScrollArea_filtered.wheelEvent(self, event)
-
-    def moveEvent(self, moveEvent):
-        moveEvent.ignore()
-    """
-
-
-class EventFilter(QObject):
-    filtered = pyqtSignal()
-
-    def eventFilter(self, obj, event):
-        if event.type() == QEvent.Wheel:
-            if (event.modifiers() & Qt.ControlModifier):
-                self.filtered.emit()
-                print("filtered")
-                return True
-        return False
 
 
 class ClickableQLabel(QLabel):
@@ -1139,6 +1116,7 @@ class ClickableQLabel(QLabel):
 
 
 class MidCustomWidget(QWidget):
+
     def __init__(self, mid_panel, auto_fit):
         super(MidCustomWidget, self).__init__()
 
@@ -1147,8 +1125,6 @@ class MidCustomWidget(QWidget):
         self.current_image_size = 1.0
         self.mid_panel = mid_panel
         self.offset = 0
-
-        # self.setGeometry(QtCore.QRect(0, 0, mid_panel.width(), mid_panel.height()))
 
         self.imageLabel = QLabel()
         self.imageLabel.setAlignment(Qt.AlignCenter)
@@ -1169,6 +1145,8 @@ class MidCustomWidget(QWidget):
 
         self.scrollArea.zoom_in.connect(self.zoom_in_)
         self.scrollArea.zoom_out.connect(self.zoom_out_)
+        self.scrollArea.horizontalScrollBar().rangeChanged[int, int].connect(lambda min, max : self.handle_zoom_x(min, max,))
+        self.scrollArea.verticalScrollBar().rangeChanged[int, int].connect(lambda min, max: self.handle_zoom_y(min, max,))
 
     def mousePressEvent(self, QMouseEvent):
         self.setCursor(Qt.ClosedHandCursor)
@@ -1204,10 +1182,6 @@ class MidCustomWidget(QWidget):
         else:
             self.resize_original()
 
-            # print(self.mid_panel.width())
-            # self.imageLabel.setGeometry(0, 0, self.mid_panel.width(), self.mid_panel.height())
-            # self.Layout.setGeometry(QtCore.QRect(0, 0, self.mid_panel.width(), self.mid_panel.height()))
-
     def resetImageSize(self):
         self.current_image_size = 1.0
 
@@ -1217,11 +1191,44 @@ class MidCustomWidget(QWidget):
     def getCurrentImage(self):
         return self.current_image_original
 
+    @pyqtSlot()
+    def handle_zoom_y(self, min, max):
+
+        #if Qt.ControlModifier:
+        #    return
+
+        delta = self.scrollArea.verticalScrollBar().maximum() - self.pixels_y
+        #print("y delta " + str(delta))
+
+        value = self.scrollArea.verticalScrollBar().value() + delta/2
+        self.scrollArea.verticalScrollBar().setValue(value)
+
+        self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
+
+    @pyqtSlot()
+    def handle_zoom_x(self, min, max):
+
+        #if Qt.ControlModifier:
+        #    return
+
+        delta = self.scrollArea.horizontalScrollBar().maximum() - self.pixels_x
+        #print("x delta " + str(delta))
+
+        value = self.scrollArea.horizontalScrollBar().value() + delta/2
+        self.scrollArea.horizontalScrollBar().setValue(value)
+
+        self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
+
+
     def zoom_out_(self):
         if not self.current_image_original:
             return
         if self.current_image_size < 0.1:
             return
+
+        self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
+        self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
+
         self.current_image_size = self.current_image_size * 0.85
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
@@ -1230,11 +1237,17 @@ class MidCustomWidget(QWidget):
         self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
         self.imageLabel.setPixmap(pixmap)
 
+
+
     def zoom_in_(self):
         if not self.current_image_original:
             return
         if self.current_image_size > 3:
             return
+
+        self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
+        self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
+
         self.current_image_size = self.current_image_size * 1.25
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
