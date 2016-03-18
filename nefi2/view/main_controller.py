@@ -401,18 +401,19 @@ class MainView(base, form):
         while clicking the save_btn
         """
         url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
-        if url[0]:
-            try:
+
+        try:
+            if url[0]:
                 name = os.path.basename(url)
                 print(url)
                 print(name)
                 self.pipeline.save_pipeline_json(name, url)
-            except Exception as e:
-                print("failed to save pip json on file system")
-                traceback.print_exc()
-                return
+        except Exception as e:
+            print("failed to save pip json on file system")
+            traceback.print_exc()
+            return
 
-            self.set_pip_title(os.path.basename(url))
+        self.set_pip_title(os.path.basename(url))
 
     @pyqtSlot()
     def open_pip_json(self):
@@ -749,7 +750,9 @@ class MainView(base, form):
 
         if empty_flag:
             label = QLabel()
+            label.setFixedHeight(30)
             label.setText("This algorithm has no Settings.")
+            label.setFixedHeight(50)
             groupOfSliderssLayout.addWidget(label, 0, Qt.AlignHCenter)
 
         groupOfSliders.setLayout(groupOfSliderssLayout)
@@ -894,7 +897,7 @@ class MainView(base, form):
         pip_up_down_layout.setAlignment(Qt.AlignLeft)
         pip_up_down.setLayout(pip_up_down_layout)
 
-        pip_up_down.setContentsMargins(-13, -10, 0, 0)
+        pip_up_down.setContentsMargins(-13, -11, 0, 0)
 
         up_btn = QToolButton()
         dw_btn = QToolButton()
@@ -1430,7 +1433,7 @@ class PipCustomWidget(QWidget):
             self.MidCustomWidget.setPixmap(QtGui.QPixmap(self.pixmap), self.mid_panel)
 
 
-class ComboBoxWidget(QGroupBox):
+class ComboBoxWidget(QWidget):
     """
     This is the combobox widget as it is shown in the settings
     panel of the GUI. It gets initialized with a name
@@ -1456,7 +1459,6 @@ class ComboBoxWidget(QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.combobox, Qt.AlignRight)
         self.setLayout(self.SingleCheckBoxLayout)
         self.setFixedHeight(70)
-        self.setFlat(True)
 
         def set_modified():
             alg.set_modified()
@@ -1487,7 +1489,7 @@ class ComboBoxWidget(QGroupBox):
             self.combobox.addItem(QIcon(image), option)
 
 
-class CheckBoxWidget(QGroupBox):
+class CheckBoxWidget(QWidget):
     """
     Thi sis the checkbox widget as it is shown in the GUI.
     The name is the displayed in fron of the checkbox in the GUI and
@@ -1514,7 +1516,6 @@ class CheckBoxWidget(QGroupBox):
         self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
         self.setLayout(self.SingleCheckBoxLayout)
         self.setFixedHeight(70)
-        self.setFlat(True)
 
         def set_modified():
             alg.set_modified()
@@ -1523,7 +1524,7 @@ class CheckBoxWidget(QGroupBox):
         self.checkbox.stateChanged.connect(set_modified)
 
 
-class SliderWidget(QGroupBox):
+class SliderWidget(QWidget):
     """
     This is a combined widget for a slider in the GUI. It
     contains several input fields and a slider itself. By setting
@@ -1584,7 +1585,6 @@ class SliderWidget(QGroupBox):
         self.SingleSlidersLayout.addWidget(self.textfield)
         self.setLayout(self.SingleSlidersLayout)
         self.setFixedHeight(70)
-        self.setFlat(True)
 
         self.textfield.valueChanged.connect(lambda: slot(self.textfield.value()))
         self.textfield.valueChanged.connect(set_modified)
