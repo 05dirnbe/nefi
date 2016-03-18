@@ -6,6 +6,7 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
+import copy
 import os
 
 import PyQt5
@@ -46,6 +47,9 @@ class MainView(base, form):
         self.pipeline = pipeline
         self.pip_widgets = []
         self.default_pips = []
+
+        # Cache pipeline entries to use them for settings history.
+        self.pipeline_cache = []
 
         self.autofit = True
         self.MidCustomWidget = MidCustomWidget(self.mid_panel, self.autofit)
@@ -568,6 +572,17 @@ class MainView(base, form):
         if url:
             self.custom_line_edit.setText(url)
             self.pipeline.set_output_dir(url)
+
+    def cache_pipeline_entries(self, pipeline):
+        for i in range(0, len(pipeline.executed_cats)):
+            copied_entry = copy.deepcopy(pipeline.executed_cats[i])
+            self.pipeline_cache.append(copied_entry)
+
+    def cache_remove_entry(self, entry):
+        self.pipeline_cache.remove(entry)
+
+    def cache_clear(self):
+        self.pipeline_cache.clear()
 
     def load_favorite_pipelines(self):
         """
@@ -1125,6 +1140,8 @@ class MidCustomWidget(QWidget):
         self.current_image_size = 1.0
         self.mid_panel = mid_panel
         self.offset = 0
+        self.pixels_x = None
+        self.pixels_y = None
 
         self.imageLabel = QLabel()
         self.imageLabel.setAlignment(Qt.AlignCenter)
@@ -1196,8 +1213,8 @@ class MidCustomWidget(QWidget):
     @pyqtSlot()
     def handle_zoom_y(self, min, max):
 
-        #if Qt.ControlModifier:
-        #    return
+        if self.pixels_y == None:
+            return
 
         delta = self.scrollArea.verticalScrollBar().maximum() - self.pixels_y
         #print("y delta " + str(delta))
@@ -1210,8 +1227,8 @@ class MidCustomWidget(QWidget):
     @pyqtSlot()
     def handle_zoom_x(self, min, max):
 
-        #if Qt.ControlModifier:
-        #    return
+        if self.pixels_x == None:
+            return
 
         delta = self.scrollArea.horizontalScrollBar().maximum() - self.pixels_x
         #print("x delta " + str(delta))
