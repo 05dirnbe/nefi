@@ -16,7 +16,7 @@ class CatBody(Category):
             | instance of the gdetection object
 
         """
-        self.name = 'Graph detection'
+        self.name = 'Graph Detection'
         self.icon = "./assets/images/D.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)

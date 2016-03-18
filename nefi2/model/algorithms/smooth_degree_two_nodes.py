@@ -21,7 +21,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Smooth 2 Nodes"
-        self.parent = "Graph filtering"
+        self.parent = "Graph Filtering"
 
     def process(self, args):
 

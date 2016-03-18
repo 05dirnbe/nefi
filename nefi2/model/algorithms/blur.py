@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Blur from the opencv package.
-"""
 import cv2
 from _alg import Algorithm, IntegerSlider, CheckBox
 

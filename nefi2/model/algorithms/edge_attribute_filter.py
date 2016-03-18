@@ -27,7 +27,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Edge Attribute"
-        self.parent = "Graph filtering"
+        self.parent = "Graph Filtering"
         self.attribute = DropDown("Attribute", {"width", "length"})
         self.drop_downs.append(self.attribute)
         self.attribute_threshold_value = FloatSlider("Attribute treshold",

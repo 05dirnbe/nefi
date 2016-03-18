@@ -36,7 +36,7 @@ class AlgBody(Algorithm):
         """
         Algorithm.__init__(self)
         self.name = "Guo Hall"
-        self.parent = "Graph detection"
+        self.parent = "Graph Detection"
 
     def process(self, args):
         """

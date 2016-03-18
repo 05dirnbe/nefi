@@ -1,5 +1,5 @@
 [
   ["Otsus",{"store_image":false,"type":"Segmentation"}],
-  ["Guo Hall",{"store_image":false,"type":"Graph detection"}],
-  ["Keep only LCC",{"store_image":false,"type":"Graph filtering"}]
+  ["Guo Hall",{"store_image":false,"type":"Graph Detection"}],
+  ["Keep only LCC",{"store_image":false,"type":"Graph Filtering"}]
 ]
