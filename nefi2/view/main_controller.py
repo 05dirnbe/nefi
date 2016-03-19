@@ -301,59 +301,59 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
-        pixmap_icon = QtGui.QPixmap("./assets/images/close.png")
+        pixmap_icon = QtGui.QPixmap("./icons/close.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.clear_immediate_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
+        pixmap_icon = QtGui.QPixmap("./icons/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.open_pip_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/man.png")
+        pixmap_icon = QtGui.QPixmap("./icons/man.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.run_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/trash_white.png")
+        pixmap_icon = QtGui.QPixmap("./icons/trash_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.delete_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/diskette_white.png")
+        pixmap_icon = QtGui.QPixmap("./icons/diskette_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
+        pixmap_icon = QtGui.QPixmap("./icons/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/folder_white.png")
+        pixmap_icon = QtGui.QPixmap("./icons/folder_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/plus.png")
+        pixmap_icon = QtGui.QPixmap("./icons/plus.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.zoom_in.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/minus.png")
+        pixmap_icon = QtGui.QPixmap("./icons/minus.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.zoom_out.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/resize.png")
+        pixmap_icon = QtGui.QPixmap("./icons/resize.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         self.resize.setIcon(q_icon)
 
-        pixmap_up = QtGui.QPixmap("./assets/images/up.png")
-        pixmap_down = QtGui.QPixmap("./assets/images/down.png")
+        pixmap_up = QtGui.QPixmap("./icons/up.png")
+        pixmap_down = QtGui.QPixmap("./icons/down.png")
         self.q_icon_up = QtGui.QIcon(pixmap_up)
         self.q_icon_down = QtGui.QIcon(pixmap_down)
 
-        pixmap_plus = QtGui.QPixmap("./assets/images/plus.png")
+        pixmap_plus = QtGui.QPixmap("./icons/plus.png")
         self.q_icon_plus = QtGui.QIcon(pixmap_plus)
         self.enable_plus()
 
-        pixmap_plus_grey = QtGui.QPixmap("./assets/images/plus_grey.png")
+        pixmap_plus_grey = QtGui.QPixmap("./icons/plus_grey.png")
         self.q_icon_plus_grey = QtGui.QIcon(pixmap_plus_grey)
 
-        pixmap_icon_delete = QtGui.QPixmap("./assets/images/delete_x_white.png")
+        pixmap_icon_delete = QtGui.QPixmap("./icons/delete_x_white.png")
         self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
 
     @pyqtSlot()
@@ -948,7 +948,7 @@ class MainView(base, form):
         btn.setFixedHeight(30)
         btn.setFixedWidth(30)
 
-        pixmap_icon = QtGui.QPixmap("./assets/images/delete_x_white.png")
+        pixmap_icon = QtGui.QPixmap("./icons/delete_x_white.png")
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(q_icon)
 
