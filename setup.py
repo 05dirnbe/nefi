@@ -104,7 +104,7 @@ setup(
                       'demjson>=2.2.4',
                       'QDarkStyle>=2.1'],
 
-    #scripts=['nefi2/nefi2'],
+    scripts=['nefi2/nefi2'],
 
     #cmdclass={'install': post_install},
 
