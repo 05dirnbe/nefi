@@ -30,11 +30,11 @@ with open(os.path.join(HERE, 'README.md')) as f:
 setup(
     name='NEFI2',
 
-    entry_points = {
-        'console_scripts': [
-            'command-name = main:gui_mode',
-        ],
-    },
+    #entry_points = {
+    #    'console_scripts': [
+    #        'command-name = main:gui_mode',
+    #    ],
+    #},
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -86,31 +86,26 @@ setup(
         'License :: OSI Approved :: BSD License',
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 3.4 :: Only'
+        'Programming Language :: Python :: 3 :: Only'
     ],
 
     keywords='graph extraction',
-    #packages=['nefi2'],
+    packages=['nefi2'],
 
-    packages=find_packages(exclude=["doc",
-                                    "unittests",
-                                    "tests",
-                                    "build",
-                                    "deps",
-                                    "nefi2.komodoproject"]),
+    #packages=find_packages(exclude=["doc", "unittests", "tests", "build", "deps", "nefi2.komodoproject"]),
 
     install_requires=['numpy>=1.10.4',
                       'networkx>=1.11',
                       'demjson>=2.2.4',
                       'QDarkStyle>=2.1'],
 
-    scripts=['nefi2/nefi2'],
+    scripts=['nefi2/run_nefi2'],
 
     #cmdclass={'install': post_install},
 
-    package_data={
-        'nefi2': ['data/default_pipelines/*.json',
-                  'icons/*.png',
-                  'icons/*.ico'],
-    }
+    #package_data={
+    #    '.': ['data/default_pipelines/*.json',
+    #              'icons/*.png',
+    #              'icons/*.ico'],
+    #}
 )
