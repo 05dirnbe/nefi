@@ -39,8 +39,7 @@ class Category:
         if icon is not None:
             self.icon = icon
         else:
-            self.icon = os.path.join(os.curdir, 'assets', 'images',
-                                     'missing.png')
+            self.icon = os.path.join(os.curdir, 'icons', 'missing.png')
         self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
