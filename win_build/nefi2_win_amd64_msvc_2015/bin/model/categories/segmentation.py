@@ -16,7 +16,7 @@ class CatBody(Category):
 
         """
         self.name = 'Segmentation'
-        self.icon = "./assets/images/S.png"
+        self.icon = "./icons/S.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)
 

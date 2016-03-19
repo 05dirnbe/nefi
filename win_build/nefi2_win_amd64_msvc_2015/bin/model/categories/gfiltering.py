@@ -15,8 +15,8 @@ class CatBody(Category):
             | instance of the gfiltering object
 
         """
-        self.name = 'Graph filtering'
-        self.icon = "./assets/images/F.png"
+        self.name = 'Graph Filtering'
+        self.icon = "./icons/F.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)
 

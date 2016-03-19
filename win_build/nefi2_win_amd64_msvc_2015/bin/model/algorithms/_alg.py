@@ -1,21 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-A module which contains all necessary information's and features to create
-an additional implementation of algorithms.
-To contribute an algorithm implementation the contributor is needs to create
-a seperate <algorithm_name>.py in the algorithms folder. In <algorithm_name>.py
-he needs to create a class "class AlgBody(Algorithm):" which inherits from
-Algorithm.
-In order to give the ext_loader the possibility to dynamically invoke the
-algorithm definition, the contributor also needs to override the
-methods: process(self, image), get_name(self) and belongs_to(self).
-Additional UI input for the algorithm can be specified by creating
-IntegerSlider, FloatSlider, CheckBox or DropDown objects. These object
-instances need to be created by the constructor method __init__(self) of the
-algorithm implementation. E.g. we create a IntegerSlider in __init__(self)
-by calling the constructor of IntegerSlider and binding it to slider1 with
-"slider1 = IntegerSlider(self, "slider1", 0, 10, 1, 0)" (see the IntegerSlider
-definition for further information)
+This is Algorithm master class and all algorithms must inherit from it.
 """
 import collections
 from PyQt5.QtCore import QObject, pyqtSlot

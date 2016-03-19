@@ -32,3 +32,6 @@ nefi2.komodoproject
 /build/nefi2_win_amd64_msvc_2015/bin/model/categories/__pycache__/
 /build/nefi2_win_amd64_msvc_2015/bin/_cache_/
 /build/nefi2_win_amd64_msvc_2015/bin/output/
+/win_build/nefi2_win_amd64_msvc_2015/pyqtdeploy/build
+/win_build/nefi2_win_amd64_msvc_2015/bin/output
+/win_build/nefi2_win_amd64_msvc_2015/bin/model/algorithms/__pycache__/

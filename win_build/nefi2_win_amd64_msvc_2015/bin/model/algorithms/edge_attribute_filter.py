@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Edge attribute filter
-"""
 import networkx as nx
 import operator as op
 from _alg import Algorithm, DropDown, FloatSlider
@@ -18,8 +15,6 @@ class AlgBody(Algorithm):
 
     def __init__(self):
         """
-        Edge attribute object constructor
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriated category
@@ -31,8 +26,8 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Edge attribute filter"
-        self.parent = "Graph filtering"
+        self.name = "Edge Attribute"
+        self.parent = "Graph Filtering"
         self.attribute = DropDown("Attribute", {"width", "length"})
         self.drop_downs.append(self.attribute)
         self.attribute_threshold_value = FloatSlider("Attribute treshold",

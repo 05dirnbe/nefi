@@ -16,7 +16,7 @@ class CatBody(Category):
 
         """
         self.name = 'Preprocessing'
-        self.icon = "./assets/images/P.png"
+        self.icon = "./icons/P.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)
 
