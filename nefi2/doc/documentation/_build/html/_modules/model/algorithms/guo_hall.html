@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>model.algorithms.guo_hall &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>model.algorithms.guo_hall</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for model.algorithms.guo_hall</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Thinning is the operation that takes a binary image and contracts the</span>
+<span class="sd">foreground until only single-pixel wide lines remain. It is also known as</span>
+<span class="sd">skeletonization.</span>
+
+<span class="sd">The algorithm below was taken from NEFI1. It uses thinning C module written by</span>
+<span class="sd">`Adrian Neumann &lt;https://bitbucket.org/adrian_n/thinning&gt;`_.</span>
+<span class="sd">The code was adapted for NEFI2.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">thinning</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">_alg</span> <span class="kn">import</span> <span class="n">Algorithm</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Adrian Neumann&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;Pavel Shkadzko&quot;</span><span class="p">:</span> <span class="s2">&quot;p.shkadzko@gmail.com&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="AlgBody"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.guo_hall.AlgBody">[docs]</a><span class="k">class</span> <span class="nc">AlgBody</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Guo Hall thinning implementation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instance vars:</span>
+<span class="sd">            | *name* : name of the algorithm</span>
+<span class="sd">            | *parent* : name of the appropriate category</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Algorithm</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Guo Hall&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;Graph Detection&quot;</span>
+
+<div class="viewcode-block" id="AlgBody.process"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.guo_hall.AlgBody.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Guo Hall thinning.</span>
+<span class="sd">        Use ```zhang_suen_node_detection()``` for node detection.</span>
+<span class="sd">        Use ```breadth_first_edge_detection()``` for edge detection.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *args* : a list of arguments, e.g. image ndarray</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># create a skeleton</span>
+        <span class="n">skeleton</span> <span class="o">=</span> <span class="n">thinning</span><span class="o">.</span><span class="n">guo_hall_thinning</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="c1"># detect nodes</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">zhang_suen_node_detection</span><span class="p">(</span><span class="n">skeleton</span><span class="p">)</span>
+        <span class="c1"># detect edges</span>
+        <span class="c1"># graph = breadth_first_edge_detection(skeleton, gray_img, graph)</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">breadth_first_edge_detection</span><span class="p">(</span><span class="n">skeleton</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">graph</span><span class="p">)</span>
+        <span class="n">skeleton</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">skeleton</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_GRAY2BGR</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">graph</span><span class="p">,</span> <span class="n">skeleton</span></div></div>
+
+
+<div class="viewcode-block" id="zhang_suen_node_detection"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.guo_hall.zhang_suen_node_detection">[docs]</a><span class="k">def</span> <span class="nf">zhang_suen_node_detection</span><span class="p">(</span><span class="n">skel</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    (from nefi1)</span>
+<span class="sd">    Node detection based on criteria put forward in &quot;A fast parallel algorithm</span>
+<span class="sd">    for thinning digital patterns&quot; by T. Y. Zhang and C. Y. Suen. Pixels p of</span>
+<span class="sd">    the skeleton are categorized as nodes/non-nodes based on the value of a</span>
+<span class="sd">    function A(p) depending on the pixel neighborhood of p. Please check the</span>
+<span class="sd">    above paper for details.</span>
+
+<span class="sd">    A(p1) == 1: The pixel p1 sits at the end of a skeleton line, thus a node</span>
+<span class="sd">    of degree 1 has been found.</span>
+<span class="sd">    A(p1) == 2: The pixel p1 sits in the middel of a skeleton line but not at</span>
+<span class="sd">    a branching point, thus a node of degree 2 has been found. Such nodes are</span>
+<span class="sd">    ignored and not introduced to the graph.</span>
+<span class="sd">    A(p1) &gt;= 3: The pixel p1 belongs to a branching point of a skeleton line,</span>
+<span class="sd">    thus a node of degree &gt;=3 has been found.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        *skel* : Skeletonised source image. The skeleton must be exactly 1</span>
+<span class="sd">         pixel wide.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        *graph* : networkx Graph object with detected nodes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">check_pixel_neighborhood</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skel</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check the number of components around a pixel.</span>
+<span class="sd">        If it is either 1 or more than 3, it is a node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *x* : pixel location value</span>
+<span class="sd">            | *y* : pixel location value</span>
+<span class="sd">            | *skel* : skeleton Graph object</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            *accept_pixel_as_node* : boolean value</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">accept_pixel_as_node</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">skel</span><span class="o">.</span><span class="n">item</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p3</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p4</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p5</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p6</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p7</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p8</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="n">p9</span> <span class="o">=</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+
+        <span class="c1"># The function A(p1),</span>
+        <span class="c1"># where p1 is the pixel whose neighborhood is beeing checked</span>
+        <span class="n">components</span> <span class="o">=</span> <span class="p">(</span><span class="n">p2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p3</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">p3</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p4</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+                     <span class="p">(</span><span class="n">p4</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p5</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">p5</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p6</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+                     <span class="p">(</span><span class="n">p6</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p7</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">p7</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p8</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+                     <span class="p">(</span><span class="n">p8</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p9</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">p9</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">components</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">components</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">accept_pixel_as_node</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="n">accept_pixel_as_node</span>
+
+    <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">skel</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">skel</span><span class="o">.</span><span class="n">item</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">w</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">h</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">check_pixel_neighborhood</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skel</span><span class="p">):</span>
+                <span class="n">graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">graph</span></div>
+
+<div class="viewcode-block" id="breadth_first_edge_detection"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.guo_hall.breadth_first_edge_detection">[docs]</a><span class="k">def</span> <span class="nf">breadth_first_edge_detection</span><span class="p">(</span><span class="n">skel</span><span class="p">,</span> <span class="n">segmented</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    (from nefi1)</span>
+<span class="sd">    Detect edges in the skeletonized image.</span>
+<span class="sd">    Also compute the following edge properties:</span>
+
+<span class="sd">        | *pixels* : number of pixels on the edge in the skeleton</span>
+<span class="sd">        | *length* : length in pixels, horizontal/vertikal steps count 1,</span>
+<span class="sd">           diagonal steps count sqrt 2</span>
+<span class="sd">        | *width* : the mean diameter of the edge</span>
+<span class="sd">        | *width_var* : the variance of the width along the edge</span>
+
+<span class="sd">    The runtime is linear in the number of pixels.</span>
+<span class="sd">    White pixels are **much more** expensive though.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">neighbors</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">skel</span><span class="o">.</span><span class="n">item</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">skel</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">for</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">dx</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+                <span class="c1"># the line below is ugly and is intended to be this way</span>
+                <span class="c1"># do not try to modify it unless you know what you&#39;re doing</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">dx</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">dy</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> \
+                                        <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span> <span class="o">&lt;</span> <span class="n">width</span> <span class="ow">and</span> \
+                                        <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">&lt;</span> <span class="n">height</span> <span class="ow">and</span> \
+                                <span class="n">item</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">dy</span>
+
+    <span class="k">def</span> <span class="nf">distance_transform_diameter</span><span class="p">(</span><span class="n">edge_trace</span><span class="p">,</span> <span class="n">segmented</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        (dev comments from nefi1)</span>
+<span class="sd">        my cv2 lacks cv2.DIST_L2, it seems to have the value 2 though, so I use</span>
+<span class="sd">        that, same for MASK_PRECISE</span>
+<span class="sd">        &lt;python3 cv2.DIST_L2 equals to 2&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">distanceTransform</span><span class="p">(</span><span class="n">segmented</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">edge_pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">edge_trace</span><span class="p">)</span>
+        <span class="n">diameters</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">diam</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">edge_trace</span><span class="p">[</span><span class="n">edge_pixels</span><span class="p">],</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">dt</span><span class="p">[</span><span class="n">edge_pixels</span><span class="p">]):</span>
+            <span class="n">diameters</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">diam</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">diameters</span>
+
+    <span class="c1"># compute edge length</span>
+    <span class="c1"># initialize: the neighbor pixels of each node get a distinct label</span>
+    <span class="c1"># each label gets a queue</span>
+    <span class="n">label_node</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">queues</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">label_length</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes_iter</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">neighbors</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="n">label_node</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">label_length</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.414214</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> \
+                                              <span class="nb">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+            <span class="n">queues</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]))</span>
+            <span class="n">label</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># bfs over the white pixels.</span>
+    <span class="c1"># One phase: every entry in queues is handled</span>
+    <span class="c1"># Each label grows in every phase.</span>
+    <span class="c1"># If two labels meet, we have an edge.</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">edge_trace</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">skel</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+    <span class="n">edge_value</span> <span class="o">=</span> <span class="n">edge_trace</span><span class="o">.</span><span class="n">item</span>
+    <span class="n">edge_set_value</span> <span class="o">=</span> <span class="n">edge_trace</span><span class="o">.</span><span class="n">itemset</span>
+    <span class="n">label_histogram</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="n">queues</span><span class="p">:</span>
+        <span class="n">new_queues</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">nbs</span> <span class="ow">in</span> <span class="n">queues</span><span class="p">:</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span> <span class="ow">in</span> <span class="n">nbs</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">edge_value</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">edge_set_value</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="n">label_histogram</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="c1"># TODO consider using cv2.arcLength for this</span>
+                    <span class="n">label_length</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.414214</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">ix</span> <span class="o">-</span> <span class="n">px</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> \
+                                                       <span class="nb">abs</span><span class="p">(</span><span class="n">iy</span> <span class="o">-</span> <span class="n">py</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+                    <span class="n">new_queues</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">),</span> <span class="n">neighbors</span><span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">)))</span>
+                <span class="k">elif</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">label</span><span class="p">:</span>
+                    <span class="n">edges</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="nb">min</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">value</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">value</span><span class="p">)))</span>
+        <span class="n">queues</span> <span class="o">=</span> <span class="n">new_queues</span>
+
+    <span class="c1"># compute edge diameters</span>
+    <span class="n">diameters</span> <span class="o">=</span> <span class="n">distance_transform_diameter</span><span class="p">(</span><span class="n">edge_trace</span><span class="p">,</span> <span class="n">segmented</span><span class="p">)</span>
+    <span class="c1"># add edges to graph</span>
+    <span class="k">for</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">label_node</span><span class="p">[</span><span class="n">l1</span><span class="p">],</span> <span class="n">label_node</span><span class="p">[</span><span class="n">l2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">diameters</span><span class="p">[</span><span class="n">l1</span><span class="p">],</span> <span class="n">diameters</span><span class="p">[</span><span class="n">l2</span><span class="p">]</span>
+        <span class="n">diam</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">(</span><span class="n">chain</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">d2</span><span class="p">))</span>
+        <span class="n">graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">pixels</span><span class="o">=</span><span class="n">label_histogram</span><span class="p">[</span><span class="n">l1</span><span class="p">]</span> <span class="o">+</span> <span class="n">label_histogram</span><span class="p">[</span><span class="n">l2</span><span class="p">],</span>
+                       <span class="n">length</span><span class="o">=</span><span class="n">label_length</span><span class="p">[</span><span class="n">l1</span><span class="p">]</span> <span class="o">+</span> <span class="n">label_length</span><span class="p">[</span><span class="n">l2</span><span class="p">],</span>
+                       <span class="n">width</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">diam</span><span class="p">),</span>
+                       <span class="n">width_var</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">diam</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">graph</span></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>model.algorithms._utility &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>model.algorithms._utility</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for model.algorithms._utility</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Various help functions for processing results.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">__authors__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Martino Bruni&quot;</span><span class="p">:</span> <span class="s2">&quot;bruni.martino92@gmail.com&quot;</span><span class="p">}</span>
+
+<span class="n">NODESIZESCALING</span> <span class="o">=</span> <span class="mi">750</span>
+
+
+<div class="viewcode-block" id="draw_graph"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._utility.draw_graph">[docs]</a><span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">graph</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw the graph on the image by traversing the graph structure.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        | *image* : the image where the graph needs to be drawn</span>
+<span class="sd">        | *graph* : the *.txt file containing the graph information</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">draw_edges</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">graph</span><span class="p">)</span>
+    <span class="n">node_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">ceil</span><span class="p">((</span><span class="nb">max</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">NODESIZESCALING</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">draw_nodes</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">node_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="draw_nodes"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._utility.draw_nodes">[docs]</a><span class="k">def</span> <span class="nf">draw_nodes</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw all nodes on the input image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        | *img* : Input image where nodes are drawn</span>
+<span class="sd">        | *graph* : Input graph containing the nodes</span>
+
+<span class="sd">    Kwargs:</span>
+<span class="sd">        | *radius* : Radius of drawn nodes</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Input image img with nodes drawn into it</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">nodes_iter</span><span class="p">():</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="n">radius</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">radius</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">radius</span><span class="p">),</span>
+                     <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img</span></div>
+
+
+<div class="viewcode-block" id="draw_edges"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._utility.draw_edges">[docs]</a><span class="k">def</span> <span class="nf">draw_edges</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw network edges on the input image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        | *img* : Input image where edges are drawn</span>
+<span class="sd">        | *graph* : Input graph containing the edges</span>
+<span class="sd">    Kwargs:</span>
+<span class="sd">        | *col* : colour for drawing</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Input image img with nodes drawn into it</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">edg_img</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">edges_iter</span><span class="p">():</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+        <span class="n">diam</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># thickness of red edges, graph[(x1, y1)][(x2, y2)][&#39;width&#39;]</span>
+        <span class="k">if</span> <span class="n">diam</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">diam</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># thickness of red edges</span>
+        <span class="n">diam</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">diam</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">diam</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Warning: edge diameter too large for display.&#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Diameter has been reset.&#39;</span><span class="p">)</span>
+            <span class="c1"># diam = 255</span>
+            <span class="n">diam</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># thickness of red edges</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">edg_img</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">diam</span><span class="p">)</span>
+    <span class="n">edg_img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">addWeighted</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">edg_img</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">edg_img</span></div>
+
+
+<div class="viewcode-block" id="check_operator"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._utility.check_operator">[docs]</a><span class="k">def</span> <span class="nf">check_operator</span><span class="p">(</span><span class="n">operator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts the string value of the DropDown element in operator object</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        | *operator* : DropDown object from the algorithm class</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        | *op_object*: operator object converted</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">op_object</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Strictly smaller&quot;</span><span class="p">:</span>
+        <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span>
+    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Smaller or equal&quot;</span><span class="p">:</span>
+        <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span>
+    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Equal&quot;</span><span class="p">:</span>
+        <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">eq</span>
+    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Greater or equal&quot;</span><span class="p">:</span>
+        <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">ge</span>
+    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Strictly greater&quot;</span><span class="p">:</span>
+        <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span>
+    <span class="k">return</span> <span class="n">op_object</span></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

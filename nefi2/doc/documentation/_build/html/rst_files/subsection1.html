@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/> 
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
+        <link rel="up" title="model" href="Autogen.html"/>
+        <link rel="next" title="algorithms" href="subsection2.html"/>
+        <link rel="prev" title="model" href="Autogen.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -79,11 +82,25 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Development.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Categories_Contribution.html">Categories Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_Pipeline.html">Pipeline Creation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Code.html">CodeBase</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Autogen.html">model</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="Autogen.html#module-model.pipeline">pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Autogen.html#module-model.ext_loader">ext_loader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Autogen.html#view">view</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
@@ -115,6 +132,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
+          <li><a href="Development.html">Development</a> &raquo;</li>
+      
+          <li><a href="Code.html">CodeBase</a> &raquo;</li>
+      
+          <li><a href="Autogen.html">model</a> &raquo;</li>
+      
     <li>categories</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -135,7 +158,7 @@
 <span id="gfiltering"></span><h2>gfiltering<a class="headerlink" href="#module-model.categories.gfiltering" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="model.categories.gfiltering.CatBody">
-<em class="property">class </em><code class="descclassname">model.categories.gfiltering.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.gfiltering.CatBody" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.categories.gfiltering.</code><code class="descname">CatBody</code><a class="reference internal" href="../_modules/model/categories/gfiltering.html#CatBody"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories.gfiltering.CatBody" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
 <p>Implementation of the category graph filtering</p>
 </dd></dl>
@@ -145,7 +168,7 @@
 <span id="preprocessing"></span><h2>preprocessing<a class="headerlink" href="#module-model.categories.preprocessing" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="model.categories.preprocessing.CatBody">
-<em class="property">class </em><code class="descclassname">model.categories.preprocessing.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.preprocessing.CatBody" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.categories.preprocessing.</code><code class="descname">CatBody</code><a class="reference internal" href="../_modules/model/categories/preprocessing.html#CatBody"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories.preprocessing.CatBody" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
 <p>Implementation of the category preprocessing</p>
 </dd></dl>
@@ -155,19 +178,19 @@
 <span id="category"></span><h2>_category<a class="headerlink" href="#module-model.categories._category" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="model.categories._category.Category">
-<em class="property">class </em><code class="descclassname">model.categories._category.</code><code class="descname">Category</code><span class="sig-paren">(</span><em>name</em>, <em>icon=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.categories._category.</code><code class="descname">Category</code><span class="sig-paren">(</span><em>name</em>, <em>icon=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents image processing method that contains its respective
 algorithms. Its main function is controlling an algorithm, collecting and
 transmitting the output to the pipeline. It serves as an intermediate layer
 between the algorithms and the pipeline.</p>
 <dl class="method">
 <dt id="model.categories._category.Category.copy_alg">
-<code class="descname">copy_alg</code><span class="sig-paren">(</span><em>alg_name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.copy_alg" title="Permalink to this definition">¶</a></dt>
+<code class="descname">copy_alg</code><span class="sig-paren">(</span><em>alg_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.copy_alg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.copy_alg" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="model.categories._category.Category.get_active_algorithm">
-<code class="descname">get_active_algorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.get_active_algorithm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_active_algorithm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.get_active_algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.get_active_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of the currently set algorithm.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -177,7 +200,7 @@ between the algorithms and the pipeline.</p>
 
 <dl class="method">
 <dt id="model.categories._category.Category.get_icon">
-<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.get_icon" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.get_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.get_icon" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
@@ -189,7 +212,7 @@ between the algorithms and the pipeline.</p>
 
 <dl class="method">
 <dt id="model.categories._category.Category.get_name">
-<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.get_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.get_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Substitute spaces with underscores.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -199,7 +222,7 @@ between the algorithms and the pipeline.</p>
 
 <dl class="method">
 <dt id="model.categories._category.Category.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run a specific algorithm on the image.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -209,7 +232,7 @@ between the algorithms and the pipeline.</p>
 
 <dl class="method">
 <dt id="model.categories._category.Category.set_active_algorithm">
-<code class="descname">set_active_algorithm</code><span class="sig-paren">(</span><em>alg_name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.set_active_algorithm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_active_algorithm</code><span class="sig-paren">(</span><em>alg_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.set_active_algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.set_active_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Explicitly set an algorithm for current method.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -219,7 +242,7 @@ between the algorithms and the pipeline.</p>
 
 <dl class="method">
 <dt id="model.categories._category.Category.set_icon">
-<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.set_icon" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.set_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.set_icon" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -231,7 +254,7 @@ between the algorithms and the pipeline.</p>
 
 <dl class="method">
 <dt id="model.categories._category.Category.set_name">
-<code class="descname">set_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.categories._category.Category.set_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/categories/_category.html#Category.set_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories._category.Category.set_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a category name that will be displayed in UI.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -246,7 +269,7 @@ between the algorithms and the pipeline.</p>
 <span id="gdetection"></span><h2>gdetection<a class="headerlink" href="#module-model.categories.gdetection" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="model.categories.gdetection.CatBody">
-<em class="property">class </em><code class="descclassname">model.categories.gdetection.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.gdetection.CatBody" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.categories.gdetection.</code><code class="descname">CatBody</code><a class="reference internal" href="../_modules/model/categories/gdetection.html#CatBody"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories.gdetection.CatBody" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
 <p>Implementation of the category graph detection</p>
 </dd></dl>
@@ -256,7 +279,7 @@ between the algorithms and the pipeline.</p>
 <span id="segmentation"></span><h2>segmentation<a class="headerlink" href="#module-model.categories.segmentation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="model.categories.segmentation.CatBody">
-<em class="property">class </em><code class="descclassname">model.categories.segmentation.</code><code class="descname">CatBody</code><a class="headerlink" href="#model.categories.segmentation.CatBody" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.categories.segmentation.</code><code class="descname">CatBody</code><a class="reference internal" href="../_modules/model/categories/segmentation.html#CatBody"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.categories.segmentation.CatBody" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#model.categories._category.Category" title="model.categories._category.Category"><code class="xref py py-class docutils literal"><span class="pre">model.categories._category.Category</span></code></a></p>
 <p>Implementation of the category segmentation</p>
 </dd></dl>
@@ -268,6 +291,15 @@ between the algorithms and the pipeline.</p>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="subsection2.html" class="btn btn-neutral float-right" title="algorithms" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Autogen.html" class="btn btn-neutral" title="model" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

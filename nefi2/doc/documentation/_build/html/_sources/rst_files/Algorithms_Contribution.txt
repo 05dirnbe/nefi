@@ -1,8 +1,10 @@
+.. _alg_contrib:
+
 Algorithms Creation
 ===================
 
 As previously mentioned, NEFI2 is not just a pipeline of hardcoded **Categories** and **Algorithms** which execute one single task.
-It can be customized and extended such that it is no longer a Graph extraction but an image reduction and enchancement pipeline.
+It can be customized and extended such that it is no longer a Graph extraction but an image reduction and enhancement pipeline.
 This all means that you can add new **Algorithms** or new **Categories** (see :ref:`add_cats`) with ease.
 
 Say, you want to move (redefine) some **Algorithm** to any other **Category**.
@@ -89,7 +91,7 @@ Specify them: ``self.ratio = IntegerSlider("Reduction ratio", 1, 100, 1, 50)``.
 And finally add your QT widget to predefined ``self.integer_sliders`` container: ``self.integer_sliders.append(self.ratio)``
 
 **5.** Rename your ``resize()`` function to ``process(self)``.
-You can leave your function as it is, of course, but ``process(self)`` must be present and handle the results of your ``resize()`` function accrodingly.
+You can leave your function as it is, of course, but ``process(self)`` must be present and handle the results of your ``resize()`` function accordingly.
 Function ``process()`` is called by NEFI2 on your image data and saves the results of the **Algorithm** in a special variable ``self.result = {"img": None, "graph": None}``.
 Make sure you have the results of your algorithm correctly assigned to this variable otherwise your algorithm won't work::
 

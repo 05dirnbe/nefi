@@ -35,13 +35,13 @@ Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
 
 ::
 
-  git clone https://github.com/Itseezopencv.git
-  git checkout 3.1.0
-  mkdir relase
-  cd relase
-  cmake -D CMAKE_BUILD_TYPE=RELASE -D CMAKE_INSTALL_PREFIX=$ (python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..
-  make j4
-  sudo make install
+    git clone https://github.com/Itseez/opencv.git
+    git checkout 3.1.0a
+    mkdir release
+    cd release
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..
+    make -j4
+    sudo make install
 
 If everything goes well, you can run NEFI2 by ???
 
@@ -71,9 +71,8 @@ If not, try manually installing all the dependencies via **pip3**.
 `PyQt5 <https://www.riverbankcomputing.com/software/pyqt/download5>`_
 +++++++++++++
 
-::
+Install **python-pyqt5** using your package manager.
 
-  sudo pip3 install PyQt5
 
 `OpenCV <http://opencv.org/>`_
 +++++++++++++
@@ -84,7 +83,6 @@ Unfortunately there are no available binaries, you'll need to compile them from 
 ::
 
     git clone https://github.com/Itseez/opencv.git
-    git checkout 3.1.0
     mkdir release
     cd release
     cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python3) ..

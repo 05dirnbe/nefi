@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>model.algorithms.watershed_dilation_erosion_otsu &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>model.algorithms.watershed_dilation_erosion_otsu</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for model.algorithms.watershed_dilation_erosion_otsu</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">_alg</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="n">__authors__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Sebastian Schattner&quot;</span><span class="p">:</span> <span class="s2">&quot;s9sescat@stud.uni-saarland.de&quot;</span><span class="p">}</span>
+
+
+<span class="c1"># Segmentation routines</span>
+
+<span class="n">THRESHOLD_FG_COLOR</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">THRESHOLD_BG_COLOR</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># markers for grabcut, watershed denoting sure-fg, sure-bg and let-the-algorithm-figure-it-out</span>
+<span class="n">FG_MARKER</span> <span class="o">=</span> <span class="mi">255</span>
+<span class="n">BG_MARKER</span> <span class="o">=</span> <span class="mi">150</span>
+<span class="n">UNDECIDED_MARKER</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="AlgBody"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.watershed_dilation_erosion_otsu.AlgBody">[docs]</a><span class="k">class</span> <span class="nc">AlgBody</span><span class="p">(</span><span class="n">Algorithm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Watershed algorithm implementation with dilation, erosion and adaptive threshold marker.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Instance vars:</span>
+<span class="sd">            | *name* : name of the algorithm</span>
+<span class="sd">            | *parent* : name of the appropriate category</span>
+<span class="sd">            | *fg_iter* : Number of foreground iterations for markers</span>
+<span class="sd">            | *bg_iter* : Number of background iterations for markers</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Algorithm</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Watershed DE Otsus&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;Segmentation&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fg_iter</span> <span class="o">=</span> <span class="n">IntegerSlider</span><span class="p">(</span><span class="s2">&quot;Foreground Iteration&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bg_iter</span> <span class="o">=</span> <span class="n">IntegerSlider</span><span class="p">(</span><span class="s2">&quot;Background Iteration&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integer_sliders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fg_iter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integer_sliders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_iter</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AlgBody.process"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.watershed_dilation_erosion_otsu.AlgBody.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use the Watershed algorithm from the opencv package to the current</span>
+<span class="sd">        image with the help of marker based ob dilation, erosion and</span>
+<span class="sd">        adaptive threshold.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *args* : a list of arguments, e.g. image ndarray</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">marker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">erosion_dilation_marker</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                              <span class="n">erosion_iterations</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fg_iter</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                                              <span class="n">dilation_iterations</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bg_iter</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                                              <span class="n">threshold_strategy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">otsus_threshold</span><span class="p">)</span>
+        <span class="n">watershed_marker</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">watershed</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">)</span>
+        <span class="n">seg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_mask_to_image</span><span class="p">(</span><span class="n">watershed_marker</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;img&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">seg</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AlgBody.apply_mask_to_image"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.watershed_dilation_erosion_otsu.AlgBody.apply_mask_to_image">[docs]</a>    <span class="k">def</span> <span class="nf">apply_mask_to_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs the segmented image based on the original image and the mask.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: An input image which is not altered</span>
+<span class="sd">            mask: A mask containing foreground and background information</span>
+<span class="sd">        Returns:</span>
+<span class="sd">             A segmented image</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">mask</span> <span class="o">==</span> <span class="n">THRESHOLD_FG_COLOR</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">THRESHOLD_FG_COLOR</span><span class="p">]</span><span class="o">*</span><span class="mi">3</span>
+
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="AlgBody.otsus_threshold"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.watershed_dilation_erosion_otsu.AlgBody.otsus_threshold">[docs]</a>    <span class="k">def</span> <span class="nf">otsus_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">image</span><span class="p">,</span> <span class="n">threshold_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">threshold_type</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY_INV</span><span class="p">,</span> <span class="o">**</span><span class="n">_</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">greyscale_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">greyscale_image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="n">threshold_type</span> <span class="o">+=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_OTSU</span>
+        <span class="n">threshold_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">greyscale_image</span><span class="p">,</span> <span class="n">threshold_value</span><span class="p">,</span> <span class="n">THRESHOLD_FG_COLOR</span><span class="p">,</span> <span class="n">threshold_type</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">threshold_image</span></div>
+
+<div class="viewcode-block" id="AlgBody.erosion_dilation_marker"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.watershed_dilation_erosion_otsu.AlgBody.erosion_dilation_marker">[docs]</a>    <span class="k">def</span> <span class="nf">erosion_dilation_marker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">image</span><span class="p">,</span>
+        <span class="n">erosion_iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">dilation_iterations</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">threshold_strategy</span><span class="o">=</span><span class="n">otsus_threshold</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies morphological transformations to obtain the marker. The areas likely to be foreground</span>
+<span class="sd">        are obtained by erosion. The areas likely to be background are obtained by dilation.</span>
+<span class="sd">        The final marker is obtained by adding likely background to likely foreground where areas</span>
+<span class="sd">        not part of either are considered undecided.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            threshold_image: A properly thresholded image</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A marker subdividing image regions into likely foreground, likely background and undecided pixels</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">threshold_image</span> <span class="o">=</span> <span class="n">threshold_strategy</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="c1"># determine likely foreground by erosion</span>
+        <span class="n">foreground_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">erode</span><span class="p">(</span><span class="n">threshold_image</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="n">erosion_iterations</span><span class="p">)</span>
+
+        <span class="c1"># determine likely background by dilation</span>
+        <span class="n">background_image_tmp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">dilate</span><span class="p">(</span><span class="n">threshold_image</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="n">dilation_iterations</span><span class="p">)</span>
+        <span class="n">background_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">background_image_tmp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">BG_MARKER</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY_INV</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># regions not part of either likely foreground nor likely background are considered undecided</span>
+        <span class="n">marker</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">foreground_image</span><span class="p">,</span> <span class="n">background_image</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">marker</span></div>
+
+<div class="viewcode-block" id="AlgBody.watershed"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms.watershed_dilation_erosion_otsu.AlgBody.watershed">[docs]</a>    <span class="k">def</span> <span class="nf">watershed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">image</span><span class="p">,</span> <span class="n">marker</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies opencv&#39;s watershed method iteratively to an input image. An initial marker containing</span>
+<span class="sd">        preliminary information on which pixels are foreground serves as additional input.</span>
+<span class="sd">        The initial marker can be based on user input (color-picking), or can be constructed</span>
+<span class="sd">        with an automatic marker strategy. The marker decides from which pixels the flooding</span>
+<span class="sd">        in the watershed method may start. Finally, the marker is used to obtain a mask</span>
+<span class="sd">        classifying every pixel into foreground or background.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: An input image which is not altered</span>
+<span class="sd">            marker: A marer suitable for use with opencv&#39;s grabcut</span>
+<span class="sd">            iterations: The number of iterations grabcut may update the marker</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             A mask image classifying every pixel into foreground or background</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">marker</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="n">marker</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># convert the marker to the format watershed expects</span>
+        <span class="n">marker</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+
+        <span class="c1"># Use watershed to decide how to label the yet undecided regions.</span>
+        <span class="c1"># This may produce may foreground areas labeld with different integers.</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">watershed</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">marker</span><span class="p">)</span>
+
+        <span class="c1"># Obtain the final mask by thresholding. Different foreground regions have different positive values.</span>
+        <span class="c1"># We are only intrested in global foreground so we set all of them to be white, i.e. 255.</span>
+        <span class="n">mask_watershed</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">convertScaleAbs</span><span class="p">(</span><span class="n">marker</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">mask_watershed</span></div></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
