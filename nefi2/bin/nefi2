@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+
+import nefi2
+nefi2.gui_mode()
+

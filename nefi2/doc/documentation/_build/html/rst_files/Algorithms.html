@@ -83,7 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
@@ -131,22 +131,7 @@
             
   <div class="section" id="module-model.algorithms._alg">
 <span id="alg"></span><h1>_alg<a class="headerlink" href="#module-model.algorithms._alg" title="Permalink to this headline">¶</a></h1>
-<p>A module which contains all necessary information&#8217;s and features to create
-an additional implementation of algorithms.
-To contribute an algorithm implementation the contributor is needs to create
-a seperate &lt;algorithm_name&gt;.py in the algorithms folder. In &lt;algorithm_name&gt;.py
-he needs to create a class &#8220;class AlgBody(Algorithm):&#8221; which inherits from
-Algorithm.
-In order to give the ext_loader the possibility to dynamically invoke the
-algorithm definition, the contributor also needs to override the
-methods: process(self, image), get_name(self) and belongs_to(self).
-Additional UI input for the algorithm can be specified by creating
-IntegerSlider, FloatSlider, CheckBox or DropDown objects. These object
-instances need to be created by the constructor method __init__(self) of the
-algorithm implementation. E.g. we create a IntegerSlider in __init__(self)
-by calling the constructor of IntegerSlider and binding it to slider1 with
-&#8220;slider1 = IntegerSlider(self, &#8220;slider1&#8221;, 0, 10, 1, 0)&#8221; (see the IntegerSlider
-definition for further information)</p>
+<p>This is Algorithm master class and all algorithms must inherit from it.</p>
 <dl class="class">
 <dt id="model.algorithms._alg.Algorithm">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>

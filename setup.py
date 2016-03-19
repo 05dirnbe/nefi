@@ -92,15 +92,12 @@ setup(
     install_requires=['numpy>=1.9.1',
                       'networkx>=1.9.1',
                       'sip>=4.17',
-                      'PyQt5>=5.5.1',
                       'demjson>=2.2.4',
-                      'QDarkStyle>=2.1',
-                      'thinning_py3>=1.2.3'],
-    #cmdclass={'install': post_install}
+                      'QDarkStyle>=2.1'],
+    scripts=[
+        'nefi2/bin/nefi2'
+    ],
+
+    cmdclass={'install': post_install},
 
 )
-    #package_data={
-    #    'nefi2': [
-    #        'assets/css/*',
-    #        'assets/images/*',
-    #    },

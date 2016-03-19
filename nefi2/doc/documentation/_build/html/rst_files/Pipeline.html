@@ -83,7 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
@@ -131,7 +131,7 @@
             
   <div class="section" id="pipeline">
 <h1>Pipeline<a class="headerlink" href="#pipeline" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-model.pipeline"></span><p>This module contains the class Pipeline that represents a central control
+<span class="target" id="module-model.pipeline"></span><p>This module contains Pipeline class that represents a central control
 mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.</p>
@@ -387,7 +387,8 @@ currently allowed categories.</p>
 You can not execute graph filtering before graph detection or
 segmentation after graph filtering (graph filtering requires
 graph object which only graph detection produces).
-Therefor we check if the pipeline is in an illegal state before we execute it.a</p>
+Therefor we check if the pipeline is in an illegal state before we
+execute it.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
 <dd>(&#8220;&#8221;, -1) if the pipeline is NOT in an illegae state,

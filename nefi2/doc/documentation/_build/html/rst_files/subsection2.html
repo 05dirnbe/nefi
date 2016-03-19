@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/> 
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
+        <link rel="up" title="model" href="Autogen.html"/>
+        <link rel="next" title="Dependencies" href="Technologies.html"/>
+        <link rel="prev" title="categories" href="subsection1.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -79,11 +82,25 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Development.html">Extending</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="Development.html">Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Categories_Contribution.html">Categories Creation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Create_Pipeline.html">Pipeline Creation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Code.html">CodeBase</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="Autogen.html">model</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Autogen.html#module-model.pipeline">pipeline</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="Autogen.html#module-model.ext_loader">ext_loader</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Autogen.html#view">view</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
 </ul>
 
@@ -115,6 +132,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
+          <li><a href="Development.html">Development</a> &raquo;</li>
+      
+          <li><a href="Code.html">CodeBase</a> &raquo;</li>
+      
+          <li><a href="Autogen.html">model</a> &raquo;</li>
+      
     <li>algorithms</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -136,7 +159,7 @@
 <dl class="class">
 <dt id="model.algorithms.constant_threshold.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.constant_threshold.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.constant_threshold.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Constant Threshold implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.constant_threshold.AlgBody.process">
@@ -159,7 +182,7 @@
 <dl class="class">
 <dt id="model.algorithms.grabcut_dilation_erosion_otsu.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.grabcut_dilation_erosion_otsu.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.grabcut_dilation_erosion_otsu.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Grabcut - Dilation Erosion Otsu algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.grabcut_dilation_erosion_otsu.AlgBody.apply_mask_to_image">
@@ -257,7 +280,7 @@ varying illumination.</p>
 <dl class="class">
 <dt id="model.algorithms.adaptive.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.adaptive.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.adaptive.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Adaptive Threshold implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.adaptive.AlgBody.process">
@@ -280,7 +303,7 @@ varying illumination.</p>
 <dl class="class">
 <dt id="model.algorithms.watershed_distance_transform_otsu.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.watershed_distance_transform_otsu.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.watershed_distance_transform_otsu.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Watershed - Distance Transform Otsu implementation</p>
 <dl class="method">
 <dt id="model.algorithms.watershed_distance_transform_otsu.AlgBody.apply_mask_to_image">
@@ -357,7 +380,7 @@ iterations: The number of iterations grabcut may update the marker</dd>
 <dl class="class">
 <dt id="model.algorithms.connected_component_filter.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.connected_component_filter.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.connected_component_filter.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Connected Component Filter algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.connected_component_filter.AlgBody.process">
@@ -400,7 +423,7 @@ threshold connected component size is negative</div>
 <dl class="class">
 <dt id="model.algorithms.med_blur.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.med_blur.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.med_blur.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Median Blur algorithm implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.med_blur.AlgBody.process">
@@ -430,7 +453,7 @@ increase the number of connected components of the graph.</p>
 <dl class="class">
 <dt id="model.algorithms.simple_cycle.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.simple_cycle.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.simple_cycle.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Simple cycle filter implementation.</p>
 <dl class="staticmethod">
 <dt id="model.algorithms.simple_cycle.AlgBody.draw_edges">
@@ -482,7 +505,7 @@ a graph including only biconnected components.</p>
 <dl class="class">
 <dt id="model.algorithms.edge_attribute_filter.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.edge_attribute_filter.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.edge_attribute_filter.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Edge attribute filter algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.edge_attribute_filter.AlgBody.process">
@@ -526,7 +549,7 @@ the 4 largest.</p>
 <dl class="class">
 <dt id="model.algorithms.largest_connected.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.largest_connected.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.largest_connected.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Keep only largest connected component algorithm implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.largest_connected.AlgBody.process">
@@ -557,22 +580,7 @@ of components not to be removed is negative.</div>
 </div>
 <div class="section" id="module-model.algorithms._alg">
 <span id="alg"></span><h2>_alg<a class="headerlink" href="#module-model.algorithms._alg" title="Permalink to this headline">¶</a></h2>
-<p>A module which contains all necessary information&#8217;s and features to create
-an additional implementation of algorithms.
-To contribute an algorithm implementation the contributor is needs to create
-a seperate &lt;algorithm_name&gt;.py in the algorithms folder. In &lt;algorithm_name&gt;.py
-he needs to create a class &#8220;class AlgBody(Algorithm):&#8221; which inherits from
-Algorithm.
-In order to give the ext_loader the possibility to dynamically invoke the
-algorithm definition, the contributor also needs to override the
-methods: process(self, image), get_name(self) and belongs_to(self).
-Additional UI input for the algorithm can be specified by creating
-IntegerSlider, FloatSlider, CheckBox or DropDown objects. These object
-instances need to be created by the constructor method __init__(self) of the
-algorithm implementation. E.g. we create a IntegerSlider in __init__(self)
-by calling the constructor of IntegerSlider and binding it to slider1 with
-&#8220;slider1 = IntegerSlider(self, &#8220;slider1&#8221;, 0, 10, 1, 0)&#8221; (see the IntegerSlider
-definition for further information)</p>
+<p>This is Algorithm master class and all algorithms must inherit from it.</p>
 <dl class="class">
 <dt id="model.algorithms._alg.Algorithm">
 <em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
@@ -832,7 +840,7 @@ the official QT documentation.</p>
 <dl class="class">
 <dt id="model.algorithms.fast_nl_denoise.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.fast_nl_denoise.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.fast_nl_denoise.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Fast nl Means Denoising algorithm implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.fast_nl_denoise.AlgBody.process">
@@ -856,7 +864,7 @@ the current image.</p>
 <dl class="class">
 <dt id="model.algorithms.grabcut_distance_transform_otsu.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.grabcut_distance_transform_otsu.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.grabcut_distance_transform_otsu.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Grabcut - Distance Transform Otsu algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.grabcut_distance_transform_otsu.AlgBody.apply_mask_to_image">
@@ -943,7 +951,7 @@ adaptive threshold.</p>
 <dl class="class">
 <dt id="model.algorithms.gauss_blur.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.gauss_blur.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.gauss_blur.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Gaussian Blur algorithm implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.gauss_blur.AlgBody.process">
@@ -967,7 +975,7 @@ image.</p>
 <dl class="class">
 <dt id="model.algorithms.blur.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.blur.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.blur.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Blur algorithm implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.blur.AlgBody.process">
@@ -1089,7 +1097,7 @@ channels of the current image.</p>
 <dl class="class">
 <dt id="model.algorithms.fast_nl_denoise_color.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.fast_nl_denoise_color.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.fast_nl_denoise_color.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Fast nl Means Denoising Colored algorithm implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.fast_nl_denoise_color.AlgBody.process">
@@ -1104,7 +1112,7 @@ channels of the current image.</p>
 <dl class="class">
 <dt id="model.algorithms.bilateral.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.bilateral.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.bilateral.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Bilateral Filter algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.bilateral.AlgBody.process">
@@ -1128,7 +1136,7 @@ selected color channels of the current image.</p>
 <dl class="class">
 <dt id="model.algorithms.smooth_degree_two_nodes.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.smooth_degree_two_nodes.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.smooth_degree_two_nodes.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Smooth degree two nodes algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.smooth_degree_two_nodes.AlgBody.process">
@@ -1169,7 +1177,7 @@ not used, the optimal threshold is same as the threshold value you used.</p>
 <dl class="class">
 <dt id="model.algorithms.otsus.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.otsus.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.otsus.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Otsu&#8217;s threshold implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.otsus.AlgBody.process">
@@ -1192,7 +1200,7 @@ not used, the optimal threshold is same as the threshold value you used.</p>
 <dl class="class">
 <dt id="model.algorithms.watershed_dilation_erosion_otsu.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.watershed_dilation_erosion_otsu.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.watershed_dilation_erosion_otsu.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Watershed algorithm implementation with dilation, erosion and adaptive threshold marker.</p>
 <dl class="method">
 <dt id="model.algorithms.watershed_dilation_erosion_otsu.AlgBody.apply_mask_to_image">
@@ -1271,7 +1279,7 @@ Reduce image size using predefined ratio value.</p>
 <dl class="class">
 <dt id="model.algorithms.reduce_img.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.reduce_img.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.reduce_img.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>OpenCV image size reduction implementation</p>
 <dl class="method">
 <dt id="model.algorithms.reduce_img.AlgBody.process">
@@ -1296,7 +1304,7 @@ The code was adapted for NEFI2.</p>
 <dl class="class">
 <dt id="model.algorithms.guo_hall.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.guo_hall.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.guo_hall.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Guo Hall thinning implementation.</p>
 <dl class="method">
 <dt id="model.algorithms.guo_hall.AlgBody.process">
@@ -1368,7 +1376,7 @@ thus a node of degree &gt;=3 has been found.</p>
 <dl class="class">
 <dt id="model.algorithms.watershed_dilation_erosion_adaptive.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.watershed_dilation_erosion_adaptive.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.watershed_dilation_erosion_adaptive.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Watershed algorithm implementation with dilation, erosion and adaptive threshold marker.</p>
 <dl class="method">
 <dt id="model.algorithms.watershed_dilation_erosion_adaptive.AlgBody.adaptive_threshold">
@@ -1445,7 +1453,7 @@ iterations: The number of iterations grabcut may update the marker</dd>
 <dl class="class">
 <dt id="model.algorithms.color_enchance.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.color_enchance.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.color_enchance.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Color enhancement algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.color_enchance.AlgBody.compute_channels">
@@ -1465,7 +1473,7 @@ iterations: The number of iterations grabcut may update the marker</dd>
 <dl class="class">
 <dt id="model.algorithms.invert_color.AlgBody">
 <em class="property">class </em><code class="descclassname">model.algorithms.invert_color.</code><code class="descname">AlgBody</code><a class="headerlink" href="#model.algorithms.invert_color.AlgBody" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="subsection3.html#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#model.algorithms._alg.Algorithm" title="model.algorithms._alg.Algorithm"><code class="xref py py-class docutils literal"><span class="pre">model.algorithms._alg.Algorithm</span></code></a></p>
 <p>Invert Color algorithm implementation</p>
 <dl class="method">
 <dt id="model.algorithms.invert_color.AlgBody.process">
@@ -1489,6 +1497,15 @@ iterations: The number of iterations grabcut may update the marker</dd>
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Technologies.html" class="btn btn-neutral float-right" title="Dependencies" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="subsection1.html" class="btn btn-neutral" title="categories" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

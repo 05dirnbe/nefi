@@ -1,5 +1,5 @@
-Extending
-=========
+Development
+===========
 
 .. toctree::
 
