@@ -1,6 +1,6 @@
 #!/bin/bash
 # Install thinning module
-easy_install thinning_py3-1.2.3-py3.5-linux-x86_64.egg
+easy_install deps/thinning_py3-1.2.3-py3.5-linux-x86_64.egg
 # Compile opencv 3.1.0 for python3
 git clone https://github.com/Itseez/opencv.git
 cd opencv
