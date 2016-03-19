@@ -17,7 +17,7 @@ class CatBody(Category):
 
         """
         self.name = 'Graph Detection'
-        self.icon = "./assets/images/D.png"
+        self.icon = "./icons/D.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)
 

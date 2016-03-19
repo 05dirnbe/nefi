@@ -115,6 +115,11 @@ class ExtensionLoader:
         # sort the cats
         order = ['Preprocessing', 'Segmentation', 'Graph Detection',
                  'Graph Filtering']
+        # in case we have custom cats, add them
+        for cat in cats_inst:
+            if cat.name not in order:
+                order.append(cat.name)
+
         cats_inst.sort(key=lambda x: order.index(x.name))
         # create a dict of {Category name: Category instance}
         cats = od()

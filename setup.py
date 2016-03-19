@@ -8,14 +8,11 @@ Usage:
 """
 import os
 import subprocess as sb
-from distutils.core import setup
-# To use a consistent encoding
-import codecs
-from os import path
+from setuptools import setup, find_packages
 from setuptools.command.install import install
 
 
-HERE = path.abspath(path.dirname(__file__))
+HERE = os.path.abspath(os.path.dirname(__file__))
 
 
 class post_install(install):
@@ -27,11 +24,17 @@ class post_install(install):
 
 
 # Get the long description from the README file
-with open(path.join(HERE, 'README.md')) as f:
+with open(os.path.join(HERE, 'README.md')) as f:
     long_description = f.read()
 
 setup(
     name='NEFI2',
+
+    #entry_points = {
+    #    'console_scripts': [
+    #        'command-name = main:gui_mode',
+    #    ],
+    #},
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -83,24 +86,26 @@ setup(
         'License :: OSI Approved :: BSD License',
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 3.4 :: Only'
+        'Programming Language :: Python :: 3 :: Only'
     ],
 
     keywords='graph extraction',
     packages=['nefi2'],
 
-    install_requires=['numpy>=1.9.1',
-                      'networkx>=1.9.1',
-                      'sip>=4.17',
-                      'PyQt5>=5.5.1',
-                      'demjson>=2.2.4',
-                      'QDarkStyle>=2.1',
-                      'thinning_py3>=1.2.3'],
-    #cmdclass={'install': post_install}
+    #packages=find_packages(exclude=["doc", "unittests", "tests", "build", "deps", "nefi2.komodoproject"]),
 
-)
+    install_requires=['numpy>=1.10.4',
+                      'networkx>=1.11',
+                      'demjson>=2.2.4',
+                      'QDarkStyle>=2.1'],
+
+    scripts=['nefi2/run_nefi2'],
+
+    #cmdclass={'install': post_install},
+
     #package_data={
-    #    'nefi2': [
-    #        'assets/css/*',
-    #        'assets/images/*',
-    #    },
+    #    '.': ['data/default_pipelines/*.json',
+    #              'icons/*.png',
+    #              'icons/*.ico'],
+    #}
+)

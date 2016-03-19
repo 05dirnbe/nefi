@@ -39,7 +39,7 @@ There are 3 main components in NEFI2 that you need to know about: **Pipeline**, 
   |
   | *Bilateral* --> Bilateral Filter (P)
   | *Blur*  -->   Blur (P)
-  | *Color Enchance* --> Color Enchancement (P)
+  | *Color Enhance* --> Color Enhancement (P)
   | *Gauss Blur* --> Gaussian Blur (P)
   | *FM Denoise* --> Fast nl Means Denoising (P)
   | *FM Denoise Color* --> Fast nl Means Denoising Colored (P)
@@ -48,7 +48,7 @@ There are 3 main components in NEFI2 that you need to know about: **Pipeline**, 
   |
   | *Adaptive* --> Adaptive Threshold (S)
   | *Constant* --> Constant Threshold (S)
-  | *Grabcut DE Otsus* --> Grabcut - Dilation Erosion Otsu (S)
+  | *Grabcut DE Otsus* --> Grabcut - Dilation Erosion Otsus (S)
   | *Grabcut DT Otsus* --> Grabcut with Distance Transform and Otsu's Threshold (S)
   | *Otsus* --> Otsu's Threshold (S)
   | *Watershed DE Adaptive* --> Watershed with Dilation, Erosion and Adaptive Threshold (S)

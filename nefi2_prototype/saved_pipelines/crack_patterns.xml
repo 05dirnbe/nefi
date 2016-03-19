@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Settings for default pipeline -->
-<pipeline>
-    <settings method="Segmentation" alg="Otsus Threshold"/>
-    <settings method="Graph detection" alg="Guo Hall graph detector"/>
-    <settings method="Graph filtering" alg="Keep only largest connected component"/>
-</pipeline>
