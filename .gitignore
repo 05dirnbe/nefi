@@ -27,4 +27,8 @@ NEFI2.komodoproject
 /gui_prototypes/Dennis/new/__pycache__/
 /Pavels_pipeline_sanity_test/__pycache__/
 /nefi2/_cache_/
-
+/build/nefi2_win_amd64_msvc_2015/pyqtdeploy/build
+/build/nefi2_win_amd64_msvc_2015/bin/model/algorithms/__pycache__/
+/build/nefi2_win_amd64_msvc_2015/bin/model/categories/__pycache__/
+/build/nefi2_win_amd64_msvc_2015/bin/_cache_/
+/build/nefi2_win_amd64_msvc_2015/bin/output/
