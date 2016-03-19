@@ -88,7 +88,10 @@
 <li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="Development.html">Development</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="Algorithms_Contribution.html">Algorithms Creation</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Categories Creation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Categories Creation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tutorial">Tutorial</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="Create_Pipeline.html">Pipeline Creation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Code.html">CodeBase</a></li>
 </ul>
@@ -142,6 +145,44 @@
             
   <div class="section" id="categories-creation">
 <span id="add-cats"></span><h1>Categories Creation<a class="headerlink" href="#categories-creation" title="Permalink to this headline">¶</a></h1>
+<p>Even though the default <em>Preprocessing</em>, <em>Segmentation</em>, <em>Graph Detection</em>, <em>Graph Filtering</em> categories should be enough for an image processing pipeline.
+You might want to add a custom one, for example, for testing purposes.
+NEFI2 <strong>Category</strong> is a simple container for the <strong>Algorithms</strong>.
+Whenever a new <strong>Category</strong> appears in <code class="docutils literal"><span class="pre">model/categories</span></code> directory it is automatically loaded and displayed in the UI.</p>
+<p>Let&#8217;s go through a small tutorial.</p>
+<div class="section" id="tutorial">
+<h2>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>So, you decided to add a new <strong>Category</strong> which will be called &#8220;Testing&#8221;.</p>
+<ol class="arabic simple">
+<li>Goto <code class="docutils literal"><span class="pre">model/categories</span></code> directory and create a file <strong>testing.py</strong></li>
+<li>Use <strong>Category</strong> header code below and paste it into <strong>testing.py</strong>.</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">_category</span> <span class="kn">import</span> <span class="n">Category</span>
+
+
+<span class="k">class</span> <span class="nc">CatBody</span><span class="p">(</span><span class="n">Category</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;My Testing category&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">Category</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">icon</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Define the name: <code class="docutils literal"><span class="pre">self.name</span> <span class="pre">=</span> <span class="pre">&quot;Testing&quot;</span></code> and the icon which this category shall use (optional): <code class="docutils literal"><span class="pre">self.icon</span> <span class="pre">=</span> <span class="pre">&quot;./assets/images/P.png&quot;</span></code>.</li>
+</ol>
+<p>This is it! Test it by running NEFI2.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/tutorial2.png"><img alt="../_images/tutorial2.png" src="../_images/tutorial2.png" style="width: 304.3px; height: 420.75px;" /></a>
+</div>
+<p>In order to add an existing <strong>Algorithm</strong> to this new <strong>Category</strong>, replace <code class="docutils literal"><span class="pre">self.parent</span> <span class="pre">=</span> <span class="pre">&quot;Preprocessing&quot;</span></code> to <code class="docutils literal"><span class="pre">self.parent</span> <span class="pre">=</span> <span class="pre">&quot;Testing&quot;</span></code> in the algorithm class constructor.
+For more details, see section <a class="reference internal" href="Algorithms_Contribution.html#alg-contrib"><span>Algorithms Creation</span></a>.</p>
+</div>
 </div>
 
 

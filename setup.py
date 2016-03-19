@@ -13,7 +13,7 @@ from distutils.core import setup
 import codecs
 from os import path
 from setuptools.command.install import install
-
+from setuptools import find_packages
 
 HERE = path.abspath(path.dirname(__file__))
 
@@ -89,15 +89,19 @@ setup(
     keywords='graph extraction',
     packages=['nefi2'],
 
+    #packages=find_packages(exclude=["doc", "unittests", "tests"]),
+
     install_requires=['numpy>=1.9.1',
                       'networkx>=1.9.1',
                       'sip>=4.17',
                       'demjson>=2.2.4',
                       'QDarkStyle>=2.1'],
-    scripts=[
-        'nefi2/bin/nefi2'
-    ],
+
+    #scripts=['nefi2/nefi2'],
 
     cmdclass={'install': post_install},
 
+    package_data={
+        'nefi2': ['data/default_pipelines/*.json'],
+    }
 )

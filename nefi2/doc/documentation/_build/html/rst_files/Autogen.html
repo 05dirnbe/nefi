@@ -164,31 +164,31 @@ available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.</p>
 <dl class="class">
 <dt id="model.pipeline.CacheAddEvent">
-<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">CacheAddEvent</code><span class="sig-paren">(</span><em>cat</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.CacheAddEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">CacheAddEvent</code><span class="sig-paren">(</span><em>cat</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#CacheAddEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.CacheAddEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This event is used to report the maincontroller the new cached image</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="model.pipeline.CacheInputEvent">
-<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">CacheInputEvent</code><span class="sig-paren">(</span><em>image_name</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.CacheInputEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">CacheInputEvent</code><span class="sig-paren">(</span><em>image_name</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#CacheInputEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.CacheInputEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This event is used to report the maincontroller the new cached image</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="model.pipeline.CacheRemoveEvent">
-<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">CacheRemoveEvent</code><span class="sig-paren">(</span><em>cat</em>, <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.CacheRemoveEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">CacheRemoveEvent</code><span class="sig-paren">(</span><em>cat</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#CacheRemoveEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.CacheRemoveEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This event is used to report the maincontroller the new cached image</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="model.pipeline.Pipeline">
-<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">Pipeline</code><span class="sig-paren">(</span><em>categories</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">Pipeline</code><span class="sig-paren">(</span><em>categories</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="model.pipeline.Pipeline.allow_cat_swap">
-<code class="descname">allow_cat_swap</code><span class="sig-paren">(</span><em>pos1</em>, <em>pos2</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.allow_cat_swap" title="Permalink to this definition">¶</a></dt>
+<code class="descname">allow_cat_swap</code><span class="sig-paren">(</span><em>pos1</em>, <em>pos2</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.allow_cat_swap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.allow_cat_swap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check the order after potential category swapping and return a bool if
 it should be allowed or not.</p>
 <dl class="docutils">
@@ -202,7 +202,7 @@ it should be allowed or not.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.change_algorithm">
-<code class="descname">change_algorithm</code><span class="sig-paren">(</span><em>alg_name</em>, <em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.change_algorithm" title="Permalink to this definition">¶</a></dt>
+<code class="descname">change_algorithm</code><span class="sig-paren">(</span><em>alg_name</em>, <em>position</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.change_algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.change_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the algorithm of the category in position to modified = <em>True</em>.
 Also change the selected algorithm of the category in position.</p>
 <dl class="docutils">
@@ -217,7 +217,7 @@ Also change the selected algorithm of the category in position.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.change_category">
-<code class="descname">change_category</code><span class="sig-paren">(</span><em>cat_name</em>, <em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.change_category" title="Permalink to this definition">¶</a></dt>
+<code class="descname">change_category</code><span class="sig-paren">(</span><em>cat_name</em>, <em>position</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.change_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.change_category" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the type of the category at position in the executed_cats.
 This is needed for the ui since the categorys in the executed_cats
 need to be changed because of the dropdown menus.</p>
@@ -233,7 +233,7 @@ need to be changed because of the dropdown menus.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.delete_category">
-<code class="descname">delete_category</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.delete_category" title="Permalink to this definition">¶</a></dt>
+<code class="descname">delete_category</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.delete_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.delete_category" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove Category from the pipeline.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -243,7 +243,7 @@ need to be changed because of the dropdown menus.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_algorithm_list">
-<code class="descname">get_algorithm_list</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_algorithm_list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_algorithm_list</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_algorithm_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_algorithm_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get names of all available algorithms for the category in position
 available in the pipeline.
 Sort the list and return.</p>
@@ -257,7 +257,7 @@ Sort the list and return.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_all_algorithm_list">
-<code class="descname">get_all_algorithm_list</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_all_algorithm_list" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_all_algorithm_list</code><span class="sig-paren">(</span><em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_all_algorithm_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_all_algorithm_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get names of all available algorithms for a given category.
 Sort the list and return.</p>
 <dl class="docutils">
@@ -270,7 +270,7 @@ Sort the list and return.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_available_cat_names">
-<code class="descname">get_available_cat_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_available_cat_names" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_available_cat_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_available_cat_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_available_cat_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return a list of currently loaded categories as strings.
 Names are used as keys in <code class="docutils literal"><span class="pre">executed_cats</span></code> list.</p>
 <dl class="docutils">
@@ -281,7 +281,7 @@ Names are used as keys in <code class="docutils literal"><span class="pre">execu
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_available_cats">
-<code class="descname">get_available_cats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_available_cats" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_available_cats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_available_cats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_available_cats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return a list of currently available categories as list of
 categorie objects.</p>
 <p><em>&lt;Get your cat for free ^-_-^&gt;</em></p>
@@ -293,7 +293,7 @@ categorie objects.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_category">
-<code class="descname">get_category</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_category" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_category</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_category" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keys are the names of the categories.</p>
 <dl class="docutils">
 <dt>Returns:</dt>
@@ -303,7 +303,7 @@ categorie objects.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_executed_cats">
-<code class="descname">get_executed_cats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_executed_cats" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_executed_cats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_executed_cats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_executed_cats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and return a list of currently executed categories.</p>
 <p><em>No cats are actually harmed during execution of this method &gt;_&lt;</em></p>
 <dl class="docutils">
@@ -314,7 +314,7 @@ categorie objects.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_index">
-<code class="descname">get_index</code><span class="sig-paren">(</span><em>cat</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_index" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_index</code><span class="sig-paren">(</span><em>cat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the index of a given Category entry from the pipeline.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -332,7 +332,7 @@ categorie objects.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.get_results_fname">
-<code class="descname">get_results_fname</code><span class="sig-paren">(</span><em>img_fpath</em>, <em>cat</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.get_results_fname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_results_fname</code><span class="sig-paren">(</span><em>img_fpath</em>, <em>cat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.get_results_fname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.get_results_fname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a file name for algorithm results.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -348,7 +348,7 @@ categorie objects.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.load_pipeline_json">
-<code class="descname">load_pipeline_json</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.load_pipeline_json" title="Permalink to this definition">¶</a></dt>
+<code class="descname">load_pipeline_json</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.load_pipeline_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.load_pipeline_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads the Pipeline from the url location and parses all data to
 create the corresponding executed_cats</p>
 <dl class="docutils">
@@ -362,7 +362,7 @@ create the corresponding executed_cats</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.move_category">
-<code class="descname">move_category</code><span class="sig-paren">(</span><em>origin_pos</em>, <em>destination_pos</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.move_category" title="Permalink to this definition">¶</a></dt>
+<code class="descname">move_category</code><span class="sig-paren">(</span><em>origin_pos</em>, <em>destination_pos</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.move_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.move_category" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move Category instance within the pipeline using indices.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -376,7 +376,7 @@ create the corresponding executed_cats</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.new_category">
-<code class="descname">new_category</code><span class="sig-paren">(</span><em>position</em>, <em>cat_name=None</em>, <em>alg_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.new_category" title="Permalink to this definition">¶</a></dt>
+<code class="descname">new_category</code><span class="sig-paren">(</span><em>position</em>, <em>cat_name=None</em>, <em>alg_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.new_category"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.new_category" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is used by the json parser to create a category.
 The parser knows already the cat type and alg type as well
 as the position. So it doesnt make sense to create a blank and
@@ -394,7 +394,7 @@ change it.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.process">
-<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process input image selected in UI, save intermediate results in
 _cache_ and enable pipeline recalculation from the category that was
 first changed.
@@ -405,14 +405,14 @@ to IO operations on the _cache_ directory.&gt;</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.process_batch">
-<code class="descname">process_batch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.process_batch" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process_batch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.process_batch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.process_batch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process a given image or a directory of images using predefined
 pipeline.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.report_available_cats">
-<code class="descname">report_available_cats</code><span class="sig-paren">(</span><em>selected_cat=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.report_available_cats" title="Permalink to this definition">¶</a></dt>
+<code class="descname">report_available_cats</code><span class="sig-paren">(</span><em>selected_cat=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.report_available_cats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.report_available_cats" title="Permalink to this definition">¶</a></dt>
 <dd><p>The order of the categories is important in the pipeline.
 You can not execute graph filtering before graph detection or
 segmentation after graph filtering (graph filtering requires
@@ -430,7 +430,7 @@ currently allowed categories.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.sanity_check">
-<code class="descname">sanity_check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.sanity_check" title="Permalink to this definition">¶</a></dt>
+<code class="descname">sanity_check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.sanity_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.sanity_check" title="Permalink to this definition">¶</a></dt>
 <dd><p>The order of the categories is important in the pipeline.
 You can not execute graph filtering before graph detection or
 segmentation after graph filtering (graph filtering requires
@@ -446,7 +446,7 @@ execute it.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.save_pipeline_json">
-<code class="descname">save_pipeline_json</code><span class="sig-paren">(</span><em>name</em>, <em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.save_pipeline_json" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save_pipeline_json</code><span class="sig-paren">(</span><em>name</em>, <em>url</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.save_pipeline_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.save_pipeline_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Goes trough the list of executed_cats and calls for every
 selected_algorithm its report_pip method. With the returned
 dictionary&#8217;s, it builds the pipeline.json file and stores it
@@ -462,7 +462,7 @@ at the given url location on the file system.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.save_results">
-<code class="descname">save_results</code><span class="sig-paren">(</span><em>save_path</em>, <em>image_name</em>, <em>results</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.save_results" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save_results</code><span class="sig-paren">(</span><em>save_path</em>, <em>image_name</em>, <em>results</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.save_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.save_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a directory of the following format: current pipeline + fname.
 Save and put the results of algorithm processing in the directory.</p>
 <dl class="docutils">
@@ -478,7 +478,7 @@ Save and put the results of algorithm processing in the directory.</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.set_cache">
-<code class="descname">set_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.set_cache" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.set_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.set_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create cache dir in order to save in it the intermediate results of
 processing and an original image.
 Recreate dir if exists or before running image processing.
@@ -487,7 +487,7 @@ Recreate dir if exists or before running image processing.
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.set_input">
-<code class="descname">set_input</code><span class="sig-paren">(</span><em>input_source</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.set_input" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_input</code><span class="sig-paren">(</span><em>input_source</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.set_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.set_input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the directory where original images are located or set a file path.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -498,7 +498,7 @@ single file path</dd>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.set_output_dir">
-<code class="descname">set_output_dir</code><span class="sig-paren">(</span><em>dir_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.set_output_dir" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_output_dir</code><span class="sig-paren">(</span><em>dir_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.set_output_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.set_output_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create and set the directory where to save the results of processing.
 &lt;Used in console mode&gt;.</p>
 <dl class="docutils">
@@ -509,7 +509,7 @@ single file path</dd>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.subscribe_cache_event">
-<code class="descname">subscribe_cache_event</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.subscribe_cache_event" title="Permalink to this definition">¶</a></dt>
+<code class="descname">subscribe_cache_event</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.subscribe_cache_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.subscribe_cache_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subscribe to the cache event which tells the maincontroller about
 new images in the cache folder
 Args:</p>
@@ -519,7 +519,7 @@ Args:</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.subscribe_progress_event">
-<code class="descname">subscribe_progress_event</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.subscribe_progress_event" title="Permalink to this definition">¶</a></dt>
+<code class="descname">subscribe_progress_event</code><span class="sig-paren">(</span><em>function</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.subscribe_progress_event"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.subscribe_progress_event" title="Permalink to this definition">¶</a></dt>
 <dd><p>Subscribe to the progress event which tells the maincontroller about
 the progress of the pipeline
 Args:</p>
@@ -529,7 +529,7 @@ Args:</p>
 
 <dl class="method">
 <dt id="model.pipeline.Pipeline.update_cache">
-<code class="descname">update_cache</code><span class="sig-paren">(</span><em>cat</em>, <em>img_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.Pipeline.update_cache" title="Permalink to this definition">¶</a></dt>
+<code class="descname">update_cache</code><span class="sig-paren">(</span><em>cat</em>, <em>img_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#Pipeline.update_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.Pipeline.update_cache" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy an img to cache dir and update the cache list.</p>
 <dl class="docutils">
 <dt>Args:</dt>
@@ -545,14 +545,14 @@ Args:</p>
 
 <dl class="class">
 <dt id="model.pipeline.ProgressEvent">
-<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">ProgressEvent</code><span class="sig-paren">(</span><em>value</em>, <em>report</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.ProgressEvent" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.pipeline.</code><code class="descname">ProgressEvent</code><span class="sig-paren">(</span><em>value</em>, <em>report</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#ProgressEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.ProgressEvent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This event is used to report the progress back to the maincontroller</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="model.pipeline.filter_images">
-<code class="descclassname">model.pipeline.</code><code class="descname">filter_images</code><span class="sig-paren">(</span><em>file_list</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.filter_images" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">model.pipeline.</code><code class="descname">filter_images</code><span class="sig-paren">(</span><em>file_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#filter_images"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.filter_images" title="Permalink to this definition">¶</a></dt>
 <dd><p>Filter out all non-image files.
 &lt;This function is used to protect the pipeline from attempting to process
 any non-image files existing in the input directory.&gt;</p>
@@ -560,7 +560,7 @@ any non-image files existing in the input directory.&gt;</p>
 
 <dl class="function">
 <dt id="model.pipeline.read_image_file">
-<code class="descclassname">model.pipeline.</code><code class="descname">read_image_file</code><span class="sig-paren">(</span><em>fpath</em>, <em>prev_cat</em>, <em>start_from</em><span class="sig-paren">)</span><a class="headerlink" href="#model.pipeline.read_image_file" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">model.pipeline.</code><code class="descname">read_image_file</code><span class="sig-paren">(</span><em>fpath</em>, <em>prev_cat</em>, <em>start_from</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/pipeline.html#read_image_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.pipeline.read_image_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read and return an image file as a numpy ndarray.
 If the name of the previous Category is Segmentation, read grayscaled img.</p>
 <dl class="docutils">
@@ -597,7 +597,7 @@ ExtensionLoader creates a collection of categories and algorithms ready to
 be loaded into the pipeline object.</p>
 <dl class="class">
 <dt id="model.ext_loader.ExtensionLoader">
-<em class="property">class </em><code class="descclassname">model.ext_loader.</code><code class="descname">ExtensionLoader</code><a class="headerlink" href="#model.ext_loader.ExtensionLoader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.ext_loader.</code><code class="descname">ExtensionLoader</code><a class="reference internal" href="../_modules/model/ext_loader.html#ExtensionLoader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.ext_loader.ExtensionLoader" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <div class="toctree-wrapper compound">
@@ -641,16 +641,16 @@ be loaded into the pipeline object.</p>
 <span id="test"></span><h2>test<a class="headerlink" href="#module-view.test" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="view.test.Ui_MainWindow">
-<em class="property">class </em><code class="descclassname">view.test.</code><code class="descname">Ui_MainWindow</code><a class="headerlink" href="#view.test.Ui_MainWindow" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">view.test.</code><code class="descname">Ui_MainWindow</code><a class="reference internal" href="../_modules/view/test.html#Ui_MainWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#view.test.Ui_MainWindow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="view.test.Ui_MainWindow.retranslateUi">
-<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#view.test.Ui_MainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
+<code class="descname">retranslateUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/view/test.html#Ui_MainWindow.retranslateUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#view.test.Ui_MainWindow.retranslateUi" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="view.test.Ui_MainWindow.setupUi">
-<code class="descname">setupUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="headerlink" href="#view.test.Ui_MainWindow.setupUi" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setupUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/view/test.html#Ui_MainWindow.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#view.test.Ui_MainWindow.setupUi" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

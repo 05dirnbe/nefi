@@ -134,10 +134,10 @@
 <p>This is Algorithm master class and all algorithms must inherit from it.</p>
 <dl class="class">
 <dt id="model.algorithms._alg.Algorithm">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="model.algorithms._alg.Algorithm.belongs">
-<code class="descname">belongs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.belongs" title="Permalink to this definition">¶</a></dt>
+<code class="descname">belongs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.belongs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.belongs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identifies the category to which this algorithm implementation is assoc
 iated with. Therefore you the contributor returns a string yielding the
 name of the associated category. E.g. we have an algorithm &#8220;blur&#8221; which
@@ -156,7 +156,7 @@ the &#8220;blur&#8221; algorithm instance with the category &#8220;preprocessing
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.find_ui_element">
-<code class="descname">find_ui_element</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.find_ui_element" title="Permalink to this definition">¶</a></dt>
+<code class="descname">find_ui_element</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.find_ui_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.find_ui_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method helps the json parser to find the ui elements
 with the given name</p>
 <dl class="docutils">
@@ -168,7 +168,7 @@ with the given name</p>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.get_icon">
-<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_icon" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.get_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_icon" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Returns:</dt>
 <dd><div class="first last line-block">
@@ -180,7 +180,7 @@ with the given name</p>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.get_name">
-<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method returns the name of the implemented algorithm. E.g. int case the contributor
 is implementing a &#8220;watershed&#8221; algorithm, his get_name method should return &#8220;watershed&#8221;.
 By default this method raises an error if the user is not overriding his own get_name
@@ -196,7 +196,7 @@ method.</p>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>input_data</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.process" title="Permalink to this definition">¶</a></dt>
+<code class="descname">process</code><span class="sig-paren">(</span><em>input_data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains the logic of the implemented algorithm. While computing
 the pipeline each algorithm will be called with its process method
 giving the output image from the previous algorithm processed in
@@ -226,7 +226,7 @@ object.</p>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.report_pip">
-<code class="descname">report_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.report_pip" title="Permalink to this definition">¶</a></dt>
+<code class="descname">report_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.report_pip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.report_pip" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method returns a dictionary which contains all relevant algorithm
 information and returns it to the pipeline along with the algorithm
 name. The pipeline needs this information to create a json
@@ -248,7 +248,7 @@ filesystem for the pipeline.json.</div>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.set_icon">
-<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_icon" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.set_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_icon" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Args:</dt>
 <dd><div class="first last line-block">
@@ -260,18 +260,18 @@ filesystem for the pipeline.json.</div>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.set_modified">
-<code class="descname">set_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_modified" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.set_modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_modified" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set modified to True</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.set_store_image">
-<code class="descname">set_store_image</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_store_image" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_store_image</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.set_store_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_store_image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="model.algorithms._alg.Algorithm.unset_modified">
-<code class="descname">unset_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.Algorithm.unset_modified" title="Permalink to this definition">¶</a></dt>
+<code class="descname">unset_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.unset_modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.unset_modified" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set modified to False</p>
 </dd></dl>
 
@@ -279,14 +279,14 @@ filesystem for the pipeline.json.</div>
 
 <dl class="class">
 <dt id="model.algorithms._alg.CheckBox">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#CheckBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.CheckBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class defining a Checkbox of type boolean to display in the algorithm
 detail section of the UI. After calling the CheckBox constructor, the
 program automatically creates ui widgets as well as qt slots and signals to
 connect this checkbox with the UI.</p>
 <dl class="method">
 <dt id="model.algorithms._alg.CheckBox.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.CheckBox.set_value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#CheckBox.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.CheckBox.set_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
 input source of selected values for this particular checkbox instance.
 The &#64;pyqtSlot(bool) decoration declares this method as as QT-Slot. To
@@ -306,14 +306,14 @@ official QT documentation.</p>
 
 <dl class="class">
 <dt id="model.algorithms._alg.DropDown">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>default=None</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#DropDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class defining a DropDown menu of type string to display in the algorithm
 detail section of the UI. After calling the DropDown constructor, the
 program automatically creates ui widgets as well as qt slots and signals to
 connect this DropDown with the UI.</p>
 <dl class="method">
 <dt id="model.algorithms._alg.DropDown.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.DropDown.set_value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#DropDown.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.DropDown.set_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
 inputsource of selected values for this particular DropDown instance.
 The &#64;pyqtSlot(str) decoration declares this method as as QT-Slot. To
@@ -333,14 +333,14 @@ official QT documentation.</p>
 
 <dl class="class">
 <dt id="model.algorithms._alg.FloatSlider">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">FloatSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">FloatSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#FloatSlider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.FloatSlider" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class defining a slider of type float to display in the algorithm detail
 section of the UI. After calling the FloatSlider constructor, the program
 automatically creates ui widgets as well as qt slots and signals to connect
 this slider with the UI.</p>
 <dl class="method">
 <dt id="model.algorithms._alg.FloatSlider.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.FloatSlider.set_value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#FloatSlider.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.FloatSlider.set_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
 input source of selected values for this particular slider instance.
 The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
@@ -360,14 +360,14 @@ the official QT documentation.</p>
 
 <dl class="class">
 <dt id="model.algorithms._alg.IntegerSlider">
-<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">IntegerSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">IntegerSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#IntegerSlider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.IntegerSlider" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class defining a slider of type int to display in the algorithm detail
 section of the UI. After calling the IntegerSlider constructor, the program
 automatically creates ui widgets as wellas qt slots and signals to connect
 this slider with the UI.</p>
 <dl class="method">
 <dt id="model.algorithms._alg.IntegerSlider.set_value">
-<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="headerlink" href="#model.algorithms._alg.IntegerSlider.set_value" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#IntegerSlider.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.IntegerSlider.set_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>The set_value method is used by the UI and the batch-mode of NEFI as
 an input source of selected values for this particular slider instance.
 The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
