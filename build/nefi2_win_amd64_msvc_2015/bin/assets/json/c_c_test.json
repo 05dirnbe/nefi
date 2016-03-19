@@ -1,6 +1,0 @@
-  [
-    ["Median Blur",{"channel1":true,"channel2":true,"channel3":true,"kernelsize":5, "type":"Preprocessing", "store_image":false}],
-    ["Adaptive Threshold",{"Threshold Blocksize":23,"Threshold Constant":1,"store_image":false,"type":"Segmentation"}],
-    ["Guo Hall Thinning",{"store_image":false,"type":"Graph detection"}],
-    ["Connected component filter",{"Operator": "Strictly smaller","store_image":false,"type":"Graph filtering"}]
-  ]

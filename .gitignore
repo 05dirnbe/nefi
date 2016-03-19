@@ -1,7 +1,7 @@
 .sync
 .gitignore
 .idea
-NEFI2.komodoproject
+nefi2.komodoproject
 /nefi2/output
 /nefi2_prototype/*.pyc
 /nefi2_prototype/model/*.pyc
