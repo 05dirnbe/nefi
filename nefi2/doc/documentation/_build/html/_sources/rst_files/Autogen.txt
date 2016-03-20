@@ -1,4 +1,4 @@
-model
+Model
 =====
 
 pipeline
@@ -25,7 +25,7 @@ ext_loader
 
 	subsection2
 
-view
+View
 ====
 
 test
@@ -43,4 +43,3 @@ main_controller
 	:members:
 	:undoc-members:
 	:show-inheritance:
-
