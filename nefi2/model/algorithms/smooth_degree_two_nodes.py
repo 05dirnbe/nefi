@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from model.algorithms._alg import Algorithm
-from model.algorithms._utility import draw_graph
+from nefi2.model.algorithms._alg import Algorithm
+from nefi2.model.algorithms._utility import draw_graph
 import sys
 import networkx as nx
 

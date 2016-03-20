@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from model.algorithms._alg import Algorithm, IntegerSlider, DropDown
-from model.algorithms._utility import check_operator, draw_graph
+from nefi2.model.algorithms._alg import Algorithm, IntegerSlider, DropDown
+from nefi2.model.algorithms._utility import check_operator, draw_graph
 import networkx as nx
 import operator as op
 

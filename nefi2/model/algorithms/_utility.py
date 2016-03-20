@@ -4,7 +4,9 @@ Various help functions for processing results.
 import cv2
 import numpy
 
+
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
+
 
 NODESIZESCALING = 750
 

@@ -85,11 +85,13 @@ setup(
                       'demjson>=2.2.4',
                       'QDarkStyle>=2.1'],
 
-    #cmdclass={'install': DepsInstall},
+    cmdclass={'install': DepsInstall},
 
-    #package_data={
-    #    '.': ['data/default_pipelines/*.json',
-    #              'icons/*.png',
-    #              'icons/*.ico'],
-    #}
+    # install resources
+    package_data={
+        'nefi2': ['default_pipelines/*.json',
+                  'view/MainView.ui',
+                  'icons/*.png',
+                  'icons/*.ico'],
+    }
 )

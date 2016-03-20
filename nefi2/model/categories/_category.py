@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import copy
 import re
@@ -33,13 +34,12 @@ class Category:
             | *active_algorithm* (Algorithm): Currently selected algorithm
 
         """
-        abs_path = os.path.abspath(os.getcwd())
-        _alg_dir = os.path.join(abs_path, 'model', 'algorithms')
+        _alg_dir = os.path.join('nefi2', 'model', 'algorithms')
         self.name = name
         if icon is not None:
             self.icon = icon
         else:
-            self.icon = os.path.join(abs_path, 'icons', 'missing.png')
+            self.icon = os.path.join('nefi2', 'icons', 'missing.png')
         self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
@@ -73,8 +73,7 @@ class Category:
             raise FileNotFoundError("No algorithm files were found in "
                                     "./model/algorithms")
         # add abs paths
-        abspath = os.path.abspath(os.getcwd())
-        found_algs_paths = [os.path.join(abspath, 'model', 'algorithms', alg)
+        found_algs_paths = [os.path.join('nefi2', 'model', 'algorithms', alg)
                             for alg in found_algs]
         # import all available algorithm files as modules
         imported_algs = []

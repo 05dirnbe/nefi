@@ -6,8 +6,8 @@ mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
-from model.categories._category import Category
-from model.algorithms import _utility
+from nefi2.model.categories._category import Category
+from nefi2.model.algorithms import _utility
 
 import demjson
 import networkx.readwrite as nx

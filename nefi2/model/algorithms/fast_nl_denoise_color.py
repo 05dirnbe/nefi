@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from model.algorithms._alg import Algorithm, FloatSlider, IntegerSlider
+from nefi2.model.algorithms._alg import Algorithm, FloatSlider, IntegerSlider
 import cv2
 
 

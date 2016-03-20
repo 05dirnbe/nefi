@@ -10,7 +10,7 @@ For threshold value, simply pass zero. Then the algorithm finds the optimal
 threshold value and returns you as the second output. If Otsu thresholding is
 not used, the optimal threshold is same as the threshold value you used.
 """
-from model.algorithms._alg import Algorithm
+from nefi2.model.algorithms._alg import Algorithm
 import cv2
 import numpy as np
 

@@ -10,7 +10,7 @@ small regions of the image. So we get different thresholds for different
 regions of the same image and it gives us better results for images with
 varying illumination.
 """
-from model.algorithms._alg import Algorithm, IntegerSlider
+from nefi2.model.algorithms._alg import Algorithm, IntegerSlider
 import cv2
 
 

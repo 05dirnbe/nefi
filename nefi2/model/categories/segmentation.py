@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from model.categories._category import Category
+from nefi2.model.categories._category import Category
 
 
 class CatBody(Category):

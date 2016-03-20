@@ -3,7 +3,7 @@
 Tutorial Algorithm
 Reduce image size using predefined ratio value.
 """
-from model.algorithms._alg import Algorithm, IntegerSlider
+from nefi2.model.algorithms._alg import Algorithm, IntegerSlider
 import cv2
 
 

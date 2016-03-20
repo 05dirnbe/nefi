@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from model.algorithms._alg import *
+from nefi2.model.algorithms._alg import *
 import cv2
 
 

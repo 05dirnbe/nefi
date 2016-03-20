@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from model.algorithms._alg import Algorithm, CheckBox
+from nefi2.model.algorithms._alg import Algorithm, CheckBox
 import cv2
 
 
