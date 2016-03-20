@@ -17,7 +17,7 @@ class CatBody(Category):
 
         """
         self.name = 'Graph Filtering'
-        self.icon = "./icons/F.png"
+        self.icon = "nefi2/icons/F.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)
 
