@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-(from nefi1)
+(taken from NEFI1)
 Implementation of an algorithm which filters a graph for connected components
 and keeps only the largest of them, e.g remove all connected components except
 the 4 largest.
@@ -27,8 +27,8 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Keep only largest connected component"
-        self.parent = "Graph filtering"
+        self.name = "Keep only LCC"
+        self.parent = "Graph Filtering"
 
     def process(self, args):
         """
@@ -49,7 +49,7 @@ class AlgBody(Algorithm):
         try:
             graph = max(nx.connected_component_subgraphs(graph), key=len)
             # supposedly slower
-            #graph = list(nx.connected_components(graph))[0]
+            # graph = list(nx.connected_components(graph))[0]
         except ValueError as e:
             print('ValueError exception:', e)
         self.result['graph'], self.result['img'] = graph, image_arr

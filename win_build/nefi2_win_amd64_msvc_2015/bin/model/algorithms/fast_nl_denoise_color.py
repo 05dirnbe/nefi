@@ -11,8 +11,6 @@ class AlgBody(Algorithm):
 
     def __init__(self):
         """
-        Fast nl Means Denoising Colored object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
@@ -35,7 +33,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Fast nl Means Denoising Colored"
+        self.name = "FM Denoise Color"
         self.parent = "Preprocessing"
         self.f_strength = FloatSlider("filter strength", 1.0, 100.0, 0.1, 1.0)
         self.f_col = FloatSlider("filter strength color", 1.0, 100.0, 0.1, 1.0)

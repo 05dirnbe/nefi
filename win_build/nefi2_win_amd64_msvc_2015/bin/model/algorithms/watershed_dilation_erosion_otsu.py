@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Watershed from the opencv package.
-"""
 import cv2
 import numpy as np
 from _alg import *
@@ -10,12 +7,13 @@ from _alg import *
 
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 
+
 # Segmentation routines
 
 THRESHOLD_FG_COLOR = 255
 THRESHOLD_BG_COLOR = 0
 
-#markers for grabcut, watershed denoting sure-fg, sure-bg and let-the-algorithm-figure-it-out
+# markers for grabcut, watershed denoting sure-fg, sure-bg and let-the-algorithm-figure-it-out
 FG_MARKER = 255
 BG_MARKER = 150
 UNDECIDED_MARKER = 0
@@ -26,8 +24,6 @@ class AlgBody(Algorithm):
     """
     def __init__(self):
         """
-        Watershed object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
@@ -36,7 +32,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Watershed - Dilation Erosion Otsu"
+        self.name = "Watershed DE Otsus"
         self.parent = "Segmentation"
         self.fg_iter = IntegerSlider("Foreground Iteration", 0,10, 1, 2)
         self.bg_iter = IntegerSlider("Background Iteration", 0, 10, 1, 1)

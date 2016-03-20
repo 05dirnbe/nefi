@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Bilateral Filter from the opencv package
-"""
 import cv2
 from _alg import *
 
@@ -19,8 +16,6 @@ class AlgBody(Algorithm):
     """
     def __init__(self):
         """
-        Bilateral Filter object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
@@ -41,7 +36,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Bilateral Filter"
+        self.name = "Bilateral"
         self.parent = "Preprocessing"
         self.diameter = IntegerSlider("diameter", 1, 20, 1, 1)
         self.sigma_color = FloatSlider("sigmaColor", 0.0, 255.0, 0.1, 30.0)

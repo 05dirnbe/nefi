@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm threshold from the opencv package
-"""
 import cv2
 from _alg import Algorithm, IntegerSlider
 
@@ -16,7 +13,7 @@ THRESHOLD_FG_COLOR = 255
 
 class AlgBody(Algorithm):
     """
-    Adaptive threshold implementation.
+    Constant Threshold implementation.
     """
     def __init__(self):
         """
@@ -27,7 +24,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Constant Threshold"
+        self.name = "Constant"
         self.parent = "Segmentation"
         self.threshold = IntegerSlider("Threshold", 1, 254, 1, 127)
         self.integer_sliders.append(self.threshold)

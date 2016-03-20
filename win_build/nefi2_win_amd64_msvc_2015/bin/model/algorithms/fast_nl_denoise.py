@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Fast nl Means Denoising from the opencv
-package.
-"""
 import cv2
 from _alg import Algorithm, FloatSlider, IntegerSlider, CheckBox
 
@@ -43,7 +39,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Fast nl Means Denoising"
+        self.name = "FM Denoise"
         self.parent = "Preprocessing"
         self.f_strength = FloatSlider("filter strength", 1.0, 100.0, 0.1, 1.0)
         self.template_size = IntegerSlider("template window size", 1, 20, 1, 3)
