@@ -25,7 +25,7 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
-print(os.getcwd())
+
 try:
     mainview_path = os.path.join('nefi2', 'view', 'MainView.ui')
     base, form = uic.loadUiType(mainview_path)
@@ -963,10 +963,11 @@ class MainView(base, form):
         btn = QtWidgets.QPushButton()
         btn.setFixedHeight(30)
         btn.setFixedWidth(30)
+
         iconpath = os.path.join('nefi2', 'icons', 'delete_x_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
-        btn.setIcon(q_icon)
+        btn.setIcon(self.q_icon_delete)
 
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
         if not new_marker:
