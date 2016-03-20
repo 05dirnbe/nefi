@@ -33,6 +33,8 @@ sys.path.insert(0, os.path.abspath('./../../'))
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.ifconfig',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -51,8 +53,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'nefi'
-copyright = u'2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner'
-author = u'Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner'
+copyright = u'2016, Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner'
+author = u'Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
