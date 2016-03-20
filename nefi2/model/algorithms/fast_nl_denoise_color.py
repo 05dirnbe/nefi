@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from nefi2.model.algorithms._alg import Algorithm, FloatSlider, IntegerSlider
 import cv2
-from _alg import Algorithm, FloatSlider, IntegerSlider
+
 
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}
 

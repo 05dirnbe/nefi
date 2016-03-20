@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from nefi2.model.algorithms._alg import *
 import cv2
 import numpy as np
-from _alg import *
 
 
 __authors__ = {"Sebastian Schattner": "s9sescat@stud.uni-saarland.de"}

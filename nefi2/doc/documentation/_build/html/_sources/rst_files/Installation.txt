@@ -27,11 +27,11 @@ Linux
 There are two installation options: using **setup.py** or manually installing all the dependencies if for some reason **setup.py** won't work for you.
 Make sure you have your **Python 3.4** installed before performing the steps below.
 
-Using standard **setup.py**::
-
-    sudo python3 setup.py install
-
-Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
+* git clone https://github.com/LumPenPacK/NetworkExtractionFromImages.git
+* cd "NetworkExtractionFromImages"
+* ``sudo pip3 install .``
+* Install **PyQt5** using you default package manager.
+* Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
 
 ::
 
@@ -43,7 +43,7 @@ Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
     make -j4
     sudo make install
 
-If everything goes well, you can run NEFI2 by ???
+If everything goes well, you can run NEFI2 by typing in console **nefi2**.
 
 If not, try manually installing all the dependencies via **pip3**.
 
@@ -60,13 +60,6 @@ If not, try manually installing all the dependencies via **pip3**.
 ::
 
   sudo pip3 install demjson
-
-`sip <https://pypi.python.org/pypi/SIP>`_
-+++++++++++++
-
-::
-
-  sudo pip3 install sip
 
 `PyQt5 <https://www.riverbankcomputing.com/software/pyqt/download5>`_
 +++++++++++++

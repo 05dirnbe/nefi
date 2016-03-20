@@ -9,13 +9,13 @@ The algorithm below was taken from NEFI1. It uses thinning C module written by
 `Adrian Neumann <https://bitbucket.org/adrian_n/thinning>`_.
 The code was adapted for NEFI2.
 """
+from nefi2.model.algorithms._alg import Algorithm
 import cv2
 import networkx as nx
 import numpy as np
 import thinning
 import sys
 import traceback
-from _alg import Algorithm
 from collections import defaultdict
 from itertools import chain
 
@@ -127,6 +127,7 @@ def zhang_suen_node_detection(skel):
             if item(x, y) != 0 and check_pixel_neighborhood(x, y, skel):
                 graph.add_node((x, y))
     return graph
+
 
 def breadth_first_edge_detection(skel, segmented, graph):
     """

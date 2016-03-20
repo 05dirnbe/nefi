@@ -1,8 +1,9 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from nefi2.model.algorithms._alg import Algorithm
+from nefi2.model.algorithms._utility import draw_graph
 import sys
 import networkx as nx
-from _alg import Algorithm
-from _utility import draw_graph
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}

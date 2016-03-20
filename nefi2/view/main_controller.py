@@ -6,16 +6,14 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
+from nefi2.model.pipeline import *
 import copy
 import os
-
-import PyQt5
-from PyQt5 import QtWidgets, uic
 import traceback
 import zope.event.classhandler
+import PyQt5
+from PyQt5 import QtWidgets, uic
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-
-from model.pipeline import *
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
@@ -23,11 +21,14 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
     QScrollArea, QAbstractScrollArea, QFrame
 
+
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
+
 try:
-    base, form = uic.loadUiType(os.path.join(os.curdir, 'view', 'MainView.ui'))
+    mainview_path = os.path.join('nefi2', 'view', 'MainView.ui')
+    base, form = uic.loadUiType(mainview_path)
 except (FileNotFoundError):
     raise NameError(os.listdir(os.curdir))
 
@@ -301,59 +302,73 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
-        pixmap_icon = QtGui.QPixmap("./icons/close.png")
+        iconpath = os.path.join('nefi2', 'icons', 'close.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.clear_immediate_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/folder_white.png")
+        iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.open_pip_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/man.png")
+        iconpath = os.path.join('nefi2', 'icons', 'man.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.run_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/trash_white.png")
+        iconpath = os.path.join('nefi2', 'icons', 'trash_white.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.delete_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/diskette_white.png")
+        iconpath = os.path.join('nefi2', 'icons', 'diskette_white.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/folder_white.png")
+        iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/folder_white.png")
+        iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/plus.png")
+        iconpath = os.path.join('nefi2', 'icons', 'plus.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.zoom_in.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/minus.png")
+        iconpath = os.path.join('nefi2', 'icons', 'minus.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.zoom_out.setIcon(q_icon)
 
-        pixmap_icon = QtGui.QPixmap("./icons/resize.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
+        iconpath = os.path.join('nefi2', 'icons', 'resize.png')
+        q_icon = QtGui.QIcon(iconpath)
         self.resize.setIcon(q_icon)
 
-        pixmap_up = QtGui.QPixmap("./icons/up.png")
-        pixmap_down = QtGui.QPixmap("./icons/down.png")
+        iconpath = os.path.join('nefi2', 'icons', 'up.png')
+        pixmap_up = QtGui.QPixmap(iconpath)
+        iconpath = os.path.join('nefi2', 'icons', 'down.png')
+        pixmap_down = QtGui.QPixmap(iconpath)
         self.q_icon_up = QtGui.QIcon(pixmap_up)
         self.q_icon_down = QtGui.QIcon(pixmap_down)
 
-        pixmap_plus = QtGui.QPixmap("./icons/plus.png")
+        iconpath = os.path.join('nefi2', 'icons', 'plus.png')
+        pixmap_plus = QtGui.QPixmap(iconpath)
         self.q_icon_plus = QtGui.QIcon(pixmap_plus)
         self.enable_plus()
 
-        pixmap_plus_grey = QtGui.QPixmap("./icons/plus_grey.png")
+        iconpath = os.path.join('nefi2', 'icons', 'plus_grey.png')
+        pixmap_plus_grey = QtGui.QPixmap(iconpath)
         self.q_icon_plus_grey = QtGui.QIcon(pixmap_plus_grey)
 
-        pixmap_icon_delete = QtGui.QPixmap("./icons/delete_x_white.png")
+        iconpath = os.path.join('nefi2', 'icons', 'delete_x_white.png')
+        pixmap_icon_delete = QtGui.QPixmap(iconpath)
         self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
 
     @pyqtSlot()
@@ -591,10 +606,11 @@ class MainView(base, form):
         self.fav_pips_combo_box.addItem("Please Select")
 
         # scan the directory for default pipelines
-        for file in os.listdir("./default_pipelines"):
-            if file.endswith(".json"):
-                name = file.split(".")[0]
-                url = os.path.abspath("./default_pipelines" + "/" + file)
+        default_pip = os.path.join('nefi2', 'default_pipelines')
+        for pip in os.listdir(default_pip):
+            if pip.endswith(".json"):
+                name = pip.split(".")[0]
+                url = os.path.join('nefi2', 'default_pipelines', pip)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
 
@@ -948,6 +964,9 @@ class MainView(base, form):
         btn.setFixedHeight(30)
         btn.setFixedWidth(30)
 
+        iconpath = os.path.join('nefi2', 'icons', 'delete_x_white.png')
+        pixmap_icon = QtGui.QPixmap(iconpath)
+        q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(self.q_icon_delete)
 
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
@@ -1657,7 +1676,8 @@ class DoubleTextfield(QDoubleSpinBox):
 
 class Slider(QSlider):
     """
-    A customized QSlider that is used by the SliderWidget to allow users to change a certain setting.
+    A customized QSlider that is used by the SliderWidget to allow users to
+    change a certain setting.
     """
 
     def __init__(self, lower, upper, step_size, default):
