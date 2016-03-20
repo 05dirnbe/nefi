@@ -3,7 +3,8 @@ import copy
 import re
 import os
 import sys
-import copy
+from importlib.machinery import SourceFileLoader
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -32,14 +33,13 @@ class Category:
             | *active_algorithm* (Algorithm): Currently selected algorithm
 
         """
-        for path in sys.path:
-            if path.endswith('algorithms'):
-                _alg_dir = path
+        abs_path = os.path.abspath(os.getcwd())
+        _alg_dir = os.path.join(abs_path, 'model', 'algorithms')
         self.name = name
         if icon is not None:
             self.icon = icon
         else:
-            self.icon = os.path.join(os.curdir, 'icons', 'missing.png')
+            self.icon = os.path.join(abs_path, 'icons', 'missing.png')
         self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
@@ -66,25 +66,31 @@ class Category:
 
         """
         alg_files = os.listdir(alg_dir)
-        ign = re.compile(r'.*.pyc|__init__|_alg.py|__pycache__|_utility.py')
+        excluded = r'.*.pyc|__init__|_alg.py|__pycache__|_utility.py|_thread'
+        ign = re.compile(excluded)
         found_algs = list(filter(lambda x: not ign.match(x), alg_files))
         if not found_algs:
             raise FileNotFoundError("No algorithm files were found in "
                                     "./model/algorithms")
-            sys.exit(1)
+        # add abs paths
+        abspath = os.path.abspath(os.getcwd())
+        found_algs_paths = [os.path.join(abspath, 'model', 'algorithms', alg)
+                            for alg in found_algs]
         # import all available algorithm files as modules
         imported_algs = []
-        for alg in found_algs:
-            alg = __import__(alg.split('.')[0], fromlist=['AlgBody'])
+        for alg_path in found_algs_paths:
+            alg_name = os.path.basename(alg_path).split('.')[0]
+            algmod = SourceFileLoader(alg_name, alg_path).load_module()
             try:
-                new_alg = alg.AlgBody()
+                new_alg = algmod.AlgBody()
                 new_alg_copy = copy.deepcopy(new_alg)
                 imported_algs.append(new_alg_copy)  # instantiating algorithms
             except AttributeError as ex:
+                print("AttributeError in _get_available_algorithms()", ex)
                 continue
-        # assign instantiated algorithms to corresponding (belongs()) categories
+        # assign instantiated algorithms to corresponding categories
         category_alg_map = {self.name: [alg for alg in imported_algs
-                            if self.name == alg.belongs()]}
+                                        if self.name == alg.belongs()]}
         alg_names = [alg.get_name() for alg in imported_algs
                      if self.name == alg.belongs()]
         return category_alg_map, alg_names
@@ -101,7 +107,6 @@ class Category:
             if alg.name == alg_name:
                 self.active_algorithm = alg
 
-    # redundand? todo:
     def get_active_algorithm(self):
         """
         Return the name of the currently set algorithm.
@@ -120,11 +125,11 @@ class Category:
             *args* (ndarray|list): ndarray or a list of ndarray and Graph
 
         """
-        al = [alg for alg in list(self.available_algs.values())[0]
-              if self.active_algorithm.name == alg.name][0]
-        al.process(args)
+        selected_alg = [alg for alg in list(self.available_algs.values())[0]
+                        if self.active_algorithm.name == alg.name][0]
+        selected_alg.process(args)
         # reset modified variable after processing
-        al.unset_modified()
+        selected_alg.unset_modified()
 
     def copy_alg(self, alg_name):
         for alg in self.available_algs[self.name]:

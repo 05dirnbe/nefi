@@ -1,10 +1,6 @@
 """
 Various help functions for processing results.
 """
-import os
-import sys
-
-import operator
 import cv2
 import numpy
 

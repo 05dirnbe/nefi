@@ -6,9 +6,8 @@ Implementation of an algorithm which filters a graph for connected components
 and keeps only the largest of them, e.g remove all connected components except
 the 4 largest.
 """
+from model.algorithms._alg import Algorithm
 import networkx as nx
-from _alg import Algorithm
-
 
 __author__ = {
     "Andreas Firczynski": "andreasfir91@googlemail.com",

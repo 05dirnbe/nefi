@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from model.algorithms._alg import Algorithm, FloatSlider, IntegerSlider, CheckBox
 import cv2
-from _alg import Algorithm, FloatSlider, IntegerSlider, CheckBox
 
 
 __authors__ = {"Andreas Firczynski": "andreasfir91@googlemail.com",

@@ -3,9 +3,8 @@
 Tutorial Algorithm
 Reduce image size using predefined ratio value.
 """
-
+from model.algorithms._alg import Algorithm, IntegerSlider
 import cv2
-from _alg import Algorithm, IntegerSlider
 
 
 class AlgBody(Algorithm):

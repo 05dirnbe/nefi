@@ -12,6 +12,8 @@ import os
 import xml.etree.ElementTree as et
 import sys
 from collections import OrderedDict as od
+from importlib.machinery import SourceFileLoader
+
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com"}
 
@@ -32,9 +34,8 @@ class ExtensionLoader:
             instance of the ExtensionLoader object
 
         """
-        for path in sys.path:
-            if path.endswith('categories'):
-                _category_dir = path
+        abs_path = os.path.abspath(os.getcwd())
+        _category_dir = os.path.join(abs_path, 'model', 'categories')
         _found_cats = self._scan_model(_category_dir)
         self.cats_container = self._instantiate_cats(_found_cats)
 
@@ -54,7 +55,7 @@ class ExtensionLoader:
             | *ignored*: a regex object, used to filter unnecessary files
 
         Returns:
-            | *found_cats* (list): a list of categories that were found
+            | *found_cats_paths* (list): a list of found category paths
 
         """
         category_files = os.listdir(cat_dir)
@@ -63,26 +64,11 @@ class ExtensionLoader:
         if not found_cats:
             raise FileNotFoundError("No image processing categories "
                                     "found in ./model/categories")
-            sys.exit(1)
-        return found_cats
-
-    @staticmethod
-    def _read_configs(config_path):
-        """
-        Read configuration file which contains category order.
-
-        Args:
-            | *config_path*: a path to config.xml
-
-        Returns:
-            | *order*: a list of categories order
-
-        """
-        tree = et.parse(config_path)  # categories order
-        root = tree.getroot()
-        # create categories order list
-        order = [e.text for elem in root for e in elem.iter('category')]
-        return order
+        # add abs paths
+        abspath = os.path.abspath(os.getcwd())
+        found_cats_paths = [os.path.join(abspath, 'model', 'categories', cat)
+                            for cat in found_cats]
+        return found_cats_paths
 
     @staticmethod
     def _instantiate_cats(found_cats):
@@ -95,7 +81,7 @@ class ExtensionLoader:
         creates a list of algorithms that belong to it>
 
         Args:
-            | *found_cats*:a list of found category file names
+            | *found_cats*: a list of found category file names
 
         Vars:
             | *cats_inst*: a list of found and instantiated methods
@@ -106,11 +92,10 @@ class ExtensionLoader:
 
         """
         cats_inst = []
-        for category in found_cats:
-            imported = __import__(category.split('.')[0],
-                                  fromlist=['CatBody'])  # import a category
-            inst = imported.CatBody()
-            # create a dict of instantiated Category objects
+        for cat_path in found_cats:
+            cat_name = os.path.basename(cat_path).split('.')[0]
+            cat = SourceFileLoader(cat_name, cat_path).load_module()
+            inst = cat.CatBody()
             cats_inst.append(inst)
         # sort the cats
         order = ['Preprocessing', 'Segmentation', 'Graph Detection',
