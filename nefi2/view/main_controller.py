@@ -948,9 +948,7 @@ class MainView(base, form):
         btn.setFixedHeight(30)
         btn.setFixedWidth(30)
 
-        pixmap_icon = QtGui.QPixmap("./icons/delete_x_white.png")
-        q_icon = QtGui.QIcon(pixmap_icon)
-        btn.setIcon(q_icon)
+        btn.setIcon(self.q_icon_delete)
 
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
         if not new_marker:
