@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
-from nefi2 import main
+
+
 import argparse
 import os
 import sys
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
+print(os.curdir)
+print(os.listdir(os.curdir))
+
+from nefi2.main import start
+
+if not (sys.platform == 'win32' or sys.platform == 'win64'):
+    os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 def runner(args):
     """
@@ -14,9 +21,9 @@ def runner(args):
         | *args* : a Namespace object of supplied command-line arguments
     """
     if args.dir or args.file:
-        main.batch_mode(args)
+        start.batch_mode(args)
     else:
-        main.gui_mode()
+        start.gui_mode()
 
 
 if __name__ == '__main__':
