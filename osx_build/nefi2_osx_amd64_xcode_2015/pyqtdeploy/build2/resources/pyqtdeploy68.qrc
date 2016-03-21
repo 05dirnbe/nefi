@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/algorithms/tests/test_hierarchy.pyo</file>
+        <file>networkx/algorithms/tests/test_hybrid.pyo</file>
+        <file>networkx/algorithms/tests/test_link_prediction.pyo</file>
+        <file>networkx/algorithms/tests/test_matching.pyo</file>
+        <file>networkx/algorithms/tests/test_minors.pyo</file>
+        <file>networkx/algorithms/tests/test_mis.pyo</file>
+        <file>networkx/algorithms/tests/test_mst.pyo</file>
+        <file>networkx/algorithms/tests/test_richclub.pyo</file>
+        <file>networkx/algorithms/tests/test_simple_paths.pyo</file>
+        <file>networkx/algorithms/tests/test_smetric.pyo</file>
+        <file>networkx/algorithms/tests/test_swap.pyo</file>
+        <file>networkx/algorithms/tests/test_triads.pyo</file>
+        <file>networkx/algorithms/tests/test_vitality.pyo</file>
+        <file>networkx/algorithms/traversal/__init__.pyo</file>
+        <file>networkx/algorithms/traversal/breadth_first_search.pyo</file>
+        <file>networkx/algorithms/traversal/depth_first_search.pyo</file>
+        <file>networkx/algorithms/traversal/edgedfs.pyo</file>
+        <file>networkx/algorithms/traversal/tests/test_bfs.pyo</file>
+        <file>networkx/algorithms/traversal/tests/test_dfs.pyo</file>
+        <file>networkx/algorithms/traversal/tests/test_edgedfs.pyo</file>
+        <file>networkx/algorithms/tree/__init__.pyo</file>
+        <file>networkx/algorithms/tree/branchings.pyo</file>
+    </qresource>
+</RCC>

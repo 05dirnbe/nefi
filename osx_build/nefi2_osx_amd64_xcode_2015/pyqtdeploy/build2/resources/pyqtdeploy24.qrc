@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>ctypes/test/test_memfunctions.pyo</file>
+        <file>ctypes/test/test_numbers.pyo</file>
+        <file>ctypes/test/test_objects.pyo</file>
+        <file>ctypes/test/test_parameters.pyo</file>
+        <file>ctypes/test/test_pep3118.pyo</file>
+        <file>ctypes/test/test_pickling.pyo</file>
+        <file>ctypes/test/test_pointers.pyo</file>
+        <file>ctypes/test/test_prototypes.pyo</file>
+        <file>ctypes/test/test_python_api.pyo</file>
+        <file>ctypes/test/test_random_things.pyo</file>
+        <file>ctypes/test/test_refcounts.pyo</file>
+        <file>ctypes/test/test_repr.pyo</file>
+        <file>ctypes/test/test_returnfuncptrs.pyo</file>
+        <file>ctypes/test/test_simplesubclasses.pyo</file>
+        <file>ctypes/test/test_sizes.pyo</file>
+        <file>ctypes/test/test_slicing.pyo</file>
+        <file>ctypes/test/test_stringptr.pyo</file>
+        <file>ctypes/test/test_strings.pyo</file>
+        <file>ctypes/test/test_struct_fields.pyo</file>
+        <file>ctypes/test/test_structures.pyo</file>
+        <file>ctypes/test/test_unaligned_structures.pyo</file>
+        <file>ctypes/test/test_unicode.pyo</file>
+    </qresource>
+</RCC>

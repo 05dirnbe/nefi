@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/generators/expanders.pyo</file>
+        <file>networkx/generators/geometric.pyo</file>
+        <file>networkx/generators/intersection.pyo</file>
+        <file>networkx/generators/line.pyo</file>
+        <file>networkx/generators/nonisomorphic_trees.pyo</file>
+        <file>networkx/generators/random_clustered.pyo</file>
+        <file>networkx/generators/random_graphs.pyo</file>
+        <file>networkx/generators/small.pyo</file>
+        <file>networkx/generators/social.pyo</file>
+        <file>networkx/generators/stochastic.pyo</file>
+        <file>networkx/generators/tests/test_atlas.pyo</file>
+        <file>networkx/generators/tests/test_classic.pyo</file>
+        <file>networkx/generators/tests/test_community.pyo</file>
+        <file>networkx/generators/tests/test_degree_seq.pyo</file>
+        <file>networkx/generators/tests/test_directed.pyo</file>
+        <file>networkx/generators/tests/test_ego.pyo</file>
+        <file>networkx/generators/tests/test_expanders.pyo</file>
+        <file>networkx/generators/tests/test_geometric.pyo</file>
+        <file>networkx/generators/tests/test_intersection.pyo</file>
+        <file>networkx/generators/tests/test_line.pyo</file>
+        <file>networkx/generators/tests/test_nonisomorphic_trees.pyo</file>
+        <file>networkx/generators/tests/test_random_clustered.pyo</file>
+    </qresource>
+</RCC>

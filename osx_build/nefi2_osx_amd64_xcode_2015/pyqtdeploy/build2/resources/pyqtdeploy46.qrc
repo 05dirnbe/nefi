@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>mailcap.pyo</file>
+        <file>_markupbase.pyo</file>
+        <file>mimetypes.pyo</file>
+        <file>modulefinder.pyo</file>
+        <file>multiprocessing/__init__.pyo</file>
+        <file>multiprocessing/connection.pyo</file>
+        <file>multiprocessing/context.pyo</file>
+        <file>multiprocessing/dummy/__init__.pyo</file>
+        <file>multiprocessing/dummy/connection.pyo</file>
+        <file>multiprocessing/forkserver.pyo</file>
+        <file>multiprocessing/heap.pyo</file>
+        <file>multiprocessing/managers.pyo</file>
+        <file>multiprocessing/pool.pyo</file>
+        <file>multiprocessing/popen_fork.pyo</file>
+        <file>multiprocessing/popen_forkserver.pyo</file>
+        <file>multiprocessing/popen_spawn_posix.pyo</file>
+        <file>multiprocessing/popen_spawn_win32.pyo</file>
+        <file>multiprocessing/process.pyo</file>
+        <file>multiprocessing/queues.pyo</file>
+        <file>multiprocessing/reduction.pyo</file>
+        <file>multiprocessing/resource_sharer.pyo</file>
+        <file>multiprocessing/semaphore_tracker.pyo</file>
+    </qresource>
+</RCC>

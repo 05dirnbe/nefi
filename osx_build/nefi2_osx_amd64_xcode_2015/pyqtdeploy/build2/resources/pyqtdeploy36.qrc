@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>encodings/johab.pyo</file>
+        <file>encodings/koi8_r.pyo</file>
+        <file>encodings/koi8_t.pyo</file>
+        <file>encodings/koi8_u.pyo</file>
+        <file>encodings/kz1048.pyo</file>
+        <file>encodings/latin_1.pyo</file>
+        <file>encodings/mac_arabic.pyo</file>
+        <file>encodings/mac_centeuro.pyo</file>
+        <file>encodings/mac_croatian.pyo</file>
+        <file>encodings/mac_cyrillic.pyo</file>
+        <file>encodings/mac_farsi.pyo</file>
+        <file>encodings/mac_greek.pyo</file>
+        <file>encodings/mac_iceland.pyo</file>
+        <file>encodings/mac_latin2.pyo</file>
+        <file>encodings/mac_roman.pyo</file>
+        <file>encodings/mac_romanian.pyo</file>
+        <file>encodings/mac_turkish.pyo</file>
+        <file>encodings/mbcs.pyo</file>
+        <file>encodings/palmos.pyo</file>
+        <file>encodings/ptcp154.pyo</file>
+        <file>encodings/punycode.pyo</file>
+        <file>encodings/quopri_codec.pyo</file>
+    </qresource>
+</RCC>

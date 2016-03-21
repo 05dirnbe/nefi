@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/algorithms/centrality/tests/test_degree_centrality.pyo</file>
+        <file>networkx/algorithms/centrality/tests/test_dispersion.pyo</file>
+        <file>networkx/algorithms/centrality/tests/test_eigenvector_centrality.pyo</file>
+        <file>networkx/algorithms/centrality/tests/test_harmonic_centrality.pyo</file>
+        <file>networkx/algorithms/centrality/tests/test_katz_centrality.pyo</file>
+        <file>networkx/algorithms/centrality/tests/test_load_centrality.pyo</file>
+        <file>networkx/algorithms/chordal/__init__.pyo</file>
+        <file>networkx/algorithms/chordal/chordal_alg.pyo</file>
+        <file>networkx/algorithms/chordal/tests/test_chordal.pyo</file>
+        <file>networkx/algorithms/clique.pyo</file>
+        <file>networkx/algorithms/cluster.pyo</file>
+        <file>networkx/algorithms/coloring/__init__.pyo</file>
+        <file>networkx/algorithms/coloring/greedy_coloring.pyo</file>
+        <file>networkx/algorithms/coloring/greedy_coloring_with_interchange.pyo</file>
+        <file>networkx/algorithms/coloring/tests/test_coloring.pyo</file>
+        <file>networkx/algorithms/community/__init__.pyo</file>
+        <file>networkx/algorithms/community/kclique.pyo</file>
+        <file>networkx/algorithms/community/tests/test_kclique.pyo</file>
+        <file>networkx/algorithms/components/__init__.pyo</file>
+        <file>networkx/algorithms/components/attracting.pyo</file>
+        <file>networkx/algorithms/components/biconnected.pyo</file>
+        <file>networkx/algorithms/components/connected.pyo</file>
+    </qresource>
+</RCC>

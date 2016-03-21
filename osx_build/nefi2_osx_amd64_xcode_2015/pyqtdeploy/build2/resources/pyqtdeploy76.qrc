@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/compat/setup.pyo</file>
+        <file>numpy/core/__init__.pyo</file>
+        <file>numpy/core/arrayprint.pyo</file>
+        <file>numpy/core/cversions.pyo</file>
+        <file>numpy/core/defchararray.pyo</file>
+        <file>numpy/core/fromnumeric.pyo</file>
+        <file>numpy/core/function_base.pyo</file>
+        <file>numpy/core/generate_numpy_api.pyo</file>
+        <file>numpy/core/getlimits.pyo</file>
+        <file>numpy/core/include/numpy/__multiarray_api.h</file>
+        <file>numpy/core/include/numpy/__ufunc_api.h</file>
+        <file>numpy/core/include/numpy/arrayobject.h</file>
+        <file>numpy/core/include/numpy/arrayscalars.h</file>
+        <file>numpy/core/include/numpy/halffloat.h</file>
+        <file>numpy/core/include/numpy/multiarray_api.txt</file>
+        <file>numpy/core/include/numpy/ndarrayobject.h</file>
+        <file>numpy/core/include/numpy/ndarraytypes.h</file>
+        <file>numpy/core/include/numpy/_neighborhood_iterator_imp.h</file>
+        <file>numpy/core/include/numpy/noprefix.h</file>
+        <file>numpy/core/include/numpy/npy_1_7_deprecated_api.h</file>
+        <file>numpy/core/include/numpy/npy_3kcompat.h</file>
+        <file>numpy/core/include/numpy/npy_common.h</file>
+    </qresource>
+</RCC>

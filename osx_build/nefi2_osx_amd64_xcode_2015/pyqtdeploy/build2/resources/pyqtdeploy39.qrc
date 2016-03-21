@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>html/parser.pyo</file>
+        <file>http/__init__.pyo</file>
+        <file>http/client.pyo</file>
+        <file>http/cookiejar.pyo</file>
+        <file>http/cookies.pyo</file>
+        <file>http/server.pyo</file>
+        <file>idlelib/__init__.pyo</file>
+        <file>idlelib/__main__.pyo</file>
+        <file>idlelib/aboutDialog.pyo</file>
+        <file>idlelib/AutoComplete.pyo</file>
+        <file>idlelib/AutoCompleteWindow.pyo</file>
+        <file>idlelib/AutoExpand.pyo</file>
+        <file>idlelib/Bindings.pyo</file>
+        <file>idlelib/CallTips.pyo</file>
+        <file>idlelib/CallTipWindow.pyo</file>
+        <file>idlelib/ChangeLog</file>
+        <file>idlelib/ClassBrowser.pyo</file>
+        <file>idlelib/CodeContext.pyo</file>
+        <file>idlelib/ColorDelegator.pyo</file>
+        <file>idlelib/config-extensions.def</file>
+        <file>idlelib/config-highlight.def</file>
+        <file>idlelib/config-keys.def</file>
+    </qresource>
+</RCC>

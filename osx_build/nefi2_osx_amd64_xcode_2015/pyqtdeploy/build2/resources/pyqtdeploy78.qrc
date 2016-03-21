@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/core/numerictypes.pyo</file>
+        <file>numpy/core/records.pyo</file>
+        <file>numpy/core/setup.pyo</file>
+        <file>numpy/core/setup_common.pyo</file>
+        <file>numpy/core/shape_base.pyo</file>
+        <file>numpy/core/tests/data/astype_copy.pkl</file>
+        <file>numpy/core/tests/data/recarray_from_file.fits</file>
+        <file>numpy/core/tests/test_abc.pyo</file>
+        <file>numpy/core/tests/test_api.pyo</file>
+        <file>numpy/core/tests/test_arrayprint.pyo</file>
+        <file>numpy/core/tests/test_datetime.pyo</file>
+        <file>numpy/core/tests/test_defchararray.pyo</file>
+        <file>numpy/core/tests/test_deprecations.pyo</file>
+        <file>numpy/core/tests/test_dtype.pyo</file>
+        <file>numpy/core/tests/test_einsum.pyo</file>
+        <file>numpy/core/tests/test_errstate.pyo</file>
+        <file>numpy/core/tests/test_function_base.pyo</file>
+        <file>numpy/core/tests/test_getlimits.pyo</file>
+        <file>numpy/core/tests/test_half.pyo</file>
+        <file>numpy/core/tests/test_indexerrors.pyo</file>
+        <file>numpy/core/tests/test_indexing.pyo</file>
+        <file>numpy/core/tests/test_item_selection.pyo</file>
+    </qresource>
+</RCC>

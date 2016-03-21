@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/lib/tests/test_nanfunctions.pyo</file>
+        <file>numpy/lib/tests/test_packbits.pyo</file>
+        <file>numpy/lib/tests/test_polynomial.pyo</file>
+        <file>numpy/lib/tests/test_recfunctions.pyo</file>
+        <file>numpy/lib/tests/test_regression.pyo</file>
+        <file>numpy/lib/tests/test_shape_base.pyo</file>
+        <file>numpy/lib/tests/test_stride_tricks.pyo</file>
+        <file>numpy/lib/tests/test_twodim_base.pyo</file>
+        <file>numpy/lib/tests/test_type_check.pyo</file>
+        <file>numpy/lib/tests/test_ufunclike.pyo</file>
+        <file>numpy/lib/tests/test_utils.pyo</file>
+        <file>numpy/lib/twodim_base.pyo</file>
+        <file>numpy/lib/type_check.pyo</file>
+        <file>numpy/lib/ufunclike.pyo</file>
+        <file>numpy/lib/user_array.pyo</file>
+        <file>numpy/lib/utils.pyo</file>
+        <file>numpy/lib/_version.pyo</file>
+        <file>numpy/linalg/__init__.pyo</file>
+        <file>numpy/linalg/info.pyo</file>
+        <file>numpy/linalg/linalg.pyo</file>
+        <file>numpy/linalg/setup.pyo</file>
+        <file>numpy/linalg/tests/test_build.pyo</file>
+    </qresource>
+</RCC>

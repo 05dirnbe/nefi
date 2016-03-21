@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/matrixlib/tests/test_defmatrix.pyo</file>
+        <file>numpy/matrixlib/tests/test_multiarray.pyo</file>
+        <file>numpy/matrixlib/tests/test_numeric.pyo</file>
+        <file>numpy/matrixlib/tests/test_regression.pyo</file>
+        <file>numpy/polynomial/__init__.pyo</file>
+        <file>numpy/polynomial/chebyshev.pyo</file>
+        <file>numpy/polynomial/hermite.pyo</file>
+        <file>numpy/polynomial/hermite_e.pyo</file>
+        <file>numpy/polynomial/laguerre.pyo</file>
+        <file>numpy/polynomial/legendre.pyo</file>
+        <file>numpy/polynomial/_polybase.pyo</file>
+        <file>numpy/polynomial/polynomial.pyo</file>
+        <file>numpy/polynomial/polyutils.pyo</file>
+        <file>numpy/polynomial/setup.pyo</file>
+        <file>numpy/polynomial/tests/test_chebyshev.pyo</file>
+        <file>numpy/polynomial/tests/test_classes.pyo</file>
+        <file>numpy/polynomial/tests/test_hermite.pyo</file>
+        <file>numpy/polynomial/tests/test_hermite_e.pyo</file>
+        <file>numpy/polynomial/tests/test_laguerre.pyo</file>
+        <file>numpy/polynomial/tests/test_legendre.pyo</file>
+        <file>numpy/polynomial/tests/test_polynomial.pyo</file>
+        <file>numpy/polynomial/tests/test_polyutils.pyo</file>
+    </qresource>
+</RCC>

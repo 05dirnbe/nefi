@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>distutils/archive_util.pyo</file>
+        <file>distutils/bcppcompiler.pyo</file>
+        <file>distutils/ccompiler.pyo</file>
+        <file>distutils/cmd.pyo</file>
+        <file>distutils/command/__init__.pyo</file>
+        <file>distutils/config.pyo</file>
+        <file>distutils/core.pyo</file>
+        <file>distutils/debug.pyo</file>
+        <file>distutils/dep_util.pyo</file>
+        <file>distutils/dir_util.pyo</file>
+        <file>distutils/dist.pyo</file>
+        <file>distutils/errors.pyo</file>
+        <file>distutils/extension.pyo</file>
+        <file>distutils/fancy_getopt.pyo</file>
+        <file>distutils/file_util.pyo</file>
+        <file>distutils/filelist.pyo</file>
+        <file>distutils/log.pyo</file>
+        <file>distutils/msvc9compiler.pyo</file>
+        <file>distutils/msvccompiler.pyo</file>
+        <file>distutils/spawn.pyo</file>
+        <file>distutils/sysconfig.pyo</file>
+        <file>distutils/text_file.pyo</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>tracemalloc.pyo</file>
+        <file>tty.pyo</file>
+        <file>turtle.pyo</file>
+        <file>turtledemo/__init__.pyo</file>
+        <file>turtledemo/__main__.pyo</file>
+        <file>turtledemo/bytedesign.pyo</file>
+        <file>turtledemo/chaos.pyo</file>
+        <file>turtledemo/clock.pyo</file>
+        <file>turtledemo/colormixer.pyo</file>
+        <file>turtledemo/forest.pyo</file>
+        <file>turtledemo/fractalcurves.pyo</file>
+        <file>turtledemo/lindenmayer.pyo</file>
+        <file>turtledemo/minimal_hanoi.pyo</file>
+        <file>turtledemo/nim.pyo</file>
+        <file>turtledemo/paint.pyo</file>
+        <file>turtledemo/peace.pyo</file>
+        <file>turtledemo/penrose.pyo</file>
+        <file>turtledemo/planet_and_moon.pyo</file>
+        <file>turtledemo/round_dance.pyo</file>
+        <file>turtledemo/sorting_animate.pyo</file>
+        <file>turtledemo/tree.pyo</file>
+        <file>turtledemo/turtle.cfg</file>
+    </qresource>
+</RCC>

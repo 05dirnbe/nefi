@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>config-3.5m/Setup.local</file>
+        <file>configparser.pyo</file>
+        <file>contextlib.pyo</file>
+        <file>copy.pyo</file>
+        <file>copyreg.pyo</file>
+        <file>cProfile.pyo</file>
+        <file>crypt.pyo</file>
+        <file>csv.pyo</file>
+        <file>ctypes/__init__.pyo</file>
+        <file>ctypes/_endian.pyo</file>
+        <file>ctypes/macholib/__init__.pyo</file>
+        <file>ctypes/macholib/dyld.pyo</file>
+        <file>ctypes/macholib/dylib.pyo</file>
+        <file>ctypes/macholib/fetch_macholib</file>
+        <file>ctypes/macholib/fetch_macholib.bat</file>
+        <file>ctypes/macholib/framework.pyo</file>
+        <file>ctypes/macholib/README.ctypes</file>
+        <file>ctypes/test/__init__.pyo</file>
+        <file>ctypes/test/__main__.pyo</file>
+        <file>ctypes/test/test_anon.pyo</file>
+        <file>ctypes/test/test_array_in_pointer.pyo</file>
+        <file>ctypes/test/test_arrays.pyo</file>
+    </qresource>
+</RCC>

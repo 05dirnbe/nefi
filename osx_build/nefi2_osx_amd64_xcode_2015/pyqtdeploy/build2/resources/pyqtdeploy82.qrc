@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/distutils/intelccompiler.pyo</file>
+        <file>numpy/distutils/lib2def.pyo</file>
+        <file>numpy/distutils/line_endings.pyo</file>
+        <file>numpy/distutils/log.pyo</file>
+        <file>numpy/distutils/mingw/gfortran_vs2003_hack.c</file>
+        <file>numpy/distutils/mingw32ccompiler.pyo</file>
+        <file>numpy/distutils/misc_util.pyo</file>
+        <file>numpy/distutils/msvc9compiler.pyo</file>
+        <file>numpy/distutils/msvccompiler.pyo</file>
+        <file>numpy/distutils/npy_pkg_config.pyo</file>
+        <file>numpy/distutils/numpy_distribution.pyo</file>
+        <file>numpy/distutils/pathccompiler.pyo</file>
+        <file>numpy/distutils/setup.pyo</file>
+        <file>numpy/distutils/system_info.pyo</file>
+        <file>numpy/distutils/tests/f2py_ext/__init__.pyo</file>
+        <file>numpy/distutils/tests/f2py_ext/setup.pyo</file>
+        <file>numpy/distutils/tests/f2py_ext/src/fib1.f</file>
+        <file>numpy/distutils/tests/f2py_ext/src/fib2.pyf</file>
+        <file>numpy/distutils/tests/f2py_ext/tests/test_fib2.pyo</file>
+        <file>numpy/distutils/tests/f2py_f90_ext/__init__.pyo</file>
+        <file>numpy/distutils/tests/f2py_f90_ext/include/body.f90</file>
+        <file>numpy/distutils/tests/f2py_f90_ext/setup.pyo</file>
+    </qresource>
+</RCC>

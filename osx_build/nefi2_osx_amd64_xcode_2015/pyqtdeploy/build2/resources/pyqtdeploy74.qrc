@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/readwrite/tests/test_graph6.pyo</file>
+        <file>networkx/readwrite/tests/test_graphml.pyo</file>
+        <file>networkx/readwrite/tests/test_leda.pyo</file>
+        <file>networkx/readwrite/tests/test_p2g.pyo</file>
+        <file>networkx/readwrite/tests/test_pajek.pyo</file>
+        <file>networkx/readwrite/tests/test_shp.pyo</file>
+        <file>networkx/readwrite/tests/test_sparse6.pyo</file>
+        <file>networkx/readwrite/tests/test_yaml.pyo</file>
+        <file>networkx/relabel.pyo</file>
+        <file>networkx/release.pyo</file>
+        <file>networkx/testing/__init__.pyo</file>
+        <file>networkx/testing/tests/test_utils.pyo</file>
+        <file>networkx/testing/utils.pyo</file>
+        <file>networkx/tests/__init__.pyo</file>
+        <file>networkx/tests/benchmark.pyo</file>
+        <file>networkx/tests/test.pyo</file>
+        <file>networkx/tests/test_convert.pyo</file>
+        <file>networkx/tests/test_convert_numpy.pyo</file>
+        <file>networkx/tests/test_convert_pandas.pyo</file>
+        <file>networkx/tests/test_convert_scipy.pyo</file>
+        <file>networkx/tests/test_exceptions.pyo</file>
+        <file>networkx/tests/test_relabel.pyo</file>
+    </qresource>
+</RCC>

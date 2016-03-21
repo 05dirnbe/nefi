@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>turtledemo/two_canvases.pyo</file>
+        <file>turtledemo/wikipedia.pyo</file>
+        <file>turtledemo/yinyang.pyo</file>
+        <file>types.pyo</file>
+        <file>typing.pyo</file>
+        <file>unittest/__init__.pyo</file>
+        <file>unittest/__main__.pyo</file>
+        <file>unittest/case.pyo</file>
+        <file>unittest/loader.pyo</file>
+        <file>unittest/main.pyo</file>
+        <file>unittest/mock.pyo</file>
+        <file>unittest/result.pyo</file>
+        <file>unittest/runner.pyo</file>
+        <file>unittest/signals.pyo</file>
+        <file>unittest/suite.pyo</file>
+        <file>unittest/test/__init__.pyo</file>
+        <file>unittest/test/__main__.pyo</file>
+        <file>unittest/test/dummy.pyo</file>
+        <file>unittest/test/support.pyo</file>
+        <file>unittest/test/test_assertions.pyo</file>
+        <file>unittest/test/test_break.pyo</file>
+        <file>unittest/test/test_case.pyo</file>
+    </qresource>
+</RCC>

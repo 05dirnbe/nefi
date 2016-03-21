@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>encodings/cp1257.pyo</file>
+        <file>encodings/cp1258.pyo</file>
+        <file>encodings/cp273.pyo</file>
+        <file>encodings/cp424.pyo</file>
+        <file>encodings/cp437.pyo</file>
+        <file>encodings/cp500.pyo</file>
+        <file>encodings/cp65001.pyo</file>
+        <file>encodings/cp720.pyo</file>
+        <file>encodings/cp737.pyo</file>
+        <file>encodings/cp775.pyo</file>
+        <file>encodings/cp850.pyo</file>
+        <file>encodings/cp852.pyo</file>
+        <file>encodings/cp855.pyo</file>
+        <file>encodings/cp856.pyo</file>
+        <file>encodings/cp857.pyo</file>
+        <file>encodings/cp858.pyo</file>
+        <file>encodings/cp860.pyo</file>
+        <file>encodings/cp861.pyo</file>
+        <file>encodings/cp862.pyo</file>
+        <file>encodings/cp863.pyo</file>
+        <file>encodings/cp864.pyo</file>
+        <file>encodings/cp865.pyo</file>
+    </qresource>
+</RCC>

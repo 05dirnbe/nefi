@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/algorithms/tree/recognition.pyo</file>
+        <file>networkx/algorithms/tree/tests/test_branchings.pyo</file>
+        <file>networkx/algorithms/tree/tests/test_recognition.pyo</file>
+        <file>networkx/algorithms/triads.pyo</file>
+        <file>networkx/algorithms/vitality.pyo</file>
+        <file>networkx/classes/__init__.pyo</file>
+        <file>networkx/classes/digraph.pyo</file>
+        <file>networkx/classes/function.pyo</file>
+        <file>networkx/classes/graph.pyo</file>
+        <file>networkx/classes/multidigraph.pyo</file>
+        <file>networkx/classes/multigraph.pyo</file>
+        <file>networkx/classes/ordered.pyo</file>
+        <file>networkx/classes/tests/historical_tests.pyo</file>
+        <file>networkx/classes/tests/test_digraph.pyo</file>
+        <file>networkx/classes/tests/test_digraph_historical.pyo</file>
+        <file>networkx/classes/tests/test_function.pyo</file>
+        <file>networkx/classes/tests/test_graph.pyo</file>
+        <file>networkx/classes/tests/test_graph_historical.pyo</file>
+        <file>networkx/classes/tests/test_multidigraph.pyo</file>
+        <file>networkx/classes/tests/test_multigraph.pyo</file>
+        <file>networkx/classes/tests/test_ordered.pyo</file>
+        <file>networkx/classes/tests/test_special.pyo</file>
+    </qresource>
+</RCC>

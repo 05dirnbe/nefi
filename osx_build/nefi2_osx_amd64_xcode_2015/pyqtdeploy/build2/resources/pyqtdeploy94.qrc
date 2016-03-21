@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>PyQt5/uic/Compiler/qtproxies.pyo</file>
+        <file>PyQt5/uic/driver.pyo</file>
+        <file>PyQt5/uic/exceptions.pyo</file>
+        <file>PyQt5/uic/icon_cache.pyo</file>
+        <file>PyQt5/uic/Loader/__init__.pyo</file>
+        <file>PyQt5/uic/Loader/loader.pyo</file>
+        <file>PyQt5/uic/Loader/qobjectcreator.pyo</file>
+        <file>PyQt5/uic/objcreator.pyo</file>
+        <file>PyQt5/uic/port_v3/__init__.pyo</file>
+        <file>PyQt5/uic/port_v3/as_string.pyo</file>
+        <file>PyQt5/uic/port_v3/ascii_upper.pyo</file>
+        <file>PyQt5/uic/port_v3/invoke.pyo</file>
+        <file>PyQt5/uic/port_v3/load_plugin.pyo</file>
+        <file>PyQt5/uic/port_v3/proxy_base.pyo</file>
+        <file>PyQt5/uic/port_v3/string_io.pyo</file>
+        <file>PyQt5/uic/properties.pyo</file>
+        <file>PyQt5/uic/pyuic.pyo</file>
+        <file>PyQt5/uic/uiparser.pyo</file>
+        <file>PyQt5/uic/widget-plugins/qaxcontainer.pyo</file>
+        <file>PyQt5/uic/widget-plugins/qscintilla.pyo</file>
+        <file>PyQt5/uic/widget-plugins/qtprintsupport.pyo</file>
+        <file>PyQt5/uic/widget-plugins/qtquickwidgets.pyo</file>
+    </qresource>
+</RCC>

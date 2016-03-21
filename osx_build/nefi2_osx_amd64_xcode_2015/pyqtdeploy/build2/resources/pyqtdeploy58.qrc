@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>xml/sax/saxutils.pyo</file>
+        <file>xml/sax/xmlreader.pyo</file>
+        <file>xmlrpc/__init__.pyo</file>
+        <file>xmlrpc/client.pyo</file>
+        <file>xmlrpc/server.pyo</file>
+        <file>zipapp.pyo</file>
+        <file>zipfile.pyo</file>
+        <file>__init__.pyo</file>
+        <file>decorator.pyo</file>
+        <file>demjson.pyo</file>
+        <file>networkx/__init__.pyo</file>
+        <file>networkx/algorithms/__init__.pyo</file>
+        <file>networkx/algorithms/approximation/__init__.pyo</file>
+        <file>networkx/algorithms/approximation/clique.pyo</file>
+        <file>networkx/algorithms/approximation/clustering_coefficient.pyo</file>
+        <file>networkx/algorithms/approximation/connectivity.pyo</file>
+        <file>networkx/algorithms/approximation/dominating_set.pyo</file>
+        <file>networkx/algorithms/approximation/independent_set.pyo</file>
+        <file>networkx/algorithms/approximation/kcomponents.pyo</file>
+        <file>networkx/algorithms/approximation/matching.pyo</file>
+        <file>networkx/algorithms/approximation/ramsey.pyo</file>
+        <file>networkx/algorithms/approximation/tests/test_approx_clust_coeff.pyo</file>
+    </qresource>
+</RCC>

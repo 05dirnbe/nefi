@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>calendar.pyo</file>
+        <file>cgi.pyo</file>
+        <file>cgitb.pyo</file>
+        <file>chunk.pyo</file>
+        <file>cmd.pyo</file>
+        <file>code.pyo</file>
+        <file>codecs.pyo</file>
+        <file>codeop.pyo</file>
+        <file>collections/__init__.pyo</file>
+        <file>collections/abc.pyo</file>
+        <file>colorsys.pyo</file>
+        <file>concurrent/__init__.pyo</file>
+        <file>concurrent/futures/__init__.pyo</file>
+        <file>concurrent/futures/_base.pyo</file>
+        <file>concurrent/futures/process.pyo</file>
+        <file>concurrent/futures/thread.pyo</file>
+        <file>configparser.pyo</file>
+        <file>contextlib.pyo</file>
+        <file>copy.pyo</file>
+        <file>copyreg.pyo</file>
+        <file>crypt.pyo</file>
+        <file>csv.pyo</file>
+    </qresource>
+</RCC>

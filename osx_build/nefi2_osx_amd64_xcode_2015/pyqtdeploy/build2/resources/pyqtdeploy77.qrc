@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/core/include/numpy/npy_cpu.h</file>
+        <file>numpy/core/include/numpy/npy_endian.h</file>
+        <file>numpy/core/include/numpy/npy_interrupt.h</file>
+        <file>numpy/core/include/numpy/npy_math.h</file>
+        <file>numpy/core/include/numpy/npy_no_deprecated_api.h</file>
+        <file>numpy/core/include/numpy/npy_os.h</file>
+        <file>numpy/core/include/numpy/_numpyconfig.h</file>
+        <file>numpy/core/include/numpy/numpyconfig.h</file>
+        <file>numpy/core/include/numpy/old_defines.h</file>
+        <file>numpy/core/include/numpy/oldnumeric.h</file>
+        <file>numpy/core/include/numpy/ufunc_api.txt</file>
+        <file>numpy/core/include/numpy/ufuncobject.h</file>
+        <file>numpy/core/include/numpy/utils.h</file>
+        <file>numpy/core/info.pyo</file>
+        <file>numpy/core/_internal.pyo</file>
+        <file>numpy/core/lib/libnpymath.a</file>
+        <file>numpy/core/lib/npy-pkg-config/mlib.ini</file>
+        <file>numpy/core/lib/npy-pkg-config/npymath.ini</file>
+        <file>numpy/core/machar.pyo</file>
+        <file>numpy/core/memmap.pyo</file>
+        <file>numpy/core/_methods.pyo</file>
+        <file>numpy/core/numeric.pyo</file>
+    </qresource>
+</RCC>

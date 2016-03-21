@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>encodings/tis_620.pyo</file>
+        <file>encodings/undefined.pyo</file>
+        <file>encodings/unicode_escape.pyo</file>
+        <file>encodings/unicode_internal.pyo</file>
+        <file>encodings/utf_16.pyo</file>
+        <file>encodings/utf_16_be.pyo</file>
+        <file>encodings/utf_16_le.pyo</file>
+        <file>encodings/utf_32.pyo</file>
+        <file>encodings/utf_32_be.pyo</file>
+        <file>encodings/utf_32_le.pyo</file>
+        <file>encodings/utf_7.pyo</file>
+        <file>encodings/utf_8.pyo</file>
+        <file>encodings/utf_8_sig.pyo</file>
+        <file>encodings/uu_codec.pyo</file>
+        <file>encodings/zlib_codec.pyo</file>
+        <file>enum.pyo</file>
+        <file>filecmp.pyo</file>
+        <file>fileinput.pyo</file>
+        <file>fnmatch.pyo</file>
+        <file>formatter.pyo</file>
+        <file>fractions.pyo</file>
+        <file>ftplib.pyo</file>
+    </qresource>
+</RCC>

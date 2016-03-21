@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>distutils/unixccompiler.pyo</file>
+        <file>distutils/util.pyo</file>
+        <file>distutils/version.pyo</file>
+        <file>distutils/versionpredicate.pyo</file>
+        <file>email/__init__.pyo</file>
+        <file>email/_encoded_words.pyo</file>
+        <file>email/_header_value_parser.pyo</file>
+        <file>email/_parseaddr.pyo</file>
+        <file>email/_policybase.pyo</file>
+        <file>email/base64mime.pyo</file>
+        <file>email/charset.pyo</file>
+        <file>email/contentmanager.pyo</file>
+        <file>email/encoders.pyo</file>
+        <file>email/errors.pyo</file>
+        <file>email/feedparser.pyo</file>
+        <file>email/generator.pyo</file>
+        <file>email/header.pyo</file>
+        <file>email/headerregistry.pyo</file>
+        <file>email/iterators.pyo</file>
+        <file>email/message.pyo</file>
+        <file>email/parser.pyo</file>
+        <file>email/policy.pyo</file>
+    </qresource>
+</RCC>

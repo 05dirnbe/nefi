@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>email/quoprimime.pyo</file>
+        <file>email/utils.pyo</file>
+        <file>encodings/__init__.pyo</file>
+        <file>encodings/aliases.pyo</file>
+        <file>encodings/ascii.pyo</file>
+        <file>encodings/base64_codec.pyo</file>
+        <file>encodings/big5.pyo</file>
+        <file>encodings/big5hkscs.pyo</file>
+        <file>encodings/bz2_codec.pyo</file>
+        <file>encodings/charmap.pyo</file>
+        <file>encodings/cp037.pyo</file>
+        <file>encodings/cp1006.pyo</file>
+        <file>encodings/cp1026.pyo</file>
+        <file>encodings/cp1125.pyo</file>
+        <file>encodings/cp1140.pyo</file>
+        <file>encodings/cp1250.pyo</file>
+        <file>encodings/cp1251.pyo</file>
+        <file>encodings/cp1252.pyo</file>
+        <file>encodings/cp1253.pyo</file>
+        <file>encodings/cp1254.pyo</file>
+        <file>encodings/cp1255.pyo</file>
+        <file>encodings/cp1256.pyo</file>
+    </qresource>
+</RCC>

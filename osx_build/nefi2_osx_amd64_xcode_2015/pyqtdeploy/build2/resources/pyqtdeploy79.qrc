@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/core/tests/test_machar.pyo</file>
+        <file>numpy/core/tests/test_memmap.pyo</file>
+        <file>numpy/core/tests/test_multiarray.pyo</file>
+        <file>numpy/core/tests/test_multiarray_assignment.pyo</file>
+        <file>numpy/core/tests/test_nditer.pyo</file>
+        <file>numpy/core/tests/test_numeric.pyo</file>
+        <file>numpy/core/tests/test_numerictypes.pyo</file>
+        <file>numpy/core/tests/test_print.pyo</file>
+        <file>numpy/core/tests/test_records.pyo</file>
+        <file>numpy/core/tests/test_regression.pyo</file>
+        <file>numpy/core/tests/test_scalarinherit.pyo</file>
+        <file>numpy/core/tests/test_scalarmath.pyo</file>
+        <file>numpy/core/tests/test_scalarprint.pyo</file>
+        <file>numpy/core/tests/test_shape_base.pyo</file>
+        <file>numpy/core/tests/test_ufunc.pyo</file>
+        <file>numpy/core/tests/test_umath.pyo</file>
+        <file>numpy/core/tests/test_umath_complex.pyo</file>
+        <file>numpy/core/tests/test_unicode.pyo</file>
+        <file>numpy/ctypeslib.pyo</file>
+        <file>numpy/distutils/__config__.pyo</file>
+        <file>numpy/distutils/__init__.pyo</file>
+        <file>numpy/distutils/__version__.pyo</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>abc.pyo</file>
+        <file>aifc.pyo</file>
+        <file>antigravity.pyo</file>
+        <file>argparse.pyo</file>
+        <file>ast.pyo</file>
+        <file>asynchat.pyo</file>
+        <file>asyncio/__init__.pyo</file>
+        <file>asyncio/base_events.pyo</file>
+        <file>asyncio/base_subprocess.pyo</file>
+        <file>asyncio/compat.pyo</file>
+        <file>asyncio/constants.pyo</file>
+        <file>asyncio/coroutines.pyo</file>
+        <file>asyncio/events.pyo</file>
+        <file>asyncio/futures.pyo</file>
+        <file>asyncio/locks.pyo</file>
+        <file>asyncio/log.pyo</file>
+        <file>asyncio/proactor_events.pyo</file>
+        <file>asyncio/protocols.pyo</file>
+        <file>asyncio/queues.pyo</file>
+        <file>asyncio/selector_events.pyo</file>
+        <file>asyncio/sslproto.pyo</file>
+        <file>asyncio/streams.pyo</file>
+    </qresource>
+</RCC>

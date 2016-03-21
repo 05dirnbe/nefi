@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>distutils/tests/test_msvccompiler.pyo</file>
+        <file>distutils/tests/test_register.pyo</file>
+        <file>distutils/tests/test_sdist.pyo</file>
+        <file>distutils/tests/test_spawn.pyo</file>
+        <file>distutils/tests/test_sysconfig.pyo</file>
+        <file>distutils/tests/test_text_file.pyo</file>
+        <file>distutils/tests/test_unixccompiler.pyo</file>
+        <file>distutils/tests/test_upload.pyo</file>
+        <file>distutils/tests/test_util.pyo</file>
+        <file>distutils/tests/test_version.pyo</file>
+        <file>distutils/tests/test_versionpredicate.pyo</file>
+        <file>distutils/tests/xxmodule.c</file>
+        <file>distutils/text_file.pyo</file>
+        <file>distutils/unixccompiler.pyo</file>
+        <file>distutils/util.pyo</file>
+        <file>distutils/version.pyo</file>
+        <file>distutils/versionpredicate.pyo</file>
+        <file>doctest.pyo</file>
+        <file>_dummy_thread.pyo</file>
+        <file>dummy_threading.pyo</file>
+        <file>email/__init__.pyo</file>
+        <file>email/architecture.rst</file>
+    </qresource>
+</RCC>

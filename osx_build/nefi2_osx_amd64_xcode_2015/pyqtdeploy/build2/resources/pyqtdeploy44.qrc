@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>idlelib/SearchEngine.pyo</file>
+        <file>idlelib/StackViewer.pyo</file>
+        <file>idlelib/tabbedpages.pyo</file>
+        <file>idlelib/textView.pyo</file>
+        <file>idlelib/TODO.txt</file>
+        <file>idlelib/ToolTip.pyo</file>
+        <file>idlelib/TreeWidget.pyo</file>
+        <file>idlelib/UndoDelegator.pyo</file>
+        <file>idlelib/WidgetRedirector.pyo</file>
+        <file>idlelib/WindowList.pyo</file>
+        <file>idlelib/ZoomHeight.pyo</file>
+        <file>imaplib.pyo</file>
+        <file>imghdr.pyo</file>
+        <file>imp.pyo</file>
+        <file>importlib/__init__.pyo</file>
+        <file>importlib/abc.pyo</file>
+        <file>importlib/_bootstrap.pyo</file>
+        <file>importlib/_bootstrap_external.pyo</file>
+        <file>importlib/machinery.pyo</file>
+        <file>importlib/util.pyo</file>
+        <file>inspect.pyo</file>
+        <file>io.pyo</file>
+    </qresource>
+</RCC>

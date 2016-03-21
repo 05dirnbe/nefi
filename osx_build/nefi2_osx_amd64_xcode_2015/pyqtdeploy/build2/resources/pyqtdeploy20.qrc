@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>asyncio/subprocess.pyo</file>
+        <file>asyncio/tasks.pyo</file>
+        <file>asyncio/test_utils.pyo</file>
+        <file>asyncio/transports.pyo</file>
+        <file>asyncio/unix_events.pyo</file>
+        <file>asyncio/windows_events.pyo</file>
+        <file>asyncio/windows_utils.pyo</file>
+        <file>asyncore.pyo</file>
+        <file>base64.pyo</file>
+        <file>bdb.pyo</file>
+        <file>binhex.pyo</file>
+        <file>bisect.pyo</file>
+        <file>_bootlocale.pyo</file>
+        <file>bz2.pyo</file>
+        <file>calendar.pyo</file>
+        <file>cgi.pyo</file>
+        <file>cgitb.pyo</file>
+        <file>chunk.pyo</file>
+        <file>cmd.pyo</file>
+        <file>code.pyo</file>
+        <file>codecs.pyo</file>
+        <file>codeop.pyo</file>
+    </qresource>
+</RCC>

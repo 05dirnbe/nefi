@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>sqlite3/test/regression.pyo</file>
+        <file>sqlite3/test/transactions.pyo</file>
+        <file>sqlite3/test/types.pyo</file>
+        <file>sqlite3/test/userfunctions.pyo</file>
+        <file>sre_compile.pyo</file>
+        <file>sre_constants.pyo</file>
+        <file>sre_parse.pyo</file>
+        <file>ssl.pyo</file>
+        <file>stat.pyo</file>
+        <file>statistics.pyo</file>
+        <file>string.pyo</file>
+        <file>stringprep.pyo</file>
+        <file>_strptime.pyo</file>
+        <file>struct.pyo</file>
+        <file>subprocess.pyo</file>
+        <file>sunau.pyo</file>
+        <file>symbol.pyo</file>
+        <file>symtable.pyo</file>
+        <file>sysconfig.pyo</file>
+        <file>_sysconfigdata.pyo</file>
+        <file>tabnanny.pyo</file>
+        <file>tarfile.pyo</file>
+    </qresource>
+</RCC>

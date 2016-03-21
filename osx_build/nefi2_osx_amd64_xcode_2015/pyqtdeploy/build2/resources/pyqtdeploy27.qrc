@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>distutils/command/install_scripts.pyo</file>
+        <file>distutils/command/register.pyo</file>
+        <file>distutils/command/sdist.pyo</file>
+        <file>distutils/command/upload.pyo</file>
+        <file>distutils/command/wininst-10.0-amd64.exe</file>
+        <file>distutils/command/wininst-10.0.exe</file>
+        <file>distutils/command/wininst-14.0-amd64.exe</file>
+        <file>distutils/command/wininst-14.0.exe</file>
+        <file>distutils/command/wininst-6.0.exe</file>
+        <file>distutils/command/wininst-7.1.exe</file>
+        <file>distutils/command/wininst-8.0.exe</file>
+        <file>distutils/command/wininst-9.0-amd64.exe</file>
+        <file>distutils/command/wininst-9.0.exe</file>
+        <file>distutils/config.pyo</file>
+        <file>distutils/core.pyo</file>
+        <file>distutils/cygwinccompiler.pyo</file>
+        <file>distutils/debug.pyo</file>
+        <file>distutils/dep_util.pyo</file>
+        <file>distutils/dir_util.pyo</file>
+        <file>distutils/dist.pyo</file>
+        <file>distutils/errors.pyo</file>
+        <file>distutils/extension.pyo</file>
+    </qresource>
+</RCC>

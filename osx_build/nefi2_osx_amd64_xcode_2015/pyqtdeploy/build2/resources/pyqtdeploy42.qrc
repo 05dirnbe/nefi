@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>idlelib/idle_test/test_config_name.pyo</file>
+        <file>idlelib/idle_test/test_configdialog.pyo</file>
+        <file>idlelib/idle_test/test_delegator.pyo</file>
+        <file>idlelib/idle_test/test_editor.pyo</file>
+        <file>idlelib/idle_test/test_formatparagraph.pyo</file>
+        <file>idlelib/idle_test/test_grep.pyo</file>
+        <file>idlelib/idle_test/test_hyperparser.pyo</file>
+        <file>idlelib/idle_test/test_idlehistory.pyo</file>
+        <file>idlelib/idle_test/test_io.pyo</file>
+        <file>idlelib/idle_test/test_parenmatch.pyo</file>
+        <file>idlelib/idle_test/test_pathbrowser.pyo</file>
+        <file>idlelib/idle_test/test_rstrip.pyo</file>
+        <file>idlelib/idle_test/test_searchdialogbase.pyo</file>
+        <file>idlelib/idle_test/test_searchengine.pyo</file>
+        <file>idlelib/idle_test/test_text.pyo</file>
+        <file>idlelib/idle_test/test_textview.pyo</file>
+        <file>idlelib/idle_test/test_warning.pyo</file>
+        <file>idlelib/idle_test/test_widgetredir.pyo</file>
+        <file>idlelib/IdleHistory.pyo</file>
+        <file>idlelib/idlever.pyo</file>
+        <file>idlelib/IOBinding.pyo</file>
+        <file>idlelib/keybindingDialog.pyo</file>
+    </qresource>
+</RCC>

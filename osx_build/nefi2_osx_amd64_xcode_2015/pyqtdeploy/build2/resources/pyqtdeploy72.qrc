@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/generators/tests/test_random_graphs.pyo</file>
+        <file>networkx/generators/tests/test_small.pyo</file>
+        <file>networkx/generators/tests/test_stochastic.pyo</file>
+        <file>networkx/generators/tests/test_threshold.pyo</file>
+        <file>networkx/generators/threshold.pyo</file>
+        <file>networkx/linalg/__init__.pyo</file>
+        <file>networkx/linalg/algebraicconnectivity.pyo</file>
+        <file>networkx/linalg/attrmatrix.pyo</file>
+        <file>networkx/linalg/graphmatrix.pyo</file>
+        <file>networkx/linalg/laplacianmatrix.pyo</file>
+        <file>networkx/linalg/modularitymatrix.pyo</file>
+        <file>networkx/linalg/spectrum.pyo</file>
+        <file>networkx/linalg/tests/test_algebraic_connectivity.pyo</file>
+        <file>networkx/linalg/tests/test_graphmatrix.pyo</file>
+        <file>networkx/linalg/tests/test_laplacian.pyo</file>
+        <file>networkx/linalg/tests/test_modularity.pyo</file>
+        <file>networkx/linalg/tests/test_spectrum.pyo</file>
+        <file>networkx/readwrite/__init__.pyo</file>
+        <file>networkx/readwrite/adjlist.pyo</file>
+        <file>networkx/readwrite/edgelist.pyo</file>
+        <file>networkx/readwrite/gexf.pyo</file>
+        <file>networkx/readwrite/gml.pyo</file>
+    </qresource>
+</RCC>

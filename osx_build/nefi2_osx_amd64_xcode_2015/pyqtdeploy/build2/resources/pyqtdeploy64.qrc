@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>networkx/algorithms/core.pyo</file>
+        <file>networkx/algorithms/cycles.pyo</file>
+        <file>networkx/algorithms/dag.pyo</file>
+        <file>networkx/algorithms/distance_measures.pyo</file>
+        <file>networkx/algorithms/distance_regular.pyo</file>
+        <file>networkx/algorithms/dominance.pyo</file>
+        <file>networkx/algorithms/dominating.pyo</file>
+        <file>networkx/algorithms/euler.pyo</file>
+        <file>networkx/algorithms/flow/__init__.pyo</file>
+        <file>networkx/algorithms/flow/capacityscaling.pyo</file>
+        <file>networkx/algorithms/flow/edmondskarp.pyo</file>
+        <file>networkx/algorithms/flow/maxflow.pyo</file>
+        <file>networkx/algorithms/flow/mincost.pyo</file>
+        <file>networkx/algorithms/flow/networksimplex.pyo</file>
+        <file>networkx/algorithms/flow/preflowpush.pyo</file>
+        <file>networkx/algorithms/flow/shortestaugmentingpath.pyo</file>
+        <file>networkx/algorithms/flow/tests/gl1.gpickle.bz2</file>
+        <file>networkx/algorithms/flow/tests/gw1.gpickle.bz2</file>
+        <file>networkx/algorithms/flow/tests/netgen-2.gpickle.bz2</file>
+        <file>networkx/algorithms/flow/tests/test_maxflow.pyo</file>
+        <file>networkx/algorithms/flow/tests/test_maxflow_large_graph.pyo</file>
+        <file>networkx/algorithms/flow/tests/test_mincost.pyo</file>
+    </qresource>
+</RCC>

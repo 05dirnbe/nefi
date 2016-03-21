@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>encodings/latin_1.pyo</file>
+        <file>encodings/mac_arabic.pyo</file>
+        <file>encodings/mac_centeuro.pyo</file>
+        <file>encodings/mac_croatian.pyo</file>
+        <file>encodings/mac_cyrillic.pyo</file>
+        <file>encodings/mac_farsi.pyo</file>
+        <file>encodings/mac_greek.pyo</file>
+        <file>encodings/mac_iceland.pyo</file>
+        <file>encodings/mac_latin2.pyo</file>
+        <file>encodings/mac_roman.pyo</file>
+        <file>encodings/mac_romanian.pyo</file>
+        <file>encodings/mac_turkish.pyo</file>
+        <file>encodings/mbcs.pyo</file>
+        <file>encodings/palmos.pyo</file>
+        <file>encodings/ptcp154.pyo</file>
+        <file>encodings/punycode.pyo</file>
+        <file>encodings/quopri_codec.pyo</file>
+        <file>encodings/raw_unicode_escape.pyo</file>
+        <file>encodings/rot_13.pyo</file>
+        <file>encodings/shift_jis.pyo</file>
+        <file>encodings/shift_jis_2004.pyo</file>
+        <file>encodings/shift_jisx0213.pyo</file>
+    </qresource>
+</RCC>

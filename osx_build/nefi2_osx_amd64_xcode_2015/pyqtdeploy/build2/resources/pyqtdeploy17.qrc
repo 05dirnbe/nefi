@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>tokenize.pyo</file>
+        <file>trace.pyo</file>
+        <file>traceback.pyo</file>
+        <file>tracemalloc.pyo</file>
+        <file>tty.pyo</file>
+        <file>types.pyo</file>
+        <file>typing.pyo</file>
+        <file>urllib/__init__.pyo</file>
+        <file>urllib/error.pyo</file>
+        <file>urllib/parse.pyo</file>
+        <file>urllib/request.pyo</file>
+        <file>urllib/response.pyo</file>
+        <file>uu.pyo</file>
+        <file>uuid.pyo</file>
+        <file>warnings.pyo</file>
+        <file>wave.pyo</file>
+        <file>weakref.pyo</file>
+        <file>webbrowser.pyo</file>
+        <file>wsgiref/__init__.pyo</file>
+        <file>xdrlib.pyo</file>
+        <file>xml/__init__.pyo</file>
+        <file>xml/dom/__init__.pyo</file>
+    </qresource>
+</RCC>

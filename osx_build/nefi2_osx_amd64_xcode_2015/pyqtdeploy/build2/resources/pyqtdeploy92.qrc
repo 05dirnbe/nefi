@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/polynomial/tests/test_printing.pyo</file>
+        <file>numpy/random/__init__.pyo</file>
+        <file>numpy/random/info.pyo</file>
+        <file>numpy/random/randomkit.h</file>
+        <file>numpy/random/setup.pyo</file>
+        <file>numpy/random/tests/test_random.pyo</file>
+        <file>numpy/random/tests/test_regression.pyo</file>
+        <file>numpy/setup.pyo</file>
+        <file>numpy/testing/__init__.pyo</file>
+        <file>numpy/testing/decorators.pyo</file>
+        <file>numpy/testing/noseclasses.pyo</file>
+        <file>numpy/testing/nosetester.pyo</file>
+        <file>numpy/testing/print_coercion_tables.pyo</file>
+        <file>numpy/testing/setup.pyo</file>
+        <file>numpy/testing/tests/test_decorators.pyo</file>
+        <file>numpy/testing/tests/test_doctesting.pyo</file>
+        <file>numpy/testing/tests/test_utils.pyo</file>
+        <file>numpy/testing/utils.pyo</file>
+        <file>numpy/tests/test_ctypeslib.pyo</file>
+        <file>numpy/tests/test_matlib.pyo</file>
+        <file>numpy/tests/test_scripts.pyo</file>
+        <file>numpy/version.pyo</file>
+    </qresource>
+</RCC>

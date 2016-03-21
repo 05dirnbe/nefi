@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>ensurepip/_bundled/pip-7.1.2-py2.py3-none-any.whl</file>
+        <file>ensurepip/_bundled/setuptools-18.2-py2.py3-none-any.whl</file>
+        <file>ensurepip/_uninstall.pyo</file>
+        <file>enum.pyo</file>
+        <file>filecmp.pyo</file>
+        <file>fileinput.pyo</file>
+        <file>fnmatch.pyo</file>
+        <file>formatter.pyo</file>
+        <file>fractions.pyo</file>
+        <file>ftplib.pyo</file>
+        <file>functools.pyo</file>
+        <file>genericpath.pyo</file>
+        <file>getopt.pyo</file>
+        <file>getpass.pyo</file>
+        <file>gettext.pyo</file>
+        <file>glob.pyo</file>
+        <file>gzip.pyo</file>
+        <file>hashlib.pyo</file>
+        <file>heapq.pyo</file>
+        <file>hmac.pyo</file>
+        <file>html/__init__.pyo</file>
+        <file>html/entities.pyo</file>
+    </qresource>
+</RCC>

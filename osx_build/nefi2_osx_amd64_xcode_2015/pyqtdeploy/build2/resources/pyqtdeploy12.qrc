@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>importlib/machinery.pyo</file>
+        <file>importlib/util.pyo</file>
+        <file>inspect.pyo</file>
+        <file>io.pyo</file>
+        <file>ipaddress.pyo</file>
+        <file>json/__init__.pyo</file>
+        <file>json/decoder.pyo</file>
+        <file>json/encoder.pyo</file>
+        <file>json/scanner.pyo</file>
+        <file>keyword.pyo</file>
+        <file>linecache.pyo</file>
+        <file>locale.pyo</file>
+        <file>logging/__init__.pyo</file>
+        <file>logging/config.pyo</file>
+        <file>logging/handlers.pyo</file>
+        <file>lzma.pyo</file>
+        <file>macpath.pyo</file>
+        <file>mailbox.pyo</file>
+        <file>mailcap.pyo</file>
+        <file>mimetypes.pyo</file>
+        <file>modulefinder.pyo</file>
+        <file>multiprocessing/__init__.pyo</file>
+    </qresource>
+</RCC>

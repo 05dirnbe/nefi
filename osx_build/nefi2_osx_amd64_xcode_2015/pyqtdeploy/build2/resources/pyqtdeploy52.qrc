@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>tkinter/test/support.pyo</file>
+        <file>tkinter/test/test_tkinter/__init__.pyo</file>
+        <file>tkinter/test/test_tkinter/test_font.pyo</file>
+        <file>tkinter/test/test_tkinter/test_geometry_managers.pyo</file>
+        <file>tkinter/test/test_tkinter/test_images.pyo</file>
+        <file>tkinter/test/test_tkinter/test_loadtk.pyo</file>
+        <file>tkinter/test/test_tkinter/test_misc.pyo</file>
+        <file>tkinter/test/test_tkinter/test_text.pyo</file>
+        <file>tkinter/test/test_tkinter/test_variables.pyo</file>
+        <file>tkinter/test/test_tkinter/test_widgets.pyo</file>
+        <file>tkinter/test/test_ttk/__init__.pyo</file>
+        <file>tkinter/test/test_ttk/test_extensions.pyo</file>
+        <file>tkinter/test/test_ttk/test_functions.pyo</file>
+        <file>tkinter/test/test_ttk/test_style.pyo</file>
+        <file>tkinter/test/test_ttk/test_widgets.pyo</file>
+        <file>tkinter/test/widget_tests.pyo</file>
+        <file>tkinter/tix.pyo</file>
+        <file>tkinter/ttk.pyo</file>
+        <file>token.pyo</file>
+        <file>tokenize.pyo</file>
+        <file>trace.pyo</file>
+        <file>traceback.pyo</file>
+    </qresource>
+</RCC>

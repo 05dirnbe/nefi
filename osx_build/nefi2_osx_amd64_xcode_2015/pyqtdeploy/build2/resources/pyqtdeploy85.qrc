@@ -1,0 +1,27 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>numpy/f2py/__init__.pyo</file>
+        <file>numpy/f2py/__main__.pyo</file>
+        <file>numpy/f2py/__version__.pyo</file>
+        <file>numpy/f2py/auxfuncs.pyo</file>
+        <file>numpy/f2py/capi_maps.pyo</file>
+        <file>numpy/f2py/cb_rules.pyo</file>
+        <file>numpy/f2py/cfuncs.pyo</file>
+        <file>numpy/f2py/common_rules.pyo</file>
+        <file>numpy/f2py/crackfortran.pyo</file>
+        <file>numpy/f2py/diagnose.pyo</file>
+        <file>numpy/f2py/f2py2e.pyo</file>
+        <file>numpy/f2py/f2py_testing.pyo</file>
+        <file>numpy/f2py/f90mod_rules.pyo</file>
+        <file>numpy/f2py/func2subr.pyo</file>
+        <file>numpy/f2py/info.pyo</file>
+        <file>numpy/f2py/rules.pyo</file>
+        <file>numpy/f2py/setup.pyo</file>
+        <file>numpy/f2py/src/fortranobject.c</file>
+        <file>numpy/f2py/src/fortranobject.h</file>
+        <file>numpy/f2py/tests/src/array_from_pyobj/wrapmodule.c</file>
+        <file>numpy/f2py/tests/src/assumed_shape/foo_free.f90</file>
+        <file>numpy/f2py/tests/src/assumed_shape/foo_mod.f90</file>
+    </qresource>
+</RCC>
