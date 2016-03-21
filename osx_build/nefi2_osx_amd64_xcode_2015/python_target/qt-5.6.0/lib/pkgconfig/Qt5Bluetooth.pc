@@ -1,0 +1,14 @@
+prefix=/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+
+Name: Qt5 Bluetooth
+Description: Qt Bluetooth module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5Bluetooth 
+Libs.private: -framework Foundation -framework IOBluetooth -L/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0/lib -lQt5Core -framework DiskArbitration -framework IOKit -lz -lqtpcre -lm -framework CoreServices -framework AppKit -framework ApplicationServices -framework CoreFoundation -lQt5Concurrent -L/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0/lib -framework DiskArbitration -framework IOKit -framework Foundation -framework CoreServices -framework AppKit -framework ApplicationServices -framework CoreFoundation -lQt5Core -lz -lqtpcre -lm  
+Cflags: -I${includedir}/QtBluetooth -I${includedir}
+Requires: Qt5Core
+

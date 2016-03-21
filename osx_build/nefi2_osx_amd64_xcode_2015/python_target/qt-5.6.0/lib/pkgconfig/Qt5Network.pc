@@ -1,0 +1,14 @@
+prefix=/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+
+Name: Qt5 Network
+Description: Qt Network module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5Network 
+Libs.private: -L/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0/lib -lQt5Core -framework DiskArbitration -framework IOKit -lz -lqtpcre -lm -framework Foundation -framework CoreServices -framework AppKit -framework ApplicationServices -framework CoreFoundation -framework Security -lz -framework SystemConfiguration -framework CoreFoundation -framework CoreServices  
+Cflags: -I${includedir}/QtNetwork -I${includedir}
+Requires: Qt5Core
+

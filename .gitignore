@@ -1,6 +1,7 @@
 .sync
 .gitignore
 .idea
+.DS_Store
 nefi2.komodoproject
 /nefi2/output
 /nefi2_prototype/*.pyc
@@ -27,4 +28,4 @@ nefi2.komodoproject
 /gui_prototypes/Dennis/new/__pycache__/
 /Pavels_pipeline_sanity_test/__pycache__/
 /nefi2/_cache_/
-
+/osx_build/nefi2_osx_amd64_xcode_2015/pyqtdeploy
