@@ -1,0 +1,14 @@
+prefix=/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+
+Name: Qt5 Test
+Description: Qt Unit Testing Library
+Version: 5.6.0
+Libs: -L${libdir} -lQt5Test 
+Libs.private: -framework Security -framework ApplicationServices -framework IOKit -framework Foundation -L/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0/lib -lQt5Core -framework DiskArbitration -lz -lqtpcre -lm -framework CoreServices -framework AppKit -framework CoreFoundation   
+Cflags: -I${includedir}/QtTest -I${includedir}
+Requires: Qt5Core
+

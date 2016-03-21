@@ -1,0 +1,14 @@
+prefix=/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+
+Name: Qt5 Svg
+Description: Qt Svg module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5Svg 
+Libs.private: -L/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0/lib -lQt5Widgets -framework DiskArbitration -framework IOKit -framework Foundation -framework CoreServices -framework AppKit -framework ApplicationServices -framework CoreFoundation -framework Cocoa -framework OpenGL -framework AGL -framework Carbon -lQt5Gui -lqtharfbuzzng -lQt5Core -lz -lqtpcre -lm -lz -framework OpenGL -framework AGL  
+Cflags: -I${includedir}/QtSvg -I${includedir}
+Requires: Qt5Core Qt5Gui Qt5Widgets
+

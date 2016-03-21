@@ -1,0 +1,14 @@
+prefix=/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+
+Name: Qt5 Widgets
+Description: Qt Widgets module
+Version: 5.6.0
+Libs: -L${libdir} -lQt5Widgets 
+Libs.private: -L/Users/philipp/NetworkExtractionFromImages/osx_build/nefi2_osx_amd64_xcode_2015/python_target/qt-5.6.0/lib -lQt5Gui -framework DiskArbitration -framework IOKit -framework Foundation -framework CoreServices -framework AppKit -framework ApplicationServices -framework CoreFoundation -framework Cocoa -lqtharfbuzzng -framework OpenGL -framework AGL -lQt5Core -lz -lqtpcre -lm -framework Carbon -framework Cocoa -lz -framework OpenGL -framework AGL  
+Cflags: -I${includedir}/QtWidgets -I${includedir}
+Requires: Qt5Core Qt5Gui
+
