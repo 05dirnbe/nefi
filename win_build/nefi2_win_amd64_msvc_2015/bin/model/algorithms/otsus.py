@@ -30,7 +30,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Otsu's Threshold"
+        self.name = "Otsus"
         self.parent = "Segmentation"
 
     def process(self, args):
@@ -46,8 +46,8 @@ class AlgBody(Algorithm):
         else:
             gray_img = args[0]
         self.result['img'] = cv2.threshold(gray_img, 0, 255,
-                                      cv2.THRESH_BINARY_INV +
-                                      cv2.THRESH_OTSU)[1]
+                                           cv2.THRESH_BINARY_INV +
+                                           cv2.THRESH_OTSU)[1]
 
 if __name__ == '__main__':
     pass

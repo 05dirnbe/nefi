@@ -88,10 +88,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id1">NetworkX</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">demjson</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">sip</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">PyQt5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">OpenCV</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Thinning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">PyQt5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">OpenCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Thinning</a></li>
 </ul>
 </li>
 </ul>
@@ -163,13 +162,14 @@ Just pick your favourite OS section.</p>
 </div>
 <div class="section" id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
-<p>There are two installation options: using <strong>setup.py</strong> or manually installing all the dependencies if for some reason <strong>setup.py</strong> won&#8217;t work for you.
-Make sure you have your <strong>Python 3.4</strong> installed before performing the steps below.</p>
-<p>Using standard <strong>setup.py</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo python3 setup.py install
-</pre></div>
-</div>
-<p>Next, you&#8217;ll need to compile <strong>OpenCV 3.1.0</strong> for your Python 3.</p>
+<p>Make sure you have your <strong>Python 3.4</strong> installed before performing the steps below.</p>
+<ul class="simple">
+<li>git clone <a class="reference external" href="https://github.com/LumPenPacK/NetworkExtractionFromImages.git">https://github.com/LumPenPacK/NetworkExtractionFromImages.git</a></li>
+<li>cd &#8220;NetworkExtractionFromImages&#8221;</li>
+<li><code class="docutils literal"><span class="pre">./install.sh</span></code></li>
+<li>Install <strong>PyQt5</strong> using you default package manager.</li>
+<li>Next, you&#8217;ll need to compile <strong>OpenCV 3.1.0</strong> for your Python 3.</li>
+</ul>
 <div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseez/opencv.git
 git checkout 3.1.0a
 mkdir release
@@ -179,7 +179,7 @@ make -j4
 sudo make install
 </pre></div>
 </div>
-<p>If everything goes well, you can run NEFI2 by ???</p>
+<p>If everything goes well, you can run NEFI2 by typing in console <strong>nefi2</strong>.</p>
 <p>If not, try manually installing all the dependencies via <strong>pip3</strong>.</p>
 <div class="section" id="id1">
 <h3><a class="reference external" href="https://networkx.github.io/documentation/latest/index.html">NetworkX</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -194,17 +194,11 @@ sudo make install
 </div>
 </div>
 <div class="section" id="id3">
-<h3><a class="reference external" href="https://pypi.python.org/pypi/SIP">sip</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install sip
-</pre></div>
-</div>
-</div>
-<div class="section" id="id4">
-<h3><a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Install <strong>python-pyqt5</strong> using your package manager.</p>
 </div>
-<div class="section" id="id5">
-<h3><a class="reference external" href="http://opencv.org/">OpenCV</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3><a class="reference external" href="http://opencv.org/">OpenCV</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>You need to use OpenCV <strong>version 3.1.0</strong>.
 Unfortunately there are no available binaries, you&#8217;ll need to compile them from source.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseez/opencv.git
@@ -216,8 +210,8 @@ sudo make install
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h3><a class="reference external" href="https://bitbucket.org/adrian_n/thinning">Thinning</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3><a class="reference external" href="https://bitbucket.org/adrian_n/thinning">Thinning</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>This module was converted for Python3 and can be <a class="reference external" href="https://pypi.python.org/pypi?name=thinning_py3&amp;version=1.2.3&amp;:action=display">downloaded from here</a>.</p>
 <p>Unzip and install.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>python3.4 setup.py install
@@ -246,7 +240,7 @@ sudo make install
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Andreas Firczynski, Dennis Groß, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
 
     </p>
   </div>

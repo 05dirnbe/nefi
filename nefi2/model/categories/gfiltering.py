@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from _category import Category
+from nefi2.model.categories._category import Category
 
 
 class CatBody(Category):
@@ -16,7 +17,7 @@ class CatBody(Category):
 
         """
         self.name = 'Graph Filtering'
-        self.icon = "./icons/F.png"
+        self.icon = "nefi2/icons/F.png"
         # we need Category to load its algorithms after self.name assignment
         Category.__init__(self, self.name, self.icon)
 

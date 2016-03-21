@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Smooth degree two nodes
-"""
 import sys
 import networkx as nx
 from _alg import Algorithm
@@ -18,14 +15,13 @@ class AlgBody(Algorithm):
 
     def __init__(self):
         """
-        Smooth degree object constructor
-            Instance vars:
-                | *name* : name of the algorithm
-                | *parent* : name of the appropriated category
+        Instance vars:
+            | *name* : name of the algorithm
+            | *parent* : name of the appropriated category
         """
         Algorithm.__init__(self)
-        self.name = "Smooth degree 2 nodes"
-        self.parent = "Graph filtering"
+        self.name = "Smooth 2 Nodes"
+        self.parent = "Graph Filtering"
 
     def process(self, args):
 

@@ -5,27 +5,16 @@ The main nefi2 startup script.
 It loads extension loader and initializes UI.
 It also enables console batch processing mode.
 """
+from nefi2.model.ext_loader import ExtensionLoader
+from nefi2.model.pipeline import Pipeline
+from nefi2.view.main_controller import MainView
+
 import sys
 import argparse
 import ctypes
-import os
-
-sys.path.insert(0, os.path.join(os.curdir, 'view'))
-sys.path.insert(0, os.path.join(os.curdir, 'model'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QApplication
-import zope
 import qdarkstyle
-from model.ext_loader import ExtensionLoader
-from view.main_controller import MainView
-from model.pipeline import Pipeline
-import qdarkstyle
-from model.ext_loader import ExtensionLoader
-from model.pipeline import Pipeline
-from model import pipeline
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",

@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-This class represents the algorithm Gaussian Blur from the opencv package.
-"""
 import cv2
 from _alg import Algorithm, IntegerSlider, FloatSlider, CheckBox
 
@@ -17,8 +14,6 @@ class AlgBody(Algorithm):
     """
     def __init__(self):
         """
-        Gaussian Blur object constructor.
-
         Instance vars:
             | *name* : name of the algorithm
             | *parent* : name of the appropriate category
@@ -33,7 +28,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Gaussian Blur"
+        self.name = "Gauss Blur"
         self.parent = "Preprocessing"
         self.kernelsize = IntegerSlider("kernelsize", 1, 20, 1, 1)
         self.sigmaX = FloatSlider("sigmaX", 1.0, 100.0, 0.1, 1.0)

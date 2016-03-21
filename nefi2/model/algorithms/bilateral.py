@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from nefi2.model.algorithms._alg import *
 import cv2
-from _alg import *
 
 
 __authors__ = {

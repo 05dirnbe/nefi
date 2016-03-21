@@ -6,6 +6,9 @@ mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
+from nefi2.model.categories._category import Category
+from nefi2.model.algorithms import _utility
+
 import demjson
 import networkx.readwrite as nx
 import os
@@ -15,14 +18,6 @@ import sys
 import copy
 import zope.event.classhandler
 import cv2
-
-sys.path.insert(0, os.path.join(os.curdir, 'view'))
-sys.path.insert(0, os.path.join(os.curdir, 'model'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'categories'))
-sys.path.insert(0, os.path.join(os.curdir, 'model', 'algorithms'))
-
-from categories._category import Category
-from algorithms import _utility
 
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",

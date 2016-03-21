@@ -8,10 +8,11 @@ that nodes may be part of more than one biconnected component. Those nodes are
 articulation points, or cut vertices. The removal of articulation points will
 increase the number of connected components of the graph.
 """
+from nefi2.model.algorithms._alg import Algorithm
 import networkx as nx
 import cv2 as cv
 import numpy as np
-from _alg import Algorithm
+
 
 __author__ = {"Andreas Firczynski": "andreasfir91@googlemail.com"}
 

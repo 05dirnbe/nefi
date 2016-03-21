@@ -1,1 +1,0 @@
-[["Invert Color", {"channel1": true, "channel2": true, "store_image": false, "type": "Preprocessing", "channel3": true}],["Constant Threshold", {"Threshold": 127, "type": "Segmentation", "store_image": false}],["Guo Hall Thinning", {"type": "Graph detection", "store_image": false}],["Keep only largest connected component", {"type": "Graph filtering", "store_image": false}]]
