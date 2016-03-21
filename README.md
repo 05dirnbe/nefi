@@ -5,7 +5,7 @@ Representing the structure of the network as a graph enables subsequent studies 
 
 <add screenshots>
 
-### Installation
+### Installation on Linux
 
 Make sure you have your **Python 3.4** installed before performing the steps below.
 
