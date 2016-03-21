@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>_alg &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>_alg</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst_files/Algorithms.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-model.algorithms._alg">
+<span id="alg"></span><h1>_alg<a class="headerlink" href="#module-model.algorithms._alg" title="Permalink to this headline">¶</a></h1>
+<p>This is Algorithm master class and all algorithms must inherit from it.</p>
+<dl class="class">
+<dt id="model.algorithms._alg.Algorithm">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">Algorithm</code><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="model.algorithms._alg.Algorithm.belongs">
+<code class="descname">belongs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.belongs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.belongs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies the category to which this algorithm implementation is assoc
+iated with. Therefore you the contributor returns a string yielding the
+name of the associated category. E.g. we have an algorithm &#8220;blur&#8221; which
+is created through implementing the abstract class Algorithm. In &#8220;blur&#8221;
+we override the belongs method to return &#8220;preprocessing&#8221; to associate
+the &#8220;blur&#8221; algorithm instance with the category &#8220;preprocessing&#8221;.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>self.parent</em>: The string identifier to which category this</div>
+</div>
+<p class="last">algorithm belongs to</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.find_ui_element">
+<code class="descname">find_ui_element</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.find_ui_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.find_ui_element" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method helps the json parser to find the ui elements
+with the given name</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id1"><span class="problematic" id="id2">|</span></a>name: name of the ui element we are looking for</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.get_icon">
+<code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.get_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the name of the implemented algorithm. E.g. int case the contributor
+is implementing a &#8220;watershed&#8221; algorithm, his get_name method should return &#8220;watershed&#8221;.
+By default this method raises an error if the user is not overriding his own get_name
+method.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>self.name</em>: The name of the algorithm specified in this implementation.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>input_data</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the logic of the implemented algorithm. While computing
+the pipeline each algorithm will be called with its process method
+giving the output image from the previous algorithm processed in
+the pipeline The images are used to draw the result of each algorithm
+in the left section of the UI. Therefore the contributor should return
+an image itself at the end of this method.
+By default this method raises an error if the user is not overriding
+his own process
+method.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>input_data</em>: a tuple which contains all relevant arguments found in</div>
+</div>
+<p class="last">the results of the previous processed algorithm. As common in the
+pipeline pattern, the successors always get called with the
+information the predecessor created.
+The first element in input_data should always be image array,
+the second element is reserved for graph. This is why algorithm
+process methods operate on args indeces (args[0] or args[1]).
+Please consider this in case you decide to add an algorithm which
+produces something different than an image array or networkx graph
+object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.report_pip">
+<code class="descname">report_pip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.report_pip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.report_pip" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a dictionary which contains all relevant algorithm
+information and returns it to the pipeline along with the algorithm
+name. The pipeline needs this information to create a json
+representation of the algorithm. It will encode the dic as following:
+E.g. blur : {&#8220;type&#8221; : &#8220;preprocessing&#8221;, &#8220;kernelsize&#8221; : 2.5}
+The encoding of the dic to json will be done by the pipeline which
+collects the dictionary of each algorithm in the processing list.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>self.name, collections.OrderedDict</em> (list): A tuple consisting
+of the name of the algorithm and the dic containing all relevant
+information about the algorithm which need to be stored on the
+filesystem for the pipeline.json.</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.set_icon">
+<code class="descname">set_icon</code><span class="sig-paren">(</span><em>icon_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.set_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_icon" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first last line-block">
+<div class="line"><em>icon_path</em>: The path to the icon to be used</div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.set_modified">
+<code class="descname">set_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.set_modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set modified to True</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.set_store_image">
+<code class="descname">set_store_image</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.set_store_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.set_store_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="model.algorithms._alg.Algorithm.unset_modified">
+<code class="descname">unset_modified</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#Algorithm.unset_modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.Algorithm.unset_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set modified to False</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.CheckBox">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">CheckBox</code><span class="sig-paren">(</span><em>name</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#CheckBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.CheckBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class defining a Checkbox of type boolean to display in the algorithm
+detail section of the UI. After calling the CheckBox constructor, the
+program automatically creates ui widgets as well as qt slots and signals to
+connect this checkbox with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.CheckBox.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#CheckBox.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.CheckBox.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
+input source of selected values for this particular checkbox instance.
+The &#64;pyqtSlot(bool) decoration declares this method as as QT-Slot. To
+get more information about Slots and Signals in QT read about it in the
+official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the boolean value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.DropDown">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">DropDown</code><span class="sig-paren">(</span><em>name</em>, <em>options</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#DropDown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.DropDown" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class defining a DropDown menu of type string to display in the algorithm
+detail section of the UI. After calling the DropDown constructor, the
+program automatically creates ui widgets as well as qt slots and signals to
+connect this DropDown with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.DropDown.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#DropDown.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.DropDown.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
+inputsource of selected values for this particular DropDown instance.
+The &#64;pyqtSlot(str) decoration declares this method as as QT-Slot. To
+get more information about Slots and Signals in QT read about it in the
+official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the string value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.FloatSlider">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">FloatSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#FloatSlider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.FloatSlider" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class defining a slider of type float to display in the algorithm detail
+section of the UI. After calling the FloatSlider constructor, the program
+automatically creates ui widgets as well as qt slots and signals to connect
+this slider with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.FloatSlider.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#FloatSlider.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.FloatSlider.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as an
+input source of selected values for this particular slider instance.
+The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
+To get more information about Slots and Signals in QT read about it in
+the official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the integer value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="model.algorithms._alg.IntegerSlider">
+<em class="property">class </em><code class="descclassname">model.algorithms._alg.</code><code class="descname">IntegerSlider</code><span class="sig-paren">(</span><em>name</em>, <em>lower</em>, <em>upper</em>, <em>step_size</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#IntegerSlider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.IntegerSlider" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class defining a slider of type int to display in the algorithm detail
+section of the UI. After calling the IntegerSlider constructor, the program
+automatically creates ui widgets as wellas qt slots and signals to connect
+this slider with the UI.</p>
+<dl class="method">
+<dt id="model.algorithms._alg.IntegerSlider.set_value">
+<code class="descname">set_value</code><span class="sig-paren">(</span><em>arg1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/model/algorithms/_alg.html#IntegerSlider.set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#model.algorithms._alg.IntegerSlider.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The set_value method is used by the UI and the batch-mode of NEFI as
+an input source of selected values for this particular slider instance.
+The &#64;pyqtSlot(int) decoration declares this method as as QT-Slot.
+To get more information about Slots and Signals in QT read about it in
+the official QT documentation.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><div class="first line-block">
+<div class="line"><em>arg1</em>: the integer value selected in the ui or the pipeline in</div>
+</div>
+<p class="last">batch-mode</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

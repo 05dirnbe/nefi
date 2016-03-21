@@ -1,0 +1,8 @@
+[
+  ["Watershed DE Adaptive",
+   {"Foreground Iteration":2,
+    "Background Iteration":1,
+    "type":"Segmentation", "store_image":false}],
+  ["Guo Hall",{"store_image":false,"type":"Graph Detection"}],
+  ["Keep only LCC",{"store_image":false,"type":"Graph Filtering"}]
+]
