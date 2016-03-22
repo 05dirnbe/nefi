@@ -596,7 +596,7 @@ class MainView(base, form):
         if len(self.pipeline.executed_cats) != 0:
             timestamp = QLabel()
             timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
-            timestamp.setStyleSheet("font:Candara; Canafont-size: 8pt;")
+            timestamp.setStyleSheet("font:Candara; font-size: 8pt;")
             timestamp.setContentsMargins(5, 0, 0, 0)
 
             hline = QFrame()
