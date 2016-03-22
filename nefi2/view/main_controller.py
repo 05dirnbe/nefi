@@ -19,7 +19,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
-    QScrollArea, QAbstractScrollArea, QFrame
+    QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter
 
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
@@ -268,6 +268,22 @@ class MainView(base, form):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progressbar.hide()
         self.mid_panel_layout.addWidget(self.MidCustomWidget)
+
+        self.splitterWidget = QWidget()
+        self.splitterLayout = QGridLayout()
+        self.splitterLayout.setContentsMargins(0,0,0,0)
+        self.splitterWidget.setLayout(self.splitterLayout)
+        self.splitter = QSplitter()
+        self.splitter.setOrientation(Qt.Vertical)
+        self.splitter.addWidget(self.pip_collapsable)
+        self.splitter.addWidget(self.settings_collapsable)
+
+        #self.splitterLayout.addWidget(self.pip_collapsable)
+        self.splitterLayout.addWidget(self.splitter)
+        #self.splitterLayout.addWidget(self.settings_collapsable)
+
+        self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
+
 
     def disable_plus(self):
         self.add_btn.setEnabled(False)
@@ -1133,7 +1149,6 @@ class QScrollArea_filtered(QScrollArea):
 
                 return True
         return False
-
 
 
 class ClickableQLabel(QLabel):
