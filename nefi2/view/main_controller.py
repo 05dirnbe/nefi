@@ -303,8 +303,6 @@ class MainView(base, form):
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
-        self.remove_btn_widget.hide()
-
         #self.left_panel.setStyleSheet("border:0;")
         #self.right_panel.setStyleSheet("border:0;")
 
@@ -418,7 +416,6 @@ class MainView(base, form):
         the user clicked the clear button
         """
         self.clear_left_side_new_image()
-        self.remove_btn_widget.hide()
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -541,10 +538,11 @@ class MainView(base, form):
         self.MidCustomWidget.setCurrentImage(pixmap)
         self.MidCustomWidget.resetImageSize()
         self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+        settings_widget = None
 
         widget = LeftCustomWidget(event.path, self.MidCustomWidget, self.mid_panel,
                                   self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
-                                  self.get_current_image, self.pipeline)
+                                  self.get_current_image, self.pipeline, settings_widget)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -554,8 +552,7 @@ class MainView(base, form):
         This method gets fired when the pipeline computed a fresh
         immediate result.
         Args:
-            cat: the finished category
-            img_path: the resulting image
+            event: the event from the model
         """
         path = event.path
 
@@ -563,11 +560,12 @@ class MainView(base, form):
         self.MidCustomWidget.setCurrentImage(pixmap)
         self.MidCustomWidget.resetImageSize()
         self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+        settings_widget = self.load_settings_widgets_from_pipeline_groupbox(event.cat)
 
         widget = LeftCustomWidget(path, self.MidCustomWidget, self.mid_panel,
                                   self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
                                   self.get_current_image,
-                                  self.pipeline, event.cat)
+                                  self.pipeline, settings_widget, event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
@@ -608,7 +606,6 @@ class MainView(base, form):
             self.right_panel.setEnabled(False)
             self.progress_label.show()
             self.progressbar.show()
-            self.remove_btn_widget.show()
 
         try:
             if not self.thread.isRunning():
@@ -785,7 +782,7 @@ class MainView(base, form):
         # print("New Cat found in pipeline: " + str(new_cat))
         # print("New Alg found in pipeline: " + str(new_alg))
 
-    def load_settings_widgets_from_pipeline_groupbox(self, position):
+    def load_settings_widgets_from_pipeline_groupbox(self, cat):
         """
         Extracts all widgets from a single algorithm and returns a QBoxLayout
         Args:
@@ -795,14 +792,13 @@ class MainView(base, form):
 
         """
 
-        alg = self.pipeline.executed_cats[position].active_algorithm
+        alg = cat.active_algorithm
 
         empty_flag = True
 
         groupOfSliders = QWidget()
         sp = QSizePolicy()
         sp.setVerticalPolicy(QSizePolicy.Preferred)
-        # groupOfSliders.setSizePolicy(sp)
         groupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
         groupOfSliderssLayout.setContentsMargins(0, -0, -0, 0)
         groupOfSliderssLayout.setAlignment(Qt.AlignTop)
@@ -1038,7 +1034,7 @@ class MainView(base, form):
         self.stackedWidget_Settings.hide()
         settings_main_widget = None
         if not new_marker:
-            settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(position)
+            settings_main_widget = self.load_settings_widgets_from_pipeline_groupbox(cat)
             self.stackedWidget_Settings.insertWidget(position, settings_main_widget)
 
         def show_settings():
@@ -1386,10 +1382,10 @@ class LeftCustomWidget(QWidget):
     according vbox_layout of the Mainview.ui
     """
 
-    trigger = pyqtSignal()
+    select_image = pyqtSignal()
 
     def __init__(self, image_path, MidCustomWidget, mid_panel, left_scroll_results, current_image,
-                 slot, pipeline, cat=None):
+                 slot, pipeline, settings_widget, cat=None):
         super(LeftCustomWidget, self).__init__()
 
         self.setStyleSheet("font:Candara; font-size: 8pt;")
@@ -1398,11 +1394,12 @@ class LeftCustomWidget(QWidget):
         self.left_scroll_results = left_scroll_results
         self.cat = cat
         self.pipeline = pipeline
+        self.settings_widget = settings_widget
         self.step = 0
         if cat is None:
             self.image_name = "Input - Image"
         else:
-            self.image_name = str(cat.get_name() + " " + cat.active_algorithm.name)
+            self.image_name = str(cat.get_name() + " - " + cat.active_algorithm.name)
             self.step = self.pipeline.get_index(cat) + 1
         self.slot = slot
         # self.setGeometry(0, 0, 300, 100)
@@ -1424,10 +1421,14 @@ class LeftCustomWidget(QWidget):
 
         self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
+        if cat:
+            self.createSettings()
+            self.settings_widget.hide()
+            self.LeftCustomWidgetLayout.addWidget(self.settings_widget)
 
         self.setGeometry(0, 0, 330, self.image_label.height() + self.image.height())
 
-        self.trigger.connect(lambda: self.slot(self.MidCustomWidget.getCurrentImage(), self.cat))
+        self.select_image.connect(lambda: self.slot(self.MidCustomWidget.getCurrentImage(), self.cat))
 
     def mousePressEvent(self, QMouseEvent):
         """
@@ -1453,8 +1454,17 @@ class LeftCustomWidget(QWidget):
 
             # Connect the trigger signal to a slot.
             # Emit the signal.
-            self.trigger.emit()
+            self.select_image.emit()
 
+            if (QMouseEvent.modifiers() & Qt.ControlModifier):
+                if self.settings_widget:
+                    if self.settings_widget.isVisible():
+                        self.settings_widget.hide()
+                    else:
+                        self.settings_widget.show()
+
+    def createSettings(self):
+        self.settings_widget.setDisabled(True)
 
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)

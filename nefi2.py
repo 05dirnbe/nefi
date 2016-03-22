@@ -5,8 +5,8 @@ import argparse
 import os
 import sys
 
-print(os.curdir)
-print(os.listdir(os.curdir))
+#print(os.curdir)
+#print(os.listdir(os.curdir))
 
 from nefi2.main import start
 
