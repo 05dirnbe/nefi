@@ -800,7 +800,7 @@ class MainView(base, form):
         sp = QSizePolicy()
         sp.setVerticalPolicy(QSizePolicy.Preferred)
         groupOfSliderssLayout = QBoxLayout(QBoxLayout.TopToBottom)
-        groupOfSliderssLayout.setContentsMargins(0, -0, -0, 0)
+        groupOfSliderssLayout.setContentsMargins(0, 0, 0, 0)
         groupOfSliderssLayout.setAlignment(Qt.AlignTop)
         groupOfSliderssLayout.setSpacing(0)
 
@@ -1423,6 +1423,8 @@ class LeftCustomWidget(QWidget):
         self.LeftCustomWidgetLayout.addWidget(self.image)
         if cat:
             self.createSettings()
+            #self.settings_widget.layout().setContentsMargins(0, 0, 0, 0)
+            #self.settings_widget.layout().setSpacing(1)
             self.settings_widget.hide()
             self.LeftCustomWidgetLayout.addWidget(self.settings_widget)
 
@@ -1575,7 +1577,7 @@ class ComboBoxWidget(QWidget):
         self.SingleCheckBoxLayout.addWidget(self.label)
         self.SingleCheckBoxLayout.addWidget(self.combobox, Qt.AlignRight)
         self.setLayout(self.SingleCheckBoxLayout)
-        self.setFixedHeight(70)
+        self.setFixedHeight(50)
 
         def set_modified():
             alg.set_modified()
@@ -1632,7 +1634,7 @@ class CheckBoxWidget(QWidget):
         self.SingleCheckBoxLayout.addWidget(self.label, 0, 0)
         self.SingleCheckBoxLayout.addWidget(self.checkbox, 0, 1)
         self.setLayout(self.SingleCheckBoxLayout)
-        self.setFixedHeight(70)
+        self.setFixedHeight(50)
 
         def set_modified():
             alg.set_modified()
@@ -1701,7 +1703,7 @@ class SliderWidget(QWidget):
         self.SingleSlidersLayout.addWidget(self.slider)
         self.SingleSlidersLayout.addWidget(self.textfield)
         self.setLayout(self.SingleSlidersLayout)
-        self.setFixedHeight(70)
+        self.setFixedHeight(50)
 
         self.textfield.valueChanged.connect(lambda: slot(self.textfield.value()))
         self.textfield.valueChanged.connect(set_modified)
@@ -1722,7 +1724,7 @@ class IntegerTextfield(QSpinBox):
         self.textfield.setRange(lower, upper)
         self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
-        self.textfield.setFixedWidth(75)
+        self.textfield.setFixedWidth(50)
 
 
 class DoubleTextfield(QDoubleSpinBox):
@@ -1739,7 +1741,7 @@ class DoubleTextfield(QDoubleSpinBox):
         self.textfield.setRange(lower, upper)
         self.textfield.setSingleStep(step_size)
         self.textfield.setValue(default)
-        self.textfield.setFixedWidth(75)
+        self.textfield.setFixedWidth(50)
 
 
 class Slider(QSlider):
