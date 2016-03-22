@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/nefi2.ico</normaloff>../icons/nefi2.ico</iconset>
+  </property>
   <property name="accessibleName">
    <string notr="true">NEFI 2.0</string>
   </property>
