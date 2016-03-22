@@ -273,16 +273,33 @@ class MainView(base, form):
         self.mid_panel_layout.addWidget(self.MidCustomWidget)
 
         self.splitterWidget = QWidget()
-        self.splitterLayout = QGridLayout()
-        self.splitterLayout.setContentsMargins(0,0,0,0)
-        self.splitterWidget.setLayout(self.splitterLayout)
+        self.splitterWidgetLayout = QGridLayout()
+        self.splitterWidgetLayout.setContentsMargins(0, 0, 0, 0)
+        self.splitterWidget.setLayout(self.splitterWidgetLayout)
+
         self.splitter = QSplitter()
+        self.splitterLayout = QHBoxLayout()
+        self.splitterLayout.setSpacing(0)
+        self.splitterLayout.setContentsMargins(0, 0, 0, 0)
+        self.splitter.setLayout(self.splitterLayout)
+
+        self.splitterFrame = QFrame()
+        self.splitterFrame.setFixedHeight(1)
+        self.splitterFrame.setFrameShape(QFrame.HLine)
+        self.splitterFrame.setFrameShadow(QFrame.Sunken)
+
+
+        self.splitter.setHandleWidth(0)
+        self.splitter.handleWidth()
         self.splitter.setOrientation(Qt.Vertical)
         self.splitter.setChildrenCollapsible(False)
+        self.pip_collapsable.setStyleSheet("border:0;")
+        self.settings_collapsable.setStyleSheet("border:0;")
         self.splitter.addWidget(self.pip_collapsable)
+        self.splitterLayout.addWidget(self.splitterFrame)
         self.splitter.addWidget(self.settings_collapsable)
 
-        self.splitterLayout.addWidget(self.splitter)
+        self.splitterWidgetLayout.addWidget(self.splitter)
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 

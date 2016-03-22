@@ -139,7 +139,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>998</height>
+              <height>985</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -1077,7 +1077,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>363</height>
+                 <height>358</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1188,7 +1188,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>329</width>
+                 <width>326</width>
                  <height>406</height>
                 </rect>
                </property>
@@ -1212,7 +1212,7 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QWidget" name="" native="true">
+                 <widget class="QWidget" name="widget" native="true">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
