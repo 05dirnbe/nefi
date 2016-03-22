@@ -6,12 +6,14 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
-from nefi2.model.pipeline import *
+
 import copy
+import time
 import os
 import traceback
 import zope.event.classhandler
 import PyQt5
+from nefi2.model.pipeline import *
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
@@ -48,6 +50,7 @@ class MainView(base, form):
         self.pipeline = pipeline
         self.pip_widgets = []
         self.default_pips = []
+        self.active_pip_label = ""
 
         # Cache pipeline entries to use them for settings history.
         self.pipeline_cache = []
@@ -311,7 +314,7 @@ class MainView(base, form):
             | *label_ref*: the reference to the label.
         """
         self.current_pip_label.setText(title)
-        self.current_pip_label
+        self.active_pip_label = title
 
     def load_dark_theme(self, application):
         """
@@ -569,6 +572,19 @@ class MainView(base, form):
             widget.setToolTip(msg)
             return
 
+        # set a timestamp for the current run
+        # so the user can distinct between them
+        timestamp = QLabel()
+        timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
+        timestamp.setStyleSheet("font-weight: bold; font-size: 14pt;")
+        timestamp.setContentsMargins(5, 0, 0, 0)
+
+        hline = QFrame()
+        hline.setFrameStyle(QFrame.HLine)
+        hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+
+        self.left_scroll_results_vbox_layout.addWidget(hline)
+        self.left_scroll_results_vbox_layout.addWidget(timestamp)
         self.right_panel.setEnabled(False)
         self.progress_label.show()
         self.progressbar.show()

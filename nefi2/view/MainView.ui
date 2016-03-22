@@ -50,22 +50,54 @@
          <string>Immediate Results</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QToolButton" name="clear_immediate_btn">
+         <item alignment="Qt::AlignLeft|Qt::AlignTop">
+          <widget class="QWidget" name="remove_btn_widget" native="true">
            <property name="minimumSize">
             <size>
-             <width>31</width>
-             <height>31</height>
+             <width>0</width>
+             <height>50</height>
             </size>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item alignment="Qt::AlignLeft">
+             <widget class="QToolButton" name="clear_immediate_btn">
+              <property name="minimumSize">
+               <size>
+                <width>31</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>31</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item alignment="Qt::AlignLeft">
+             <widget class="QLabel" name="label">
+              <property name="maximumSize">
+               <size>
+                <width>150</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>remove results</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item alignment="Qt::AlignTop">
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
           </widget>
          </item>
@@ -107,7 +139,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>1017</height>
+              <height>998</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -1045,7 +1077,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>358</height>
+                 <height>363</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1156,7 +1188,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>326</width>
+                 <width>329</width>
                  <height>406</height>
                 </rect>
                </property>
