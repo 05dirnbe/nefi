@@ -303,9 +303,10 @@ class MainView(base, form):
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
-        #self.settingsLayout = QGridLayout()
-        #self.settingsLayout.setAlignment(Qt.AlignTop)
-        #self.stackedWidget_Settings.setLayout(self.settingsLayout)
+        self.remove_btn_widget.hide()
+
+        #self.left_panel.setStyleSheet("border:0;")
+        #self.right_panel.setStyleSheet("border:0;")
 
 
     def disable_plus(self):
@@ -417,6 +418,7 @@ class MainView(base, form):
         the user clicked the clear button
         """
         self.clear_left_side_new_image()
+        self.remove_btn_widget.hide()
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -591,20 +593,22 @@ class MainView(base, form):
 
         # set a timestamp for the current run
         # so the user can distinct between them
-        timestamp = QLabel()
-        timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
-        timestamp.setStyleSheet("font-weight: bold; font-size: 12pt;")
-        timestamp.setContentsMargins(5, 0, 0, 0)
+        if len(self.pipeline.executed_cats) != 0:
+            timestamp = QLabel()
+            timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
+            timestamp.setStyleSheet("font:Candara; Canafont-size: 8pt;")
+            timestamp.setContentsMargins(5, 0, 0, 0)
 
-        hline = QFrame()
-        hline.setFrameStyle(QFrame.HLine)
-        hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+            hline = QFrame()
+            hline.setFrameStyle(QFrame.HLine)
+            hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-        self.left_scroll_results_vbox_layout.addWidget(hline)
-        self.left_scroll_results_vbox_layout.addWidget(timestamp)
-        self.right_panel.setEnabled(False)
-        self.progress_label.show()
-        self.progressbar.show()
+            self.left_scroll_results_vbox_layout.addWidget(hline)
+            self.left_scroll_results_vbox_layout.addWidget(timestamp)
+            self.right_panel.setEnabled(False)
+            self.progress_label.show()
+            self.progressbar.show()
+            self.remove_btn_widget.show()
 
         try:
             if not self.thread.isRunning():
