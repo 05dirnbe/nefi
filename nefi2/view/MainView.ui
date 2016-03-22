@@ -844,8 +844,6 @@
                 <bool>false</bool>
                </property>
               </widget>
-              <zorder>run_btn</zorder>
-              <zorder>add_btn_3</zorder>
              </widget>
             </item>
            </layout>
@@ -1001,9 +999,6 @@
               <zorder>delete_btn</zorder>
               <zorder>current_pip_label</zorder>
               <zorder>add_btn</zorder>
-              <zorder>pip_scroll</zorder>
-              <zorder>pip_scroll</zorder>
-              <zorder>pip_scroll</zorder>
              </widget>
             </item>
             <item>
@@ -1185,9 +1180,27 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout"/>
+                 <widget class="QWidget" name="" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>100</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>100</height>
+                   </size>
+                  </property>
+                  <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout">
+                   <property name="sizeConstraint">
+                    <enum>QLayout::SetDefaultConstraint</enum>
+                   </property>
+                  </layout>
+                 </widget>
                 </item>
-                <item>
+                <item alignment="Qt::AlignTop">
                  <widget class="QStackedWidget" name="stackedWidget_Settings">
                   <property name="enabled">
                    <bool>true</bool>
