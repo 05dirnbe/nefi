@@ -286,6 +286,10 @@ class MainView(base, form):
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
+        #self.settingsLayout = QGridLayout()
+        #self.settingsLayout.setAlignment(Qt.AlignTop)
+        #self.stackedWidget_Settings.setLayout(self.settingsLayout)
+
 
     def disable_plus(self):
         self.add_btn.setEnabled(False)
@@ -788,7 +792,7 @@ class MainView(base, form):
             empty_flag = False
             groupOfSliderssLayout.addWidget(
                 SliderWidget(slider.name, slider.lower, slider.upper, slider.step_size, slider.value,
-                             slider.set_value, False, alg))
+                             slider.set_value, False, alg), 0, Qt.AlignTop)
 
         # create float sliders
         for slider in alg.float_sliders:
@@ -881,6 +885,7 @@ class MainView(base, form):
 
             self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
 
+        #layout.setMaximumHeight(200)
         layout.addWidget(self.ComboxCategories)
         layout.addWidget(self.stackedWidgetComboxesAlgorithms)
 
