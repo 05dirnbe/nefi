@@ -1465,6 +1465,7 @@ class LeftCustomWidget(QWidget):
 
     def createSettings(self):
         self.settings_widget.setDisabled(True)
+        self.settings_widget.setStyleSheet("color:silver;")
 
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)
