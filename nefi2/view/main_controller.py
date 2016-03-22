@@ -278,12 +278,11 @@ class MainView(base, form):
         self.splitterWidget.setLayout(self.splitterLayout)
         self.splitter = QSplitter()
         self.splitter.setOrientation(Qt.Vertical)
+        self.splitter.setChildrenCollapsible(False)
         self.splitter.addWidget(self.pip_collapsable)
         self.splitter.addWidget(self.settings_collapsable)
 
-        #self.splitterLayout.addWidget(self.pip_collapsable)
         self.splitterLayout.addWidget(self.splitter)
-        #self.splitterLayout.addWidget(self.settings_collapsable)
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
