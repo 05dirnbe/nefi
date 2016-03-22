@@ -73,6 +73,9 @@
                 <height>31</height>
                </size>
               </property>
+              <property name="toolTip">
+               <string>Click to remove all immediate result images.</string>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -85,6 +88,9 @@
                 <width>150</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>remove results</string>
@@ -480,6 +486,9 @@
                    <height>30</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>click to open an context which let's you select an input image on your computer.</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -613,6 +622,9 @@
                    <width>30</width>
                    <height>30</height>
                   </size>
+                 </property>
+                 <property name="toolTip">
+                  <string>click to open a context which let's you specify a output location on your computer.</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -776,6 +788,9 @@
                       <height>30</height>
                      </size>
                     </property>
+                    <property name="toolTip">
+                     <string>click to open a context which let's you select a pipeline *.json file from your computer.</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -806,6 +821,9 @@
                       <width>30</width>
                       <height>30</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Click to open a context which let's you save the current pipeline on your computer with a specified name.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -865,6 +883,9 @@
                  <weight>50</weight>
                  <bold>false</bold>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Click to process the pipeline.</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -961,6 +982,9 @@
                  <height>31</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Click to add a new pipeline entry which is unspecified.</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -985,6 +1009,9 @@
                  <width>31</width>
                  <height>31</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>Click to delete all entrys in the pipeline.</string>
                </property>
                <property name="text">
                 <string/>

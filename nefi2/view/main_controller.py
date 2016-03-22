@@ -593,7 +593,7 @@ class MainView(base, form):
         # so the user can distinct between them
         timestamp = QLabel()
         timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
-        timestamp.setStyleSheet("font-weight: bold; font-size: 14pt;")
+        timestamp.setStyleSheet("font-weight: bold; font-size: 12pt;")
         timestamp.setContentsMargins(5, 0, 0, 0)
 
         hline = QFrame()
