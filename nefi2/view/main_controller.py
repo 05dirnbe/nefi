@@ -297,11 +297,6 @@ class MainView(base, form):
         #self.left_panel.setStyleSheet("border:0;")
         #self.right_panel.setStyleSheet("border:0;")
 
-        def resizeEvent(self, event=None):
-            if self.MidCustomWidget.auto_fit:
-                self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
-                self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
-                self.MidCustomWidget.resize_default()
 
     def connect_ui(self):
         """
@@ -381,7 +376,7 @@ class MainView(base, form):
             return
 
         # Set background color while widget is selected.
-        pip_entry.setStyleSheet("background-color:grey;")
+        pip_entry.setStyleSheet("background-color:DarkSlateGrey;")
 
         # Reset background color for all other pipeline entries
         self.reset_pip_backgroundcolor(pip_entry)
@@ -395,6 +390,12 @@ class MainView(base, form):
         self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
 
         self.set_cat_alg_dropdown(cat, cat.active_algorithm)
+
+    def resizeEvent(self, event=None):
+        if self.MidCustomWidget.auto_fit:
+            self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
+            self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
+            self.MidCustomWidget.resize_default()
 
     def set_autoclear(self):
         self.autoclear = not self.autoclear
@@ -662,10 +663,14 @@ class MainView(base, form):
         # so the user can distinct between them
         if len(self.pipeline.executed_cats) != 0:
 
-            titel = QWidget()
+            titel = QGroupBox()
 
+            titel.setFixedWidth(290)
+            titel.setFixedHeight(100)
+            #titel.setSizePolicy(Qt.MinimumSize)
             titelLayout = QVBoxLayout()
-            titelLayout.setContentsMargins(5, 0, 0, 0)
+            titelLayout.setContentsMargins(11, 11, 11, 11)
+            titelLayout.setSpacing(11)
             titel.setLayout(titelLayout)
 
             timestamp = QLabel()
@@ -687,12 +692,11 @@ class MainView(base, form):
             show_pipeline.setText("Show intermediate results")
 
             hline = QFrame()
-            hline.setFrameStyle(QFrame.HLine)
-            hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+            #hline.setFrameStyle(QFrame.HLine)
+            #hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-            titelLayout.addWidget(hline)
-            titelLayout.addWidget(timestamp)
-            titelLayout.addWidget(show_pipeline)
+            titelLayout.addWidget(timestamp, Qt.AlignCenter)
+            titelLayout.addWidget(show_pipeline, Qt.AlignCenter)
             self.left_scroll_results_vbox_layout.addWidget(titel)
             self.right_panel.setEnabled(False)
             self.progress_label.show()
@@ -863,7 +867,7 @@ class MainView(base, form):
         # change settings widgets
         self.remove_pip_entry(pipe_entry_widget, settings_widget)
         (new_pipe_entry_widget, new_settings_widget) = self.add_pipe_entry(position)
-        new_pipe_entry_widget.setStyleSheet("background-color:grey;")
+        new_pipe_entry_widget.setStyleSheet("background-color:DarkSlateGrey;")
 
         self.stackedWidget_Settings.show()
         self.stackedWidget_Settings.setCurrentIndex(position)
@@ -1130,7 +1134,7 @@ class MainView(base, form):
         def show_settings():
 
             # Set background color while widget is selected.
-            pip_main_widget.setStyleSheet("background-color:grey;")
+            pip_main_widget.setStyleSheet("background-color:DarkSlateGrey;")
 
             # Reset background color for all other pipeline entries
             self.reset_pip_backgroundcolor(pip_main_widget)
@@ -1167,7 +1171,7 @@ class MainView(base, form):
                 current_position = self.pipeline.get_index(cat)
                 self.swap_pip_entry(current_position - 1, current_position)
                 self.reset_pip_backgroundcolor()
-                self.get_pip_entry(cat).setStyleSheet("background-color:grey;")
+                self.get_pip_entry(cat).setStyleSheet("background-color:DarkSlateGrey;")
 
         def move_down_button_clicked():
             try:
@@ -1185,7 +1189,7 @@ class MainView(base, form):
                 else:
                     self.swap_pip_entry(current_position, current_position + 1)
                     self.reset_pip_backgroundcolor()
-                    self.get_pip_entry(cat).setStyleSheet("background-color:grey;")
+                    self.get_pip_entry(cat).setStyleSheet("background-color:DarkSlateGrey;")
 
         pixmap_label.trigger.connect(show_settings)
         string_label.trigger.connect(show_settings)
@@ -1498,13 +1502,15 @@ class LeftCustomWidget(QWidget):
             if index is not (len(self.pipeline.executed_cats) - 1):
                 self.image_name = str(cat.get_name() + " - " + cat.active_algorithm.name)
             else:
-                self.image_label.setStyleSheet("background-color: green; font:Candara; font-size: 8pt;")
+                self.image_label.setStyleSheet("background-color:DarkSlateGrey; font:Candara; font-size: 8pt;")
                 self.image_name = "Result image - " + str(cat.get_name() + " - " + cat.active_algorithm.name)
             self.step = self.pipeline.get_index(cat) + 1
         self.slot = slot
         # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
+        self.LeftCustomWidgetLayout.setContentsMargins(7, 7, 22, 22)
+        self.LeftCustomWidgetLayout.setSpacing(11)
         self.setLayout(self.LeftCustomWidgetLayout)
         self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
 
