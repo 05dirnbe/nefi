@@ -11,6 +11,8 @@ import copy
 import time
 import os
 import traceback
+
+import sys
 import zope.event.classhandler
 import PyQt5
 from nefi2.model.pipeline import *
@@ -21,7 +23,7 @@ from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
-    QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter
+    QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox
 
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
@@ -56,6 +58,9 @@ class MainView(base, form):
         self.pipeline_cache = []
 
         self.autofit = True
+        self.autoclear = False
+        self.autoscroll = True
+        self.resultsonly = False
         self.MidCustomWidget = MidCustomWidget(self.mid_panel, self.autofit)
 
         self.q_icon_up = QtGui.QIcon()
@@ -152,186 +157,6 @@ class MainView(base, form):
         self.aboutQtAct = QAction("About &Qt", self,
                                   triggered=QApplication.instance().aboutQt)
 
-    def resizeEvent(self, event=None):
-        if self.MidCustomWidget.auto_fit:
-            self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
-            self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
-            self.MidCustomWidget.resize_default()
-
-    @pyqtSlot()
-    def get_current_image(self, image, cat=None):
-        self.MidCustomWidget.setCurrentImage(image)
-        self.MidCustomWidget.resize_default()
-
-        try:
-            pip_entry = self.get_pip_entry(cat)
-            settings_widget = self.get_settings_widget(cat)
-        except (ValueError):
-            self.reset_pip_backgroundcolor()
-            self.reset_pip_backgroundcolor()
-            self.stackedWidget_Settings.hide()
-            self.remove_cat_alg_dropdown()
-            self.settings_collapsable.setTitle("Settings")
-            return
-
-        # Set background color while widget is selected.
-        pip_entry.setStyleSheet("background-color:grey;")
-
-        # Reset background color for all other pipeline entries
-        self.reset_pip_backgroundcolor(pip_entry)
-
-        self.stackedWidget_Settings.show()
-        self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
-        self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
-
-        # Create drop down for cats and algs
-        self.remove_cat_alg_dropdown()
-        self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
-
-        self.set_cat_alg_dropdown(cat, cat.active_algorithm)
-
-    def back_connect_settings(self, cat, pixmap):
-
-        try:
-            pip_entry = self.get_pip_entry(cat)
-        except (ValueError):
-            print("Pipeline entry has already been deleted.")
-            return
-
-        # Show image while settings is selected
-        # *TODO* Use pip_entry.findChild(PyQt5.QtWidgets.QLabel, name) instead
-        labels = pip_entry.findChildren(PyQt5.QtWidgets.QLabel)
-
-        pixmap_label = labels[0]
-        string_label = labels[1]
-
-        def set_image():
-            self.MidCustomWidget.setCurrentImage(pixmap)
-            self.MidCustomWidget.resetImageSize()
-            self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
-            self.mid_panel.setTitle(
-                str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(
-                    self.pipeline.get_index(cat) + 1))
-
-        pixmap_label.trigger.connect(set_image)
-        string_label.trigger.connect(set_image)
-
-    def connect_ui(self):
-        """
-        This function connects the ui using signals from the
-        ui elements and its method counterparts.
-        """
-        # connect pyqt slots with signals
-        self.input_btn.clicked.connect(self.set_input_url)
-        self.output_btn.clicked.connect(self.set_output_url)
-        self.load_favorite_pipelines()
-        self.fav_pips_combo_box.activated.connect(self.select_default_pip)
-        self.run_btn.clicked.connect(self.run)
-        self.delete_btn.clicked.connect(self.trash_pipeline)
-        self.add_btn.clicked.connect(lambda: self.add_pipe_entry())
-        self.resize.clicked.connect(lambda: self.MidCustomWidget.resize_default(True))
-        self.zoom_in.clicked.connect(self.MidCustomWidget.zoom_in_)
-        self.zoom_out.clicked.connect(self.MidCustomWidget.zoom_out_)
-        self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
-        self.clear_immediate_btn.clicked.connect(self.clear_immediate_results)
-        self.thread.progess_changed.connect(self.update_progress)
-        self.thread.immediate_results_changed.connect(self.update_add_immediate_result)
-        self.thread.finished.connect(self.process_finish)
-        self.open_pip_btn.clicked.connect(self.open_pip_json)
-        self.save_btn.clicked.connect(self.save_pip_json)
-
-        # connect zope.events
-        zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
-        zope.event.classhandler.handler(CacheAddEvent, self.thread.update_add_immediate_result)
-        zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
-        zope.event.classhandler.handler(CacheInputEvent, self.update_input)
-
-    def draw_ui(self):
-        """
-        This function draws all additional UI elements. If you want the
-        application to display any additional things like a button you can
-        either add it in the QtDesigner or declare it here.
-        """
-        self.setWindowTitle("NEFI 2.0")
-        # self.setWindowFlags(Qt.FramelessWindowHint)
-        self.ComboxCategories = QComboBox()
-        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
-        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
-        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
-        self.ComboxCategories.hide()
-        self.pip_widget_vbox_layout.setAlignment(Qt.AlignTop)
-        self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
-        self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
-
-        self.progress_label = QLabel(self)
-        self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
-        self.progress_label.hide()
-
-        self.progressbar = QtWidgets.QProgressBar(self)
-        self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
-        self.progressbar.hide()
-        self.mid_panel_layout.addWidget(self.MidCustomWidget)
-
-        self.splitterWidget = QWidget()
-        self.splitterWidgetLayout = QGridLayout()
-        self.splitterWidgetLayout.setContentsMargins(0, 0, 0, 0)
-        self.splitterWidget.setLayout(self.splitterWidgetLayout)
-
-        self.splitter = QSplitter()
-        self.splitterLayout = QHBoxLayout()
-        self.splitterLayout.setSpacing(0)
-        self.splitterLayout.setContentsMargins(0, 0, 0, 0)
-        self.splitter.setLayout(self.splitterLayout)
-
-        self.splitterFrame = QFrame()
-        self.splitterFrame.setFixedHeight(1)
-        self.splitterFrame.setFrameShape(QFrame.HLine)
-        self.splitterFrame.setFrameShadow(QFrame.Sunken)
-
-
-        self.splitter.setHandleWidth(0)
-        self.splitter.handleWidth()
-        self.splitter.setOrientation(Qt.Vertical)
-        self.splitter.setChildrenCollapsible(False)
-        self.pip_collapsable.setStyleSheet("border:0;")
-        self.settings_collapsable.setStyleSheet("border:0;")
-        self.splitter.addWidget(self.pip_collapsable)
-        self.splitterLayout.addWidget(self.splitterFrame)
-        self.splitter.addWidget(self.settings_collapsable)
-
-        self.splitterWidgetLayout.addWidget(self.splitter)
-
-        self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
-
-        #self.left_panel.setStyleSheet("border:0;")
-        #self.right_panel.setStyleSheet("border:0;")
-
-
-    def disable_plus(self):
-        self.add_btn.setEnabled(False)
-        self.add_btn.setIcon(self.q_icon_plus_grey)
-
-    def enable_plus(self):
-        self.add_btn.setEnabled(True)
-        self.add_btn.setIcon(self.q_icon_plus)
-
-    def disable_pip(self):
-        pass
-
-    def enable_pip(self):
-        pass
-
-    def set_pip_title(self, title):
-        """
-        Sets the title of the current selected pipeline in the ui.
-
-        Args:
-            | *title*: the title of the pipeline
-            | *label_ref*: the reference to the label.
-        """
-        self.current_pip_label.setText(title)
-        self.active_pip_label = title
-
     def load_dark_theme(self, application):
         """
         This function is called to load the white theme with
@@ -409,13 +234,220 @@ class MainView(base, form):
         pixmap_icon_delete = QtGui.QPixmap(iconpath)
         self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
 
+    def draw_ui(self):
+        """
+        This function draws all additional UI elements. If you want the
+        application to display any additional things like a button you can
+        either add it in the QtDesigner or declare it here.
+        """
+        self.setWindowTitle("NEFI 2.0")
+        # self.setWindowFlags(Qt.FramelessWindowHint)
+        self.ComboxCategories = QComboBox()
+        self.stackedWidgetComboxesAlgorithms = QStackedWidget()
+        self.select_cat_alg_vbox_layout.addWidget(self.ComboxCategories)
+        self.select_cat_alg_vbox_layout.addWidget(self.stackedWidgetComboxesAlgorithms)
+        self.ComboxCategories.hide()
+        self.pip_widget_vbox_layout.setAlignment(Qt.AlignTop)
+        self.select_cat_alg_vbox_layout.setAlignment(Qt.AlignTop)
+        self.left_scroll_results_vbox_layout.setAlignment(Qt.AlignTop)
+
+        self.progress_label = QLabel(self)
+        self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
+        self.progress_label.hide()
+
+        self.progressbar = QtWidgets.QProgressBar(self)
+        self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
+        self.progressbar.hide()
+        self.mid_panel_layout.addWidget(self.MidCustomWidget)
+
+        self.splitterWidget = QWidget()
+        self.splitterWidgetLayout = QGridLayout()
+        self.splitterWidgetLayout.setContentsMargins(0, 0, 0, 0)
+        self.splitterWidget.setLayout(self.splitterWidgetLayout)
+
+        self.splitter = QSplitter()
+        self.splitterLayout = QHBoxLayout()
+        self.splitterLayout.setSpacing(0)
+        self.splitterLayout.setContentsMargins(0, 0, 0, 0)
+        self.splitter.setLayout(self.splitterLayout)
+
+        self.splitterFrame = QFrame()
+        self.splitterFrame.setFixedHeight(1)
+        self.splitterFrame.setFrameShape(QFrame.HLine)
+        self.splitterFrame.setFrameShadow(QFrame.Sunken)
+
+
+        self.splitter.setHandleWidth(0)
+        self.splitter.handleWidth()
+        self.splitter.setOrientation(Qt.Vertical)
+        self.splitter.setChildrenCollapsible(False)
+        self.pip_collapsable.setStyleSheet("border:0;")
+        self.settings_collapsable.setStyleSheet("border:0;")
+        self.splitter.addWidget(self.pip_collapsable)
+        self.splitterLayout.addWidget(self.splitterFrame)
+        self.splitter.addWidget(self.settings_collapsable)
+
+        self.splitterWidgetLayout.addWidget(self.splitter)
+
+        self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
+
+        #self.left_panel.setStyleSheet("border:0;")
+        #self.right_panel.setStyleSheet("border:0;")
+
+        def resizeEvent(self, event=None):
+            if self.MidCustomWidget.auto_fit:
+                self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
+                self.progress_label.setGeometry(self.width() / 2 - 200, self.height() / 2 - 20, 400, 20)
+                self.MidCustomWidget.resize_default()
+
+    def connect_ui(self):
+        """
+        This function connects the ui using signals from the
+        ui elements and its method counterparts.
+        """
+        # connect pyqt slots with signals
+        self.input_btn.clicked.connect(self.set_input_url)
+        self.output_btn.clicked.connect(self.set_output_url)
+        self.load_favorite_pipelines()
+        self.fav_pips_combo_box.activated.connect(self.select_default_pip)
+        self.run_btn.clicked.connect(self.run)
+        self.delete_btn.clicked.connect(self.trash_pipeline)
+        self.add_btn.clicked.connect(lambda: self.add_pipe_entry())
+        self.resize.clicked.connect(lambda: self.MidCustomWidget.resize_default(True))
+        self.zoom_in.clicked.connect(self.MidCustomWidget.zoom_in_)
+        self.zoom_out.clicked.connect(self.MidCustomWidget.zoom_out_)
+        self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
+        self.clear_immediate_btn.clicked.connect(self.clear_immediate_results)
+        self.thread.progess_changed.connect(self.update_progress)
+        self.thread.immediate_results_changed[object, QCheckBox].connect(lambda x=object,y=QCheckBox: self.update_add_immediate_result(x,y))
+        self.thread.finished.connect(self.process_finish)
+        self.open_pip_btn.clicked.connect(self.open_pip_json)
+        self.save_btn.clicked.connect(self.save_pip_json)
+        self.auto_clear.toggled.connect(self.set_autoclear)
+        self.auto_scroll.toggled.connect(self.set_autoscroll)
+        self.left_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_left)
+        self.results_only.toggled.connect(self.set_resultsonly)
+
+        # connect zope.events
+        zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
+        zope.event.classhandler.handler(CacheAddEvent, self.thread.update_add_immediate_result)
+        zope.event.classhandler.handler(CacheRemoveEvent, self.update_remove_immediate_result)
+        zope.event.classhandler.handler(CacheInputEvent, self.update_input)
+
+    def back_connect_settings(self, cat, pixmap):
+
+        try:
+            pip_entry = self.get_pip_entry(cat)
+        except (ValueError):
+            print("Pipeline entry has already been deleted.")
+            return
+
+        # Show image while settings is selected
+        # *TODO* Use pip_entry.findChild(PyQt5.QtWidgets.QLabel, name) instead
+        labels = pip_entry.findChildren(PyQt5.QtWidgets.QLabel)
+
+        pixmap_label = labels[0]
+        string_label = labels[1]
+
+        def set_image():
+            self.MidCustomWidget.setCurrentImage(pixmap)
+            self.MidCustomWidget.resetImageSize()
+            self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+            self.mid_panel.setTitle(
+                str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(
+                    self.pipeline.get_index(cat) + 1))
+
+        pixmap_label.trigger.connect(set_image)
+        string_label.trigger.connect(set_image)
+
+    @pyqtSlot()
+    def get_current_image(self, image, cat=None):
+        self.MidCustomWidget.setCurrentImage(image)
+        self.MidCustomWidget.resize_default()
+
+        try:
+            pip_entry = self.get_pip_entry(cat)
+            settings_widget = self.get_settings_widget(cat)
+        except (ValueError):
+            self.reset_pip_backgroundcolor()
+            self.reset_pip_backgroundcolor()
+            self.stackedWidget_Settings.hide()
+            self.remove_cat_alg_dropdown()
+            self.settings_collapsable.setTitle("Settings")
+            return
+
+        # Set background color while widget is selected.
+        pip_entry.setStyleSheet("background-color:grey;")
+
+        # Reset background color for all other pipeline entries
+        self.reset_pip_backgroundcolor(pip_entry)
+
+        self.stackedWidget_Settings.show()
+        self.stackedWidget_Settings.setCurrentIndex(self.pipeline.get_index(cat))
+        self.settings_collapsable.setTitle(cat.active_algorithm.get_name() + " Settings")
+
+        # Create drop down for cats and algs
+        self.remove_cat_alg_dropdown()
+        self.create_cat_alg_dropdown(self.pipeline.get_index(cat), pip_entry, settings_widget)
+
+        self.set_cat_alg_dropdown(cat, cat.active_algorithm)
+
+    def set_autoclear(self):
+        self.autoclear = not self.autoclear
+
+    def set_autoscroll(self):
+        self.autoscroll = not self.autoscroll
+
+    def set_resultsonly(self):
+        self.resultsonly = not self.resultsonly
+
+    def keyPressEvent(self, key):
+        if key.modifiers() & Qt.ControlModifier:
+            self.left_scroll.verticalScrollBar().blockSignals(True)
+
+    def keyReleaseEvent(self, key):
+        if Qt.ControlModifier:
+            self.left_scroll.verticalScrollBar().blockSignals(False)
+
+    def scroll_down_left(self):
+        if self.autoscroll:
+            self.left_scroll.verticalScrollBar().setSliderPosition(self.left_scroll.verticalScrollBar().maximum() + 100)
+
+    def scroll_down_pip(self):
+        self.pip_scroll.verticalScrollBar().setSliderPosition(self.pip_scroll.verticalScrollBar().maximum() + 100)
+
+    def disable_plus(self):
+        self.add_btn.setEnabled(False)
+        self.add_btn.setIcon(self.q_icon_plus_grey)
+
+    def enable_plus(self):
+        self.add_btn.setEnabled(True)
+        self.add_btn.setIcon(self.q_icon_plus)
+
+    def disable_pip(self):
+        pass
+
+    def enable_pip(self):
+        pass
+
+    def set_pip_title(self, title):
+        """
+        Sets the title of the current selected pipeline in the ui.
+
+        Args:
+            | *title*: the title of the pipeline
+            | *label_ref*: the reference to the label.
+        """
+        self.current_pip_label.setText(title)
+        self.active_pip_label = title
+
     @pyqtSlot()
     def clear_immediate_results(self):
         """
         This method removes all images from the immediate results when
         the user clicked the clear button
         """
-        self.clear_left_side_new_image()
+        self.clear_left_side_new_run()
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -542,18 +574,19 @@ class MainView(base, form):
 
         widget = LeftCustomWidget(event.path, self.MidCustomWidget, self.mid_panel,
                                   self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
-                                  self.get_current_image, self.pipeline, settings_widget)
+                                  self.get_current_image, self.pipeline, settings_widget, self.left_scroll.verticalScrollBar())
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
 
     @pyqtSlot(object)
-    def update_add_immediate_result(self, event):
+    def update_add_immediate_result(self, event, checkbox):
         """
         This method gets fired when the pipeline computed a fresh
         immediate result.
         Args:
             event: the event from the model
         """
+
         path = event.path
 
         pixmap = QPixmap(path)
@@ -565,9 +598,15 @@ class MainView(base, form):
         widget = LeftCustomWidget(path, self.MidCustomWidget, self.mid_panel,
                                   self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
                                   self.get_current_image,
-                                  self.pipeline, settings_widget, event.cat)
+                                  self.pipeline, settings_widget, self.left_scroll.verticalScrollBar(), event.cat)
 
         self.left_scroll_results_vbox_layout.addWidget(widget)
+        if self.resultsonly:
+            if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
+                widget.hide()
+
+        if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
+            checkbox.toggled.connect(widget.setVisible, Qt.UniqueConnection)
 
         try:
             self.back_connect_settings(event.cat, pixmap)
@@ -581,6 +620,10 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
+
+        signal = pyqtSignal()
+
+        # Check if we have a legal pipeline configuration
         msg, cat = self.pipeline.sanity_check()
 
         if cat:
@@ -589,29 +632,48 @@ class MainView(base, form):
             widget.setToolTip(msg)
             return
 
+        # Clear left side pictures for auto delete option
+        if self.autoclear:
+            self.clear_immediate_results()
+
         # set a timestamp for the current run
         # so the user can distinct between them
         if len(self.pipeline.executed_cats) != 0:
+
+            titel = QWidget()
+            titelLayout = QVBoxLayout()
+            titelLayout.setContentsMargins(5, 0, 0, 0)
+            titel.setLayout(titelLayout)
+
             timestamp = QLabel()
             timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
-            timestamp.setContentsMargins(5, 0, 0, 0)
+
+            show_pipeline = QCheckBox()
+            if self.resultsonly:
+                show_pipeline.setChecked(False)
+            else:
+                show_pipeline.setChecked(True)
+            show_pipeline.setText("Show intermediate results")
 
             hline = QFrame()
             hline.setFrameStyle(QFrame.HLine)
             hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-            self.left_scroll_results_vbox_layout.addWidget(hline)
-            self.left_scroll_results_vbox_layout.addWidget(timestamp)
+            titelLayout.addWidget(hline)
+            titelLayout.addWidget(timestamp)
+            titelLayout.addWidget(show_pipeline)
+            self.left_scroll_results_vbox_layout.addWidget(titel)
             self.right_panel.setEnabled(False)
             self.progress_label.show()
             self.progressbar.show()
 
         try:
+            self.thread.setCheckbox(show_pipeline)
             if not self.thread.isRunning():
                 self.thread.start()
         except Exception as e:
-            print("Process thread crached")
+            print("Process thread crashed")
             traceback.print_exc()
 
     @pyqtSlot()
@@ -627,6 +689,7 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         if url[0]:
+            self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
 
     @pyqtSlot()
@@ -934,9 +997,6 @@ class MainView(base, form):
         while self.select_cat_alg_vbox_layout.count():
             child = self.select_cat_alg_vbox_layout.takeAt(0)
             child.widget().hide()
-
-    def scroll_down_pip(self):
-        self.pip_scroll.verticalScrollBar().setSliderPosition(self.pip_scroll.verticalScrollBar().maximum() + 100)
 
     def add_pipe_entry(self, position=None):
         """
@@ -1385,7 +1445,7 @@ class LeftCustomWidget(QWidget):
     select_image = pyqtSignal()
 
     def __init__(self, image_path, MidCustomWidget, mid_panel, left_scroll_results, current_image,
-                 slot, pipeline, settings_widget, cat=None):
+                 slot, pipeline, settings_widget, left_slider, cat=None):
         super(LeftCustomWidget, self).__init__()
 
         self.setStyleSheet("font:Candara; font-size: 8pt;")
@@ -1395,11 +1455,21 @@ class LeftCustomWidget(QWidget):
         self.cat = cat
         self.pipeline = pipeline
         self.settings_widget = settings_widget
+        self.left_slider = left_slider
         self.step = 0
+
+        self.image_label = QLabel()
+
         if cat is None:
             self.image_name = "Input - Image"
         else:
-            self.image_name = str(cat.get_name() + " - " + cat.active_algorithm.name)
+            self.setToolTip("Click here while holding 'CTRL' button to see used settings .")
+            index = self.pipeline.get_index(self.cat)
+            if index is not (len(self.pipeline.executed_cats) - 1):
+                self.image_name = str(cat.get_name() + " - " + cat.active_algorithm.name)
+            else:
+                self.image_label.setStyleSheet("background-color: green; font:Candara; font-size: 8pt;")
+                self.image_name = "Result image - " + str(cat.get_name() + " - " + cat.active_algorithm.name)
             self.step = self.pipeline.get_index(cat) + 1
         self.slot = slot
         # self.setGeometry(0, 0, 300, 100)
@@ -1408,7 +1478,7 @@ class LeftCustomWidget(QWidget):
         self.setLayout(self.LeftCustomWidgetLayout)
         self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
 
-        self.image_label = QLabel(self.image_name)
+        self.image_label.setText(self.image_name)
         self.image_label.setGeometry(0, 0, 150, 30)
 
         self.pixmap = QPixmap(image_path)
@@ -1448,7 +1518,11 @@ class LeftCustomWidget(QWidget):
                     self.mid_panel.setTitle(self.image_name)
                 else:
                     index = self.pipeline.get_index(self.cat)
-                    self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(index + 1))
+                    if index is not (len(self.pipeline.executed_cats) - 1):
+                        self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(index + 1))
+                    else:
+                        self.setStyleSheet("font:Candara; font-size: 8pt;")
+                        self.mid_panel.setTitle("Result image - " + self.image_name + " - Pipeline Position " + str(index + 1))
             except (ValueError):
                 self.mid_panel.setTitle(self.image_name + " - Already Removed From Pipeline")
 
@@ -1459,6 +1533,7 @@ class LeftCustomWidget(QWidget):
             self.select_image.emit()
 
             if (QMouseEvent.modifiers() & Qt.ControlModifier):
+
                 if self.settings_widget:
                     if self.settings_widget.isVisible():
                         self.settings_widget.hide()
@@ -1471,18 +1546,22 @@ class LeftCustomWidget(QWidget):
 
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)
-    immediate_results_changed = pyqtSignal(object)
+    immediate_results_changed = pyqtSignal(object, QCheckBox)
     finished = pyqtSignal()
 
     def __init__(self, pipeline):
         QtCore.QThread.__init__(self)
         self.pipeline = pipeline
+        self.checkbox = None
 
     def update_progress(self, event):
         self.progess_changed.emit(event)
 
     def update_add_immediate_result(self, event):
-        self.immediate_results_changed.emit(event)
+        self.immediate_results_changed.emit(event, self.checkbox)
+
+    def setCheckbox(self, checkbox):
+        self.checkbox = checkbox
 
     def run(self):
         try:
@@ -1492,49 +1571,6 @@ class ProcessWorker(QtCore.QThread):
             traceback.print_exc()
 
         self.finished.emit()
-
-
-class ImageWidget(QLabel):
-    def __init__(self):
-        super(ImageWidget, self).__init__()
-
-    def set_pixmap(self, pixmap):
-        self.setPixmap(pixmap)
-
-    def mousePressEvent(self, event):
-        self.__mousePressPos = None
-        self.__mouseMovePos = None
-        if event.button() == QtCore.Qt.LeftButton:
-            self.__mousePressPos = event.globalPos()
-            self.__mouseMovePos = event.globalPos()
-
-        super(ImageWidget, self).mousePressEvent(event)
-
-    def mouseMoveEvent(self, event):
-        if event.buttons() == QtCore.Qt.LeftButton:
-            # adjust offset from clicked point to origin of widget
-            currPos = self.mapToGlobal(self.pos())
-            globalPos = event.globalPos()
-            diff = globalPos - self.__mouseMovePos
-            newPos = self.mapFromGlobal(currPos + diff)
-            self.move(newPos)
-
-            self.__mouseMovePos = globalPos
-
-        super(ImageWidget, self).mouseMoveEvent(event)
-
-    def mouseReleaseEvent(self, event):
-        if self.__mousePressPos is not None:
-            moved = event.globalPos() - self.__mousePressPos
-            if moved.manhattanLength() > 3:
-                event.ignore()
-                return
-
-        super(ImageWidget, self).mouseReleaseEvent(event)
-
-    def moveEvent(self, QMoveEvent):
-        pass
-
 
 class PipCustomWidget(QWidget):
     """
