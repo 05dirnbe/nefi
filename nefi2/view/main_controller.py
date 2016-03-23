@@ -406,6 +406,12 @@ class MainView(base, form):
             self.left_scroll.verticalScrollBar().blockSignals(True)
 
     def keyReleaseEvent(self, key):
+        self.left_scroll.verticalScrollBar().blockSignals(False)
+
+    def mousePressEvent(self, key):
+        self.left_scroll.verticalScrollBar().blockSignals(True)
+
+    def mouseReleaseEvent(self, key):
         if Qt.ControlModifier:
             self.left_scroll.verticalScrollBar().blockSignals(False)
 
@@ -641,6 +647,7 @@ class MainView(base, form):
         if len(self.pipeline.executed_cats) != 0:
 
             titel = QWidget()
+
             titelLayout = QVBoxLayout()
             titelLayout.setContentsMargins(5, 0, 0, 0)
             titel.setLayout(titelLayout)
@@ -649,7 +656,14 @@ class MainView(base, form):
             timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
 
-            show_pipeline = QCheckBox()
+            class QCheckBox_filtered(QCheckBox):
+                def __init__(self, scrollbar):
+                    super(QCheckBox_filtered, self).__init__()
+                    self.scrollbar = scrollbar
+
+            # prevent auto scroll
+            show_pipeline = QCheckBox_filtered(self.left_scroll.verticalScrollBar())
+
             if self.resultsonly:
                 show_pipeline.setChecked(False)
             else:
