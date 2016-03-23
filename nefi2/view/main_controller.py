@@ -19,7 +19,7 @@ from nefi2.model.pipeline import *
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
@@ -44,6 +44,9 @@ except (FileNotFoundError):
 
 
 class MainView(base, form):
+
+    scrollsignal = pyqtSignal()
+
     def __init__(self, pipeline, parent=None):
 
         super(base, self).__init__(parent)
@@ -325,7 +328,8 @@ class MainView(base, form):
         self.save_btn.clicked.connect(self.save_pip_json)
         self.auto_clear.toggled.connect(self.set_autoclear)
         self.auto_scroll.toggled.connect(self.set_autoscroll)
-        self.left_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_left)
+        self.thread.finished.connect(self.delay)
+        self.scrollsignal.connect(self.scroll_down_left)
         self.results_only.toggled.connect(self.set_resultsonly)
 
         # connect zope.events
@@ -400,20 +404,32 @@ class MainView(base, form):
 
     def set_resultsonly(self):
         self.resultsonly = not self.resultsonly
-
+    """
     def keyPressEvent(self, key):
         if key.modifiers() & Qt.ControlModifier:
             self.left_scroll.verticalScrollBar().blockSignals(True)
 
     def keyReleaseEvent(self, key):
-        self.left_scroll.verticalScrollBar().blockSignals(False)
+        if Qt.ControlModifier:
+            self.left_scroll.verticalScrollBar().blockSignals(False)
 
     def mousePressEvent(self, key):
         self.left_scroll.verticalScrollBar().blockSignals(True)
 
     def mouseReleaseEvent(self, key):
-        if Qt.ControlModifier:
-            self.left_scroll.verticalScrollBar().blockSignals(False)
+        self.left_scroll.verticalScrollBar().blockSignals(False)
+    """
+
+    def delay(self):
+
+        from threading import Timer
+
+        def send():
+            self.scrollsignal.emit()
+            print("bla")
+
+        t = Timer(0.01, send)
+        t.start()
 
     def scroll_down_left(self):
         if self.autoscroll:
