@@ -196,8 +196,21 @@
              </size>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_10">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
              <item>
-              <layout class="QVBoxLayout" name="left_scroll_results_vbox_layout"/>
+              <layout class="QVBoxLayout" name="left_scroll_results_vbox_layout">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>7</number>
+               </property>
+              </layout>
              </item>
             </layout>
            </widget>

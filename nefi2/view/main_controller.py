@@ -599,7 +599,7 @@ class MainView(base, form):
                                   self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
                                   self.get_current_image, self.pipeline, settings_widget, self.left_scroll.verticalScrollBar())
 
-        self.left_scroll_results_vbox_layout.addWidget(widget)
+        self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
 
     @pyqtSlot(object)
     def update_add_immediate_result(self, event, checkbox):
@@ -623,7 +623,7 @@ class MainView(base, form):
                                   self.get_current_image,
                                   self.pipeline, settings_widget, self.left_scroll.verticalScrollBar(), event.cat)
 
-        self.left_scroll_results_vbox_layout.addWidget(widget)
+        self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
         if self.resultsonly:
             if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
                 widget.hide()
@@ -667,10 +667,10 @@ class MainView(base, form):
 
             titel.setFixedWidth(290)
             titel.setFixedHeight(100)
-            #titel.setSizePolicy(Qt.MinimumSize)
+            titel.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
             titelLayout = QVBoxLayout()
-            titelLayout.setContentsMargins(11, 11, 11, 11)
-            titelLayout.setSpacing(11)
+            titelLayout.setContentsMargins(7, 7, 11, 11)
+            titelLayout.setSpacing(7)
             titel.setLayout(titelLayout)
 
             timestamp = QLabel()
@@ -695,8 +695,8 @@ class MainView(base, form):
             #hline.setFrameStyle(QFrame.HLine)
             #hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
 
-            titelLayout.addWidget(timestamp, Qt.AlignCenter)
-            titelLayout.addWidget(show_pipeline, Qt.AlignCenter)
+            titelLayout.addWidget(timestamp, Qt.AlignTop)
+            titelLayout.addWidget(show_pipeline, Qt.AlignTop)
             self.left_scroll_results_vbox_layout.addWidget(titel)
             self.right_panel.setEnabled(False)
             self.progress_label.show()
@@ -1483,6 +1483,7 @@ class LeftCustomWidget(QWidget):
         super(LeftCustomWidget, self).__init__()
 
         self.setStyleSheet("font:Candara; font-size: 8pt;")
+        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.MidCustomWidget = MidCustomWidget
         self.mid_panel = mid_panel
         self.left_scroll_results = left_scroll_results
@@ -1509,7 +1510,7 @@ class LeftCustomWidget(QWidget):
         # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.setContentsMargins(7, 7, 22, 22)
+        self.LeftCustomWidgetLayout.setContentsMargins(7, 7, 20, 20)
         self.LeftCustomWidgetLayout.setSpacing(11)
         self.setLayout(self.LeftCustomWidgetLayout)
         self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
@@ -1524,6 +1525,7 @@ class LeftCustomWidget(QWidget):
         self.image.setAlignment(Qt.AlignCenter)
         self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
+        self.setFixedHeight(self.pixmap_scaled_keeping_aspec.height() + 50)
 
         self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
