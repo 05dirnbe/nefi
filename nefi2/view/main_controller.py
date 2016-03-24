@@ -56,6 +56,7 @@ class MainView(base, form):
         self.pip_widgets = []
         self.default_pips = []
         self.active_pip_label = ""
+        self.active_immediate_results_group_layout = None
 
         # Cache pipeline entries to use them for settings history.
         self.pipeline_cache = []
@@ -634,7 +635,7 @@ class MainView(base, form):
                                   self.get_current_image,
                                   self.pipeline, settings_widget, self.left_scroll.verticalScrollBar(), event.cat)
 
-        self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
+        self.active_immediate_results_group_layout.addWidget(widget, Qt.AlignTop)
         if self.resultsonly:
             if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
                 widget.hide()
@@ -674,41 +675,42 @@ class MainView(base, form):
         # so the user can distinct between them
         if len(self.pipeline.executed_cats) != 0:
 
-            titel = QGroupBox()
+            title = QGroupBox()
 
-            titel.setFixedWidth(293)
-            titel.setFixedHeight(100)
-            titel.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+            title.setFixedWidth(293)
+            title.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
             titelLayout = QVBoxLayout()
             titelLayout.setContentsMargins(7, 7, 11, 11)
             titelLayout.setSpacing(7)
-            titel.setLayout(titelLayout)
+            title.setLayout(titelLayout)
+
+            self.active_immediate_results_group_layout = titelLayout
 
             timestamp = QLabel()
-            timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
+            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
+            timestamp.setContentsMargins(7, 0, 0, 0)
 
-            class QCheckBox_filtered(QCheckBox):
+            class QCheckBoxFiltered(QCheckBox):
                 def __init__(self, scrollbar):
-                    super(QCheckBox_filtered, self).__init__()
+                    super(QCheckBoxFiltered, self).__init__()
                     self.scrollbar = scrollbar
 
             # prevent auto scroll
-            show_pipeline = QCheckBox_filtered(self.left_scroll.verticalScrollBar())
+            show_pipeline = QCheckBoxFiltered(self.left_scroll.verticalScrollBar())
+
 
             if self.resultsonly:
                 show_pipeline.setChecked(False)
             else:
                 show_pipeline.setChecked(True)
-            show_pipeline.setText("Show intermediate results")
+            show_pipeline.setText("Show all results")
 
-            hline = QFrame()
-            #hline.setFrameStyle(QFrame.HLine)
-            #hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+            show_pipeline.setContentsMargins(7, 0, 0, 0)
 
             titelLayout.addWidget(timestamp, Qt.AlignTop)
             titelLayout.addWidget(show_pipeline, Qt.AlignTop)
-            self.left_scroll_results_vbox_layout.addWidget(titel)
+            self.left_scroll_results_vbox_layout.addWidget(title)
             self.right_panel.setEnabled(False)
             self.progress_label.show()
             self.progressbar.show()
