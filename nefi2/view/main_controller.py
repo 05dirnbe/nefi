@@ -19,7 +19,7 @@ from nefi2.model.pipeline import *
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
@@ -665,7 +665,7 @@ class MainView(base, form):
 
             titel = QGroupBox()
 
-            titel.setFixedWidth(290)
+            titel.setFixedWidth(293)
             titel.setFixedHeight(100)
             titel.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
             titelLayout = QVBoxLayout()
@@ -1483,7 +1483,7 @@ class LeftCustomWidget(QWidget):
         super(LeftCustomWidget, self).__init__()
 
         self.setStyleSheet("font:Candara; font-size: 8pt;")
-        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        #self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.MidCustomWidget = MidCustomWidget
         self.mid_panel = mid_panel
         self.left_scroll_results = left_scroll_results
@@ -1525,10 +1525,13 @@ class LeftCustomWidget(QWidget):
         self.image.setAlignment(Qt.AlignCenter)
         self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
-        self.setFixedHeight(self.pixmap_scaled_keeping_aspec.height() + 50)
+        self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
         self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
+
+        self.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height() + 50)
+
         if cat:
             self.createSettings()
             #self.settings_widget.layout().setContentsMargins(0, 0, 0, 0)
@@ -1536,10 +1539,18 @@ class LeftCustomWidget(QWidget):
             self.settings_widget.hide()
             self.LeftCustomWidgetLayout.addWidget(self.settings_widget)
 
-        self.setGeometry(0, 0, 330, self.image_label.height() + self.image.height())
 
         self.select_image.connect(lambda: self.slot(self.MidCustomWidget.getCurrentImage(), self.cat))
 
+    """
+    def sizeHint(self):
+
+        return QSize(self.pixmap_scaled_keeping_aspec.width(), self.pixmap_scaled_keeping_aspec.height() + 50)
+
+    def minimumSizeHint(self):
+
+        return QSize(self.pixmap_scaled_keeping_aspec.width(), self.pixmap_scaled_keeping_aspec.height() + 50)
+    """
     def mousePressEvent(self, QMouseEvent):
         """
         this events sets the self.pixmap from this custom widget
