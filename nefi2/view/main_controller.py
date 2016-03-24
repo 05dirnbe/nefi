@@ -64,6 +64,7 @@ class MainView(base, form):
         self.autoclear = False
         self.autoscroll = True
         self.resultsonly = False
+        self.comparemode = False
         self.MidCustomWidget = MidCustomWidget(self.mid_panel, self.autofit)
 
         self.q_icon_up = QtGui.QIcon()
@@ -244,6 +245,8 @@ class MainView(base, form):
         either add it in the QtDesigner or declare it here.
         """
         self.setWindowTitle("NEFI 2.0")
+        icon = QIcon(os.path.join('nefi2', 'icons', 'nefi2.png'))
+        self.setWindowIcon(icon)
         # self.setWindowFlags(Qt.FramelessWindowHint)
         self.ComboxCategories = QComboBox()
         self.stackedWidgetComboxesAlgorithms = QStackedWidget()
@@ -326,6 +329,9 @@ class MainView(base, form):
         self.thread.finished.connect(self.delay)
         self.scrollsignal.connect(self.scroll_down_left)
         self.results_only.toggled.connect(self.set_resultsonly)
+        self.compare_mode.toggled.connect(self.set_comparemode)
+        # not implemented yes
+        self.compare_mode.hide()
 
         # connect zope.events
         zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
@@ -405,6 +411,10 @@ class MainView(base, form):
 
     def set_resultsonly(self):
         self.resultsonly = not self.resultsonly
+
+    def set_comparemode(self):
+        self.comparemode = not self.comparemode
+
     """
     def keyPressEvent(self, key):
         if key.modifiers() & Qt.ControlModifier:
