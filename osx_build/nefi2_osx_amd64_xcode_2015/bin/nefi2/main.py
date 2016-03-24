@@ -5,6 +5,8 @@ The main nefi2 startup script.
 It loads extension loader and initializes UI.
 It also enables console batch processing mode.
 """
+import os
+
 from nefi2.model.ext_loader import ExtensionLoader
 from nefi2.model.pipeline import Pipeline
 from nefi2.view.main_controller import MainView
@@ -37,7 +39,7 @@ class start:
         app = QApplication(sys.argv)
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         app.setQuitOnLastWindowClosed(True)
-        app.setWindowIcon(QtGui.QIcon("./icons/nefi2.ico"))
+        app.setWindowIcon(QtGui.QIcon(os.path.join('icons', 'nefi2.ico')))
         wnd = MainView(pipeline)
         wnd.load_dark_theme(app)
         wnd.show()

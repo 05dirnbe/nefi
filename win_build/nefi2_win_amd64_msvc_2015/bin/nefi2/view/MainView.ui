@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/nefi2.ico</normaloff>../icons/nefi2.ico</iconset>
+  </property>
   <property name="accessibleName">
    <string notr="true">NEFI 2.0</string>
   </property>
@@ -27,7 +31,7 @@
     <item>
      <layout class="QHBoxLayout" name="main_window_layout">
       <item>
-       <widget class="QGroupBox" name="left_panel">
+       <widget class="QWidget" name="left_panel" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -46,27 +50,94 @@
           <height>16777215</height>
          </size>
         </property>
-        <property name="title">
-         <string>Immediate Results</string>
+        <property name="font">
+         <font>
+          <family>Candara</family>
+         </font>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
-          <widget class="QToolButton" name="clear_immediate_btn">
+         <item alignment="Qt::AlignLeft">
+          <widget class="QWidget" name="remove_btn_widget" native="true">
            <property name="minimumSize">
             <size>
-             <width>31</width>
-             <height>31</height>
+             <width>0</width>
+             <height>30</height>
             </size>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>31</width>
-             <height>31</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+             <number>5</number>
+            </property>
+            <property name="leftMargin">
+             <number>11</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item>
+             <layout class="QGridLayout" name="gridLayout">
+              <property name="rightMargin">
+               <number>70</number>
+              </property>
+              <item row="0" column="1">
+               <widget class="QCheckBox" name="auto_clear">
+                <property name="text">
+                 <string>Auto Clear</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QCheckBox" name="results_only">
+                <property name="text">
+                 <string>Results Only</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QCheckBox" name="auto_scroll">
+                <property name="text">
+                 <string>Auto Scroll</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QCheckBox" name="compare_mode">
+                <property name="text">
+                 <string>Compare Mode</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QToolButton" name="clear_immediate_btn">
+              <property name="minimumSize">
+               <size>
+                <width>31</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>31</width>
+                <height>31</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -107,7 +178,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>1017</height>
+              <height>1009</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -131,6 +202,22 @@
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
               <layout class="QVBoxLayout" name="left_scroll_results_vbox_layout"/>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Maximum</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>9999</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -221,6 +308,12 @@
               </property>
               <item>
                <widget class="QToolButton" name="zoom_in">
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
                 <property name="text">
                  <string>...</string>
                 </property>
@@ -232,6 +325,12 @@
               </item>
               <item>
                <widget class="QToolButton" name="zoom_out">
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
                 <property name="text">
                  <string>...</string>
                 </property>
@@ -244,6 +343,12 @@
               </item>
               <item>
                <widget class="QToolButton" name="resize">
+                <property name="minimumSize">
+                 <size>
+                  <width>30</width>
+                  <height>30</height>
+                 </size>
+                </property>
                 <property name="text">
                  <string>...</string>
                 </property>
@@ -262,7 +367,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="right_panel">
+       <widget class="QWidget" name="right_panel" native="true">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -369,6 +474,7 @@
                  </property>
                  <property name="font">
                   <font>
+                   <family>Candara</family>
                    <pointsize>11</pointsize>
                   </font>
                  </property>
@@ -408,7 +514,8 @@
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>9</pointsize>
+                   <family>Candara</family>
+                   <pointsize>8</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -421,7 +528,7 @@
                   <bool>false</bool>
                  </property>
                 </widget>
-                <widget class="QPushButton" name="input_btn">
+                <widget class="QToolButton" name="input_btn">
                  <property name="geometry">
                   <rect>
                    <x>250</x>
@@ -506,6 +613,7 @@
                  </property>
                  <property name="font">
                   <font>
+                   <family>Candara</family>
                    <pointsize>11</pointsize>
                   </font>
                  </property>
@@ -545,7 +653,8 @@
                  </property>
                  <property name="font">
                   <font>
-                   <pointsize>9</pointsize>
+                   <family>Candara</family>
+                   <pointsize>8</pointsize>
                   </font>
                  </property>
                  <property name="styleSheet">
@@ -555,7 +664,7 @@
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                  </property>
                 </widget>
-                <widget class="QPushButton" name="output_btn">
+                <widget class="QToolButton" name="output_btn">
                  <property name="geometry">
                   <rect>
                    <x>250</x>
@@ -661,6 +770,7 @@
                     </property>
                     <property name="font">
                      <font>
+                      <family>Candara</family>
                       <pointsize>11</pointsize>
                      </font>
                     </property>
@@ -709,7 +819,8 @@
                     </property>
                     <property name="font">
                      <font>
-                      <pointsize>9</pointsize>
+                      <family>Candara</family>
+                      <pointsize>8</pointsize>
                       <italic>false</italic>
                      </font>
                     </property>
@@ -723,7 +834,7 @@
                      <number>150</number>
                     </property>
                    </widget>
-                   <widget class="QPushButton" name="open_pip_btn">
+                   <widget class="QToolButton" name="open_pip_btn">
                     <property name="geometry">
                      <rect>
                       <x>250</x>
@@ -747,8 +858,11 @@
                     <property name="text">
                      <string/>
                     </property>
+                    <property name="autoRaise">
+                     <bool>false</bool>
+                    </property>
                    </widget>
-                   <widget class="QPushButton" name="save_btn">
+                   <widget class="QToolButton" name="save_btn">
                     <property name="geometry">
                      <rect>
                       <x>286</x>
@@ -829,6 +943,7 @@
                </property>
                <property name="font">
                 <font>
+                 <family>Candara</family>
                  <pointsize>11</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
@@ -844,8 +959,6 @@
                 <bool>false</bool>
                </property>
               </widget>
-              <zorder>run_btn</zorder>
-              <zorder>add_btn_3</zorder>
              </widget>
             </item>
            </layout>
@@ -876,6 +989,11 @@
              <width>0</width>
              <height>0</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Candara</family>
+            </font>
            </property>
            <property name="title">
             <string notr="true">Pipeline</string>
@@ -910,54 +1028,60 @@
                 <height>31</height>
                </size>
               </property>
-              <widget class="QPushButton" name="add_btn">
+              <widget class="QToolButton" name="add_btn">
                <property name="geometry">
                 <rect>
                  <x>251</x>
                  <y>0</y>
-                 <width>31</width>
-                 <height>31</height>
+                 <width>30</width>
+                 <height>30</height>
                 </rect>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>31</width>
-                 <height>31</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>31</width>
-                 <height>31</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="text">
                 <string/>
                </property>
+               <property name="autoRaise">
+                <bool>false</bool>
+               </property>
               </widget>
-              <widget class="QPushButton" name="delete_btn">
+              <widget class="QToolButton" name="delete_btn">
                <property name="geometry">
                 <rect>
                  <x>287</x>
                  <y>0</y>
-                 <width>31</width>
-                 <height>31</height>
+                 <width>30</width>
+                 <height>30</height>
                 </rect>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>31</width>
-                 <height>31</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>31</width>
-                 <height>31</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
                </property>
                <property name="text">
                 <string/>
+               </property>
+               <property name="autoRaise">
+                <bool>false</bool>
                </property>
               </widget>
               <widget class="QLabel" name="current_pip_label">
@@ -983,6 +1107,7 @@
                </property>
                <property name="font">
                 <font>
+                 <family>Candara</family>
                  <pointsize>11</pointsize>
                  <weight>50</weight>
                  <bold>false</bold>
@@ -1001,9 +1126,6 @@
               <zorder>delete_btn</zorder>
               <zorder>current_pip_label</zorder>
               <zorder>add_btn</zorder>
-              <zorder>pip_scroll</zorder>
-              <zorder>pip_scroll</zorder>
-              <zorder>pip_scroll</zorder>
              </widget>
             </item>
             <item>
@@ -1050,7 +1172,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>358</height>
+                 <height>360</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1104,6 +1226,11 @@
              <width>500</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Candara</family>
+            </font>
            </property>
            <property name="acceptDrops">
             <bool>false</bool>
@@ -1162,7 +1289,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>326</width>
-                 <height>406</height>
+                 <height>408</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1185,12 +1312,36 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout"/>
+                 <widget class="QFrame" name="frame">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>100</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>100</height>
+                   </size>
+                  </property>
+                  <layout class="QVBoxLayout" name="select_cat_alg_vbox_layout">
+                   <property name="sizeConstraint">
+                    <enum>QLayout::SetDefaultConstraint</enum>
+                   </property>
+                  </layout>
+                 </widget>
                 </item>
-                <item>
+                <item alignment="Qt::AlignTop">
                  <widget class="QStackedWidget" name="stackedWidget_Settings">
                   <property name="enabled">
                    <bool>true</bool>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Plain</enum>
                   </property>
                  </widget>
                 </item>
