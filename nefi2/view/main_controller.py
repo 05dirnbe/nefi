@@ -113,6 +113,7 @@ class MainView(base, form):
                           "Representing the structure of the network as a graph "
                           "enables subsequent studies of its properties "
                           "using tools and concepts from graph theory.<br><br>"
+                          "<img src='nefi2/icons/logo_mpi.png'><br><br>"
                           "<b>TODO - AUTHORS <br>"
                           "TODO - VERSION <br>"
                           "TODO - REFERENCES </b> <br></p>")
