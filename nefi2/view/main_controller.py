@@ -16,11 +16,10 @@ import sys
 import zope.event.classhandler
 import PyQt5
 from nefi2.model.pipeline import *
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
 from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize
-from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
     QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox
@@ -267,6 +266,7 @@ class MainView(base, form):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progressbar.hide()
         self.mid_panel_layout.addWidget(self.MidCustomWidget)
+        self.mid_panel_layout.setContentsMargins(0, 0, 0, 0)
 
         self.splitterWidget = QWidget()
         self.splitterWidgetLayout = QGridLayout()
@@ -289,7 +289,7 @@ class MainView(base, form):
         self.splitter.handleWidth()
         self.splitter.setOrientation(Qt.Vertical)
         self.splitter.setChildrenCollapsible(False)
-        self.pip_collapsable.setStyleSheet("border:0;")
+        #self.pip_collapsable.setStyleSheet("border:0;")
         self.settings_collapsable.setStyleSheet("border:0;")
         self.splitter.addWidget(self.pip_collapsable)
         self.splitterLayout.addWidget(self.splitterFrame)
@@ -299,7 +299,9 @@ class MainView(base, form):
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
-        #self.left_panel.setStyleSheet("border:0;")
+        #self.setStyleSheet("QScrollBar:horizontal {max-height: 15px;}" "QScrollBar:vertical {max-width: 15px;}")
+
+        #self.mid_panel.setStyleSheet("border:0;")
         #self.right_panel.setStyleSheet("border:0;")
 
 
@@ -439,7 +441,6 @@ class MainView(base, form):
 
         def send():
             self.scrollsignal.emit()
-            print("bla")
 
         t = Timer(0.01, send)
         t.start()
@@ -677,10 +678,10 @@ class MainView(base, form):
 
             title = QGroupBox()
 
-            title.setFixedWidth(293)
+            title.setFixedWidth(295)
             title.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
             titelLayout = QVBoxLayout()
-            titelLayout.setContentsMargins(7, 7, 11, 11)
+            titelLayout.setContentsMargins(0, 11, 11, 0)
             titelLayout.setSpacing(7)
             title.setLayout(titelLayout)
 
@@ -689,22 +690,15 @@ class MainView(base, form):
             timestamp = QLabel()
             timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
-            timestamp.setContentsMargins(7, 0, 0, 0)
+            timestamp.setContentsMargins(0, 0, 0, 0)
 
-            class QCheckBoxFiltered(QCheckBox):
-                def __init__(self, scrollbar):
-                    super(QCheckBoxFiltered, self).__init__()
-                    self.scrollbar = scrollbar
-
-            # prevent auto scroll
-            show_pipeline = QCheckBoxFiltered(self.left_scroll.verticalScrollBar())
-
+            show_pipeline = QCheckBox()
 
             if self.resultsonly:
                 show_pipeline.setChecked(False)
             else:
                 show_pipeline.setChecked(True)
-            show_pipeline.setText("Show all results")
+            show_pipeline.setText("Intermediate Results")
 
             show_pipeline.setContentsMargins(7, 0, 0, 0)
 
@@ -714,9 +708,9 @@ class MainView(base, form):
             self.right_panel.setEnabled(False)
             self.progress_label.show()
             self.progressbar.show()
+            self.thread.setCheckbox(show_pipeline)
 
         try:
-            self.thread.setCheckbox(show_pipeline)
             if not self.thread.isRunning():
                 self.thread.start()
         except Exception as e:
@@ -738,6 +732,7 @@ class MainView(base, form):
         if url[0]:
             self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
+            self.mid_panel.setTitle("Input - Image")
 
     @pyqtSlot()
     def set_output_url(self):
@@ -1333,8 +1328,9 @@ class MidCustomWidget(QWidget):
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
         self.Layout = QVBoxLayout()
-        self.Layout.addWidget(self.scrollArea, Qt.AlignCenter)
+        self.Layout.setContentsMargins(11,11,11,11)
         self.setLayout(self.Layout)
+        self.Layout.addWidget(self.scrollArea, Qt.AlignTop)
 
         self.scrollArea.zoom_in.connect(self.zoom_in_)
         self.scrollArea.zoom_out.connect(self.zoom_out_)
@@ -1468,7 +1464,7 @@ class MidCustomWidget(QWidget):
         if original_width != 0:
             self.current_image_size = self.mid_panel.width() / original_width
 
-        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 85, self.mid_panel.height() - 85,
+        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 50 , self.mid_panel.height(),
                                                         QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
         self.imageLabel.setGeometry(0, 0, new_pixmap.width() + 22, new_pixmap.height() + 22)
@@ -1523,7 +1519,7 @@ class LeftCustomWidget(QWidget):
         # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.setContentsMargins(7, 7, 20, 20)
+        self.LeftCustomWidgetLayout.setContentsMargins(0, 0, 0, 0)
         self.LeftCustomWidgetLayout.setSpacing(11)
         self.setLayout(self.LeftCustomWidgetLayout)
         self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
@@ -1532,10 +1528,10 @@ class LeftCustomWidget(QWidget):
         self.image_label.setGeometry(0, 0, 150, 30)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(280, Qt.SmoothTransformation)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(300, Qt.SmoothTransformation)
 
         self.image = QLabel()
-        self.image.setAlignment(Qt.AlignCenter)
+        self.image.setAlignment(Qt.AlignLeft)
         self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
         self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
@@ -1543,7 +1539,7 @@ class LeftCustomWidget(QWidget):
         self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
 
-        self.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height() + 50)
+        self.setGeometry(0, 0, 310, self.pixmap_scaled_keeping_aspec.height() + 50)
 
         if cat:
             self.createSettings()
