@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../icons/nefi2.ico</normaloff>../icons/nefi2.ico</iconset>
+    <normaloff>../../../../Users/prei/.designer/icons/nefi2.ico</normaloff>../../../../Users/prei/.designer/icons/nefi2.ico</iconset>
   </property>
   <property name="accessibleName">
    <string notr="true">NEFI 2.0</string>
@@ -330,7 +330,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../assets/images/plus.png</normaloff>../assets/images/plus.png</iconset>
+                <normaloff>../../../../Users/prei/.designer/assets/images/plus.png</normaloff>../../../../Users/prei/.designer/assets/images/plus.png</iconset>
               </property>
              </widget>
             </item>
@@ -347,7 +347,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normalon>../assets/images/minus.png</normalon>
+                <normalon>../../../../Users/prei/.designer/assets/images/minus.png</normalon>
                </iconset>
               </property>
              </widget>
@@ -365,7 +365,7 @@
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../assets/images/resize.png</normaloff>../assets/images/resize.png</iconset>
+                <normaloff>../../../../Users/prei/.designer/assets/images/resize.png</normaloff>../../../../Users/prei/.designer/assets/images/resize.png</iconset>
               </property>
              </widget>
             </item>
