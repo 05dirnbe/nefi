@@ -31,7 +31,7 @@ def filter_images(file_list):
     <This function is used to protect the pipeline from attempting to process
     any non-image files existing in the input directory.>
     """
-    valid_ext = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff', '.gif']
+    valid_ext = ['.bmp', '.jpg', '.jpeg', '.png', '.tif', '.tiff']
     return [f for f in file_list if os.path.splitext(f)[-1] in valid_ext]
 
 
