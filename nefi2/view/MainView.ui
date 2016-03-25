@@ -56,7 +56,7 @@
          </font>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QWidget" name="remove_btn_widget" native="true">
            <property name="minimumSize">
             <size>
@@ -66,21 +66,59 @@
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <property name="spacing">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="leftMargin">
-             <number>0</number>
+             <number>11</number>
             </property>
             <property name="topMargin">
              <number>5</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="bottomMargin">
-             <number>0</number>
+             <number>5</number>
             </property>
-            <item alignment="Qt::AlignHCenter">
+            <item>
+             <layout class="QGridLayout" name="gridLayout">
+              <property name="rightMargin">
+               <number>70</number>
+              </property>
+              <item row="0" column="1">
+               <widget class="QCheckBox" name="auto_clear">
+                <property name="text">
+                 <string>Auto Clear</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QCheckBox" name="results_only">
+                <property name="text">
+                 <string>Results Only</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QCheckBox" name="auto_scroll">
+                <property name="text">
+                 <string>Auto Scroll</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QCheckBox" name="compare_mode">
+                <property name="text">
+                 <string>Compare Mode</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
              <widget class="QToolButton" name="clear_immediate_btn">
               <property name="minimumSize">
                <size>
@@ -140,7 +178,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>1030</height>
+              <height>1009</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -164,6 +202,22 @@
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
               <layout class="QVBoxLayout" name="left_scroll_results_vbox_layout"/>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Maximum</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>9999</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -1118,7 +1172,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>340</width>
-                 <height>362</height>
+                 <height>360</height>
                 </rect>
                </property>
                <property name="sizePolicy">
