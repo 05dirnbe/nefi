@@ -1474,7 +1474,7 @@ class MidCustomWidget(QWidget):
         if original_width != 0:
             self.current_image_size = self.mid_panel.width() / original_width
 
-        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 50 , self.mid_panel.height(),
+        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 50 , self.mid_panel.height() - 120,
                                                         QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
         self.imageLabel.setGeometry(0, 0, new_pixmap.width() + 22, new_pixmap.height() + 22)
