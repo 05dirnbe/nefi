@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from nefi2.model.algorithms._alg import Algorithm, DropDown, FloatSlider
 from nefi2.model.algorithms._utility import check_operator, draw_graph
-import networkx as nx
-import operator as op
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}

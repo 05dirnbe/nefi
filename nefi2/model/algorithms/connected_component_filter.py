@@ -5,9 +5,6 @@ import networkx as nx
 import operator as op
 
 
-__authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
-
-
 class AlgBody(Algorithm):
     """
     Connected Component Filter algorithm implementation

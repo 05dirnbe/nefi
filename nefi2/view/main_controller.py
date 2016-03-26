@@ -692,7 +692,7 @@ class MainView(base, form):
 
             timestamp = QLabel()
             self.id += 1
-            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + " - ID: " + str(self.id))
+            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.id))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
             timestamp.setContentsMargins(0, 11, 0, 11)
 
@@ -702,7 +702,7 @@ class MainView(base, form):
                 show_pipeline.setChecked(False)
             else:
                 show_pipeline.setChecked(True)
-            show_pipeline.setText("Intermediate Results")
+            show_pipeline.setText("Results")
 
             show_pipeline.setContentsMargins(0, 0, 0, 0)
 
