@@ -31,11 +31,11 @@ class AlgBody(Algorithm):
         self.attribute_threshold_value = FloatSlider("Attribute treshold",
                                                      0.0, 20.0, 0.1, 10.0)
         self.float_sliders.append(self.attribute_threshold_value)
-        self.operator = DropDown("Operator", {"Strictly smaller",
-                                              "Smaller or equal",
-                                              "Equal",
-                                              "Greater or equal",
-                                              "Strictly greater"})
+        self.operator = DropDown("Operator", {"strictly smaller",
+                                              "smaller or equal",
+                                              "equal",
+                                              "greater or equal",
+                                              "strictly greater"})
         self.drop_downs.append(self.operator)
 
     def process(self, args):
@@ -61,6 +61,7 @@ class AlgBody(Algorithm):
             | *graph* : A filtered networkx graph
 
         """
+        oper_str_value = self.operator.value
         try:
             self.operator.value = check_operator(self.operator)
             to_be_removed = [(u, v) for u, v, data in
@@ -71,9 +72,9 @@ class AlgBody(Algorithm):
             print ('discarding a total of', len(to_be_removed), 'edges ...')
         except KeyError as kerror:
             print ('Exception caught in Edge_Attribute_Filter:' \
-                  ' Filtering failed because', kerror)
+                   ' Filtering failed because', kerror)
             print ('is not present in the graph as an edge attribute.')
-
+        self.operator.value = oper_str_value
         self.result['img'] = args[0]
         self.result['graph'] = args[1]
 

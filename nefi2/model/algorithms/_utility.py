@@ -91,15 +91,15 @@ def check_operator(dropdown):
     """
     op_object = None
 
-    if dropdown.value == "Strictly smaller":
+    if dropdown.value == "strictly smaller":
         op_object = operator.lt
-    if dropdown.value == "Smaller or equal":
+    if dropdown.value == "smaller or equal":
         op_object = operator.le
-    if dropdown.value == "Equal":
+    if dropdown.value == "equal":
         op_object = operator.eq
-    if dropdown.value == "Greater or equal":
+    if dropdown.value == "greater or equal":
         op_object = operator.ge
-    if dropdown.value == "Strictly greater":
+    if dropdown.value == "strictly greater":
         op_object = operator.gt
     return op_object
 

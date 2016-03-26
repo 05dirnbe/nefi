@@ -51,7 +51,7 @@ class MainView(base, form):
         super(base, self).__init__(parent)
         self.setupUi(self)
 
-        self.id = 0
+        self.pip_run = 0
         self.pipeline = pipeline
         self.pip_widgets = []
         self.default_pips = []
@@ -552,6 +552,8 @@ class MainView(base, form):
             # parse the json in the model
             try:
                 self.pipeline.load_pipeline_json(url[0][0])
+                # reset pipelines run counter
+                self.pip_run = 0
             except Exception as e:
                 print("failed to load the json at the location: " + url[0][0])
                 traceback.print_exc()
@@ -658,7 +660,6 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
-
         signal = pyqtSignal()
 
         # Check if we have a legal pipeline configuration
@@ -691,8 +692,8 @@ class MainView(base, form):
             self.active_immediate_results_group_layout = titelLayout
 
             timestamp = QLabel()
-            self.id += 1
-            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.id))
+            self.pip_run += 1
+            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.pip_run))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
             timestamp.setContentsMargins(0, 11, 0, 11)
 
@@ -743,6 +744,8 @@ class MainView(base, form):
             self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
             self.mid_panel.setTitle("Input - Image")
+        # reset pipelines run
+        self.pip_run = 0
 
     @pyqtSlot()
     def set_output_url(self):
@@ -799,6 +802,9 @@ class MainView(base, form):
 
         # remove the pipeline name
         self.set_pip_title("")
+
+        # reset pipeline run
+        self.pip_run = 0
 
         # remove all entries int the executed_cats of the model pipeline
         del self.pipeline.executed_cats[:]
@@ -1546,8 +1552,8 @@ class LeftCustomWidget(QWidget):
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
         self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
-        self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
+        self.LeftCustomWidgetLayout.addWidget(self.image_label)
 
         self.setGeometry(0, 0, 295, self.pixmap_scaled_keeping_aspec.height() + 50)
 
