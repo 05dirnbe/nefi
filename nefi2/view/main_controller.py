@@ -549,11 +549,17 @@ class MainView(base, form):
         """
         url = QtWidgets.QFileDialog.getOpenFileNames()
         if url[0]:
+
+            # delete current pipeline
+
+            self.trash_pipeline()
+
             # parse the json in the model
             try:
                 self.pipeline.load_pipeline_json(url[0][0])
                 # reset pipelines run counter
                 self.pip_run = 0
+
             except Exception as e:
                 print("failed to load the json at the location: " + url[0][0])
                 traceback.print_exc()
