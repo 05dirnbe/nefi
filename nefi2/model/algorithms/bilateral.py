@@ -47,9 +47,9 @@ class AlgBody(Algorithm):
         self.integer_sliders.append(self.diameter)
         self.float_sliders.append(self.sigma_color)
         self.float_sliders.append(self.sigma_space)
-        self.checkboxes.append(self.channel1)
-        self.checkboxes.append(self.channel2)
-        self.checkboxes.append(self.channel3)
+        # self.checkboxes.append(self.channel1)
+        # self.checkboxes.append(self.channel2)
+        # self.checkboxes.append(self.channel3)
 
     def process(self, args):
         """

@@ -30,9 +30,9 @@ class AlgBody(Algorithm):
         self.channel1 = CheckBox("channel1", True)
         self.channel2 = CheckBox("channel2", True)
         self.channel3 = CheckBox("channel3", True)
-        self.checkboxes.append(self.channel1)
-        self.checkboxes.append(self.channel2)
-        self.checkboxes.append(self.channel3)
+        # self.checkboxes.append(self.channel1)
+        # self.checkboxes.append(self.channel2)
+        # self.checkboxes.append(self.channel3)
 
     def process(self, args):
         """

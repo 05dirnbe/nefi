@@ -3,6 +3,10 @@ from nefi2.model.algorithms._alg import Algorithm, IntegerSlider, DropDown
 from nefi2.model.algorithms._utility import check_operator, draw_graph
 import networkx as nx
 
+
+__authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
+
+
 class AlgBody(Algorithm):
     """
     Connected Component Filter algorithm implementation

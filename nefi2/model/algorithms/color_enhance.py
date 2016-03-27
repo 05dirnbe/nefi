@@ -20,9 +20,9 @@ class AlgBody(Algorithm):
         self.channel3 = CheckBox("channel3", True)
         self.float_sliders.append(self.left_pct)
         self.float_sliders.append(self.right_pct)
-        self.checkboxes.append(self.channel1)
-        self.checkboxes.append(self.channel2)
-        self.checkboxes.append(self.channel3)
+        # self.checkboxes.append(self.channel1)
+        # self.checkboxes.append(self.channel2)
+        # self.checkboxes.append(self.channel3)
 
     def process(self, args):
         channels = cv2.split(args[0])

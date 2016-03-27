@@ -670,7 +670,6 @@ class MainView(base, form):
 
         # Check if we have a legal pipeline configuration
         msg, cat = self.pipeline.sanity_check()
-
         if cat:
             widget = self.get_pip_entry(cat)
             widget.setStyleSheet("background-color:red;")
