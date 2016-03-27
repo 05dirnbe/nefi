@@ -189,9 +189,13 @@ class Algorithm:
             if float_slider.name == name:
                 return float_slider
 
-        for checkbox in self.checkboxes:
-            if checkbox.name == name:
-                return checkbox
+        # checkboxes are optional
+        if self.checkboxes:
+            for checkbox in self.checkboxes:
+                if checkbox.name == name:
+                    return checkbox
+        else:
+            return None
 
         for dropdown in self.drop_downs:
             if dropdown.name == name:

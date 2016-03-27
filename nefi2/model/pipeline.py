@@ -197,7 +197,6 @@ class Pipeline:
         pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
         out_path = os.path.join(self.out_dir,
                                 '_'.join([pip_name, orig_fname]))
-
         # check if any algorithm has changed
         for idx, cat in enumerate(self.executed_cats):
             if cat.active_algorithm.modified:
@@ -587,7 +586,9 @@ class Pipeline:
                 if name == "type" or name == "store_image":
                     continue
                 value = alg_attributes[name]
-                active_alg.find_ui_element(name).set_value(value)
+                alg_ui_elem = active_alg.find_ui_element(name)
+                if alg_ui_elem:
+                    alg_ui_elem.set_value(value)
         self.pipeline_path = url
         # reset current cache
         self.set_cache()
