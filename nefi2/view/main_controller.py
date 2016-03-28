@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 This is nefi's main view. Currently we deployed all controls of the
@@ -509,7 +510,7 @@ class MainView(base, form):
         try:
             self.pipeline.load_pipeline_json(url)
         except Exception as e:
-            print("failed to load default pip: " + name + " received parser error")
+            print("Failed to load default pip: " + name + " received parser error")
             traceback.print_exc()
             return
 
@@ -526,8 +527,7 @@ class MainView(base, form):
         This method allows the user to save its pip json on the file system
         while clicking the save_btn
         """
-        url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
-
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Pipeline", '', 'JSON file (*.json)')[0])
         try:
             if url[0]:
                 name = os.path.basename(url)
@@ -535,7 +535,7 @@ class MainView(base, form):
                 print(name)
                 self.pipeline.save_pipeline_json(name, url)
         except Exception as e:
-            print("failed to save pip json on file system")
+            print("Failed to save pip json on file system")
             traceback.print_exc()
             return
 
@@ -547,7 +547,8 @@ class MainView(base, form):
         This method provides the logic for the open_pip_btn which lets the user load a
         pip json from an abritary location of the file system.
         """
-        url = QtWidgets.QFileDialog.getOpenFileNames()
+        url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Pipeline', '',
+                                                     'JSON file (*.json)')
         if url[0]:
 
             # delete current pipeline
@@ -561,7 +562,7 @@ class MainView(base, form):
                 self.pip_run = 0
 
             except Exception as e:
-                print("failed to load the json at the location: " + url[0][0])
+                print("Failed to load the json at the location: " + url[0][0])
                 traceback.print_exc()
                 return
 
@@ -744,7 +745,8 @@ class MainView(base, form):
         """
         This method sets the url for the input image in the pipeline.
         """
-        url = QtWidgets.QFileDialog.getOpenFileNames()
+        url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Image', '',
+                                                     'Images (*.jpg *.jpeg *.png *.tif *.tiff)')
         if url[0]:
             self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
@@ -1646,7 +1648,7 @@ class ProcessWorker(QtCore.QThread):
         try:
             self.pipeline.process()
         except Exception as e:
-            print("failed to process pipeline")
+            print("Failed to process pipeline")
             traceback.print_exc()
 
         self.finished.emit()
