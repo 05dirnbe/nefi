@@ -276,7 +276,7 @@ class MainView(base, form):
 
         self.splitterWidget = QWidget()
         self.splitterWidgetLayout = QGridLayout()
-        self.splitterWidgetLayout.setContentsMargins(22, 0, 15, 0)
+        self.splitterWidgetLayout.setContentsMargins(7, 0, 0, 0)
         self.splitterWidget.setLayout(self.splitterWidgetLayout)
 
         self.splitter = QSplitter()
