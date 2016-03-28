@@ -20,7 +20,7 @@ from nefi2.model.pipeline import *
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize, QRect
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize, QRect, QFile, QIODevice
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
     QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
@@ -86,6 +86,7 @@ class MainView(base, form):
     def createMenus(self):
         self.fileMenu = QMenu("&File", self)
         self.fileMenu.addAction(self.openAct)
+        self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.printAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
@@ -136,10 +137,13 @@ class MainView(base, form):
             painter.drawPixmap(0, 0, self.MidCustomWidget.getCurrentImage())
 
     def createActions(self):
-        self.openAct = QAction("&Open...", self, shortcut="Ctrl+O",
+        self.openAct = QAction("&Open Image", self, shortcut="Ctrl+O",
                                triggered=self.set_input_url)
 
-        self.printAct = QAction("&Print...", self, shortcut="Ctrl+P",
+        self.saveAct = QAction("&Save Image", self, shortcut="Ctrl+S",
+                               triggered=self.save_output_picture)
+
+        self.printAct = QAction("&Print Image", self, shortcut="Ctrl+P",
                                 enabled=True, triggered=self.print_)
 
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
@@ -151,7 +155,7 @@ class MainView(base, form):
         self.zoomOutAct = QAction("Zoom &Out (25%)", self, shortcut="Ctrl+-",
                                   enabled=True, triggered=self.MidCustomWidget.zoom_out_)
 
-        self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+S",
+        self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+D",
                                      enabled=True, triggered=self.MidCustomWidget.resize_original)
 
         self.fitToWindowAct = QAction("&Fit to Window", self, enabled=True,
@@ -753,6 +757,27 @@ class MainView(base, form):
             self.mid_panel.setTitle("Input - Image")
         # reset pipelines run
         self.pip_run = 0
+
+    @pyqtSlot()
+    def save_output_picture(self):
+        """
+        This method sets the url for the input image in the pipeline.
+        """
+
+        print(self.MidCustomWidget.getCurrentImage())
+
+        if self.MidCustomWidget.getCurrentImage() is None:
+            return
+
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Image", '', 'Image file (*.png)')[0])
+        try:
+            if url[0]:
+                name = os.path.basename(url)
+                self.MidCustomWidget.getCurrentImage().save(url)
+        except Exception as e:
+            print("Failed to save image file on file system")
+            traceback.print_exc()
+            return
 
     @pyqtSlot()
     def set_output_url(self):
