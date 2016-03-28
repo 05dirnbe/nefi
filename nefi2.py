@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
-
-
 import argparse
 import os
 import sys
-
-#print(os.curdir)
-#print(os.listdir(os.curdir))
-
-from nefi2.main import start
-
+# chdir to ~/.nefi2 before local imports
 if not (sys.platform == 'win32' or sys.platform == 'win64'):
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
+from nefi2.main import Main
+
 
 def runner(args):
     """
@@ -21,9 +16,9 @@ def runner(args):
         | *args* : a Namespace object of supplied command-line arguments
     """
     if args.dir or args.file:
-        start.batch_mode(args)
+        Main.batch_mode(args)
     else:
-        start.gui_mode()
+        Main.gui_mode()
 
 
 if __name__ == '__main__':
