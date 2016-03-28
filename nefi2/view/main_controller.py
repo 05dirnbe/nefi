@@ -107,7 +107,7 @@ class MainView(base, form):
         self.menuBar().addMenu(self.helpMenu)
 
     def about(self):
-        QMessageBox.about(self, "About Image Viewer",
+        QMessageBox.about(self, "About NEFI",
                           "<p><b>NEFI 2.0</b> is a Python tool created "
                           "to extract networks from images. "
                           "Given a suitable 2D image of a network as input, "
