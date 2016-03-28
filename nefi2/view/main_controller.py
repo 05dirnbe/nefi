@@ -276,7 +276,7 @@ class MainView(base, form):
 
         self.splitterWidget = QWidget()
         self.splitterWidgetLayout = QGridLayout()
-        self.splitterWidgetLayout.setContentsMargins(0, 0, 0, 0)
+        self.splitterWidgetLayout.setContentsMargins(22, 0, 15, 0)
         self.splitterWidget.setLayout(self.splitterWidgetLayout)
 
         self.splitter = QSplitter()
@@ -286,7 +286,7 @@ class MainView(base, form):
         self.splitter.setLayout(self.splitterLayout)
 
         self.splitterFrame = QFrame()
-        self.splitterFrame.setFixedHeight(1)
+        self.splitterFrame.setFixedHeight(2)
         self.splitterFrame.setFrameShape(QFrame.HLine)
         self.splitterFrame.setFrameShadow(QFrame.Sunken)
 
