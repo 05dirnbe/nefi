@@ -79,7 +79,7 @@ class Pipeline:
         self.available_cats = categories
         self.executed_cats = []
         self.pipeline_path = os.path.join(os.path.dirname(__file__), '..', 'assets', 'json')  # default dir
-        self.out_dir = os.path.join(os.path.dirname(__file__), '..', 'output')  # default out dir
+        self.out_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'output')  # default out dir
         if not os.path.exists(self.out_dir):
             os.mkdir(self.out_dir)
         self.input_files = None
