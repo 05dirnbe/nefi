@@ -3,6 +3,7 @@ Various help functions for processing results.
 """
 import cv2
 import numpy
+import operator
 
 
 __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
@@ -78,27 +79,27 @@ def draw_edges(img, graph, col=(0, 0, 255)):
     return edg_img
 
 
-def check_operator(operator):
+def check_operator(dropdown):
     """
     Converts the string value of the DropDown element in operator object
 
     Args:
-        | *operator* : DropDown object from the algorithm class
+        | *dropdown* : DropDown object from the algorithm class
 
     Returns:
         | *op_object*: operator object converted
     """
     op_object = None
 
-    if operator.value == "Strictly smaller":
+    if dropdown.value == "strictly smaller":
         op_object = operator.lt
-    if operator.value == "Smaller or equal":
+    if dropdown.value == "smaller or equal":
         op_object = operator.le
-    if operator.value == "Equal":
+    if dropdown.value == "equal":
         op_object = operator.eq
-    if operator.value == "Greater or equal":
+    if dropdown.value == "greater or equal":
         op_object = operator.ge
-    if operator.value == "Strictly greater":
+    if dropdown.value == "strictly greater":
         op_object = operator.gt
     return op_object
 

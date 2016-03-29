@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 This is nefi's main view. Currently we deployed all controls of the
@@ -6,7 +7,7 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
-
+from nefi2.model.pipeline import *
 import copy
 import time
 import os
@@ -15,15 +16,15 @@ import traceback
 import sys
 import zope.event.classhandler
 import PyQt5
-from nefi2.model.pipeline import *
-from PyQt5 import QtWidgets, uic
+import webbrowser
+
+from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize
-from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize, QRect, QFile, QIODevice
 from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
-    QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox
+    QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
 
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
@@ -52,10 +53,12 @@ class MainView(base, form):
         super(base, self).__init__(parent)
         self.setupUi(self)
 
+        self.pip_run = 0
         self.pipeline = pipeline
         self.pip_widgets = []
         self.default_pips = []
         self.active_pip_label = ""
+        self.active_immediate_results_group_layout = None
 
         # Cache pipeline entries to use them for settings history.
         self.pipeline_cache = []
@@ -84,6 +87,7 @@ class MainView(base, form):
     def createMenus(self):
         self.fileMenu = QMenu("&File", self)
         self.fileMenu.addAction(self.openAct)
+        self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.printAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
@@ -97,6 +101,7 @@ class MainView(base, form):
 
         self.helpMenu = QMenu("&Help", self)
         self.helpMenu.addAction(self.aboutAct)
+        self.helpMenu.addAction(self.docsAct)
         self.helpMenu.addAction(self.aboutQtAct)
 
         self.menuBar().addMenu(self.fileMenu)
@@ -104,7 +109,7 @@ class MainView(base, form):
         self.menuBar().addMenu(self.helpMenu)
 
     def about(self):
-        QMessageBox.about(self, "About Image Viewer",
+        QMessageBox.about(self, "About NEFI2",
                           "<p><b>NEFI 2.0</b> is a Python tool created "
                           "to extract networks from images. "
                           "Given a suitable 2D image of a network as input, "
@@ -117,6 +122,11 @@ class MainView(base, form):
                           "<b>TODO - AUTHORS <br>"
                           "TODO - VERSION <br>"
                           "TODO - REFERENCES </b> <br></p>")
+
+    def open_docs(self):
+        index = os.path.join(os.getcwd(), 'nefi2', 'doc', 'documentation',
+                             '_build', 'html', 'index.html')
+        webbrowser.open('file://' + index)
 
     def print_(self):
 
@@ -134,10 +144,13 @@ class MainView(base, form):
             painter.drawPixmap(0, 0, self.MidCustomWidget.getCurrentImage())
 
     def createActions(self):
-        self.openAct = QAction("&Open...", self, shortcut="Ctrl+O",
+        self.openAct = QAction("&Open Image", self, shortcut="Ctrl+O",
                                triggered=self.set_input_url)
 
-        self.printAct = QAction("&Print...", self, shortcut="Ctrl+P",
+        self.saveAct = QAction("&Save Image", self, shortcut="Ctrl+S",
+                               triggered=self.save_output_picture)
+
+        self.printAct = QAction("&Print Image", self, shortcut="Ctrl+P",
                                 enabled=True, triggered=self.print_)
 
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
@@ -149,7 +162,7 @@ class MainView(base, form):
         self.zoomOutAct = QAction("Zoom &Out (25%)", self, shortcut="Ctrl+-",
                                   enabled=True, triggered=self.MidCustomWidget.zoom_out_)
 
-        self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+S",
+        self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+D",
                                      enabled=True, triggered=self.MidCustomWidget.resize_original)
 
         self.fitToWindowAct = QAction("&Fit to Window", self, enabled=True,
@@ -158,6 +171,8 @@ class MainView(base, form):
         self.fitToWindowAct.setChecked(True)
 
         self.aboutAct = QAction("&About", self, triggered=self.about)
+
+        self.docsAct = QAction("&Documentation", self, triggered=self.open_docs)
 
         self.aboutQtAct = QAction("About &Qt", self,
                                   triggered=QApplication.instance().aboutQt)
@@ -266,10 +281,11 @@ class MainView(base, form):
         self.progressbar.setGeometry(self.width() / 2 - 200, self.height() / 2, 400, 30)
         self.progressbar.hide()
         self.mid_panel_layout.addWidget(self.MidCustomWidget)
+        self.mid_panel_layout.setContentsMargins(0, 0, 0, 0)
 
         self.splitterWidget = QWidget()
         self.splitterWidgetLayout = QGridLayout()
-        self.splitterWidgetLayout.setContentsMargins(0, 0, 0, 0)
+        self.splitterWidgetLayout.setContentsMargins(7, 0, 0, 0)
         self.splitterWidget.setLayout(self.splitterWidgetLayout)
 
         self.splitter = QSplitter()
@@ -279,7 +295,7 @@ class MainView(base, form):
         self.splitter.setLayout(self.splitterLayout)
 
         self.splitterFrame = QFrame()
-        self.splitterFrame.setFixedHeight(1)
+        self.splitterFrame.setFixedHeight(2)
         self.splitterFrame.setFrameShape(QFrame.HLine)
         self.splitterFrame.setFrameShadow(QFrame.Sunken)
 
@@ -288,7 +304,7 @@ class MainView(base, form):
         self.splitter.handleWidth()
         self.splitter.setOrientation(Qt.Vertical)
         self.splitter.setChildrenCollapsible(False)
-        self.pip_collapsable.setStyleSheet("border:0;")
+        #self.pip_collapsable.setStyleSheet("border:0;")
         self.settings_collapsable.setStyleSheet("border:0;")
         self.splitter.addWidget(self.pip_collapsable)
         self.splitterLayout.addWidget(self.splitterFrame)
@@ -298,7 +314,9 @@ class MainView(base, form):
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
-        #self.left_panel.setStyleSheet("border:0;")
+        #self.setStyleSheet("QScrollBar:horizontal {max-height: 15px;}" "QScrollBar:vertical {max-width: 15px;}")
+
+        #self.mid_panel.setStyleSheet("border:0;")
         #self.right_panel.setStyleSheet("border:0;")
 
 
@@ -438,7 +456,6 @@ class MainView(base, form):
 
         def send():
             self.scrollsignal.emit()
-            print("bla")
 
         t = Timer(0.01, send)
         t.start()
@@ -506,7 +523,7 @@ class MainView(base, form):
         try:
             self.pipeline.load_pipeline_json(url)
         except Exception as e:
-            print("failed to load default pip: " + name + " received parser error")
+            print("Failed to load default pip: " + name + " received parser error")
             traceback.print_exc()
             return
 
@@ -523,8 +540,7 @@ class MainView(base, form):
         This method allows the user to save its pip json on the file system
         while clicking the save_btn
         """
-        url = str(QtWidgets.QFileDialog.getSaveFileName()[0])
-
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Pipeline", '', 'JSON file (*.json)')[0])
         try:
             if url[0]:
                 name = os.path.basename(url)
@@ -532,7 +548,7 @@ class MainView(base, form):
                 print(name)
                 self.pipeline.save_pipeline_json(name, url)
         except Exception as e:
-            print("failed to save pip json on file system")
+            print("Failed to save pip json on file system")
             traceback.print_exc()
             return
 
@@ -544,13 +560,22 @@ class MainView(base, form):
         This method provides the logic for the open_pip_btn which lets the user load a
         pip json from an abritary location of the file system.
         """
-        url = QtWidgets.QFileDialog.getOpenFileNames()
+        url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Pipeline', '',
+                                                     'JSON file (*.json)')
         if url[0]:
+
+            # delete current pipeline
+
+            self.trash_pipeline()
+
             # parse the json in the model
             try:
                 self.pipeline.load_pipeline_json(url[0][0])
+                # reset pipelines run counter
+                self.pip_run = 0
+
             except Exception as e:
-                print("failed to load the json at the location: " + url[0][0])
+                print("Failed to load the json at the location: " + url[0][0])
                 traceback.print_exc()
                 return
 
@@ -634,7 +659,8 @@ class MainView(base, form):
                                   self.get_current_image,
                                   self.pipeline, settings_widget, self.left_scroll.verticalScrollBar(), event.cat)
 
-        self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
+        #self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
+        self.active_immediate_results_group_layout.addWidget(widget)
         if self.resultsonly:
             if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
                 widget.hide()
@@ -654,12 +680,10 @@ class MainView(base, form):
         This method runs the the pipeline by calling the process methode
         in pipeline
         """
-
         signal = pyqtSignal()
 
         # Check if we have a legal pipeline configuration
         msg, cat = self.pipeline.sanity_check()
-
         if cat:
             widget = self.get_pip_entry(cat)
             widget.setStyleSheet("background-color:red;")
@@ -674,47 +698,49 @@ class MainView(base, form):
         # so the user can distinct between them
         if len(self.pipeline.executed_cats) != 0:
 
-            titel = QGroupBox()
+            title = QWidget()
 
-            titel.setFixedWidth(293)
-            titel.setFixedHeight(100)
-            titel.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+            title.setFixedWidth(315)
+            title.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
             titelLayout = QVBoxLayout()
-            titelLayout.setContentsMargins(7, 7, 11, 11)
+            titelLayout.setAlignment(Qt.AlignLeft)
+            titelLayout.setContentsMargins(0, 0, 0, 0)
             titelLayout.setSpacing(7)
-            titel.setLayout(titelLayout)
+            title.setLayout(titelLayout)
+
+            self.active_immediate_results_group_layout = titelLayout
 
             timestamp = QLabel()
-            timestamp.setText("process: " + self.active_pip_label + " " + str(time.strftime("%H:%M:%S")))
+            self.pip_run += 1
+            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.pip_run))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
+            timestamp.setContentsMargins(0, 7, 0, 7)
 
-            class QCheckBox_filtered(QCheckBox):
-                def __init__(self, scrollbar):
-                    super(QCheckBox_filtered, self).__init__()
-                    self.scrollbar = scrollbar
-
-            # prevent auto scroll
-            show_pipeline = QCheckBox_filtered(self.left_scroll.verticalScrollBar())
+            show_pipeline = QCheckBox()
 
             if self.resultsonly:
                 show_pipeline.setChecked(False)
             else:
                 show_pipeline.setChecked(True)
-            show_pipeline.setText("Show intermediate results")
+            show_pipeline.setText("Results")
 
-            hline = QFrame()
-            #hline.setFrameStyle(QFrame.HLine)
-            #hline.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+            show_pipeline.setContentsMargins(0, 0, 0, 0)
 
-            titelLayout.addWidget(timestamp, Qt.AlignTop)
-            titelLayout.addWidget(show_pipeline, Qt.AlignTop)
-            self.left_scroll_results_vbox_layout.addWidget(titel)
+            line = QFrame()
+            line.setFrameShape(QFrame.HLine)
+            line.setFrameShadow(QFrame.Sunken)
+            line.setFixedWidth(295)
+
+            titelLayout.addWidget(line)
+            titelLayout.addWidget(timestamp, Qt.AlignLeft)
+            titelLayout.addWidget(show_pipeline, Qt.AlignLeft)
+            self.left_scroll_results_vbox_layout.addWidget(title)
             self.right_panel.setEnabled(False)
             self.progress_label.show()
             self.progressbar.show()
+            self.thread.setCheckbox(show_pipeline)
 
         try:
-            self.thread.setCheckbox(show_pipeline)
             if not self.thread.isRunning():
                 self.thread.start()
         except Exception as e:
@@ -732,10 +758,35 @@ class MainView(base, form):
         """
         This method sets the url for the input image in the pipeline.
         """
-        url = QtWidgets.QFileDialog.getOpenFileNames()
+        url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Image', '',
+                                                     'Images (*.jpg *.jpeg *.png *.tif *.tiff)')
         if url[0]:
             self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
+            self.mid_panel.setTitle("Input - Image")
+        # reset pipelines run
+        self.pip_run = 0
+
+    @pyqtSlot()
+    def save_output_picture(self):
+        """
+        This method sets the url for the input image in the pipeline.
+        """
+
+        print(self.MidCustomWidget.getCurrentImage())
+
+        if self.MidCustomWidget.getCurrentImage() is None:
+            return
+
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Image", '', 'Image file (*.png)')[0])
+        try:
+            if url[0]:
+                name = os.path.basename(url)
+                self.MidCustomWidget.getCurrentImage().save(url)
+        except Exception as e:
+            print("Failed to save image file on file system")
+            traceback.print_exc()
+            return
 
     @pyqtSlot()
     def set_output_url(self):
@@ -792,6 +843,9 @@ class MainView(base, form):
 
         # remove the pipeline name
         self.set_pip_title("")
+
+        # reset pipeline run
+        self.pip_run = 0
 
         # remove all entries int the executed_cats of the model pipeline
         del self.pipeline.executed_cats[:]
@@ -1331,8 +1385,9 @@ class MidCustomWidget(QWidget):
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
         self.Layout = QVBoxLayout()
-        self.Layout.addWidget(self.scrollArea, Qt.AlignCenter)
+        self.Layout.setContentsMargins(11,11,11,11)
         self.setLayout(self.Layout)
+        self.Layout.addWidget(self.scrollArea, Qt.AlignTop)
 
         self.scrollArea.zoom_in.connect(self.zoom_in_)
         self.scrollArea.zoom_out.connect(self.zoom_out_)
@@ -1466,7 +1521,7 @@ class MidCustomWidget(QWidget):
         if original_width != 0:
             self.current_image_size = self.mid_panel.width() / original_width
 
-        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 85, self.mid_panel.height() - 85,
+        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 50 , self.mid_panel.height() - 120,
                                                         QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
         self.imageLabel.setGeometry(0, 0, new_pixmap.width() + 22, new_pixmap.height() + 22)
@@ -1521,27 +1576,27 @@ class LeftCustomWidget(QWidget):
         # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.setContentsMargins(7, 7, 20, 20)
+        self.LeftCustomWidgetLayout.setContentsMargins(0, 0, 0, 0)
         self.LeftCustomWidgetLayout.setSpacing(11)
         self.setLayout(self.LeftCustomWidgetLayout)
-        self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
+        #self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
 
         self.image_label.setText(self.image_name)
         self.image_label.setGeometry(0, 0, 150, 30)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(280, Qt.SmoothTransformation)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(315, Qt.SmoothTransformation)
 
         self.image = QLabel()
-        self.image.setAlignment(Qt.AlignCenter)
+        #self.image.setAlignment(Qt.AlignLeft)
         self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
         self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
-        self.LeftCustomWidgetLayout.addWidget(self.image_label)
         self.LeftCustomWidgetLayout.addWidget(self.image)
+        self.LeftCustomWidgetLayout.addWidget(self.image_label)
 
-        self.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height() + 50)
+        self.setGeometry(0, 0, 315, self.pixmap_scaled_keeping_aspec.height() + 50)
 
         if cat:
             self.createSettings()
@@ -1627,7 +1682,7 @@ class ProcessWorker(QtCore.QThread):
         try:
             self.pipeline.process()
         except Exception as e:
-            print("failed to process pipeline")
+            print("Failed to process pipeline")
             traceback.print_exc()
 
         self.finished.emit()
