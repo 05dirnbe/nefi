@@ -1631,7 +1631,7 @@ class LeftCustomWidget(QWidget):
                         self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(index + 1))
                     else:
                         self.setStyleSheet("font:Candara; font-size: 8pt;")
-                        self.mid_panel.setTitle("Result image - " + self.image_name + " - Pipeline Position " + str(index + 1))
+                        self.mid_panel.setTitle(self.image_name + " - Pipeline Position " + str(index + 1))
             except (ValueError):
                 self.mid_panel.setTitle(self.image_name + " - Already Removed From Pipeline")
 
