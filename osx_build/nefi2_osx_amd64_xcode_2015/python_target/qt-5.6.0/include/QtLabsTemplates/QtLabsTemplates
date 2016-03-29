@@ -1,5 +1,0 @@
-#ifndef QT_QTLABSTEMPLATES_MODULE_H
-#define QT_QTLABSTEMPLATES_MODULE_H
-#include <QtLabsTemplates/QtLabsTemplatesDepends>
-#include "qtlabstemplatesversion.h"
-#endif
