@@ -652,6 +652,8 @@ class MainView(base, form):
         self.MidCustomWidget.setCurrentImage(pixmap)
         self.MidCustomWidget.resetImageSize()
         self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+        self.mid_panel.setTitle("Result image - " + str(event.cat.get_name() + " - " + event.cat.active_algorithm.name) + \
+                                " - Pipeline Position " + str(self.pipeline.get_index(event.cat) + 1))
         settings_widget = self.load_settings_widgets_from_pipeline_groupbox(event.cat)
 
         widget = LeftCustomWidget(path, self.MidCustomWidget, self.mid_panel,
@@ -1608,15 +1610,7 @@ class LeftCustomWidget(QWidget):
 
         self.select_image.connect(lambda: self.slot(self.MidCustomWidget.getCurrentImage(), self.cat))
 
-    """
-    def sizeHint(self):
 
-        return QSize(self.pixmap_scaled_keeping_aspec.width(), self.pixmap_scaled_keeping_aspec.height() + 50)
-
-    def minimumSizeHint(self):
-
-        return QSize(self.pixmap_scaled_keeping_aspec.width(), self.pixmap_scaled_keeping_aspec.height() + 50)
-    """
     def mousePressEvent(self, QMouseEvent):
         """
         this events sets the self.pixmap from this custom widget
