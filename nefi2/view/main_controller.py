@@ -7,7 +7,7 @@ done by the Qt designer since this reduces the amount of code dramatically.
 To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
-
+from nefi2.model.pipeline import *
 import copy
 import time
 import os
@@ -16,7 +16,8 @@ import traceback
 import sys
 import zope.event.classhandler
 import PyQt5
-from nefi2.model.pipeline import *
+import webbrowser
+
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
@@ -100,6 +101,7 @@ class MainView(base, form):
 
         self.helpMenu = QMenu("&Help", self)
         self.helpMenu.addAction(self.aboutAct)
+        self.helpMenu.addAction(self.docsAct)
         self.helpMenu.addAction(self.aboutQtAct)
 
         self.menuBar().addMenu(self.fileMenu)
@@ -107,7 +109,7 @@ class MainView(base, form):
         self.menuBar().addMenu(self.helpMenu)
 
     def about(self):
-        QMessageBox.about(self, "About NEFI",
+        QMessageBox.about(self, "About NEFI2",
                           "<p><b>NEFI 2.0</b> is a Python tool created "
                           "to extract networks from images. "
                           "Given a suitable 2D image of a network as input, "
@@ -120,6 +122,11 @@ class MainView(base, form):
                           "<b>TODO - AUTHORS <br>"
                           "TODO - VERSION <br>"
                           "TODO - REFERENCES </b> <br></p>")
+
+    def open_docs(self):
+        index = os.path.join(os.getcwd(), 'nefi2', 'doc', 'documentation',
+                             '_build', 'html', 'index.html')
+        webbrowser.open('file://' + index)
 
     def print_(self):
 
@@ -164,6 +171,8 @@ class MainView(base, form):
         self.fitToWindowAct.setChecked(True)
 
         self.aboutAct = QAction("&About", self, triggered=self.about)
+
+        self.docsAct = QAction("&Documentation", self, triggered=self.open_docs)
 
         self.aboutQtAct = QAction("About &Qt", self,
                                   triggered=QApplication.instance().aboutQt)
