@@ -1564,7 +1564,7 @@ class LeftCustomWidget(QWidget):
         if cat is None:
             self.image_name = "Input - Image"
         else:
-            self.setToolTip("Click here while holding 'CTRL' button to see used settings .")
+            self.setToolTip("Click here while holding 'CTRL/CMD' button to see used settings .")
             index = self.pipeline.get_index(self.cat)
             if index is not (len(self.pipeline.executed_cats) - 1):
                 self.image_name = str(cat.get_name() + " - " + cat.active_algorithm.name)
