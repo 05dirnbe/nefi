@@ -78,8 +78,8 @@ class Pipeline:
         self.cache = []
         self.available_cats = categories
         self.executed_cats = []
-        self.pipeline_path = os.path.join('assets', 'json')  # default dir
-        self.out_dir = os.path.join(os.getcwd(), 'output')  # default out dir
+        self.pipeline_path = os.path.join(os.path.dirname(__file__), '..', 'assets', 'json')  # default dir
+        self.out_dir = os.path.join(os.path.dirname(__file__), '..', 'output')  # default out dir
         if not os.path.exists(self.out_dir):
             os.mkdir(self.out_dir)
         self.input_files = None
@@ -251,7 +251,7 @@ class Pipeline:
             self.save_results(save_path, save_fname, data)
             # update the cache
             self.update_cache(cat, save_path)
-            cache_path = os.path.join(os.getcwd(), '_cache_', save_fname)
+            cache_path = os.path.join(os.path.dirname(__file__), '..', '_cache_', save_fname)
             self.pipeline_memory[num] = [cache_path, data[1], cat.name]
             # release memory
             cat.active_algorithm.result['img'] = ''
@@ -543,10 +543,10 @@ class Pipeline:
             self.input_files = [os.path.join(input_source, f) for f in files]
         elif os.path.isfile(input_source):
             self.input_files = [input_source]
-        if not os.path.exists('_cache_'):
+        if not os.path.exists(os.path.join(os.path.dirname(__file__), '..', '_cache_')):
             self.set_cache()
         zope.event.notify(CacheInputEvent(os.path.basename(input_source), input_source))
-        shutil.copy(self.input_files[0], '_cache_')
+        shutil.copy(self.input_files[0], os.path.join(os.path.dirname(__file__), '..''_cache_'))
 
     def set_output_dir(self, dir_path):
         """
@@ -621,15 +621,15 @@ class Pipeline:
         Recreate dir if exists or before running image processing.
         <This is done to make thumbnails in the left pane available in UI.>
         """
-        if os.path.exists('_cache_'):
+        if os.path.exists(os.path.join(os.path.dirname(__file__), '..', '_cache_')):
             try:
-                shutil.rmtree('_cache_')
+                shutil.rmtree(os.path.join(os.path.dirname(__file__), '..', '_cache_'))
             except (IOError, OSError):
                 print('ERROR in set_cache() ' +
                       'Cannot remove _cache_ directory, make sure it ' +
                       'is not open or locked by some other process.')
                 sys.exit(1)
-        os.mkdir('_cache_')
+        os.mkdir(os.path.join(os.path.dirname(__file__), '..', '_cache_'))
         self.cache = []
 
     def update_cache(self, cat, img_path):
@@ -642,7 +642,7 @@ class Pipeline:
 
         """
         try:
-            shutil.copy(img_path, '_cache_')
+            shutil.copy(img_path, os.path.join(os.path.dirname(__file__), '..', '_cache_'))
         except (IOError, OSError) as ex:
             print(ex)
             print('ERROR in update_cache() ' +
@@ -650,7 +650,7 @@ class Pipeline:
                   'is enough space on disk')
             sys.exit(1)
 
-        cache_img_path = os.path.join(os.getcwd(), '_cache_',
+        cache_img_path = os.path.join(os.path.dirname(__file__), '..', '_cache_',
                                       os.path.basename(img_path))
 
         zope.event.notify(CacheAddEvent(cat, cache_img_path))

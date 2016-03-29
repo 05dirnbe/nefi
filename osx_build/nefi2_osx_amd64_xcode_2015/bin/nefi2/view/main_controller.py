@@ -30,9 +30,15 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
+#os.chdir(os.path.dirname(__file__))
+
+#print("1 " + str(os.getcwd()))
+#print("2 " + str(os.path.basename(__file__)))
+#print("3 " + str(os.path.abspath(__file__)))
+#print("4 " + str(os.path.dirname(__file__)))
 
 try:
-    mainview_path = os.path.join('nefi2', 'view', 'MainView.ui')
+    mainview_path = os.path.join(os.path.dirname(__file__), 'MainView.ui')
     base, form = uic.loadUiType(mainview_path)
 except (FileNotFoundError):
     raise NameError(os.listdir(os.curdir))
@@ -124,7 +130,7 @@ class MainView(base, form):
                           "TODO - REFERENCES </b> <br></p>")
 
     def open_docs(self):
-        index = os.path.join(os.getcwd(), 'nefi2', 'doc', 'documentation',
+        index = os.path.join(os.path.dirname(__file__), '..', 'doc', 'documentation',
                              '_build', 'html', 'index.html')
         webbrowser.open('file://' + index)
 
@@ -185,72 +191,72 @@ class MainView(base, form):
             application: the cureent app instance
         """
         # load buttons
-        iconpath = os.path.join('nefi2', 'icons', 'close.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'close.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.clear_immediate_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'folder_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.open_pip_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'man.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'man.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.run_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'trash_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'trash_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.delete_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'diskette_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'diskette_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.save_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'folder_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.input_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'folder_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.output_btn.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'plus.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'plus.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.zoom_in.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'minus.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'minus.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         self.zoom_out.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'resize.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'resize.png')
         q_icon = QtGui.QIcon(iconpath)
         self.resize.setIcon(q_icon)
 
-        iconpath = os.path.join('nefi2', 'icons', 'up.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'up.png')
         pixmap_up = QtGui.QPixmap(iconpath)
-        iconpath = os.path.join('nefi2', 'icons', 'down.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'down.png')
         pixmap_down = QtGui.QPixmap(iconpath)
         self.q_icon_up = QtGui.QIcon(pixmap_up)
         self.q_icon_down = QtGui.QIcon(pixmap_down)
 
-        iconpath = os.path.join('nefi2', 'icons', 'plus.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'plus.png')
         pixmap_plus = QtGui.QPixmap(iconpath)
         self.q_icon_plus = QtGui.QIcon(pixmap_plus)
         self.enable_plus()
 
-        iconpath = os.path.join('nefi2', 'icons', 'plus_grey.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'plus_grey.png')
         pixmap_plus_grey = QtGui.QPixmap(iconpath)
         self.q_icon_plus_grey = QtGui.QIcon(pixmap_plus_grey)
 
-        iconpath = os.path.join('nefi2', 'icons', 'delete_x_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'delete_x_white.png')
         pixmap_icon_delete = QtGui.QPixmap(iconpath)
         self.q_icon_delete = QtGui.QIcon(pixmap_icon_delete)
 
@@ -261,7 +267,7 @@ class MainView(base, form):
         either add it in the QtDesigner or declare it here.
         """
         self.setWindowTitle("NEFI 2.0")
-        icon = QIcon(os.path.join('nefi2', 'icons', 'nefi2.png'))
+        icon = QIcon(os.path.join(os.path.dirname(__file__), '..', 'icons', 'nefi2.png'))
         self.setWindowIcon(icon)
         # self.setWindowFlags(Qt.FramelessWindowHint)
         self.ComboxCategories = QComboBox()
@@ -818,11 +824,11 @@ class MainView(base, form):
         self.fav_pips_combo_box.addItem("Please Select")
 
         # scan the directory for default pipelines
-        default_pip = os.path.join('nefi2', 'default_pipelines')
+        default_pip = os.path.join(os.path.dirname(__file__), '..', 'default_pipelines')
         for pip in os.listdir(default_pip):
             if pip.endswith(".json"):
                 name = pip.split(".")[0]
-                url = os.path.join('nefi2', 'default_pipelines', pip)
+                url = os.path.join(os.path.dirname(__file__), '..', 'default_pipelines', pip)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
 
@@ -1176,7 +1182,7 @@ class MainView(base, form):
         btn.setFixedHeight(30)
         btn.setFixedWidth(30)
 
-        iconpath = os.path.join('nefi2', 'icons', 'delete_x_white.png')
+        iconpath = os.path.join(os.path.dirname(__file__), '..', 'icons', 'delete_x_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
         q_icon = QtGui.QIcon(pixmap_icon)
         btn.setIcon(self.q_icon_delete)

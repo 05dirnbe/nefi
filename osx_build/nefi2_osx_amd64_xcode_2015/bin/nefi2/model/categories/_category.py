@@ -19,6 +19,11 @@ class Category:
     between the algorithms and the pipeline.
     """
     def __init__(self, name, icon=None):
+        #print("1 " + str(os.getcwd()))
+        #print("2 " + str(os.path.basename(__file__)))
+        #print("3 " + str(os.path.abspath(__file__)))
+        #print("4 " + str(os.path.dirname(__file__)))
+
         """
         Args:
             *name* (str): Category name
@@ -34,12 +39,12 @@ class Category:
             | *active_algorithm* (Algorithm): Currently selected algorithm
 
         """
-        _alg_dir = os.path.join('nefi2', 'model', 'algorithms')
+        _alg_dir = os.path.join(os.path.dirname(__file__), '..', 'algorithms')
         self.name = name
         if icon is not None:
             self.icon = icon
         else:
-            self.icon = os.path.join('nefi2', 'icons', 'missing.png')
+            self.icon = self.icon = os.path.join(os.path.dirname(__file__), '..', '..', 'icons', 'missing.png')
         self.active_algorithm = None
         self.available_algs, self.alg_names = \
             self._get_available_algorithms(_alg_dir)
@@ -73,7 +78,7 @@ class Category:
             raise FileNotFoundError("No algorithm files were found in "
                                     "./model/algorithms")
         # add abs paths
-        found_algs_paths = [os.path.join('nefi2', 'model', 'algorithms', alg)
+        found_algs_paths = [os.path.join(os.path.dirname(__file__), '..', 'algorithms', alg)
                             for alg in found_algs]
         # import all available algorithm files as modules
         imported_algs = []

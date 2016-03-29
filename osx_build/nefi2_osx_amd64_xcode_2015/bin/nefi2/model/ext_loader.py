@@ -34,7 +34,7 @@ class ExtensionLoader:
             instance of the ExtensionLoader object
 
         """
-        _category_dir = os.path.join('nefi2', 'model', 'categories')
+        _category_dir = os.path.join(os.path.dirname(__file__), 'categories')
         _found_cats = self._scan_model(_category_dir)
         self.cats_container = self._instantiate_cats(_found_cats)
 
@@ -64,7 +64,7 @@ class ExtensionLoader:
             raise FileNotFoundError("No image processing categories "
                                     "found in ./model/categories")
         # add abs paths
-        found_cats_paths = [os.path.join('nefi2', 'model', 'categories', cat)
+        found_cats_paths = [os.path.join(os.path.dirname(__file__), 'categories', cat)
                             for cat in found_cats]
         return found_cats_paths
 
