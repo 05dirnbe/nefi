@@ -18,19 +18,121 @@ Windows
 MacOSX
 ---------------
 
-*to be added...*
+Get **homebrew**, a powerful package manger for mac os, by running:
+
+::
+
+  $ cd ~
+  $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  $ brew update
+
+If you don't have it already install python 3 like so:
+
+::
+
+  $ brew install python3
+  $ brew linkapps
+
+Next we update our PATH in ``~/.bash_profile`` to indicate that Homebrew packages should be used before any system packages. Simply add the following line to ``~/.bash_profile``:
+
+::
+
+  $ export PATH=/usr/local/bin:$PATH
+
+Next reload the contents of ``~/.bash_profile``:
+
+::
+
+  $ source ~/.bash_profile
+
+After typing:
+
+::
+
+  $ which python3
+
+you should see:
+
+::
+
+  /usr/local/bin/python
+
+Now we can install the actual dependencies by using **brew** and **pip3**:
+
+::
+
+  $ pip3 install numpy
+  $ pip3 install networkx
+  $ pip3 install demjson
+  $ pip3 install PyQt5
+
+Some of these packages rely on a compiler being present. If you don't have we highly recommend to get the current version of clang.
+
+Finally, we install **OpenCV 3** with the necessary python bindings. To do so we execute:
+
+::
+
+  $ brew install opencv3 --with-python3
+
+At this point I recommend to start a python3 interpreter and to test whether the import statements go through.
+
+::
+
+    Python 3.5.1 (default, Jan 22 2016, 08:52:08)
+    [GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import networkx
+    >>> import numpy
+    >>> import demjson
+    >>> import PyQt5
+    >>> import cv2
+    >>>
+
+Ideally, all imports go through and you are ready to start **NEFI2**.
+
+At the time of testing this, however, it seemed that importing OpenCV3 failed, with the interpreter claiming that it doesn't know the module. Upon closer inspection it was found that the necessary files where there, but a link between the opencv stuff and the python3 site-packages was missing. I expect this issue to be resolved soon by the developers of brew and opencv. In the meantime, it is possible to rectify the situation manually as follows.
+
+Brew has placed OpenCV3 somewhere in the its "cellar" which on my system resides here:
+
+::
+
+  /usr/local/Cellar/opencv3
+
+Somewhere below this path there is a ``.so`` file that we need to symlink to the site-packages folder of our python 3. On my system this file was found to be here:
+
+::
+
+  /usr/local/Cellar/opencv3/3.1.0_1/lib/python3.5/site-packages/cv2.cpython-35m-darwin.so
+
+In the site-packes directory of my python 3 a corresponding ``cv2.so`` files was missing. You can find this directory by running:
+
+::
+
+  $ brew info python3
+
+All that is left to be done is to symlink the well-hidden, and strangely named, ``cv2.cpython-35m-darwin.so`` to its proper place in site-packages. On my system it was done as follows:
+
+::
+
+  $ sudo ln -s /usr/local/Cellar/opencv3/3.1.0_1/lib/python3.5/site-packages/cv2.cpython-35m-darwin.so /usr/local/lib/python3.5/site-packages/cv2.so
+
+If the paths differ on your system you need to change the command accordingly. If done correctly the last import should succeed and you are good to go.
 
 ---------------
 Linux
 ---------------
 
 Make sure you have your **Python 3.4** installed before performing the steps below.
+Please use ``linux_install.sh`` script for Linux. The script copies the required files into ``~/.nefi2`` directory and creates **nefi2** symlink in ``/usr/local/bin``.
+It also installs necessary Python dependencies.
 
-* git clone https://github.com/LumPenPacK/NetworkExtractionFromImages.git
-* cd "NetworkExtractionFromImages"
-* ``./install.sh``
+* git clone https://github.com/tastyminerals/NEFI2.git
+* cd "NEFI2"
+* ``./linux_install.sh``
 * Install **PyQt5** using you default package manager.
 * Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
+
+Next, you'll need to compile **OpenCV** for Python3.
 
 ::
 
@@ -43,8 +145,7 @@ Make sure you have your **Python 3.4** installed before performing the steps bel
     sudo make install
 
 If everything goes well, you can run NEFI2 by typing in console **nefi2**.
-
-If not, try manually installing all the dependencies via **pip3**.
+If not, try to perform the installation below step by step.
 
 `NetworkX <https://networkx.github.io/documentation/latest/index.html>`_
 +++++++++++++
@@ -59,6 +160,21 @@ If not, try manually installing all the dependencies via **pip3**.
 ::
 
   sudo pip3 install demjson
+
+`zope.event <https://pypi.python.org/pypi/zope.event/4.2.0>`_
++++++++++++++
+
+::
+
+  sudo pip3 install zope.event
+
+`QDarkStyle <https://pypi.python.org/pypi/QDarkStyle/2.1>`_
++++++++++++++
+
+::
+
+  sudo pip3 install qdarkstyle
+
 
 `PyQt5 <https://www.riverbankcomputing.com/software/pyqt/download5>`_
 +++++++++++++

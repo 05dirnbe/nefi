@@ -189,9 +189,13 @@ class Algorithm:
             if float_slider.name == name:
                 return float_slider
 
-        for checkbox in self.checkboxes:
-            if checkbox.name == name:
-                return checkbox
+        # checkboxes are optional
+        if self.checkboxes:
+            for checkbox in self.checkboxes:
+                if checkbox.name == name:
+                    return checkbox
+        else:
+            return None
 
         for dropdown in self.drop_downs:
             if dropdown.name == name:
@@ -340,9 +344,8 @@ class DropDown:
         """
         Args:
             | *name*: The name of the DropDown menu to be displayed in the UI
-            | *options*: The list of string options a user can select in the Ui for
-            | *default*: Optional: The default value
-            the DropDown
+            | *options*: The list of string options a user can select in the UI
+            | *default*: Optional: default value
         """
         self.name = name
         self.options = options
@@ -363,7 +366,7 @@ class DropDown:
 
         Args:
             | *arg1*: the string value selected in the ui or the pipeline in
-            batch-mode
+              the batch-mode
         """
 
         if arg1 not in self.options:

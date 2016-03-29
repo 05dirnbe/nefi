@@ -136,6 +136,7 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">cv2</span>
 <span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">operator</span>
 
 
 <span class="n">__authors__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Martino Bruni&quot;</span><span class="p">:</span> <span class="s2">&quot;bruni.martino92@gmail.com&quot;</span><span class="p">}</span>
@@ -211,27 +212,27 @@
     <span class="k">return</span> <span class="n">edg_img</span></div>
 
 
-<div class="viewcode-block" id="check_operator"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._utility.check_operator">[docs]</a><span class="k">def</span> <span class="nf">check_operator</span><span class="p">(</span><span class="n">operator</span><span class="p">):</span>
+<div class="viewcode-block" id="check_operator"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._utility.check_operator">[docs]</a><span class="k">def</span> <span class="nf">check_operator</span><span class="p">(</span><span class="n">dropdown</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts the string value of the DropDown element in operator object</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        | *operator* : DropDown object from the algorithm class</span>
+<span class="sd">        | *dropdown* : DropDown object from the algorithm class</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        | *op_object*: operator object converted</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">op_object</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Strictly smaller&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;strictly smaller&quot;</span><span class="p">:</span>
         <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">lt</span>
-    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Smaller or equal&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;smaller or equal&quot;</span><span class="p">:</span>
         <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">le</span>
-    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Equal&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span>
         <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">eq</span>
-    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Greater or equal&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;greater or equal&quot;</span><span class="p">:</span>
         <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">ge</span>
-    <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Strictly greater&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;strictly greater&quot;</span><span class="p">:</span>
         <span class="n">op_object</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">gt</span>
     <span class="k">return</span> <span class="n">op_object</span></div>
 

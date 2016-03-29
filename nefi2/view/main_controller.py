@@ -700,7 +700,7 @@ class MainView(base, form):
 
             title = QWidget()
 
-            title.setFixedWidth(295)
+            title.setFixedWidth(315)
             title.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Maximum)
             titelLayout = QVBoxLayout()
             titelLayout.setAlignment(Qt.AlignLeft)
@@ -714,7 +714,7 @@ class MainView(base, form):
             self.pip_run += 1
             timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.pip_run))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
-            timestamp.setContentsMargins(0, 11, 0, 11)
+            timestamp.setContentsMargins(0, 7, 0, 7)
 
             show_pipeline = QCheckBox()
 
@@ -1576,7 +1576,7 @@ class LeftCustomWidget(QWidget):
         # self.setGeometry(0, 0, 300, 100)
 
         self.LeftCustomWidgetLayout = QVBoxLayout()
-        self.LeftCustomWidgetLayout.setContentsMargins(0, 11, 0, 11)
+        self.LeftCustomWidgetLayout.setContentsMargins(0, 0, 0, 0)
         self.LeftCustomWidgetLayout.setSpacing(11)
         self.setLayout(self.LeftCustomWidgetLayout)
         #self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
@@ -1585,7 +1585,7 @@ class LeftCustomWidget(QWidget):
         self.image_label.setGeometry(0, 0, 150, 30)
 
         self.pixmap = QPixmap(image_path)
-        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(295, Qt.SmoothTransformation)
+        self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(315, Qt.SmoothTransformation)
 
         self.image = QLabel()
         #self.image.setAlignment(Qt.AlignLeft)
@@ -1596,7 +1596,7 @@ class LeftCustomWidget(QWidget):
         self.LeftCustomWidgetLayout.addWidget(self.image)
         self.LeftCustomWidgetLayout.addWidget(self.image_label)
 
-        self.setGeometry(0, 0, 295, self.pixmap_scaled_keeping_aspec.height() + 50)
+        self.setGeometry(0, 0, 315, self.pixmap_scaled_keeping_aspec.height() + 50)
 
         if cat:
             self.createSettings()

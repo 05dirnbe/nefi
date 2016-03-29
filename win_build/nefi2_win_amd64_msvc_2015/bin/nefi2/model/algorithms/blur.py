@@ -35,9 +35,9 @@ class AlgBody(Algorithm):
         self.channel2 = CheckBox("channel2", True)
         self.channel3 = CheckBox("channel3", True)
         self.integer_sliders.append(self.kernelsize)
-        self.checkboxes.append(self.channel1)
-        self.checkboxes.append(self.channel2)
-        self.checkboxes.append(self.channel3)
+        # self.checkboxes.append(self.channel1)
+        # self.checkboxes.append(self.channel2)
+        # self.checkboxes.append(self.channel3)
 
     def process(self, args):
         """

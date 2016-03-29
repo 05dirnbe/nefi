@@ -3,6 +3,7 @@ import argparse
 import os
 import sys
 # chdir to ~/.nefi2 before local imports
+# uncomment this for compiling builds
 if not (sys.platform == 'win32' or sys.platform == 'win64'):
     os.chdir(os.path.dirname(os.path.realpath(__file__)))
 from nefi2.main import Main

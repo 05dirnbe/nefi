@@ -23,7 +23,7 @@ __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennig Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
 
-class start:
+class Main:
 
     @staticmethod
     def gui_mode():
