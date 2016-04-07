@@ -90,6 +90,9 @@ class MainView(base, form):
         self.fileMenu.addAction(self.saveAct)
         self.fileMenu.addAction(self.printAct)
         self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.openPiplineAct)
+        self.fileMenu.addAction(self.savePiplineAct)
+        self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
 
         self.viewMenu = QMenu("&View", self)
@@ -152,6 +155,12 @@ class MainView(base, form):
 
         self.printAct = QAction("&Print Image", self, shortcut="Ctrl+P",
                                 enabled=True, triggered=self.print_)
+
+        self.openPiplineAct = QAction("&Open Pipeline", self, shortcut="Ctrl+K",
+                                enabled=True, triggered=self.open_pip_json)
+
+        self.savePiplineAct = QAction("&Save Pipeline", self, shortcut="Ctrl+J",
+                                enabled=True, triggered=self.save_pip_json)
 
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
