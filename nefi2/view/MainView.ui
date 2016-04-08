@@ -248,6 +248,9 @@
              <height>31</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>Removes all immediate results from the left panel.</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -576,6 +579,9 @@
                    <height>30</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>Click to specify a input image from the filesystem.</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -712,6 +718,9 @@
                    <height>30</height>
                   </size>
                  </property>
+                 <property name="toolTip">
+                  <string>Click to open a file menu where you can select the output folder.</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
@@ -845,6 +854,9 @@
                       <italic>false</italic>
                      </font>
                     </property>
+                    <property name="toolTip">
+                     <string>Contains all pipeline.json from the ./nefi2/default_pipeleines/ folder.</string>
+                    </property>
                     <property name="layoutDirection">
                      <enum>Qt::LeftToRight</enum>
                     </property>
@@ -875,6 +887,9 @@
                       <width>30</width>
                       <height>30</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Click to specify a pipeline.json on the file system.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -909,6 +924,9 @@
                       <width>30</width>
                       <height>30</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Click to specify a url to save the pipeline as *.json.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -969,6 +987,9 @@
                  <weight>50</weight>
                  <bold>false</bold>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>Click to process the pipeline.</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"/>
@@ -1074,6 +1095,9 @@
                  <height>30</height>
                 </size>
                </property>
+               <property name="toolTip">
+                <string>Click to add a blank category to the pipeline.</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -1101,6 +1125,9 @@
                  <width>30</width>
                  <height>30</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>Click to remve all categorys from the pipeline.</string>
                </property>
                <property name="text">
                 <string/>
