@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1545</width>
-    <height>1119</height>
+    <width>1104</width>
+    <height>733</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -142,25 +142,6 @@
               </item>
              </layout>
             </item>
-            <item>
-             <widget class="QToolButton" name="clear_immediate_btn">
-              <property name="minimumSize">
-               <size>
-                <width>31</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>31</width>
-                <height>31</height>
-               </size>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
@@ -202,7 +183,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>1017</height>
+              <height>604</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -251,6 +232,25 @@
              </item>
             </layout>
            </widget>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="clear_immediate_btn">
+           <property name="minimumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>31</width>
+             <height>31</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
           </widget>
          </item>
         </layout>
@@ -1196,8 +1196,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>340</width>
-                 <height>359</height>
+                 <width>344</width>
+                 <height>180</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1313,8 +1313,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>346</width>
-                 <height>412</height>
+                 <width>349</width>
+                 <height>217</height>
                 </rect>
                </property>
                <property name="sizePolicy">

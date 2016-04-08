@@ -250,7 +250,7 @@ class Pipeline:
             save_path = os.path.join(out_path, save_fname)
             self.save_results(save_path, save_fname, data)
             # update the cache
-            self.update_cache(cat, save_path)
+            self.update_cache(cat, save_path, data[1])
             cache_path = os.path.join(os.getcwd(), '_cache_', save_fname)
             self.pipeline_memory[num] = [cache_path, data[1], cat.name]
             # release memory
@@ -314,6 +314,10 @@ class Pipeline:
                   'Cannot write an image file, make sure there is ' +
                   'enough free space on disk')
             sys.exit(1)
+            self.save_graph(save_path, image_name, results)
+
+    def save_graph(self, save_path, image_name, results):
+        dir_to_save = os.path.dirname(save_path)
         # exporting graph object
         if results[1]:
             image_name = os.path.splitext(image_name)[0] + '.txt'
@@ -632,7 +636,24 @@ class Pipeline:
         os.mkdir('_cache_')
         self.cache = []
 
-    def update_cache(self, cat, img_path):
+    def get_cached_graph_by_cat(self, cat):
+        """
+        Gets the corresponding graph object (if exists) for a given cat.
+        This is needed by the ui to save the graph for the current image.
+
+        Args:
+            | *cat*: Category
+
+        Returns:
+            | *graph* (object): corresponding graph object
+
+        """
+
+        for idx, val in enumerate(self.cache):
+            if cat is val[0]:
+                print("Found cat " + cat)
+
+    def update_cache(self, cat, img_path, graph):
         """
         Copy an img to cache dir and update the cache list.
 
@@ -654,7 +675,7 @@ class Pipeline:
                                       os.path.basename(img_path))
 
         zope.event.notify(CacheAddEvent(cat, cache_img_path))
-        self.cache.append((cat, cache_img_path))
+        self.cache.append((cat, cache_img_path, graph))
 
 
 class ProgressEvent(object):

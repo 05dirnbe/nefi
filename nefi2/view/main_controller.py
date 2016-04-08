@@ -60,6 +60,8 @@ class MainView(base, form):
         self.active_pip_label = ""
         self.active_immediate_results_group_layout = None
 
+        self.current_cat = None
+
         # Cache pipeline entries to use them for settings history.
         self.pipeline_cache = []
 
@@ -93,6 +95,8 @@ class MainView(base, form):
         self.fileMenu.addAction(self.openPiplineAct)
         self.fileMenu.addAction(self.savePiplineAct)
         self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.saveGraphAct)
+        self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
 
         self.viewMenu = QMenu("&View", self)
@@ -101,6 +105,9 @@ class MainView(base, form):
         self.viewMenu.addAction(self.normalSizeAct)
         self.viewMenu.addSeparator()
         self.viewMenu.addAction(self.fitToWindowAct)
+        self.viewMenu.addAction(self.autoScrollAct)
+        self.viewMenu.addAction(self.autoClearAct)
+        self.viewMenu.addAction(self.resultsOnlyAct)
 
         self.helpMenu = QMenu("&Help", self)
         self.helpMenu.addAction(self.aboutAct)
@@ -162,6 +169,9 @@ class MainView(base, form):
         self.savePiplineAct = QAction("&Save Pipeline", self, shortcut="Ctrl+J",
                                 enabled=True, triggered=self.save_pip_json)
 
+        self.saveGraphAct = QAction("&Save Graph", self, shortcut="Ctrl+G",
+                                      enabled=True, triggered=self.save_graph)
+
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
 
@@ -174,10 +184,23 @@ class MainView(base, form):
         self.normalSizeAct = QAction("&Normal Size", self, shortcut="Ctrl+D",
                                      enabled=True, triggered=self.MidCustomWidget.resize_original)
 
-        self.fitToWindowAct = QAction("&Fit to Window", self, enabled=True,
+        self.fitToWindowAct = QAction("&Fit To Window", self, enabled=True,
                                       checkable=True, checked=True, shortcut="Ctrl+F",
                                       triggered=self.MidCustomWidget.toggleAutofit)
         self.fitToWindowAct.setChecked(True)
+
+        self.autoScrollAct = QAction("&Auto Scroll Results", self, enabled=True,
+                                      checkable=True, checked=True, shortcut="Ctrl+B",
+                                      triggered=self.MidCustomWidget.toggleAutofit)
+        self.autoScrollAct.setChecked(True)
+
+        self.autoClearAct = QAction("&Auto Clear Results", self, enabled=True,
+                                      checkable=True, checked=False, shortcut="Ctrl+N",
+                                      triggered=self.MidCustomWidget.toggleAutofit)
+
+        self.resultsOnlyAct = QAction("&Show Last Result Only", self, enabled=True,
+                                      checkable=True, checked=False, shortcut="Ctrl+M",
+                                      triggered=self.MidCustomWidget.toggleAutofit)
 
         self.aboutAct = QAction("&About", self, triggered=self.about)
 
@@ -360,6 +383,9 @@ class MainView(base, form):
         self.compare_mode.toggled.connect(self.set_comparemode)
         # not implemented yes
         self.compare_mode.hide()
+        self.results_only.hide()
+        self.auto_clear.hide()
+        self.auto_scroll.hide()
 
         # connect zope.events
         zope.event.classhandler.handler(ProgressEvent, self.thread.update_progress)
@@ -542,6 +568,26 @@ class MainView(base, form):
         # Create an entry in the pipeline widget for every step in the pipeline
         for i in range(0, len(self.pipeline.executed_cats)):
             self.add_pipe_entry(i)
+
+    def save_graph(self):
+
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Graph", '', 'Text file (*.txt)')[0])
+        try:
+            if url[0]:
+                name = os.path.basename(url)
+                print(url)
+                print(name)
+                data = self.pipeline.get_cached_graph_by_cat(self.current_cat)
+                print("Found data " + str(data))
+                if data[1]:
+                    self.pipeline.save_graph(url, name, data)
+        except Exception as e:
+            print("Failed to save graph on file system")
+            traceback.print_exc()
+            return
+
+
+
 
     @pyqtSlot()
     def save_pip_json(self):
