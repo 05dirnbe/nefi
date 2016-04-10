@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{bdcbe9b4-bc05-4a33-9583-c2e775c97334}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>nefi2.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
+    <InterpreterVersion>3.5</InterpreterVersion>
+    <IsWindowsApplication>False</IsWindowsApplication>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="nefi2.py" />
+    <Compile Include="nefi2\default_pipelines\__init__.py" />
+    <Compile Include="nefi2\doc\documentation\conf.py" />
+    <Compile Include="nefi2\icons\__init__.py" />
+    <Compile Include="nefi2\main.py" />
+    <Compile Include="nefi2\model\algorithms\adaptive.py" />
+    <Compile Include="nefi2\model\algorithms\bilateral.py" />
+    <Compile Include="nefi2\model\algorithms\blur.py" />
+    <Compile Include="nefi2\model\algorithms\color_enhance.py" />
+    <Compile Include="nefi2\model\algorithms\connected_component_filter.py" />
+    <Compile Include="nefi2\model\algorithms\constant_threshold.py" />
+    <Compile Include="nefi2\model\algorithms\edge_attribute_filter.py" />
+    <Compile Include="nefi2\model\algorithms\fast_nl_denoise.py" />
+    <Compile Include="nefi2\model\algorithms\fast_nl_denoise_color.py" />
+    <Compile Include="nefi2\model\algorithms\gauss_blur.py" />
+    <Compile Include="nefi2\model\algorithms\grabcut_dilation_erosion_otsu.py" />
+    <Compile Include="nefi2\model\algorithms\grabcut_distance_transform_otsu.py" />
+    <Compile Include="nefi2\model\algorithms\guo_hall.py" />
+    <Compile Include="nefi2\model\algorithms\invert_color.py" />
+    <Compile Include="nefi2\model\algorithms\largest_connected.py" />
+    <Compile Include="nefi2\model\algorithms\med_blur.py" />
+    <Compile Include="nefi2\model\algorithms\otsus.py" />
+    <Compile Include="nefi2\model\algorithms\reduce_img.py" />
+    <Compile Include="nefi2\model\algorithms\simple_cycle.py" />
+    <Compile Include="nefi2\model\algorithms\smooth_degree_two_nodes.py" />
+    <Compile Include="nefi2\model\algorithms\watershed_dilation_erosion_adaptive.py" />
+    <Compile Include="nefi2\model\algorithms\watershed_dilation_erosion_otsu.py" />
+    <Compile Include="nefi2\model\algorithms\watershed_distance_transform_otsu.py" />
+    <Compile Include="nefi2\model\algorithms\_alg.py" />
+    <Compile Include="nefi2\model\algorithms\_thread.py" />
+    <Compile Include="nefi2\model\algorithms\_utility.py" />
+    <Compile Include="nefi2\model\algorithms\__init__.py" />
+    <Compile Include="nefi2\model\categories\gdetection.py" />
+    <Compile Include="nefi2\model\categories\gfiltering.py" />
+    <Compile Include="nefi2\model\categories\preprocessing.py" />
+    <Compile Include="nefi2\model\categories\segmentation.py" />
+    <Compile Include="nefi2\model\categories\_category.py" />
+    <Compile Include="nefi2\model\categories\__init__.py" />
+    <Compile Include="nefi2\model\ext_loader.py" />
+    <Compile Include="nefi2\model\pipeline.py" />
+    <Compile Include="nefi2\model\__init__.py" />
+    <Compile Include="nefi2\view\main_controller.py" />
+    <Compile Include="nefi2\view\__init__.py" />
+    <Compile Include="nefi2\__init__.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="nefi2\doc\documentation\rst_files\images\nefi2.png" />
+    <Content Include="nefi2\doc\documentation\rst_files\images\nefi2_ui.png" />
+    <Content Include="nefi2\doc\documentation\rst_files\images\pipeline_start.png" />
+    <Content Include="nefi2\doc\documentation\rst_files\images\tutorial1.png" />
+    <Content Include="nefi2\doc\documentation\rst_files\images\tutorial2.png" />
+    <Content Include="nefi2\doc\documentation\rst_files\images\web6.png" />
+    <Content Include="nefi2\doc\documentation\rst_files\images\web6_2.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\genindex.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\index.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\py-modindex.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Algorithms.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Algorithms_Contribution.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Autogen.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Categories_Contribution.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Code.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Create_Pipeline.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Development.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\ExtensionLoader.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Installation.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Pipeline.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Quick_Start_Guide_for_developers.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Quick_Start_Guide_for_users.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\subsection1.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\subsection2.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\rst_files\Technologies.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\search.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\searchindex.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\nefi2.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\nefi2_ui.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\pipeline_start.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\tutorial1.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\tutorial2.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\web6.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_images\web6_2.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_modules\index.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\_modules\model\algorithms\_alg.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\_modules\model\algorithms\_thread.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\_modules\model\algorithms\_utility.html" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\index.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Algorithms.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Algorithms_Contribution.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Autogen.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Categories_Contribution.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Code.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Create_Pipeline.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Development.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\ExtensionLoader.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Installation.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Pipeline.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Quick_Start_Guide_for_developers.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Quick_Start_Guide_for_users.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\subsection1.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\subsection2.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_sources\rst_files\Technologies.txt" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\ajax-loader.gif" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\basic.css" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\comment-bright.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\comment-close.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\comment.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\css\badge_only.css" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\css\theme.css" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\doctools.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\down-pressed.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\down.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\file.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\fonts\fontawesome-webfont.svg" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\jquery-1.11.1.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\jquery.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\js\modernizr.min.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\js\theme.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\minus.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\plus.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\pygments.css" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\searchtools.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\underscore-1.3.1.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\underscore.js" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\up-pressed.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\up.png" />
+    <Content Include="nefi2\doc\documentation\_build\html\_static\websupport.js" />
+    <Content Include="nefi2\icons\add.png" />
+    <Content Include="nefi2\icons\add_white.png" />
+    <Content Include="nefi2\icons\B.png" />
+    <Content Include="nefi2\icons\close.png" />
+    <Content Include="nefi2\icons\close_.png" />
+    <Content Include="nefi2\icons\D.png" />
+    <Content Include="nefi2\icons\delete.png" />
+    <Content Include="nefi2\icons\delete_white.png" />
+    <Content Include="nefi2\icons\delete_x.png" />
+    <Content Include="nefi2\icons\delete_x_white.png" />
+    <Content Include="nefi2\icons\diskette.png" />
+    <Content Include="nefi2\icons\diskette_white.png" />
+    <Content Include="nefi2\icons\down.png" />
+    <Content Include="nefi2\icons\down_grey.png" />
+    <Content Include="nefi2\icons\F.png" />
+    <Content Include="nefi2\icons\folder.png" />
+    <Content Include="nefi2\icons\folder_white.png" />
+    <Content Include="nefi2\icons\load.png" />
+    <Content Include="nefi2\icons\load_white.png" />
+    <Content Include="nefi2\icons\logo_mpi.png" />
+    <Content Include="nefi2\icons\man.png" />
+    <Content Include="nefi2\icons\minus.png" />
+    <Content Include="nefi2\icons\missing.png" />
+    <Content Include="nefi2\icons\nefi2.ico" />
+    <Content Include="nefi2\icons\nefi2.png" />
+    <Content Include="nefi2\icons\new.png" />
+    <Content Include="nefi2\icons\new_white.png" />
+    <Content Include="nefi2\icons\P.png" />
+    <Content Include="nefi2\icons\plus.png" />
+    <Content Include="nefi2\icons\plus_grey.png" />
+    <Content Include="nefi2\icons\resize.png" />
+    <Content Include="nefi2\icons\S.png" />
+    <Content Include="nefi2\icons\save.png" />
+    <Content Include="nefi2\icons\save_white.png" />
+    <Content Include="nefi2\icons\trash.png" />
+    <Content Include="nefi2\icons\trash_white.png" />
+    <Content Include="nefi2\icons\up-arrow.png" />
+    <Content Include="nefi2\icons\up-arrow_white.png" />
+    <Content Include="nefi2\icons\up.png" />
+    <Content Include="nefi2\icons\up_grey.png" />
+    <Content Include="nefi2\icons\zoombar_minus.png" />
+    <Content Include="nefi2\icons\zoombar_pls.png" />
+    <Content Include="nefi2\icons\zoom_bar.png" />
+    <Content Include="nefi2\icons\zoom_bar_ball.png" />
+    <Content Include="sample_images\bahn.png" />
+    <Content Include="sample_images\band300180.jpg" />
+    <Content Include="sample_images\crack.jpg" />
+    <Content Include="sample_images\leaf.jpg" />
+    <Content Include="sample_images\poly.jpg" />
+    <Content Include="sample_images\roof.jpg" />
+    <Content Include="sample_images\web0.jpg" />
+    <Content Include="sample_images\web1.jpg" />
+    <Content Include="sample_images\web2.jpg" />
+    <Content Include="sample_images\web3.jpg" />
+    <Content Include="sample_images\web4.jpg" />
+    <Content Include="sample_images\web5.jpg" />
+    <Content Include="sample_images\wing-large.jpg" />
+    <Content Include="sample_images\wing.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="nefi2" />
+    <Folder Include="nefi2\default_pipelines" />
+    <Folder Include="nefi2\doc\" />
+    <Folder Include="nefi2\doc\documentation" />
+    <Folder Include="nefi2\doc\documentation\rst_files\" />
+    <Folder Include="nefi2\doc\documentation\rst_files\images" />
+    <Folder Include="nefi2\doc\documentation\_build\" />
+    <Folder Include="nefi2\doc\documentation\_build\html" />
+    <Folder Include="nefi2\doc\documentation\_build\html\rst_files" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_images" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_modules" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_modules\model\" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_modules\model\algorithms" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_sources" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_sources\rst_files" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_static" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_static\css" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_static\fonts" />
+    <Folder Include="nefi2\doc\documentation\_build\html\_static\js" />
+    <Folder Include="nefi2\icons" />
+    <Folder Include="nefi2\model" />
+    <Folder Include="nefi2\model\algorithms" />
+    <Folder Include="nefi2\model\categories" />
+    <Folder Include="nefi2\view" />
+    <Folder Include="sample_images" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.5" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
