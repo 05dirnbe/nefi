@@ -10,6 +10,7 @@ __authors__ = {"Martino Bruni": "bruni.martino92@gmail.com"}
 
 
 NODESIZESCALING = 750
+EDGETRANSPARENCYDIVIDER = 5
 
 
 def draw_graph(image, graph):
@@ -66,20 +67,26 @@ def draw_edges(img, graph, col=(0, 0, 255)):
         start = (y1, x1)
         end = (y2, x2)
         diam = graph[(x1, y1)][(x2, y2)]['width']
+        # variance value computed during graph detection
         width_var = graph[(x1, y1)][(x2, y2)]['width_var']
+        # compute edges standard deviation by applying sqrt(var(edge))
         standard_dev = numpy.sqrt(width_var)
         if diam == -1: diam = 2
         diam = int(round(diam))
         if diam > 255:
             print('Warning: edge diameter too large for display. Diameter has been reset.')
             diam = 255
+        # access color triple
         (b, g, r) = col
-        opacity = standard_dev / 5
+        # calculate the opacity based on the standard deviation
+        opacity = (width_var % 10) / 10
+        # set overlay in this case white
         overlay = (0, 0 ,0) 
-        target_col = ((opacity * 255 + (1 - opacity) * b),
-                      (opacity * 255 + (1 - opacity) * g),
-                      (opacity * 255 + (1 - opacity) * r))
-        targe_col = opacity * overlay + (1 - opacity) * col
+        # compute target color based on the transparency formula
+        target_col = (b == 0 if 0 else opacity * 255 + (1 - opacity) * b,
+                      g == 0 if 0 else opacity * 255 + (1 - opacity) * g,
+                      r == 0 if 0 else opacity * 255 + (1 - opacity) * r)
+        # draw the line
         cv2.line(edg_img, start, end, target_col, diam)
 
     edg_img = cv2.addWeighted(img, 0.5, edg_img, 0.5, 0)
