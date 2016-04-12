@@ -61,33 +61,27 @@ def draw_edges(img, graph, col=(0, 0, 255)):
     Returns:
         Input image img with nodes drawn into it
     """
-    """edg_img = numpy.copy(img)
-    for (x1, y1), (x2, y2) in graph.edges_iter():
-        start = (y1, x1)
-        end = (y2, x2)
-        diam = 3  # thickness of red edges, graph[(x1, y1)][(x2, y2)]['width']
-        if diam == -1:
-            diam = 3  # thickness of red edges
-        diam = int(round(diam))
-        if diam > 255:
-            print('Warning: edge diameter too large for display.')
-            print('Diameter has been reset.')
-            # diam = 255
-            diam = 3  # thickness of red edges
-        cv2.line(edg_img, start, end, col, diam)
-    edg_img = cv2.addWeighted(img, 0.5, edg_img, 0.5, 0)
-    return edg_img"""
     edg_img = numpy.copy(img)
     for (x1, y1), (x2, y2) in graph.edges_iter():
         start = (y1, x1)
         end = (y2, x2)
         diam = graph[(x1, y1)][(x2, y2)]['width']
+        width_var = graph[(x1, y1)][(x2, y2)]['width_var']
+        standard_dev = numpy.sqrt(width_var)
         if diam == -1: diam = 2
         diam = int(round(diam))
         if diam > 255:
             print('Warning: edge diameter too large for display. Diameter has been reset.')
             diam = 255
-        cv2.line(edg_img, start, end, col, diam)
+        (b, g, r) = col
+        opacity = standard_dev / 5
+        overlay = (0, 0 ,0) 
+        target_col = ((opacity * 255 + (1 - opacity) * b),
+                      (opacity * 255 + (1 - opacity) * g),
+                      (opacity * 255 + (1 - opacity) * r))
+        targe_col = opacity * overlay + (1 - opacity) * col
+        cv2.line(edg_img, start, end, target_col, diam)
+
     edg_img = cv2.addWeighted(img, 0.5, edg_img, 0.5, 0)
     return edg_img
 
@@ -115,7 +109,6 @@ def check_operator(dropdown):
     if dropdown.value == "strictly greater":
         op_object = operator.gt
     return op_object
-
 
 if __name__ == '__main__':
     pass
