@@ -59,6 +59,8 @@ class MainView(base, form):
         self.default_pips = []
         self.active_pip_label = ""
         self.active_immediate_results_group_layout = None
+        self.left_panel_resize_flag = True
+        self.right_panel_resize_flag = True
 
         self.current_cat = None
 
@@ -208,6 +210,7 @@ class MainView(base, form):
 
         self.aboutQtAct = QAction("About &Qt", self,
                                   triggered=QApplication.instance().aboutQt)
+
 
     def load_dark_theme(self, application):
         """
@@ -381,6 +384,8 @@ class MainView(base, form):
         self.scrollsignal.connect(self.scroll_down_left)
         self.results_only.toggled.connect(self.set_resultsonly)
         self.compare_mode.toggled.connect(self.set_comparemode)
+        self.btn_resize_left_panel.clicked.connect(self.resize_left_panel)
+        self.btn_resize_right_panel.clicked.connect(self.resize_right_panel)
         # not implemented yes
         self.compare_mode.hide()
         self.results_only.hide()
@@ -515,6 +520,29 @@ class MainView(base, form):
 
     def enable_pip(self):
         pass
+
+    def resize_left_panel(self):
+        self.left_panel_resize_flag = not self.left_panel_resize_flag
+        print(self.left_panel_resize_flag)
+
+        if(self.left_panel_resize_flag):
+            self.left_panel.setFixedWidth(350)
+            self.btn_resize_left_panel.setText("<<")
+        else:
+            self.left_panel.setFixedWidth(0)
+            self.btn_resize_left_panel.setText(">>")
+
+    def resize_right_panel(self):
+        self.right_panel_resize_flag = not self.right_panel_resize_flag
+
+        if(self.right_panel_resize_flag):
+            self.right_panel.setFixedWidth(370)
+            self.btn_resize_right_panel.setText(">>")
+        else:
+            self.right_panel.setFixedWidth(0)
+            self.btn_resize_right_panel.setText("<<")
+
+
 
     def set_pip_title(self, title):
         """

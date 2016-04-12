@@ -77,7 +77,7 @@
          <property name="rightMargin">
           <number>0</number>
          </property>
-         <item alignment="Qt::AlignLeft">
+         <item>
           <widget class="QWidget" name="remove_btn_widget" native="true">
            <property name="minimumSize">
             <size>
@@ -183,7 +183,7 @@
               <x>0</x>
               <y>0</y>
               <width>330</width>
-              <height>604</height>
+              <height>593</height>
              </rect>
             </property>
             <property name="sizePolicy">
@@ -258,6 +258,41 @@
          </item>
         </layout>
        </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_resize_left_panel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>&lt;&lt;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>3</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <widget class="QGroupBox" name="mid_panel">
@@ -385,6 +420,38 @@
           </widget>
          </item>
         </layout>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>3</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_resize_right_panel">
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>&gt;&gt;</string>
+        </property>
        </widget>
       </item>
       <item>
@@ -1223,8 +1290,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>344</width>
-                 <height>180</height>
+                 <width>340</width>
+                 <height>166</height>
                 </rect>
                </property>
                <property name="sizePolicy">
@@ -1340,8 +1407,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>349</width>
-                 <height>217</height>
+                 <width>346</width>
+                 <height>219</height>
                 </rect>
                </property>
                <property name="sizePolicy">
