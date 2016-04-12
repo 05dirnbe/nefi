@@ -80,6 +80,7 @@ def draw_edges(img, graph, col=(0, 0, 255)):
         (b, g, r) = col
         # calculate the opacity based on the standard deviation
         opacity = (width_var % 10) / 10
+        opacity *= 1
         # set overlay in this case white
         overlay = (0, 0 ,0) 
         # compute target color based on the transparency formula
