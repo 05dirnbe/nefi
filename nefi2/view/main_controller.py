@@ -523,7 +523,6 @@ class MainView(base, form):
 
     def resize_left_panel(self):
         self.left_panel_resize_flag = not self.left_panel_resize_flag
-        print(self.left_panel_resize_flag)
 
         if(self.left_panel_resize_flag):
             self.left_panel.setFixedWidth(350)
