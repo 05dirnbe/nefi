@@ -314,14 +314,15 @@ class Pipeline:
                   'Cannot write an image file, make sure there is ' +
                   'enough free space on disk')
             sys.exit(1)
-            self.save_graph(save_path, image_name, results)
+
+        self.save_graph(save_path, image_name, results[1])
 
     def save_graph(self, save_path, image_name, results):
         dir_to_save = os.path.dirname(save_path)
         # exporting graph object
-        if results[1]:
+        if results:
             image_name = os.path.splitext(image_name)[0] + '.txt'
-            nx.write_multiline_adjlist(results[1], os.path.join(dir_to_save,
+            nx.write_multiline_adjlist(results, os.path.join(dir_to_save,
                                                                 image_name),
                                        delimiter='|')
             print('Success!', image_name, 'saved in', dir_to_save)
@@ -648,10 +649,10 @@ class Pipeline:
             | *graph* (object): corresponding graph object
 
         """
-
-        for idx, val in enumerate(self.cache):
-            if cat is val[0]:
-                print("Found cat " + cat)
+        for entry in self.cache:
+            if cat is entry[0]:
+                print("Found cat with corresponding graph " + str(id(entry[2])))
+                return entry[2]
 
     def update_cache(self, cat, img_path, graph):
         """
@@ -660,10 +661,20 @@ class Pipeline:
         Args:
             | *category*: Category
             | *img_path* (str): image path
+            | *graph*:  image graph (if exists)
 
         """
         try:
+            print("img_path " + str(img_path))
             shutil.copy(img_path, '_cache_')
+
+            graph_path = os.path.splitext(img_path)[0] + '.txt'
+
+            print("Graph file " + str(graph_path))
+
+            if os.path.exists(graph_path):
+                shutil.copy(graph_path, '_cache_')
+
         except (IOError, OSError) as ex:
             print(ex)
             print('ERROR in update_cache() ' +
@@ -674,8 +685,11 @@ class Pipeline:
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
 
+        cache_graph_path = os.path.join(os.getcwd(), '_cache_',
+                                      os.path.basename(graph_path))
+
         zope.event.notify(CacheAddEvent(cat, cache_img_path))
-        self.cache.append((cat, cache_img_path, graph))
+        self.cache.append((cat, cache_img_path, cache_graph_path))
 
 
 class ProgressEvent(object):
