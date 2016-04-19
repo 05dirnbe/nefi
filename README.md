@@ -9,7 +9,7 @@ Representing the structure of the network as a graph enables subsequent studies 
 
 Make sure you have your **Python 3.4** installed before performing the steps below.
 
-* git clone https://github.com/LumPenPacK/NetworkExtractionFromImages.git
+* git clone https://github.com/05dirnbe/nefi.git
 * cd "NetworkExtractionFromImages"
 * `./install.sh`
 * Install **PyQt5** using you default package manager.
