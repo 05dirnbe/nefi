@@ -572,17 +572,24 @@ class MainView(base, form):
 
     def save_graph(self):
 
+        if not self.current_cat:
+            return
+
+        graph = self.pipeline.get_cached_graph_by_cat(self.current_cat)
+
+        if not graph:
+            return
+
         url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Graph", '', 'Text file (*.txt)')[0])
+
         try:
             if url[0] and self.current_cat:
                 name = os.path.basename(url)
                 print(url)
                 print(name)
                 print("Try to save current graph. Found cat " + str(self.current_cat))
-                graph = self.pipeline.get_cached_graph_by_cat(self.current_cat)
-                if graph:
-                    print("Found graph " + str(id(graph)) + "  Saving it on file system.")
-                    shutil.copy(graph, url)
+                print("Found graph " + str(id(graph)) + "  Saving it on file system.")
+                shutil.copy(graph, url)
         except Exception as e:
             print("Failed to save graph on file system")
             traceback.print_exc()

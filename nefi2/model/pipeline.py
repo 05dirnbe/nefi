@@ -651,6 +651,8 @@ class Pipeline:
         """
         for entry in self.cache:
             if cat is entry[0]:
+                if not entry[2]:
+                    return None
                 print("Found cat with corresponding graph " + str(id(entry[2])))
                 return entry[2]
 
@@ -672,8 +674,12 @@ class Pipeline:
 
             print("Graph file " + str(graph_path))
 
+            cache_graph_path = None
+
             if os.path.exists(graph_path):
                 shutil.copy(graph_path, '_cache_')
+                cache_graph_path = os.path.join(os.getcwd(), '_cache_',
+                                      os.path.basename(graph_path))
 
         except (IOError, OSError) as ex:
             print(ex)
@@ -684,9 +690,6 @@ class Pipeline:
 
         cache_img_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(img_path))
-
-        cache_graph_path = os.path.join(os.getcwd(), '_cache_',
-                                      os.path.basename(graph_path))
 
         zope.event.notify(CacheAddEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path, cache_graph_path))
