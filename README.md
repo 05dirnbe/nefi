@@ -32,7 +32,7 @@ You don't need to write tons of boilerplate code, reimplement existing UI widget
 ```
 
 * git clone https://github.com/05dirnbe/nefi.git
-* cd "nefi"
+* `cd nefi`
 * `./linux_install.sh`
 
 If everything goes well, you can run **NEFI2** by typing in console `nefi2`.
