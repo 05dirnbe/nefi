@@ -31,7 +31,7 @@ You don't need to write tons of boilerplate code, reimplement existing UI widget
     sudo make install
 ```
 
-* git clone https://github.com/05dirnbe/nefi.git
+* `git clone https://github.com/05dirnbe/nefi.git`
 * `cd nefi`
 * `./linux_install.sh`
 
