@@ -58,7 +58,6 @@ class AlgBody(Algorithm):
         skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
         self.result['graph'], self.result['img'] = graph, skeleton
 
-@profile
 def zhang_suen_node_detection(skel):
     """
     (from nefi1)
@@ -84,7 +83,6 @@ def zhang_suen_node_detection(skel):
         *graph* : networkx Graph object with detected nodes.
 
     """
-    @profile
     def check_pixel_neighborhood(x, y, skel):
         """
         Check the number of components around a pixel.
@@ -129,7 +127,6 @@ def zhang_suen_node_detection(skel):
                 graph.add_node((x, y))
     return graph
 
-@profile
 def breadth_first_edge_detection(skel, segmented, graph):
     """
     (from nefi1)
@@ -158,7 +155,6 @@ def breadth_first_edge_detection(skel, segmented, graph):
                                 item(x + dx, y + dy) != 0:
                     yield x + dx, y + dy
 
-    @profile
     def distance_transform_diameter(edge_trace, segmented):
         """
         (dev comments from nefi1)

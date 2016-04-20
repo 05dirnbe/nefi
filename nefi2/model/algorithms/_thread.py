@@ -23,3 +23,4 @@ def print_time(threadName, delay, counter):
         time.sleep(delay)
         print("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
+        
