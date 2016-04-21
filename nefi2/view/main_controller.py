@@ -8,6 +8,7 @@ To draw the complete UI the controllers are invoked and the draw_ui function is
 called
 """
 from nefi2.model.pipeline import *
+from nefi2.model.algorithms import _utility
 import copy
 import time
 import os
@@ -20,11 +21,11 @@ import webbrowser
 
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-from PyQt5.QtGui import QIcon, QPixmap, QPainter, QWheelEvent
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QObject, QEvent, QTimer, QSize, QRect, QFile, QIODevice
-from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
+from PyQt5.QtGui import QIcon, QPixmap, QPainter
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QEvent
+from PyQt5.QtWidgets import QBoxLayout, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
-    QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
+    QScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
 
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -34,12 +35,6 @@ try:
     base, form = uic.loadUiType(mainview_path)
 except (FileNotFoundError):
     raise NameError(os.listdir(os.curdir))
-
-
-# class CustomMainView(QWidget):
-#
-#    def __init__(self):
-#        super(MainView, self).__init__()
 
 
 class MainView(base, form):
@@ -108,6 +103,7 @@ class MainView(base, form):
         self.viewMenu.addAction(self.autoScrollAct)
         self.viewMenu.addAction(self.autoClearAct)
         self.viewMenu.addAction(self.resultsOnlyAct)
+        self.viewMenu.addAction(self.edgeTransparencyAct)
 
         self.helpMenu = QMenu("&Help", self)
         self.helpMenu.addAction(self.aboutAct)
@@ -201,6 +197,11 @@ class MainView(base, form):
         self.resultsOnlyAct = QAction("&Show Last Result Only", self, enabled=True,
                                       checkable=True, checked=False, shortcut="Ctrl+M",
                                       triggered=self.MidCustomWidget.toggleAutofit)
+
+        self.edgeTransparencyAct = QAction("&Edge Transparency", self, enabled=True,
+                                      checkable=True, checked=False, shortcut="Ctrl+T",
+                                      triggered=self.toggleEdgeTransparency)
+        self.edgeTransparencyAct.setChecked(False)
 
         self.aboutAct = QAction("&About", self, triggered=self.about)
 
@@ -475,6 +476,8 @@ class MainView(base, form):
     def set_comparemode(self):
         self.comparemode = not self.comparemode
 
+    def toggleEdgeTransparency(self):
+        _utility.EDGETRANSPARENCY = not _utility.EDGETRANSPARENCY
     """
     def keyPressEvent(self, key):
         if key.modifiers() & Qt.ControlModifier:
