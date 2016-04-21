@@ -26,10 +26,8 @@ from PyQt5.QtWidgets import QBoxLayout, QGroupBox, QSpinBox, QDoubleSpinBox, QSl
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
     QScrollArea, QAbstractScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
 
-
 __authors__ = {"Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
-
 
 try:
     mainview_path = os.path.join('nefi2', 'view', 'MainView.ui')
@@ -45,7 +43,6 @@ except (FileNotFoundError):
 
 
 class MainView(base, form):
-
     scrollsignal = pyqtSignal()
 
     def __init__(self, pipeline, parent=None):
@@ -62,6 +59,7 @@ class MainView(base, form):
         self.left_panel_resize_flag = True
         self.right_panel_resize_flag = True
 
+        # Current corresponding cat object shown by main view
         self.current_cat = None
 
         # Cache pipeline entries to use them for settings history.
@@ -166,13 +164,13 @@ class MainView(base, form):
                                 enabled=True, triggered=self.print_)
 
         self.openPiplineAct = QAction("&Open Pipeline", self, shortcut="Ctrl+K",
-                                enabled=True, triggered=self.open_pip_json)
+                                      enabled=True, triggered=self.open_pip_json)
 
         self.savePiplineAct = QAction("&Save Pipeline", self, shortcut="Ctrl+J",
-                                enabled=True, triggered=self.save_pip_json)
+                                      enabled=True, triggered=self.save_pip_json)
 
         self.saveGraphAct = QAction("&Save Graph", self, shortcut="Ctrl+G",
-                                      enabled=True, triggered=self.save_graph)
+                                    enabled=True, triggered=self.save_graph)
 
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
@@ -192,13 +190,13 @@ class MainView(base, form):
         self.fitToWindowAct.setChecked(True)
 
         self.autoScrollAct = QAction("&Auto Scroll Results", self, enabled=True,
-                                      checkable=True, checked=True, shortcut="Ctrl+B",
-                                      triggered=self.MidCustomWidget.toggleAutofit)
+                                     checkable=True, checked=True, shortcut="Ctrl+B",
+                                     triggered=self.MidCustomWidget.toggleAutofit)
         self.autoScrollAct.setChecked(True)
 
         self.autoClearAct = QAction("&Auto Clear Results", self, enabled=True,
-                                      checkable=True, checked=False, shortcut="Ctrl+N",
-                                      triggered=self.MidCustomWidget.toggleAutofit)
+                                    checkable=True, checked=False, shortcut="Ctrl+N",
+                                    triggered=self.MidCustomWidget.toggleAutofit)
 
         self.resultsOnlyAct = QAction("&Show Last Result Only", self, enabled=True,
                                       checkable=True, checked=False, shortcut="Ctrl+M",
@@ -334,12 +332,11 @@ class MainView(base, form):
         self.splitterFrame.setFrameShape(QFrame.HLine)
         self.splitterFrame.setFrameShadow(QFrame.Sunken)
 
-
         self.splitter.setHandleWidth(0)
         self.splitter.handleWidth()
         self.splitter.setOrientation(Qt.Vertical)
         self.splitter.setChildrenCollapsible(False)
-        #self.pip_collapsable.setStyleSheet("border:0;")
+        # self.pip_collapsable.setStyleSheet("border:0;")
         self.settings_collapsable.setStyleSheet("border:0;")
         self.splitter.addWidget(self.pip_collapsable)
         self.splitterLayout.addWidget(self.splitterFrame)
@@ -349,11 +346,10 @@ class MainView(base, form):
 
         self.verticalLayout_9.addWidget(self.splitterWidget, Qt.AlignHCenter)
 
-        #self.setStyleSheet("QScrollBar:horizontal {max-height: 15px;}" "QScrollBar:vertical {max-width: 15px;}")
+        # self.setStyleSheet("QScrollBar:horizontal {max-height: 15px;}" "QScrollBar:vertical {max-width: 15px;}")
 
-        #self.mid_panel.setStyleSheet("border:0;")
-        #self.right_panel.setStyleSheet("border:0;")
-
+        # self.mid_panel.setStyleSheet("border:0;")
+        # self.right_panel.setStyleSheet("border:0;")
 
     def connect_ui(self):
         """
@@ -374,7 +370,8 @@ class MainView(base, form):
         self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
         self.clear_immediate_btn.clicked.connect(self.clear_immediate_results)
         self.thread.progess_changed.connect(self.update_progress)
-        self.thread.immediate_results_changed[object, QCheckBox].connect(lambda x=object,y=QCheckBox: self.update_add_immediate_result(x,y))
+        self.thread.immediate_results_changed[object, QCheckBox].connect(
+            lambda x=object, y=QCheckBox: self.update_add_immediate_result(x, y))
         self.thread.finished.connect(self.process_finish)
         self.open_pip_btn.clicked.connect(self.open_pip_json)
         self.save_btn.clicked.connect(self.save_pip_json)
@@ -428,6 +425,10 @@ class MainView(base, form):
     def get_current_image(self, image, cat=None):
         self.MidCustomWidget.setCurrentImage(image)
         self.MidCustomWidget.resize_default()
+
+
+        self.current_cat = cat
+        print("Current cat " + str(self.current_cat))
 
         try:
             pip_entry = self.get_pip_entry(cat)
@@ -598,23 +599,28 @@ class MainView(base, form):
 
     def save_graph(self):
 
+        if not self.current_cat:
+            return
+
+        graph = self.pipeline.get_cached_graph_by_cat(self.current_cat)
+
+        if not graph:
+            return
+
         url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Graph", '', 'Text file (*.txt)')[0])
+
         try:
-            if url[0]:
+            if url[0] and self.current_cat:
                 name = os.path.basename(url)
                 print(url)
                 print(name)
-                data = self.pipeline.get_cached_graph_by_cat(self.current_cat)
-                print("Found data " + str(data))
-                if data[1]:
-                    self.pipeline.save_graph(url, name, data)
+                print("Try to save current graph. Found cat " + str(self.current_cat))
+                print("Found graph " + str(id(graph)) + "  Saving it on file system.")
+                shutil.copy(graph, url)
         except Exception as e:
             print("Failed to save graph on file system")
             traceback.print_exc()
             return
-
-
-
 
     @pyqtSlot()
     def save_pip_json(self):
@@ -715,7 +721,8 @@ class MainView(base, form):
 
         widget = LeftCustomWidget(event.path, self.MidCustomWidget, self.mid_panel,
                                   self.left_scroll_results, self.MidCustomWidget.getCurrentImage(),
-                                  self.get_current_image, self.pipeline, settings_widget, self.left_scroll.verticalScrollBar())
+                                  self.get_current_image, self.pipeline, settings_widget,
+                                  self.left_scroll.verticalScrollBar())
 
         self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
 
@@ -734,8 +741,13 @@ class MainView(base, form):
         self.MidCustomWidget.setCurrentImage(pixmap)
         self.MidCustomWidget.resetImageSize()
         self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
-        self.mid_panel.setTitle("Result image - " + str(event.cat.get_name() + " - " + event.cat.active_algorithm.name) + \
-                                " - Pipeline Position " + str(self.pipeline.get_index(event.cat) + 1))
+        self.mid_panel.setTitle(
+            "Result image - " + str(event.cat.get_name() + " - " + event.cat.active_algorithm.name) + \
+            " - Pipeline Position " + str(self.pipeline.get_index(event.cat) + 1))
+
+        self.current_cat = event.cat
+        print("Current cat " + str(self.current_cat))
+
         settings_widget = self.load_settings_widgets_from_pipeline_groupbox(event.cat)
 
         widget = LeftCustomWidget(path, self.MidCustomWidget, self.mid_panel,
@@ -743,7 +755,6 @@ class MainView(base, form):
                                   self.get_current_image,
                                   self.pipeline, settings_widget, self.left_scroll.verticalScrollBar(), event.cat)
 
-        #self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
         self.active_immediate_results_group_layout.addWidget(widget)
         if self.resultsonly:
             if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
@@ -796,7 +807,8 @@ class MainView(base, form):
 
             timestamp = QLabel()
             self.pip_run += 1
-            timestamp.setText(self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.pip_run))
+            timestamp.setText(
+                self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.pip_run))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
             timestamp.setContentsMargins(0, 7, 0, 7)
 
@@ -1148,7 +1160,7 @@ class MainView(base, form):
 
             self.stackedWidgetComboxesAlgorithms.addWidget(tmp1)
 
-        #layout.setMaximumHeight(200)
+        # layout.setMaximumHeight(200)
         layout.addWidget(self.ComboxCategories)
         layout.addWidget(self.stackedWidgetComboxesAlgorithms)
 
@@ -1443,7 +1455,6 @@ class ClickableQLabel(QLabel):
 
 
 class MidCustomWidget(QWidget):
-
     def __init__(self, mid_panel, auto_fit):
         super(MidCustomWidget, self).__init__()
 
@@ -1469,14 +1480,16 @@ class MidCustomWidget(QWidget):
         self.scrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
         self.Layout = QVBoxLayout()
-        self.Layout.setContentsMargins(11,11,11,11)
+        self.Layout.setContentsMargins(11, 11, 11, 11)
         self.setLayout(self.Layout)
         self.Layout.addWidget(self.scrollArea, Qt.AlignTop)
 
         self.scrollArea.zoom_in.connect(self.zoom_in_)
         self.scrollArea.zoom_out.connect(self.zoom_out_)
-        self.scrollArea.horizontalScrollBar().rangeChanged[int, int].connect(lambda min, max : self.handle_zoom_x(min, max,))
-        self.scrollArea.verticalScrollBar().rangeChanged[int, int].connect(lambda min, max: self.handle_zoom_y(min, max,))
+        self.scrollArea.horizontalScrollBar().rangeChanged[int, int].connect(
+            lambda min, max: self.handle_zoom_x(min, max, ))
+        self.scrollArea.verticalScrollBar().rangeChanged[int, int].connect(
+            lambda min, max: self.handle_zoom_y(min, max, ))
 
     def mousePressEvent(self, QMouseEvent):
         self.setCursor(Qt.ClosedHandCursor)
@@ -1530,9 +1543,9 @@ class MidCustomWidget(QWidget):
             return
 
         delta = self.scrollArea.verticalScrollBar().maximum() - self.pixels_y
-        #print("y delta " + str(delta))
+        # print("y delta " + str(delta))
 
-        value = self.scrollArea.verticalScrollBar().value() + delta/2
+        value = self.scrollArea.verticalScrollBar().value() + delta / 2
         self.scrollArea.verticalScrollBar().setValue(value)
 
         self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
@@ -1544,13 +1557,12 @@ class MidCustomWidget(QWidget):
             return
 
         delta = self.scrollArea.horizontalScrollBar().maximum() - self.pixels_x
-        #print("x delta " + str(delta))
+        # print("x delta " + str(delta))
 
-        value = self.scrollArea.horizontalScrollBar().value() + delta/2
+        value = self.scrollArea.horizontalScrollBar().value() + delta / 2
         self.scrollArea.horizontalScrollBar().setValue(value)
 
         self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
-
 
     def zoom_out_(self):
         if not self.current_image_original:
@@ -1568,8 +1580,6 @@ class MidCustomWidget(QWidget):
 
         self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
         self.imageLabel.setPixmap(pixmap)
-
-
 
     def zoom_in_(self):
         if not self.current_image_original:
@@ -1605,7 +1615,7 @@ class MidCustomWidget(QWidget):
         if original_width != 0:
             self.current_image_size = self.mid_panel.width() / original_width
 
-        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 50 , self.mid_panel.height() - 120,
+        new_pixmap = self.current_image_original.scaled(self.mid_panel.width() - 50, self.mid_panel.height() - 120,
                                                         QtCore.Qt.KeepAspectRatio, Qt.SmoothTransformation)
 
         self.imageLabel.setGeometry(0, 0, new_pixmap.width() + 22, new_pixmap.height() + 22)
@@ -1633,7 +1643,7 @@ class LeftCustomWidget(QWidget):
         super(LeftCustomWidget, self).__init__()
 
         self.setStyleSheet("font:Candara; font-size: 8pt;")
-        #self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        # self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.MidCustomWidget = MidCustomWidget
         self.mid_panel = mid_panel
         self.left_scroll_results = left_scroll_results
@@ -1663,7 +1673,7 @@ class LeftCustomWidget(QWidget):
         self.LeftCustomWidgetLayout.setContentsMargins(0, 0, 0, 0)
         self.LeftCustomWidgetLayout.setSpacing(11)
         self.setLayout(self.LeftCustomWidgetLayout)
-        #self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
+        # self.LeftCustomWidgetLayout.setAlignment(Qt.AlignTop)
 
         self.image_label.setText(self.image_name)
         self.image_label.setGeometry(0, 0, 150, 30)
@@ -1672,7 +1682,7 @@ class LeftCustomWidget(QWidget):
         self.pixmap_scaled_keeping_aspec = self.pixmap.scaledToWidth(315, Qt.SmoothTransformation)
 
         self.image = QLabel()
-        #self.image.setAlignment(Qt.AlignLeft)
+        # self.image.setAlignment(Qt.AlignLeft)
         self.image.setGeometry(0, 0, 330, self.pixmap_scaled_keeping_aspec.height())
         self.image.setPixmap(self.pixmap_scaled_keeping_aspec)
         self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
@@ -1684,14 +1694,12 @@ class LeftCustomWidget(QWidget):
 
         if cat:
             self.createSettings()
-            #self.settings_widget.layout().setContentsMargins(0, 0, 0, 0)
-            #self.settings_widget.layout().setSpacing(1)
+            # self.settings_widget.layout().setContentsMargins(0, 0, 0, 0)
+            # self.settings_widget.layout().setSpacing(1)
             self.settings_widget.hide()
             self.LeftCustomWidgetLayout.addWidget(self.settings_widget)
 
-
         self.select_image.connect(lambda: self.slot(self.MidCustomWidget.getCurrentImage(), self.cat))
-
 
     def mousePressEvent(self, QMouseEvent):
         """
@@ -1735,6 +1743,7 @@ class LeftCustomWidget(QWidget):
         self.settings_widget.setDisabled(True)
         self.settings_widget.setStyleSheet("color:silver;")
 
+
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)
     immediate_results_changed = pyqtSignal(object, QCheckBox)
@@ -1762,6 +1771,7 @@ class ProcessWorker(QtCore.QThread):
             traceback.print_exc()
 
         self.finished.emit()
+
 
 class PipCustomWidget(QWidget):
     """
