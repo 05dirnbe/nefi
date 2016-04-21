@@ -187,16 +187,16 @@ class MainView(base, form):
 
         self.autoScrollAct = QAction("&Auto Scroll Results", self, enabled=True,
                                      checkable=True, checked=True, shortcut="Ctrl+B",
-                                     triggered=self.MidCustomWidget.toggleAutofit)
+                                     triggered=self.set_autoscroll)
         self.autoScrollAct.setChecked(True)
 
         self.autoClearAct = QAction("&Auto Clear Results", self, enabled=True,
                                     checkable=True, checked=False, shortcut="Ctrl+N",
-                                    triggered=self.MidCustomWidget.toggleAutofit)
+                                    triggered=self.set_autoclear)
 
         self.resultsOnlyAct = QAction("&Show Last Result Only", self, enabled=True,
                                       checkable=True, checked=False, shortcut="Ctrl+M",
-                                      triggered=self.MidCustomWidget.toggleAutofit)
+                                      triggered=self.set_resultsonly)
 
         self.edgeTransparencyAct = QAction("&Edge Transparency", self, enabled=True,
                                       checkable=True, checked=False, shortcut="Ctrl+T",
@@ -821,7 +821,7 @@ class MainView(base, form):
                 show_pipeline.setChecked(False)
             else:
                 show_pipeline.setChecked(True)
-            show_pipeline.setText("Results")
+            show_pipeline.setText("Intermediate Results")
 
             show_pipeline.setContentsMargins(0, 0, 0, 0)
 
