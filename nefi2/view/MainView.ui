@@ -333,12 +333,18 @@
              <number>11</number>
             </property>
             <item alignment="Qt::AlignLeft">
-             <widget class="QPushButton" name="btn_resize_left_panel">
+             <widget class="QToolButton" name="btn_resize_left_panel">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
               </property>
               <property name="maximumSize">
                <size>
@@ -346,11 +352,17 @@
                 <height>16777215</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Candara</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="toolTip">
                <string>Toggle left panel</string>
               </property>
               <property name="text">
-               <string>&lt;&lt;</string>
+               <string>&lt;</string>
               </property>
              </widget>
             </item>
@@ -416,11 +428,11 @@
              </widget>
             </item>
             <item alignment="Qt::AlignRight">
-             <widget class="QPushButton" name="btn_resize_right_panel">
+             <widget class="QToolButton" name="btn_resize_right_panel">
               <property name="minimumSize">
                <size>
                 <width>30</width>
-                <height>0</height>
+                <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -429,6 +441,12 @@
                 <height>30</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Candara</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="toolTip">
                <string>Toggle right panel</string>
               </property>
@@ -436,7 +454,7 @@
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>&gt;&gt;</string>
+               <string>&gt;</string>
               </property>
              </widget>
             </item>

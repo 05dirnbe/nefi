@@ -530,20 +530,20 @@ class MainView(base, form):
 
         if(self.left_panel_resize_flag):
             self.left_panel.setFixedWidth(350)
-            self.btn_resize_left_panel.setText("<<")
+            self.btn_resize_left_panel.setText("<")
         else:
             self.left_panel.setFixedWidth(0)
-            self.btn_resize_left_panel.setText(">>")
+            self.btn_resize_left_panel.setText(">")
 
     def resize_right_panel(self):
         self.right_panel_resize_flag = not self.right_panel_resize_flag
 
         if(self.right_panel_resize_flag):
             self.right_panel.setFixedWidth(370)
-            self.btn_resize_right_panel.setText(">>")
+            self.btn_resize_right_panel.setText(">")
         else:
             self.right_panel.setFixedWidth(0)
-            self.btn_resize_right_panel.setText("<<")
+            self.btn_resize_right_panel.setText("<")
 
 
 
