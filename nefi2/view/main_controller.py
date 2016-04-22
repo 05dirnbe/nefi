@@ -1237,7 +1237,7 @@ class MainView(base, form):
             """
         # create an widget that displays the pip entry in the ui and connect the remove button
 
-        pip_main_widget = QWidget()
+        pip_main_widget = QWidget() 
         pip_main_widget.setFixedWidth(320)
         pip_main_widget.setFixedHeight(50)
         hbox_layout = QHBoxLayout()
