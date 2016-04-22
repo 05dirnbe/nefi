@@ -36,6 +36,7 @@ class Category:
         """
         _alg_dir = os.path.join('nefi2', 'model', 'algorithms')
         self.name = name
+        self.run_id = 1
         if icon is not None:
             self.icon = icon
         else:
@@ -93,6 +94,12 @@ class Category:
         alg_names = [alg.get_name() for alg in imported_algs
                      if self.name == alg.belongs()]
         return category_alg_map, alg_names
+
+    def set_run_id(self, run_id):
+        self.run_id = run_id
+
+    def get_run_id(self):
+        return self.run_id
 
     def set_active_algorithm(self, alg_name):
         """

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1144</width>
+    <width>1203</width>
     <height>733</height>
    </rect>
   </property>
@@ -349,7 +349,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>30</height>
                </size>
               </property>
               <property name="font">
@@ -369,6 +369,12 @@
             <item>
              <widget class="QToolButton" name="zoom_in">
               <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
                <size>
                 <width>30</width>
                 <height>30</height>
@@ -394,6 +400,12 @@
                 <height>30</height>
                </size>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
               <property name="toolTip">
                <string>Zoom out</string>
               </property>
@@ -410,6 +422,12 @@
             <item>
              <widget class="QToolButton" name="resize">
               <property name="minimumSize">
+               <size>
+                <width>30</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maximumSize">
                <size>
                 <width>30</width>
                 <height>30</height>
@@ -504,13 +522,13 @@
           <widget class="QWidget" name="input_box" native="true">
            <property name="minimumSize">
             <size>
-             <width>350</width>
+             <width>370</width>
              <height>200</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>350</width>
+             <width>370</width>
              <height>200</height>
             </size>
            </property>
@@ -632,7 +650,7 @@
                 <widget class="QToolButton" name="input_btn">
                  <property name="geometry">
                   <rect>
-                   <x>250</x>
+                   <x>265</x>
                    <y>5</y>
                    <width>30</width>
                    <height>30</height>
@@ -771,7 +789,7 @@
                 <widget class="QToolButton" name="output_btn">
                  <property name="geometry">
                   <rect>
-                   <x>250</x>
+                   <x>265</x>
                    <y>5</y>
                    <width>30</width>
                    <height>30</height>
@@ -843,6 +861,9 @@
                  <property name="topMargin">
                   <number>0</number>
                  </property>
+                 <property name="rightMargin">
+                  <number>0</number>
+                 </property>
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
@@ -855,6 +876,9 @@
                     </size>
                    </property>
                    <widget class="QLabel" name="fav_label">
+                    <property name="enabled">
+                     <bool>true</bool>
+                    </property>
                     <property name="geometry">
                      <rect>
                       <x>-10</x>
@@ -947,7 +971,7 @@
                    <widget class="QToolButton" name="open_pip_btn">
                     <property name="geometry">
                      <rect>
-                      <x>250</x>
+                      <x>265</x>
                       <y>5</y>
                       <width>30</width>
                       <height>30</height>
@@ -978,7 +1002,7 @@
                    <widget class="QToolButton" name="save_btn">
                     <property name="geometry">
                      <rect>
-                      <x>286</x>
+                      <x>302</x>
                       <y>5</y>
                       <width>30</width>
                       <height>30</height>
@@ -1118,6 +1142,12 @@
             <property name="leftMargin">
              <number>0</number>
             </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
             <item alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="label">
               <property name="maximumSize">
@@ -1141,8 +1171,8 @@
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>31</height>
+                <width>31</width>
+                <height>50</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1154,8 +1184,8 @@
               <widget class="QToolButton" name="add_btn">
                <property name="geometry">
                 <rect>
-                 <x>251</x>
-                 <y>0</y>
+                 <x>264</x>
+                 <y>10</y>
                  <width>30</width>
                  <height>30</height>
                 </rect>
@@ -1185,8 +1215,8 @@
               <widget class="QToolButton" name="delete_btn">
                <property name="geometry">
                 <rect>
-                 <x>287</x>
-                 <y>0</y>
+                 <x>301</x>
+                 <y>10</y>
                  <width>30</width>
                  <height>30</height>
                 </rect>
@@ -1216,9 +1246,9 @@
               <widget class="QLabel" name="current_pip_label">
                <property name="geometry">
                 <rect>
-                 <x>10</x>
-                 <y>4</y>
-                 <width>241</width>
+                 <x>12</x>
+                 <y>10</y>
+                 <width>130</width>
                  <height>22</height>
                 </rect>
                </property>
@@ -1231,7 +1261,7 @@
                <property name="maximumSize">
                 <size>
                  <width>250</width>
-                 <height>16777215</height>
+                 <height>30</height>
                 </size>
                </property>
                <property name="font">
@@ -1300,8 +1330,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>340</width>
-                 <height>166</height>
+                 <width>350</width>
+                 <height>158</height>
                 </rect>
                </property>
                <property name="sizePolicy">

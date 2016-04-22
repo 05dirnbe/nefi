@@ -22,7 +22,7 @@ import webbrowser
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtGui import QIcon, QPixmap, QPainter
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QEvent
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QEvent, QSize
 from PyQt5.QtWidgets import QBoxLayout, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
     QScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
@@ -45,7 +45,6 @@ class MainView(base, form):
         super(base, self).__init__(parent)
         self.setupUi(self)
 
-        self.pip_run = 0
         self.pipeline = pipeline
         self.pip_widgets = []
         self.default_pips = []
@@ -92,6 +91,8 @@ class MainView(base, form):
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.saveGraphAct)
         self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.runAct)
+        self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.exitAct)
 
         self.viewMenu = QMenu("&View", self)
@@ -104,6 +105,8 @@ class MainView(base, form):
         self.viewMenu.addAction(self.autoClearAct)
         self.viewMenu.addAction(self.resultsOnlyAct)
         self.viewMenu.addAction(self.edgeTransparencyAct)
+        self.viewMenu.addSeparator()
+        self.viewMenu.addAction(self.fullScreenAct)
 
         self.helpMenu = QMenu("&Help", self)
         self.helpMenu.addAction(self.aboutAct)
@@ -171,6 +174,9 @@ class MainView(base, form):
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
 
+        self.runAct = QAction("&Run pipeline", self, shortcut="F1",
+                               triggered=self.run)
+
         self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
                                  enabled=True, triggered=self.MidCustomWidget.zoom_in_)
 
@@ -202,6 +208,11 @@ class MainView(base, form):
                                       checkable=True, checked=False, shortcut="Ctrl+T",
                                       triggered=self.toggleEdgeTransparency)
         self.edgeTransparencyAct.setChecked(False)
+
+        self.fullScreenAct = QAction("&Fullscreen Mode", self, enabled=True,
+                                      checkable=True, checked=False, shortcut="F11",
+                                      triggered=self.toggleFullscreen)
+        self.fullScreenAct.setChecked(False)
 
         self.aboutAct = QAction("&About", self, triggered=self.about)
 
@@ -236,8 +247,8 @@ class MainView(base, form):
 
         iconpath = os.path.join('nefi2', 'icons', 'trash_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.delete_btn.setIcon(q_icon)
+        self.q_icon_trash = QtGui.QIcon(pixmap_icon)
+        self.delete_btn.setIcon(self.q_icon_trash)
 
         iconpath = os.path.join('nefi2', 'icons', 'diskette_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
@@ -371,8 +382,8 @@ class MainView(base, form):
         self.pip_scroll.verticalScrollBar().rangeChanged.connect(self.scroll_down_pip)
         self.clear_immediate_btn.clicked.connect(self.clear_immediate_results)
         self.thread.progess_changed.connect(self.update_progress)
-        self.thread.immediate_results_changed[object, QCheckBox].connect(
-            lambda x=object, y=QCheckBox: self.update_add_immediate_result(x, y))
+        self.thread.immediate_results_changed[object, QCheckBox, QToolButton].connect(
+            lambda x=object, y=QCheckBox, z=QToolButton: self.update_add_immediate_result(x, y, z))
         self.thread.finished.connect(self.process_finish)
         self.open_pip_btn.clicked.connect(self.open_pip_json)
         self.save_btn.clicked.connect(self.save_pip_json)
@@ -414,7 +425,7 @@ class MainView(base, form):
         def set_image():
             self.MidCustomWidget.setCurrentImage(pixmap)
             self.MidCustomWidget.resetImageSize()
-            self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+            self.MidCustomWidget.setPixmap(pixmap)
             self.mid_panel.setTitle(
                 str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(
                     self.pipeline.get_index(cat) + 1))
@@ -478,6 +489,11 @@ class MainView(base, form):
 
     def toggleEdgeTransparency(self):
         _utility.EDGETRANSPARENCY = not _utility.EDGETRANSPARENCY
+
+    def toggleFullscreen(self):
+        self.resize_left_panel()
+        self.resize_right_panel()
+
     """
     def keyPressEvent(self, key):
         if key.modifiers() & Qt.ControlModifier:
@@ -565,6 +581,9 @@ class MainView(base, form):
         the user clicked the clear button
         """
         self.clear_left_side_new_run()
+        self.pipeline.run_id = 0
+        self.pipeline.set_cache()
+        self.MidCustomWidget.clearPixmap()
 
     @pyqtSlot(int)
     def select_default_pip(self, index):
@@ -605,9 +624,10 @@ class MainView(base, form):
         if not self.current_cat:
             return
 
-        graph = self.pipeline.get_cached_graph_by_cat(self.current_cat)
+        graph = self.pipeline.get_cached_graph_by_cat(self.current_cat, self.current_cat.get_run_id())
 
         if not graph:
+            print("Graph not found.")
             return
 
         url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Graph", '', 'Text file (*.txt)')[0])
@@ -662,8 +682,6 @@ class MainView(base, form):
             # parse the json in the model
             try:
                 self.pipeline.load_pipeline_json(url[0][0])
-                # reset pipelines run counter
-                self.pip_run = 0
 
             except Exception as e:
                 print("Failed to load the json at the location: " + url[0][0])
@@ -719,7 +737,7 @@ class MainView(base, form):
         pixmap = QPixmap(event.path)
         self.MidCustomWidget.setCurrentImage(pixmap)
         self.MidCustomWidget.resetImageSize()
-        self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+        self.MidCustomWidget.setPixmap(pixmap)
         settings_widget = None
 
         widget = LeftCustomWidget(event.path, self.MidCustomWidget, self.mid_panel,
@@ -730,7 +748,7 @@ class MainView(base, form):
         self.left_scroll_results_vbox_layout.addWidget(widget, Qt.AlignTop)
 
     @pyqtSlot(object)
-    def update_add_immediate_result(self, event, checkbox):
+    def update_add_immediate_result(self, event, checkbox, delete_button):
         """
         This method gets fired when the pipeline computed a fresh
         immediate result.
@@ -743,7 +761,7 @@ class MainView(base, form):
         pixmap = QPixmap(path)
         self.MidCustomWidget.setCurrentImage(pixmap)
         self.MidCustomWidget.resetImageSize()
-        self.MidCustomWidget.setPixmap(pixmap, self.mid_panel)
+        self.MidCustomWidget.setPixmap(pixmap)
         self.mid_panel.setTitle(
             "Result image - " + str(event.cat.get_name() + " - " + event.cat.active_algorithm.name) + \
             " - Pipeline Position " + str(self.pipeline.get_index(event.cat) + 1))
@@ -765,6 +783,8 @@ class MainView(base, form):
 
         if self.pipeline.get_index(event.cat) is not (len(self.pipeline.executed_cats) - 1):
             checkbox.toggled.connect(widget.setVisible, Qt.UniqueConnection)
+
+        delete_button.clicked.connect(widget.deleteLater, Qt.UniqueConnection)
 
         try:
             self.back_connect_settings(event.cat, pixmap)
@@ -808,14 +828,26 @@ class MainView(base, form):
 
             self.active_immediate_results_group_layout = titelLayout
 
+            timestampLayout = QHBoxLayout()
+            timestampwidget = QWidget()
+            timestampwidget.setLayout(timestampLayout)
+
             timestamp = QLabel()
-            self.pip_run += 1
+            self.pipeline.run_id += 1
             timestamp.setText(
-                self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", Run: " + str(self.pip_run))
+                self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", #" + str(self.pipeline.run_id))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
             timestamp.setContentsMargins(0, 7, 0, 7)
 
+            delete_btn_run = QToolButton()
+            delete_btn_run.setIcon(self.q_icon_trash)
+            delete_btn_run.setToolTip("Delete this pipeline run.")
+
+            timestampLayout.addWidget(timestamp)
+            timestampLayout.addWidget(delete_btn_run, Qt.AlignRight)
+
             show_pipeline = QCheckBox()
+            show_pipeline.setToolTip("Show/Hide intermediate results")
 
             if self.resultsonly:
                 show_pipeline.setChecked(False)
@@ -831,13 +863,18 @@ class MainView(base, form):
             line.setFixedWidth(295)
 
             titelLayout.addWidget(line)
-            titelLayout.addWidget(timestamp, Qt.AlignLeft)
+            titelLayout.addWidget(timestampwidget, Qt.AlignLeft)
             titelLayout.addWidget(show_pipeline, Qt.AlignLeft)
             self.left_scroll_results_vbox_layout.addWidget(title)
             self.right_panel.setEnabled(False)
             self.progress_label.show()
             self.progressbar.show()
             self.thread.setCheckbox(show_pipeline)
+            self.thread.setDeleteBtn(delete_btn_run)
+
+            delete_btn_run.clicked.connect(timestamp.deleteLater, Qt.UniqueConnection)
+            delete_btn_run.clicked.connect(title.deleteLater, Qt.UniqueConnection)
+            delete_btn_run.clicked.connect(show_pipeline.deleteLater , Qt.UniqueConnection)
 
         try:
             if not self.thread.isRunning():
@@ -863,8 +900,8 @@ class MainView(base, form):
             self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
             self.mid_panel.setTitle("Input - Image")
+            self.pipeline.run_id = 0
         # reset pipelines run
-        self.pip_run = 0
 
     @pyqtSlot()
     def save_output_picture(self):
@@ -942,9 +979,6 @@ class MainView(base, form):
 
         # remove the pipeline name
         self.set_pip_title("")
-
-        # reset pipeline run
-        self.pip_run = 0
 
         # remove all entries int the executed_cats of the model pipeline
         del self.pipeline.executed_cats[:]
@@ -1209,6 +1243,7 @@ class MainView(base, form):
         hbox_layout = QHBoxLayout()
         hbox_layout.setAlignment(Qt.AlignLeft)
         hbox_layout.setAlignment(Qt.AlignVCenter)
+        hbox_layout.setContentsMargins(7,0,37,0)
         pip_main_widget.setLayout(hbox_layout)
 
         new_marker = False
@@ -1230,7 +1265,7 @@ class MainView(base, form):
 
         pixmap_label.setFixedHeight(50)
         pixmap_label.setFixedWidth(50)
-        pixmap_label.setContentsMargins(0, -20, 0, 0)
+        #pixmap_label.setContentsMargins(0, -20, 0, 0)
 
         pip_up_down = QWidget()
         pip_up_down.setFixedHeight(30)
@@ -1259,11 +1294,8 @@ class MainView(base, form):
             pixmap_scaled_keeping_aspec = pixmap_icon.scaled(30, 30, QtCore.Qt.KeepAspectRatio)
             pixmap_label.setPixmap(pixmap_scaled_keeping_aspec)
 
-            # btn_plus = QtWidgets.QPushButton()
-            # btn_plus.setFixedSize(20, 20)
-            # btn_plus.setIcon(self.q_icon_plus)
-
-            # hbox_layout.addWidget(btn_plus)
+        if not new_marker:
+            hbox_layout.addWidget(pixmap_label, Qt.AlignRight)
 
         string_label = ClickableQLabel()
         string_label.setText(label)
@@ -1271,18 +1303,15 @@ class MainView(base, form):
             string_label.setFixedHeight(30)
             string_label.setFixedWidth(200)
 
-        btn = QtWidgets.QPushButton()
-        btn.setFixedHeight(30)
-        btn.setFixedWidth(30)
-
-        iconpath = os.path.join('nefi2', 'icons', 'delete_x_white.png')
-        pixmap_icon = QtGui.QPixmap(iconpath)
-        q_icon = QtGui.QIcon(pixmap_icon)
+        btn = QToolButton()
         btn.setIcon(self.q_icon_delete)
+        btn.setIconSize(QtCore.QSize(20, 20))
+        btn.setMaximumHeight(30)
+        btn.setMinimumHeight(30)
+        btn.setMaximumWidth(30)
+        btn.setMinimumWidth(30)
 
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
-        if not new_marker:
-            hbox_layout.addWidget(pixmap_label, Qt.AlignRight)
         hbox_layout.addWidget(btn, Qt.AlignRight)
 
         self.pip_widget_vbox_layout.insertWidget(position, pip_main_widget, Qt.AlignTop)
@@ -1477,6 +1506,7 @@ class MidCustomWidget(QWidget):
         self.scrollArea = QScrollArea_filtered()
         self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrollArea.setWidget(self.imageLabel)
+        self.scrollArea.setAlignment(Qt.AlignHCenter)
         self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrollArea.setFrameShadow(QtWidgets.QFrame.Plain)
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
@@ -1523,12 +1553,14 @@ class MidCustomWidget(QWidget):
         self.scrollArea.horizontalScrollBar().setSliderPosition(
             self.scrollArea.horizontalScrollBar().value() - offset.x() / 50)
 
-    def setPixmap(self, pixmap, mid_panel):
+    def setPixmap(self, pixmap):
         self.setCurrentImage(pixmap)
         if self.auto_fit:
             self.resize_default()
         else:
             self.resize_original()
+    def clearPixmap(self):
+        self.imageLabel.clear()
 
     def resetImageSize(self):
         self.current_image_size = 1.0
@@ -1749,22 +1781,26 @@ class LeftCustomWidget(QWidget):
 
 class ProcessWorker(QtCore.QThread):
     progess_changed = pyqtSignal(object)
-    immediate_results_changed = pyqtSignal(object, QCheckBox)
+    immediate_results_changed = pyqtSignal(object, QCheckBox, QToolButton)
     finished = pyqtSignal()
 
     def __init__(self, pipeline):
         QtCore.QThread.__init__(self)
         self.pipeline = pipeline
         self.checkbox = None
+        self.deleteBtn = None
 
     def update_progress(self, event):
         self.progess_changed.emit(event)
 
     def update_add_immediate_result(self, event):
-        self.immediate_results_changed.emit(event, self.checkbox)
+        self.immediate_results_changed.emit(event, self.checkbox, self.deleteBtn)
 
     def setCheckbox(self, checkbox):
         self.checkbox = checkbox
+
+    def setDeleteBtn(self, deleteBtn):
+        self.deleteBtn = deleteBtn
 
     def run(self):
         try:

@@ -86,6 +86,7 @@ class Pipeline:
         self.original_img = None  # original image file as read first time
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
+        self.run_id = 0
 
     def subscribe_cache_event(self, function):
         """
@@ -189,7 +190,7 @@ class Pipeline:
         to IO operations on the _cache_ directory.>
         """
         # reset cache list
-        self.cache = []
+        #self.cache = []
 
         # create and set output dir name
         img_fpath = self.input_files[0]
@@ -199,6 +200,10 @@ class Pipeline:
                                 '_'.join([pip_name, orig_fname]))
         # check if any algorithm has changed
         for idx, cat in enumerate(self.executed_cats):
+
+            print("Set run id " + str(self.run_id))
+            cat.set_run_id(self.run_id)
+
             if cat.active_algorithm.modified:
                 prev_cat_idx = 0 if idx - 1 < 0 else idx - 1
                 if idx - 1 < 0:
@@ -250,7 +255,7 @@ class Pipeline:
             save_path = os.path.join(out_path, save_fname)
             self.save_results(save_path, save_fname, data)
             # update the cache
-            self.update_cache(cat, save_path, data[1])
+            self.update_cache(cat, save_path)
             cache_path = os.path.join(os.getcwd(), '_cache_', save_fname)
             self.pipeline_memory[num] = [cache_path, data[1], cat.name]
             # release memory
@@ -321,7 +326,7 @@ class Pipeline:
         dir_to_save = os.path.dirname(save_path)
         # exporting graph object
         if results:
-            image_name = os.path.splitext(image_name)[0] + '.txt'
+            image_name = os.path.splitext(image_name)[0] +'.txt'
             nx.write_multiline_adjlist(results, os.path.join(dir_to_save,
                                                                 image_name),
                                        delimiter='|')
@@ -626,6 +631,9 @@ class Pipeline:
         Recreate dir if exists or before running image processing.
         <This is done to make thumbnails in the left pane available in UI.>
         """
+        # reset cache list
+        self.cache = []
+
         if os.path.exists('_cache_'):
             try:
                 shutil.rmtree('_cache_')
@@ -637,7 +645,7 @@ class Pipeline:
         os.mkdir('_cache_')
         self.cache = []
 
-    def get_cached_graph_by_cat(self, cat):
+    def get_cached_graph_by_cat(self, cat, run_id):
         """
         Gets the corresponding graph object (if exists) for a given cat.
         This is needed by the ui to save the graph for the current image.
@@ -653,10 +661,10 @@ class Pipeline:
             if cat is entry[0]:
                 if not entry[2]:
                     return None
-                print("Found cat with corresponding graph " + str(id(entry[2])))
-                return entry[2]
+                print("Found cat with corresponding graph " + str(os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'))
+                return os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'
 
-    def update_cache(self, cat, img_path, graph):
+    def update_cache(self, cat, img_path):
         """
         Copy an img to cache dir and update the cache list.
 
@@ -671,13 +679,16 @@ class Pipeline:
             shutil.copy(img_path, '_cache_')
 
             graph_path = os.path.splitext(img_path)[0] + '.txt'
+            new_graph_path = os.path.splitext(img_path)[0] + "#run_" + str(self.run_id) + '.txt'
 
-            print("Graph file " + str(graph_path))
+            print("Graph file found" + str(graph_path))
+            print("Copy it to " + str(new_graph_path))
 
             cache_graph_path = None
 
             if os.path.exists(graph_path):
-                shutil.copy(graph_path, '_cache_')
+                shutil.copy(graph_path, os.path.join(os.getcwd(), '_cache_',
+                                      os.path.basename(new_graph_path)))
                 cache_graph_path = os.path.join(os.getcwd(), '_cache_',
                                       os.path.basename(graph_path))
 
@@ -693,7 +704,6 @@ class Pipeline:
 
         zope.event.notify(CacheAddEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path, cache_graph_path))
-
 
 class ProgressEvent(object):
     """
