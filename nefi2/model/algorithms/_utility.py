@@ -64,6 +64,11 @@ def draw_edges(img, graph, col=(0, 0, 255)):
         Input image img with nodes drawn into it
     """
     edg_img = numpy.copy(img)
+
+    max_standard_deviation = 0
+    if EDGETRANSPARENCY:
+        max_standard_deviation = find_max_edge_deviation(graph)
+
     for (x1, y1), (x2, y2) in graph.edges_iter():
         start = (y1, x1)
         end = (y2, x2)
@@ -78,25 +83,52 @@ def draw_edges(img, graph, col=(0, 0, 255)):
             print('Warning: edge diameter too large for display. Diameter has been reset.')
             diam = 255
         if EDGETRANSPARENCY:
+            edge_cur_standard_deviation = graph[(x1, y1)][(x2, y2)]['standard_deviation']
+
+            # calculate the opacity based on the condition opacity_max_standard_deviation = 0.8
+            opacity = edge_cur_standard_deviation / max_standard_deviation * 0.8
+
             # access color triple
             (b, g, r) = col
-            # calculate the opacity based on the standard deviation
-            opacity = (width_var % 10) / 10
-            opacity *= 1
+
             # set overlay in this case white
             overlay = (0, 0 ,0) 
             # compute target color based on the transparency formula
             target_col = (b == 0 if 0 else opacity * 255 + (1 - opacity) * b,
                           g == 0 if 0 else opacity * 255 + (1 - opacity) * g,
                           r == 0 if 0 else opacity * 255 + (1 - opacity) * r)
+
             # draw the line
-            cv2.line(edg_img, start, end, target_col, diam)
+            cv2.line(edg_img, start, end, target_col, diam)            
+
         else:
             # simply draw a red line since we are not in the edge transparency mode
             cv2.line(edg_img, start, end, col, diam)
 
     edg_img = cv2.addWeighted(img, 0.5, edg_img, 0.5, 0)
+
+    MAXIMUMSTANDARDDEVIATION = 0
+
     return edg_img
+
+def find_max_edge_deviation(graph):
+    """
+    This methode calculates for each edge its standard deviation and also
+    tracks the maximum standard deviation among all edges.
+    The maximum standard deviation will then be stored in the graph.
+    """
+    max_standard_deviation = 0
+    for (x1, y1), (x2, y2) in graph.edges_iter():
+        deviation = graph[(x1, y1)][(x2, y2)]['width_var']
+        standard_deviation = numpy.sqrt(deviation)
+        graph[(x1, y1)][(x2, y2)]['standard_deviation'] = standard_deviation
+
+        if max_standard_deviation < standard_deviation:
+            max_standard_deviation = standard_deviation
+
+    return max_standard_deviation
+        
+
 
 
 def check_operator(dropdown):
