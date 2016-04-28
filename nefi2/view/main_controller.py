@@ -21,8 +21,8 @@ import webbrowser
 
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-from PyQt5.QtGui import QIcon, QPixmap, QPainter
-from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QEvent, QSize
+from PyQt5.QtGui import QIcon, QPixmap, QPainter, QKeySequence
+from PyQt5.QtCore import Qt, pyqtSignal, pyqtSlot, QEvent, QSize, QFile, QTextStream, QIODevice
 from PyQt5.QtWidgets import QBoxLayout, QSpinBox, QDoubleSpinBox, QSlider, QLabel, QWidget, QHBoxLayout, \
     QVBoxLayout, QStackedWidget, QComboBox, QSizePolicy, QToolButton, QMenu, QAction, QMessageBox, QApplication, \
     QScrollArea, QFrame, QGridLayout, QSplitter, QCheckBox, QSpacerItem
@@ -110,27 +110,41 @@ class MainView(base, form):
 
         self.helpMenu = QMenu("&Help", self)
         self.helpMenu.addAction(self.aboutAct)
+        self.helpMenu.addAction(self.aboutUsedSoftwareAct)
         self.helpMenu.addAction(self.docsAct)
-        self.helpMenu.addAction(self.aboutQtAct)
 
         self.menuBar().addMenu(self.fileMenu)
         self.menuBar().addMenu(self.viewMenu)
         self.menuBar().addMenu(self.helpMenu)
 
     def about(self):
-        QMessageBox.about(self, "About NEFI2",
-                          "<p><b>NEFI 2.0</b> is a Python tool created "
-                          "to extract networks from images. "
-                          "Given a suitable 2D image of a network as input, "
-                          "NEFI outputs a mathematical representation "
-                          "as a weighted undirected planar graph. "
-                          "Representing the structure of the network as a graph "
-                          "enables subsequent studies of its properties "
-                          "using tools and concepts from graph theory.<br><br>"
-                          "<img src='nefi2/icons/logo_mpi.png'><br><br>"
-                          "<b>TODO - AUTHORS <br>"
-                          "TODO - VERSION <br>"
-                          "TODO - REFERENCES </b> <br></p>")
+
+        try:
+            html_file = os.path.join(os.getcwd(), 'about.html')
+            f = QFile(html_file)
+            f.open(QIODevice.ReadOnly)
+            reader = QTextStream(f)
+            reader.setCodec("UTF-8")
+            text = reader.readAll()
+        except FileNotFoundError:
+            print("about.html could not be opened")
+            return
+
+        QMessageBox.about(self, "About NEFI2", text)
+
+    def usedSoftware(self):
+        try:
+            html_file = os.path.join(os.getcwd(), 'about_software.html')
+            f = QFile(html_file)
+            f.open(QIODevice.ReadOnly)
+            reader = QTextStream(f)
+            reader.setCodec("UTF-8")
+            text = reader.readAll()
+        except FileNotFoundError:
+            print("about.html could not be opened")
+            return
+
+        QMessageBox.about(self, "About NEFI2", text)
 
     def open_docs(self):
         index = os.path.join(os.getcwd(), 'nefi2', 'doc', 'documentation',
@@ -174,7 +188,7 @@ class MainView(base, form):
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
 
-        self.runAct = QAction("&Run pipeline", self, shortcut="F1",
+        self.runAct = QAction("&Run pipeline", self, shortcut="Shift+Return",
                                triggered=self.run)
 
         self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
@@ -214,13 +228,12 @@ class MainView(base, form):
                                       triggered=self.toggleFullscreen)
         self.fullScreenAct.setChecked(False)
 
-        self.aboutAct = QAction("&About", self, triggered=self.about)
+        self.aboutAct = QAction("&About NEFI", self, triggered=self.about)
+
+        self.aboutUsedSoftwareAct = QAction("About &Used Software", self,
+                                  triggered=self.usedSoftware)
 
         self.docsAct = QAction("&Documentation", self, triggered=self.open_docs)
-
-        self.aboutQtAct = QAction("About &Qt", self,
-                                  triggered=QApplication.instance().aboutQt)
-
 
     def load_dark_theme(self, application):
         """
