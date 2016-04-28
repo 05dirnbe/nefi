@@ -188,7 +188,7 @@ class MainView(base, form):
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
 
-        self.runAct = QAction("&Run pipeline", self, shortcut="Shift+Return",
+        self.runAct = QAction("&Run Pipeline", self, shortcut="Shift+Return",
                                triggered=self.run)
 
         self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
