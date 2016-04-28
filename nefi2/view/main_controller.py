@@ -1323,6 +1323,7 @@ class MainView(base, form):
         btn.setMinimumHeight(30)
         btn.setMaximumWidth(30)
         btn.setMinimumWidth(30)
+        btn.setToolTip("Delete this step from pipeline.")
 
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
         hbox_layout.addWidget(btn, Qt.AlignRight)
