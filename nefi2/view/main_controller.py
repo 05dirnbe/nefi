@@ -144,7 +144,7 @@ class MainView(base, form):
             print("about.html could not be opened")
             return
 
-        QMessageBox.about(self, "About NEFI2", text)
+        QMessageBox.about(self, "About Software", text)
 
     def open_docs(self):
         index = os.path.join(os.getcwd(), 'nefi2', 'doc', 'documentation',
