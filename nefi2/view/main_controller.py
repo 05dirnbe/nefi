@@ -130,7 +130,7 @@ class MainView(base, form):
             print("about.html could not be opened")
             return
 
-        QMessageBox.about(self, "About NEFI2", text)
+        QMessageBox.about(self, "About NEFI 2", text)
 
     def usedSoftware(self):
         try:
