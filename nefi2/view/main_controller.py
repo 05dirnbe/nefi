@@ -130,7 +130,7 @@ class MainView(base, form):
             print("about.html could not be opened")
             return
 
-        QMessageBox.about(self, "About NEFI2", text)
+        QMessageBox.about(self, "About NEFI 2", text)
 
     def usedSoftware(self):
         try:
@@ -188,7 +188,7 @@ class MainView(base, form):
         self.exitAct = QAction("E&xit", self, shortcut="Ctrl+Q",
                                triggered=self.close)
 
-        self.runAct = QAction("&Run pipeline", self, shortcut="Shift+Return",
+        self.runAct = QAction("&Run Pipeline", self, shortcut="Shift+Return",
                                triggered=self.run)
 
         self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
@@ -1323,6 +1323,7 @@ class MainView(base, form):
         btn.setMinimumHeight(30)
         btn.setMaximumWidth(30)
         btn.setMinimumWidth(30)
+        btn.setToolTip("Delete this step from pipeline.")
 
         hbox_layout.addWidget(string_label, Qt.AlignLeft)
         hbox_layout.addWidget(btn, Qt.AlignRight)
