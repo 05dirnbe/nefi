@@ -241,11 +241,19 @@ class Pipeline:
             # we need to read grayscale if previous category was Segmentation
             data[0] = read_image_file(prev_path, prev_cat_name, start_idx)
 
-        print("start id " + str(start_idx))
         # send old images for unmodified steps
-        if start_idx > 0:
-            for num in range(1, start_idx):
-                zope.event.notify(CacheAddEvent(self.executed_cats[num], self.pipeline_memory[num][0]))
+        if start_idx != 0:
+            for num in range(1, start_idx + 1):
+                current_image_path = self.pipeline_memory[num][0]
+                current_cat = self.executed_cats[num - 1]
+
+                zope.event.notify(CacheAddEvent(
+                    current_cat, 
+                    image_path))
+
+                save_fname = self.get_results_fname(current_image_path, current_cat)
+                save_path = os.path.join(out_path, save_fname)
+                self.save_results(save_path, save_fname, data)
 
         # release memory
         if start_idx != 0:
@@ -276,6 +284,9 @@ class Pipeline:
             self.pipeline_memory[num] = [cache_path, data[1], cat.name]
             # release memory
             cat.active_algorithm.result['img'] = ''
+
+        # save pipeline within the folder
+        self.save_pipeline_json(pip_name, os.path.join(out_path, pip_name))
 
     def process_batch(self):
         """
