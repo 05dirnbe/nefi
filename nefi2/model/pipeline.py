@@ -6,6 +6,8 @@ mechanism over a sequential image processing pipeline. It controls all the
 available image processing categories, handles processing results and works
 as an mediator between the algorithms and UI.
 """
+import time
+
 from nefi2.model.categories._category import Category
 from nefi2.model.algorithms import _utility
 
@@ -87,6 +89,7 @@ class Pipeline:
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
         self.run_id = 0
+        self.timestamp = time.strftime("%H:%M:%S")
 
     def subscribe_cache_event(self, function):
         """
@@ -180,6 +183,12 @@ class Pipeline:
         """
         return self.executed_cats.index(cat)
 
+    def set_timestamp(self):
+        self.timestamp = time.strftime("%H:%M:%S")
+
+    def get_timestamp(self):
+        return self.timestamp
+
     def process(self):
         """
         Process input image selected in UI, save intermediate results in
@@ -197,7 +206,7 @@ class Pipeline:
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
         pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
         out_path = os.path.join(self.out_dir,
-                                '_'.join([pip_name, orig_fname]))
+                                '_'.join([pip_name, orig_fname, "#" + str(self.run_id),  self.get_timestamp()]))
         # check if any algorithm has changed
         for idx, cat in enumerate(self.executed_cats):
 
@@ -232,10 +241,17 @@ class Pipeline:
             # we need to read grayscale if previous category was Segmentation
             data[0] = read_image_file(prev_path, prev_cat_name, start_idx)
 
+        print("start id " + str(start_idx))
+        # send old images for unmodified steps
+        if start_idx > 0:
+            for num in range(1, start_idx):
+                zope.event.notify(CacheAddEvent(self.executed_cats[num], self.pipeline_memory[num][0]))
+
         # release memory
         if start_idx != 0:
             released = [prev_path, data[1] or None, prev_cat_name]
             self.pipeline_memory[prev_cat_idx] = released
+
         # main pipeline loop, execute the pipeline from the modified category
         for num, cat in enumerate(self.executed_cats[start_idx:], start_idx):
             progress = (num / len(self.executed_cats)) * 100
@@ -271,7 +287,7 @@ class Pipeline:
             orig_fname = os.path.splitext(os.path.basename(fpath))[0]
             pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
             dir_name = os.path.join(self.out_dir, '_'.join([pip_name,
-                                                            orig_fname]))
+                                                            orig_fname, "#" + str(self.run_id),  self.get_timestamp()]))
             data = [read_image_file(fpath, '', None), None]
             self.original_img = data[0]
             # process given image with the pipeline

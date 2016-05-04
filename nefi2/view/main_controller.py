@@ -847,8 +847,9 @@ class MainView(base, form):
 
             timestamp = QLabel()
             self.pipeline.run_id += 1
+            self.pipeline.set_timestamp()
             timestamp.setText(
-                self.active_pip_label + " " + str(time.strftime("%H:%M:%S")) + ", #" + str(self.pipeline.run_id))
+                self.active_pip_label + " " + str(self.pipeline.get_timestamp()) + ", #" + str(self.pipeline.run_id))
             timestamp.setStyleSheet("font:Candara; font-size: 11pt;")
             timestamp.setContentsMargins(0, 7, 0, 7)
 
@@ -1289,7 +1290,9 @@ class MainView(base, form):
         pip_up_down.setContentsMargins(-13, -11, 0, 0)
 
         up_btn = QToolButton()
+        up_btn.setStyleSheet("border:0;")
         dw_btn = QToolButton()
+        dw_btn.setStyleSheet("border:0;")
 
         up_btn.setIcon(self.q_icon_up)
         dw_btn.setIcon(self.q_icon_down)
