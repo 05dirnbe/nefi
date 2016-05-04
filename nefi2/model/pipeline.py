@@ -89,7 +89,7 @@ class Pipeline:
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
         self.run_id = 0
-        self.timestamp = time.strftime("%H:%M:%S")
+        self.timestamp = time.strftime("%Hh%Mm%Ss")
 
     def subscribe_cache_event(self, function):
         """
@@ -184,7 +184,7 @@ class Pipeline:
         return self.executed_cats.index(cat)
 
     def set_timestamp(self):
-        self.timestamp = time.strftime("%H:%M:%S")
+        self.timestamp = time.strftime("%Hh%Mm%Ss")
 
     def get_timestamp(self):
         return self.timestamp
@@ -246,11 +246,7 @@ class Pipeline:
             for num in range(1, start_idx + 1):
                 current_image_path = self.pipeline_memory[num][0]
                 current_cat = self.executed_cats[num - 1]
-
-                zope.event.notify(CacheAddEvent(
-                    current_cat, 
-                    image_path))
-
+                zope.event.notify(CacheAddEvent(current_cat,current_image_path))
                 save_fname = self.get_results_fname(current_image_path, current_cat)
                 save_path = os.path.join(out_path, save_fname)
                 self.save_results(save_path, save_fname, data)
