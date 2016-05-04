@@ -1251,12 +1251,12 @@ class MainView(base, form):
         # create an widget that displays the pip entry in the ui and connect the remove button
 
         pip_main_widget = QWidget() 
-        pip_main_widget.setFixedWidth(320)
+        pip_main_widget.setFixedWidth(350)
         pip_main_widget.setFixedHeight(50)
         hbox_layout = QHBoxLayout()
         hbox_layout.setAlignment(Qt.AlignLeft)
         hbox_layout.setAlignment(Qt.AlignVCenter)
-        hbox_layout.setContentsMargins(7,0,37,0)
+        hbox_layout.setContentsMargins(7, 0, 16, 0)
         pip_main_widget.setLayout(hbox_layout)
 
         new_marker = False
@@ -1278,7 +1278,6 @@ class MainView(base, form):
 
         pixmap_label.setFixedHeight(50)
         pixmap_label.setFixedWidth(50)
-        #pixmap_label.setContentsMargins(0, -20, 0, 0)
 
         pip_up_down = QWidget()
         pip_up_down.setFixedHeight(30)
