@@ -17,7 +17,7 @@ You don't need to write tons of boilerplate code, reimplement existing UI widget
 
 ##### Linux
 
-* Make sure you have your **Python 3.4** installed before performing the steps below.
+* Make sure you have your **Python 3.4/3.5** installed before performing the steps below.
 * Install **PyQt5** using you default package manager.
 * Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
 
@@ -36,3 +36,14 @@ You don't need to write tons of boilerplate code, reimplement existing UI widget
 * `./linux_install.sh`
 
 If everything goes well, you can run **NEFI2** by typing in console `nefi2`.
+Note: If your Linux installation uses `python` instead of `python3` to call your python 3 interepreter, you have to replace `python3` with just `python` for the OpenCV installation. It should look like this:
+
+```
+    git clone https://github.com/Itseez/opencv.git
+    git checkout 3.1.0a
+    mkdir release
+    cd release
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python -c "import sys; print(sys.prefix)") -D PYTHON_EXECUTABLE=$(which python) ..
+    make -j4
+    sudo make install
+```
