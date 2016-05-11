@@ -1,1 +1,0 @@
-[["Otsus",{"store_image":false,"type":"Segmentation"}],["Guo Hall Thinning",{"store_image":false,"type":"Thinning"}],["Guo Hall Graph Detection",{"store_image":false,"type":"Graph Detection"}],["Keep only LCC",{"store_image":false,"type":"Graph Filtering"}],["Constant",{"Threshold":127,"store_image":false,"type":"Segmentation"}]]
