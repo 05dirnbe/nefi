@@ -18,7 +18,7 @@ You don't need to write tons of boilerplate code, reimplement existing UI widget
 ##### Linux
 
 * Make sure you have your **Python 3.4/3.5** installed before performing the steps below.
-* Install **PyQt5** using you default package manager.
+* Install **PyQt5** using your default package manager.
 * Next, you'll need to compile **OpenCV 3.1.0** for your Python 3.
 
 ```
