@@ -47,3 +47,7 @@ Note: If your Linux installation uses `python` instead of `python3` to call your
     make -j4
     sudo make install
 ```
+
+##### Windows/OSX (64 Bit)
+
+You can use our precompiled launcher to start NEFI. Download coming soon.
