@@ -50,4 +50,4 @@ Note: If your Linux installation uses `python` instead of `python3` to call your
 
 ##### Windows/OSX (64 Bit)
 
-You can use our precompiled launcher to start NEFI. 
+You can use our precompiled launcher to start NEFI. Download coming soon.
