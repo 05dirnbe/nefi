@@ -50,6 +50,7 @@ def read_image_file(fpath, prev_cat, start_from):
     """
     try:
         if prev_cat == 'Segmentation' and start_from != 0:
+            print("fpath " + str(fpath))
             img = cv2.imread(fpath, cv2.IMREAD_GRAYSCALE)
         else:
             img = cv2.imread(fpath, cv2.IMREAD_COLOR)
@@ -154,6 +155,8 @@ class Pipeline:
         buf = self.executed_cats[origin_pos]
         self.executed_cats[origin_pos] = self.executed_cats[destination_pos]
         self.executed_cats[destination_pos] = buf
+        index= min(origin_pos, destination_pos)
+        self.executed_cats[index].active_algorithm.set_modified()
 
     def delete_category(self, category):
         """
@@ -164,10 +167,14 @@ class Pipeline:
 
         """
         if type(category) == int:
+            if category > 1 and category < len(self.executed_cats) - 2:
+                self.executed_cats[category + 1].active_algorithm.set_modified()
             del self.executed_cats[category]
         elif type(category) == str:
             for i, cat in enumerate(self.executed_cats):
                 if category == cat.name:
+                    if i > 1 and i < len(self.executed_cats) - 2:
+                        self.executed_cats[category + 1].active_algorithm.set_modified()
                     del self.executed_cats[i]
 
     def get_index(self, cat):
@@ -200,7 +207,6 @@ class Pipeline:
         """
         # reset cache list
         #self.cache = []
-
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
@@ -241,16 +247,19 @@ class Pipeline:
             # we need to read grayscale if previous category was Segmentation
             data[0] = read_image_file(prev_path, prev_cat_name, start_idx)
 
+        """
         # send old images for unmodified steps
         if start_idx != 0:
             for num in range(1, start_idx + 1):
                 current_image_path = self.pipeline_memory[num][0]
                 current_cat = self.executed_cats[num - 1]
-                zope.event.notify(CacheAddEvent(current_cat,current_image_path))
+                zope.event.notify(CacheAddEvent(current_cat, current_image_path))
+                #print("current_image_path " + str(current_image_path))
+                #print("current_image_path #2" + str(self.pipeline_memory[num][1]))
                 save_fname = self.get_results_fname(current_image_path, current_cat)
                 save_path = os.path.join(out_path, save_fname)
                 self.save_results(save_path, save_fname, data)
-
+        """
         # release memory
         if start_idx != 0:
             released = [prev_path, data[1] or None, prev_cat_name]
@@ -264,7 +273,7 @@ class Pipeline:
             cat.process(data)
             # reassign results of the prev alg for the next one
             data = list(cat.active_algorithm.result.items())
-            data.sort(key=lambda x: ['img', 'graph'].index(x[0]))
+            data.sort(key=lambda x: ['img', 'graph', 'skeleton'].index(x[0]))
             data = [i[1] for i in data]
             # check if we have graph
             if data[1]:
@@ -303,7 +312,7 @@ class Pipeline:
                 cat.process(data)
                 # reassign results of the prev alg for the next one
                 data = list(cat.active_algorithm.result.items())
-                data.sort(key=lambda x: ['img', 'graph'].index(x[0]))
+                data.sort(key=lambda x: ['img', 'graph', 'skeleton'].index(x[0]))
                 data = [i[1] for i in data]
                 last_cat = cat
             if data[1]:
@@ -331,7 +340,11 @@ class Pipeline:
             os.mkdir(dir_to_save)
         # saving the processed image
         try:
-            saved = cv2.imwrite(save_path, results[0])
+            if results[2] is not None:
+                print("results[2] " + str(results[2]))
+                saved = cv2.imwrite(save_path, results[2])
+            else:
+                saved = cv2.imwrite(save_path, results[0])
             if not saved:
                 print('ERROR in save_results(), ' +
                       'cv2.imwrite could not save the results!')
@@ -353,7 +366,7 @@ class Pipeline:
             nx.write_multiline_adjlist(results, os.path.join(dir_to_save,
                                                                 image_name),
                                        delimiter='|')
-            print('Success!', image_name, 'saved in', dir_to_save)
+            #print('Success!', image_name, 'saved in', dir_to_save)
 
     def sanity_check(self):
         """
@@ -365,7 +378,7 @@ class Pipeline:
         execute it.
 
         Returns:
-            ("", -1) if the pipeline is NOT in an illegae state,
+            ("", -1) if the pipeline is NOT in an illegal state,
             (*message*, i) an error message with the position in pipeline otherwise.
         """
         if len(self.executed_cats) == 0:
@@ -373,20 +386,27 @@ class Pipeline:
         pipeline_cats = self.executed_cats
         is_graph = False
         is_segmented = False
+        is_thinned = False
         for i in range(0, len(pipeline_cats)):
             cat = pipeline_cats[i].get_name()
-            if (cat == "Segmentation" or cat == "Preprocessing") and is_graph:
+            if (cat == "Segmentation" or cat == "Preprocessing" or cat == "Thinning") and is_graph:
                 return (("You cannot process '{0}' after 'Graph Detection'.".format(cat)), pipeline_cats[i])
-            if (cat == "Graph Detection") and is_graph:
+            if (cat == "Segmentation" or cat == "Preprocessing" or cat == "Thinning") and is_thinned:
+                return (("You cannot process '{0}' after 'Thinning'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph Detection" or cat == "Thinning") and is_graph:
                 return (("You cannot process '{0}' more than once.".format(cat)), pipeline_cats[i])
             if (cat == "Graph Filtering") and not is_graph:
                 return (("You need to process 'Graph Detection' before '{0}'.".format(cat)), pipeline_cats[i])
-            if (cat == "Graph Detection") and not is_segmented:
+            if (cat == "Graph Detection" or cat == "Thinning") and not is_segmented:
                 return (("You need to process 'Segmentation' before '{0}'.".format(cat)), pipeline_cats[i])
+            if (cat == "Graph Detection") and not is_thinned:
+                return (("You need to process 'Thinning' before '{0}'.".format(cat)), pipeline_cats[i])
             if cat == "blank":
                 return (("Specify step {0} in the pipeline first.".format(i)), pipeline_cats[i])
             if cat == "Graph Detection":
                 is_graph = True
+            if cat == "Thinning":
+                is_thinned = True
             if cat == "Segmentation":
                 is_segmented = True
         return "", None
@@ -704,8 +724,8 @@ class Pipeline:
             graph_path = os.path.splitext(img_path)[0] + '.txt'
             new_graph_path = os.path.splitext(img_path)[0] + "#run_" + str(self.run_id) + '.txt'
 
-            print("Graph file found" + str(graph_path))
-            print("Copy it to " + str(new_graph_path))
+            #print("Graph file found" + str(graph_path))
+            #print("Copy it to " + str(new_graph_path))
 
             cache_graph_path = None
 

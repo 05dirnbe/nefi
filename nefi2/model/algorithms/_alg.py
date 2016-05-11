@@ -46,7 +46,7 @@ class Algorithm:
         self.name = ""
         self.icon = "./assets/images/missing.png"
         self.parent = ""
-        self.result = {"img": None, "graph": None}
+        self.result = {"img": None, "graph": None, "skeleton": None}
         self.store_image = False
 
     def belongs(self):

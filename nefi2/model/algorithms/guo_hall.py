@@ -35,7 +35,7 @@ class AlgBody(Algorithm):
 
         """
         Algorithm.__init__(self)
-        self.name = "Guo Hall"
+        self.name = "Guo Hall Graph Detection"
         self.parent = "Graph Detection"
 
     def process(self, args):
@@ -49,14 +49,16 @@ class AlgBody(Algorithm):
 
         """
         # create a skeleton
-        skeleton = thinning.guo_hall_thinning(args[0].copy())
+        skeleton = args[2]
+        image = args[0]
         # detect nodes
         graph = zhang_suen_node_detection(skeleton)
         # detect edges
         # graph = breadth_first_edge_detection(skeleton, gray_img, graph)
-        graph = breadth_first_edge_detection(skeleton, args[0], graph)
-        skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
-        self.result['graph'], self.result['img'] = graph, skeleton
+        graph = breadth_first_edge_detection(skeleton, image, graph)
+        #skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
+        self.result['graph'] = graph
+        self.result['img'] = image
 
 def zhang_suen_node_detection(skel):
     """

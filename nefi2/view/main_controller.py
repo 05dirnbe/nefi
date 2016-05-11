@@ -664,13 +664,14 @@ class MainView(base, form):
         This method allows the user to save its pip json on the file system
         while clicking the save_btn
         """
-        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Pipeline", '', 'JSON file (*.json)')[0])
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Pipeline", '')[0])
         try:
             if url[0]:
                 name = os.path.basename(url)
                 print(url)
                 print(name)
                 self.pipeline.save_pipeline_json(name, url)
+                self.fav_pips_combo_box.setCurrentIndex(0)
         except Exception as e:
             print("Failed to save pip json on file system")
             traceback.print_exc()
