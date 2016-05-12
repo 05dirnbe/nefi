@@ -50,7 +50,6 @@ def read_image_file(fpath, prev_cat, start_from):
     """
     try:
         if prev_cat == 'Segmentation' and start_from != 0:
-            print("fpath " + str(fpath))
             img = cv2.imread(fpath, cv2.IMREAD_GRAYSCALE)
         else:
             img = cv2.imread(fpath, cv2.IMREAD_COLOR)
@@ -341,7 +340,6 @@ class Pipeline:
         # saving the processed image
         try:
             if results[2] is not None:
-                print("results[2] " + str(results[2]))
                 saved = cv2.imwrite(save_path, results[2])
             else:
                 saved = cv2.imwrite(save_path, results[0])
@@ -718,15 +716,10 @@ class Pipeline:
 
         """
         try:
-            print("img_path " + str(img_path))
             shutil.copy(img_path, '_cache_')
 
             graph_path = os.path.splitext(img_path)[0] + '.txt'
             new_graph_path = os.path.splitext(img_path)[0] + "#run_" + str(self.run_id) + '.txt'
-
-            #print("Graph file found" + str(graph_path))
-            #print("Copy it to " + str(new_graph_path))
-
             cache_graph_path = None
 
             if os.path.exists(graph_path):
