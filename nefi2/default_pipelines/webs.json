@@ -1,0 +1,5 @@
+[["Invert Color",{"channel1":2,"channel2":true,"channel3":true,"store_image":false,"type":"Preprocessing"}],
+["Bilateral",{"channel1":true,"channel2":true,"channel3":true,"diameter":1,"sigmaColor":165.8,"sigmaSpace":131.5,"store_image":false,"type":"Preprocessing"}],
+["Constant",{"Threshold":165,"store_image":false,"type":"Segmentation"}],
+["Guo Hall Thinning",{"store_image":false,"type":"Thinning"}],["Guo Hall Graph Detection",{"store_image":false,"type":"Graph Detection"}],
+["Smooth 2 Nodes",{"store_image":false,"type":"Graph Filtering"}]]
