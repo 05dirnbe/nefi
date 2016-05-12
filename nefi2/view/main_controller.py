@@ -1630,6 +1630,10 @@ class MidCustomWidget(QWidget):
         self.imageLabel.setPixmap(pixmap)
 
     def set_scroll(self):
+        if self.scrollX is None:
+            return
+        if self.scrollY is None:
+            return
         self.scrollArea.verticalScrollBar().setValue(self.scrollY)
         self.scrollArea.horizontalScrollBar().setValue(self.scrollX)
 
