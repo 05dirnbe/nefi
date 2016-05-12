@@ -96,12 +96,12 @@ class AlgBody(Algorithm):
                     args[1].remove_node(n)
                     nodes_removed.append(n)
 
-            print ('Smoothed a total of', len(
+            print('Smoothed a total of', len(
                 nodes_removed), 'degree 2 nodes ...')
 
         except:
 
-            print ("Unexpected error:", sys.exc_info()[0])
+            print("Unexpected error:", sys.exc_info()[0])
 
         self.result['img'] = args[0]
         self.result['graph'] = args[1]

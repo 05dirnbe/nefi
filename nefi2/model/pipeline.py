@@ -21,7 +21,6 @@ import copy
 import zope.event.classhandler
 import cv2
 
-
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennis Groß": "gdennis91@googlemail.com",
                "Philipp Reichert": "prei@me.com"}
@@ -55,7 +54,7 @@ def read_image_file(fpath, prev_cat, start_from):
             img = cv2.imread(fpath, cv2.IMREAD_COLOR)
     except (IOError, cv2.error) as ex:
         print(ex)
-        print('ERROR in read_image_file() '+
+        print('ERROR in read_image_file() ' +
               'Cannot read the image file, make sure it is readable')
         sys.exit(1)
     return img
@@ -154,7 +153,34 @@ class Pipeline:
         buf = self.executed_cats[origin_pos]
         self.executed_cats[origin_pos] = self.executed_cats[destination_pos]
         self.executed_cats[destination_pos] = buf
-        index= min(origin_pos, destination_pos)
+        index = min(origin_pos, destination_pos)
+        self.executed_cats[index].active_algorithm.set_modified()
+
+    def swap_category(self, pos1, pos2):
+        """
+        Swap two Category instances within the pipeline using indices.
+
+        Args:
+            | *pos1* (int): Category 1 index number
+            | *pos2* (int): Category 2 index number
+
+        """
+
+        if pos1 == pos2:
+            return
+        if pos1 < 0 or pos2 < 0:
+            return
+        if pos1 > len(self.executed_cats) or pos2 > len(self.executed_cats):
+            return
+
+        index = min(pos1, pos2)
+
+        cat1 = self.executed_cats[pos1]
+        cat2 = self.executed_cats[pos2]
+
+        self.executed_cats[pos1] = cat2
+        self.executed_cats[pos2] = cat1
+
         self.executed_cats[index].active_algorithm.set_modified()
 
     def delete_category(self, category):
@@ -166,15 +192,15 @@ class Pipeline:
 
         """
         if type(category) == int:
-            if category > 1 and category < len(self.executed_cats) - 2:
-                self.executed_cats[category + 1].active_algorithm.set_modified()
             del self.executed_cats[category]
+            if len(self.executed_cats) > 0 and category < len(self.executed_cats):
+                self.executed_cats[category].active_algorithm.set_modified()
         elif type(category) == str:
             for i, cat in enumerate(self.executed_cats):
                 if category == cat.name:
-                    if i > 1 and i < len(self.executed_cats) - 2:
-                        self.executed_cats[category + 1].active_algorithm.set_modified()
                     del self.executed_cats[i]
+                    if len(self.executed_cats) > 0 and category < len(self.executed_cats):
+                        self.executed_cats[category].active_algorithm.set_modified()
 
     def get_index(self, cat):
         """
@@ -205,19 +231,16 @@ class Pipeline:
         to IO operations on the _cache_ directory.>
         """
         # reset cache list
-        #self.cache = []
+        # self.cache = []
         # create and set output dir name
         img_fpath = self.input_files[0]
         orig_fname = os.path.splitext(os.path.basename(img_fpath))[0]
         pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
         out_path = os.path.join(self.out_dir,
-                                '_'.join([pip_name, orig_fname, "#" + str(self.run_id),  self.get_timestamp()]))
+                                '_'.join([pip_name, orig_fname, "#" + str(self.run_id), self.get_timestamp()]))
         # check if any algorithm has changed
         for idx, cat in enumerate(self.executed_cats):
-
-            print("Set run id " + str(self.run_id))
             cat.set_run_id(self.run_id)
-
             if cat.active_algorithm.modified:
                 prev_cat_idx = 0 if idx - 1 < 0 else idx - 1
                 if idx - 1 < 0:
@@ -227,9 +250,11 @@ class Pipeline:
                     start_idx = idx
                     prev_cat_name = self.executed_cats[prev_cat_idx].name
                 break
-            prev_cat_idx = 0
-            start_idx = 0
+            prev_cat_idx = len(self.executed_cats) - 1
+            start_idx = len(self.executed_cats)
             prev_cat_name = self.executed_cats[prev_cat_idx].name
+
+        print("Start pipeline at " + str(start_idx))
 
         # decide which category to continue from if any, act accordingly
         if prev_cat_idx == 0 and start_idx == 0:
@@ -302,7 +327,7 @@ class Pipeline:
             orig_fname = os.path.splitext(os.path.basename(fpath))[0]
             pip_name = os.path.splitext(os.path.basename(self.pipeline_path))[0]
             dir_name = os.path.join(self.out_dir, '_'.join([pip_name,
-                                                            orig_fname, "#" + str(self.run_id),  self.get_timestamp()]))
+                                                            orig_fname, "#" + str(self.run_id), self.get_timestamp()]))
             data = [read_image_file(fpath, '', None), None]
             self.original_img = data[0]
             # process given image with the pipeline
@@ -360,11 +385,11 @@ class Pipeline:
         dir_to_save = os.path.dirname(save_path)
         # exporting graph object
         if results:
-            image_name = os.path.splitext(image_name)[0] +'.txt'
+            image_name = os.path.splitext(image_name)[0] + '.txt'
             nx.write_multiline_adjlist(results, os.path.join(dir_to_save,
-                                                                image_name),
+                                                             image_name),
                                        delimiter='|')
-            #print('Success!', image_name, 'saved in', dir_to_save)
+            # print('Success!', image_name, 'saved in', dir_to_save)
 
     def sanity_check(self):
         """
@@ -702,7 +727,8 @@ class Pipeline:
             if cat is entry[0]:
                 if not entry[2]:
                     return None
-                print("Found cat with corresponding graph " + str(os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'))
+                print("Found cat with corresponding graph " + str(
+                    os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'))
                 return os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'
 
     def update_cache(self, cat, img_path):
@@ -724,9 +750,9 @@ class Pipeline:
 
             if os.path.exists(graph_path):
                 shutil.copy(graph_path, os.path.join(os.getcwd(), '_cache_',
-                                      os.path.basename(new_graph_path)))
+                                                     os.path.basename(new_graph_path)))
                 cache_graph_path = os.path.join(os.getcwd(), '_cache_',
-                                      os.path.basename(graph_path))
+                                                os.path.basename(graph_path))
 
         except (IOError, OSError) as ex:
             print(ex)
@@ -740,6 +766,7 @@ class Pipeline:
 
         zope.event.notify(CacheAddEvent(cat, cache_img_path))
         self.cache.append((cat, cache_img_path, cache_graph_path))
+
 
 class ProgressEvent(object):
     """

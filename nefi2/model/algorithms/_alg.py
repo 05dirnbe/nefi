@@ -38,7 +38,7 @@ class Algorithm:
 
         """
         # QObject.__init__(self)
-        self.modified = True
+        self.modified = False
         self.integer_sliders = []
         self.float_sliders = []
         self.checkboxes = []
@@ -158,12 +158,14 @@ class Algorithm:
         """
         Set modified to False
         """
+        print("UnSet modified")
         self.modified = False
 
     def set_modified(self):
         """
         Set modified to True
         """
+        print("Set modified")
         self.modified = True
 
     @pyqtSlot(bool)

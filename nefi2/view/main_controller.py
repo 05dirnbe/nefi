@@ -153,7 +153,7 @@ class MainView(base, form):
 
     def print_(self):
 
-        if (self.MidCustomWidget.getCurrentImage() is None):
+        if self.MidCustomWidget.getCurrentImage() is None:
             return
 
         dialog = QPrintDialog(self.printer, self)
@@ -189,7 +189,7 @@ class MainView(base, form):
                                triggered=self.close)
 
         self.runAct = QAction("&Run Pipeline", self, shortcut="Shift+Return",
-                               triggered=self.run)
+                              triggered=self.run)
 
         self.zoomInAct = QAction("Zoom &In (25%)", self, shortcut="Ctrl++",
                                  enabled=True, triggered=self.MidCustomWidget.zoom_in_)
@@ -219,19 +219,19 @@ class MainView(base, form):
                                       triggered=self.set_resultsonly)
 
         self.edgeTransparencyAct = QAction("&Edge Transparency", self, enabled=True,
-                                      checkable=True, checked=False, shortcut="Ctrl+T",
-                                      triggered=self.toggleEdgeTransparency)
+                                           checkable=True, checked=False, shortcut="Ctrl+T",
+                                           triggered=self.toggleEdgeTransparency)
         self.edgeTransparencyAct.setChecked(False)
 
         self.fullScreenAct = QAction("&Fullscreen Mode", self, enabled=True,
-                                      checkable=True, checked=False, shortcut="F11",
-                                      triggered=self.toggleFullscreen)
+                                     checkable=True, checked=False, shortcut="F11",
+                                     triggered=self.toggleFullscreen)
         self.fullScreenAct.setChecked(False)
 
         self.aboutAct = QAction("&About NEFI", self, triggered=self.about)
 
         self.aboutUsedSoftwareAct = QAction("About &Used Software", self,
-                                  triggered=self.usedSoftware)
+                                            triggered=self.usedSoftware)
 
         self.docsAct = QAction("&Documentation", self, triggered=self.open_docs)
 
@@ -437,7 +437,7 @@ class MainView(base, form):
 
         def set_image():
             self.MidCustomWidget.setCurrentImage(pixmap)
-            self.MidCustomWidget.resetImageSize()
+            #self.MidCustomWidget.resetImageSize()
             self.MidCustomWidget.setPixmap(pixmap)
             self.mid_panel.setTitle(
                 str(cat.get_name() + " " + cat.active_algorithm.name) + " - Pipeline Position " + str(
@@ -449,8 +449,7 @@ class MainView(base, form):
     @pyqtSlot()
     def get_current_image(self, image, cat=None):
         self.MidCustomWidget.setCurrentImage(image)
-        self.MidCustomWidget.resize_default()
-
+        #self.MidCustomWidget.resize_default()
 
         self.current_cat = cat
         print("Current cat " + str(self.current_cat))
@@ -557,7 +556,7 @@ class MainView(base, form):
     def resize_left_panel(self):
         self.left_panel_resize_flag = not self.left_panel_resize_flag
 
-        if(self.left_panel_resize_flag):
+        if (self.left_panel_resize_flag):
             self.left_panel.setFixedWidth(350)
             self.btn_resize_left_panel.setText("<")
         else:
@@ -567,14 +566,12 @@ class MainView(base, form):
     def resize_right_panel(self):
         self.right_panel_resize_flag = not self.right_panel_resize_flag
 
-        if(self.right_panel_resize_flag):
+        if (self.right_panel_resize_flag):
             self.right_panel.setFixedWidth(370)
             self.btn_resize_right_panel.setText(">")
         else:
             self.right_panel.setFixedWidth(0)
             self.btn_resize_right_panel.setText("<")
-
-
 
     def set_pip_title(self, title):
         """
@@ -598,116 +595,6 @@ class MainView(base, form):
         self.pipeline.set_cache()
         self.MidCustomWidget.clearPixmap()
 
-    @pyqtSlot(int)
-    def select_default_pip(self, index):
-        """
-        This is the slot for the Pipeline combobox in the ui
-        Args:
-            index: index of the option currently selected
-        """
-
-        if index < 1:
-            self.trash_pipeline()
-            return
-
-        # delete current pipeline
-
-        self.trash_pipeline()
-
-        # get url and name
-        name, url = self.default_pips[index - 1]
-
-        # parse the json in the model
-        try:
-            self.pipeline.load_pipeline_json(url)
-        except Exception as e:
-            print("Failed to load default pip: " + name + " received parser error")
-            traceback.print_exc()
-            return
-
-        # set the title
-        self.set_pip_title(name)
-
-        # Create an entry in the pipeline widget for every step in the pipeline
-        for i in range(0, len(self.pipeline.executed_cats)):
-            self.add_pipe_entry(i)
-
-    def save_graph(self):
-
-        if not self.current_cat:
-            return
-
-        graph = self.pipeline.get_cached_graph_by_cat(self.current_cat, self.current_cat.get_run_id())
-
-        if not graph:
-            print("Graph not found.")
-            return
-
-        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Graph", '', 'Text file (*.txt)')[0])
-
-        try:
-            if url[0] and self.current_cat:
-                name = os.path.basename(url)
-                print(url)
-                print(name)
-                print("Try to save current graph. Found cat " + str(self.current_cat))
-                print("Found graph " + str(id(graph)) + "  Saving it on file system.")
-                shutil.copy(graph, url)
-        except Exception as e:
-            print("Failed to save graph on file system")
-            traceback.print_exc()
-            return
-
-    @pyqtSlot()
-    def save_pip_json(self):
-        """
-        This method allows the user to save its pip json on the file system
-        while clicking the save_btn
-        """
-        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Pipeline", '')[0])
-        try:
-            if url[0]:
-                name = os.path.basename(url)
-                print(url)
-                print(name)
-                self.pipeline.save_pipeline_json(name, url)
-                self.fav_pips_combo_box.setCurrentIndex(0)
-        except Exception as e:
-            print("Failed to save pip json on file system")
-            traceback.print_exc()
-            return
-
-        self.set_pip_title(os.path.basename(url))
-
-    @pyqtSlot()
-    def open_pip_json(self):
-        """
-        This method provides the logic for the open_pip_btn which lets the user load a
-        pip json from an abritary location of the file system.
-        """
-        url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Pipeline', '',
-                                                     'JSON file (*.json)')
-        if url[0]:
-
-            # delete current pipeline
-
-            self.trash_pipeline()
-
-            # parse the json in the model
-            try:
-                self.pipeline.load_pipeline_json(url[0][0])
-
-            except Exception as e:
-                print("Failed to load the json at the location: " + url[0][0])
-                traceback.print_exc()
-                return
-
-            # set the title
-            self.set_pip_title(os.path.basename(url[0][0]))
-
-            # Create an entry in the pipeline widget for every step in the pipeline
-            for i in range(0, len(self.pipeline.executed_cats)):
-                self.add_pipe_entry(i)
 
     @pyqtSlot(object)
     def update_progress(self, event):
@@ -750,7 +637,6 @@ class MainView(base, form):
 
         pixmap = QPixmap(event.path)
         self.MidCustomWidget.setCurrentImage(pixmap)
-        self.MidCustomWidget.resetImageSize()
         self.MidCustomWidget.setPixmap(pixmap)
         settings_widget = None
 
@@ -774,7 +660,7 @@ class MainView(base, form):
 
         pixmap = QPixmap(path)
         self.MidCustomWidget.setCurrentImage(pixmap)
-        self.MidCustomWidget.resetImageSize()
+        #self.MidCustomWidget.resetImageSize()
         self.MidCustomWidget.setPixmap(pixmap)
         self.mid_panel.setTitle(
             "Result image - " + str(event.cat.get_name() + " - " + event.cat.active_algorithm.name) + \
@@ -889,7 +775,7 @@ class MainView(base, form):
 
             delete_btn_run.clicked.connect(timestamp.deleteLater, Qt.UniqueConnection)
             delete_btn_run.clicked.connect(title.deleteLater, Qt.UniqueConnection)
-            delete_btn_run.clicked.connect(show_pipeline.deleteLater , Qt.UniqueConnection)
+            delete_btn_run.clicked.connect(show_pipeline.deleteLater, Qt.UniqueConnection)
 
         try:
             if not self.thread.isRunning():
@@ -904,6 +790,116 @@ class MainView(base, form):
         self.progress_label.hide()
         self.progressbar.hide()
 
+    @pyqtSlot(int)
+    def select_default_pip(self, index):
+        """
+        This is the slot for the Pipeline combobox in the ui
+        Args:
+            index: index of the option currently selected
+        """
+
+        if index < 1:
+            self.trash_pipeline()
+            return
+
+        # delete current pipeline
+
+        self.trash_pipeline()
+
+        # get url and name
+        name, url = self.default_pips[index - 1]
+
+        # parse the json in the model
+        try:
+            self.pipeline.load_pipeline_json(url)
+        except Exception as e:
+            print("Failed to load default pip: " + name + " received parser error")
+            traceback.print_exc()
+            return
+
+        # set the title
+        self.set_pip_title(name)
+
+        # Create an entry in the pipeline widget for every step in the pipeline
+        for i in range(0, len(self.pipeline.executed_cats)):
+            self.add_pipe_entry(i)
+
+    def save_graph(self):
+
+        if not self.current_cat:
+            return
+
+        graph = self.pipeline.get_cached_graph_by_cat(self.current_cat, self.current_cat.get_run_id())
+
+        if not graph:
+            print("Graph not found.")
+            return
+
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Graph", '', 'Text file (*.txt)')[0])
+
+        try:
+            if url[0] and self.current_cat:
+                name = os.path.basename(url)
+                print(url)
+                print(name)
+                print("Try to save current graph. Found cat " + str(self.current_cat))
+                print("Found graph " + str(id(graph)) + "  Saving it on file system.")
+                shutil.copy(graph, url)
+        except Exception as e:
+            print("Failed to save graph on file system")
+            traceback.print_exc()
+            return
+
+    @pyqtSlot()
+    def save_pip_json(self):
+        """
+        This method allows the user to save its pip json on the file system
+        while clicking the save_btn
+        """
+        url = str(QtWidgets.QFileDialog.getSaveFileName(self, "Save Pipeline", '')[0])
+        try:
+            if url[0]:
+                name = os.path.basename(url)
+                print(url)
+                print(name)
+                self.pipeline.save_pipeline_json(name, url)
+                self.fav_pips_combo_box.setCurrentIndex(0)
+        except Exception as e:
+            print("Failed to save pip json on file system")
+            traceback.print_exc()
+            return
+
+        self.set_pip_title(os.path.basename(url))
+
+    @pyqtSlot()
+    def open_pip_json(self):
+        """
+        This method provides the logic for the open_pip_btn which lets the user load a
+        pip json from an abritary location of the file system.
+        """
+        url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Pipeline', '',
+                                                     'JSON file (*.json)')
+        if url[0]:
+
+            # delete current pipeline
+            self.trash_pipeline()
+
+            # parse the json in the model
+            try:
+                self.pipeline.load_pipeline_json(url[0][0])
+
+            except Exception as e:
+                print("Failed to load the json at the location: " + url[0][0])
+                traceback.print_exc()
+                return
+
+            # set the title
+            self.set_pip_title(os.path.basename(url[0][0]))
+
+            # Create an entry in the pipeline widget for every step in the pipeline
+            for i in range(0, len(self.pipeline.executed_cats)):
+                self.add_pipe_entry(i)
+
     @pyqtSlot()
     def set_input_url(self):
         """
@@ -912,11 +908,15 @@ class MainView(base, form):
         url = QtWidgets.QFileDialog.getOpenFileNames(self, 'Open Image', '',
                                                      'Images (*.jpg *.jpeg *.png *.tif *.tiff)')
         if url[0]:
+
+            # reset current pipeline
+            self.reset_pipeline()
+
             self.clear_left_side_new_image()
             self.pipeline.set_input(url[0][0])
             self.mid_panel.setTitle("Input - Image")
             self.pipeline.run_id = 0
-        # reset pipelines run
+            # reset pipelines run
 
     @pyqtSlot()
     def save_output_picture(self):
@@ -976,6 +976,14 @@ class MainView(base, form):
                 url = os.path.join('nefi2', 'default_pipelines', pip)
                 self.default_pips.append([name, url])
                 self.fav_pips_combo_box.addItem(name)
+
+    def reset_pipeline(self):
+        """
+        This method reset the current pipeline while users loaded a new image
+        """
+
+        for idx, cat in enumerate(self.pipeline.executed_cats):
+            cat.active_algorithm.set_modified()
 
     def trash_pipeline(self):
         """
@@ -1252,7 +1260,7 @@ class MainView(base, form):
             """
         # create an widget that displays the pip entry in the ui and connect the remove button
 
-        pip_main_widget = QWidget() 
+        pip_main_widget = QWidget()
         pip_main_widget.setFixedWidth(350)
         pip_main_widget.setFixedHeight(50)
         hbox_layout = QHBoxLayout()
@@ -1466,8 +1474,10 @@ class MainView(base, form):
 
         # Create new entries
 
-        self.pipeline.executed_cats[pos1] = cat2
-        self.pipeline.executed_cats[pos2] = cat1
+        # self.pipeline.executed_cats[pos1] = cat2
+        # self.pipeline.executed_cats[pos2] = cat1
+
+        self.pipeline.swap_category(pos1, pos2)
 
         self.add_pipe_entry(pos1)
         self.add_pipe_entry(pos2)
@@ -1482,7 +1492,7 @@ class QScrollArea_filtered(QScrollArea):
 
     def eventFilter(self, obj, event):
         if event.type() == QEvent.Wheel:
-            if (event.modifiers() & Qt.ControlModifier):
+            if event.modifiers() & Qt.ControlModifier:
                 if event.angleDelta().y() < 0:
                     self.zoom_out.emit()
                 else:
@@ -1514,6 +1524,9 @@ class MidCustomWidget(QWidget):
         self.offset = 0
         self.pixels_x = None
         self.pixels_y = None
+        self.scrollX = None
+        self.scrollY = None
+        self.zoomed = False
 
         self.imageLabel = QLabel()
         self.imageLabel.setAlignment(Qt.AlignCenter)
@@ -1537,9 +1550,17 @@ class MidCustomWidget(QWidget):
         self.scrollArea.zoom_in.connect(self.zoom_in_)
         self.scrollArea.zoom_out.connect(self.zoom_out_)
         self.scrollArea.horizontalScrollBar().rangeChanged[int, int].connect(
-            lambda min, max: self.handle_zoom_x(min, max, ))
+            lambda min, max: self.handle_scroll_x(min, max, ))
         self.scrollArea.verticalScrollBar().rangeChanged[int, int].connect(
-            lambda min, max: self.handle_zoom_y(min, max, ))
+            lambda min, max: self.handle_scroll_y(min, max, ))
+        self.scrollArea.horizontalScrollBar().valueChanged.connect(self.saveHBar)
+        self.scrollArea.verticalScrollBar().valueChanged.connect(self.saveVBar)
+
+    def saveHBar(self, value):
+        self.scrollX = value
+
+    def saveVBar(self, value):
+        self.scrollY = value
 
     def mousePressEvent(self, QMouseEvent):
         self.setCursor(Qt.ClosedHandCursor)
@@ -1549,7 +1570,7 @@ class MidCustomWidget(QWidget):
         self.setCursor(Qt.ArrowCursor)
 
     def mouseMoveEvent(self, QMouseEvent):
-        if (QMouseEvent.buttons() & Qt.LeftButton):
+        if QMouseEvent.buttons() & Qt.LeftButton:
             self.move(QMouseEvent.pos() - self.offset)
 
     """
@@ -1565,6 +1586,10 @@ class MidCustomWidget(QWidget):
     """
 
     def move(self, offset):
+
+        print("BADDSd")
+        self.zoomed = True
+
         self.scrollArea.verticalScrollBar().setSliderPosition(
             self.scrollArea.verticalScrollBar().value() - offset.y() / 50)
         self.scrollArea.horizontalScrollBar().setSliderPosition(
@@ -1572,10 +1597,18 @@ class MidCustomWidget(QWidget):
 
     def setPixmap(self, pixmap):
         self.setCurrentImage(pixmap)
+
+        if self.zoomed:
+            self.set_zoom()
+            self.set_scroll()
+            #print("Reset image zoom and position")
+            return
+
         if self.auto_fit:
             self.resize_default()
         else:
             self.resize_original()
+
     def clearPixmap(self):
         self.imageLabel.clear()
 
@@ -1588,31 +1621,43 @@ class MidCustomWidget(QWidget):
     def getCurrentImage(self):
         return self.current_image_original
 
-    @pyqtSlot()
-    def handle_zoom_y(self, min, max):
+    def set_zoom(self):
+        pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
+                                                    self.current_image_original.width() * self.current_image_size,
+                                                    QtCore.Qt.KeepAspectRatio, Qt.FastTransformation)
 
-        if self.pixels_y == None:
+        self.imageLabel.setGeometry(0, 0, pixmap.width() + 22, pixmap.height() + 22)
+        self.imageLabel.setPixmap(pixmap)
+
+    def set_scroll(self):
+        self.scrollArea.verticalScrollBar().setValue(self.scrollY)
+        self.scrollArea.horizontalScrollBar().setValue(self.scrollX)
+
+    @pyqtSlot()
+    def handle_scroll_y(self, min, max):
+
+        if self.pixels_y is None:
             return
 
         delta = self.scrollArea.verticalScrollBar().maximum() - self.pixels_y
         # print("y delta " + str(delta))
 
-        value = self.scrollArea.verticalScrollBar().value() + delta / 2
-        self.scrollArea.verticalScrollBar().setValue(value)
+        self.scrollY = self.scrollArea.verticalScrollBar().value() + delta / 2
+        self.scrollArea.verticalScrollBar().setValue(self.scrollY)
 
         self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
 
     @pyqtSlot()
-    def handle_zoom_x(self, min, max):
+    def handle_scroll_x(self, min, max):
 
-        if self.pixels_x == None:
+        if self.pixels_x is None:
             return
 
         delta = self.scrollArea.horizontalScrollBar().maximum() - self.pixels_x
         # print("x delta " + str(delta))
 
-        value = self.scrollArea.horizontalScrollBar().value() + delta / 2
-        self.scrollArea.horizontalScrollBar().setValue(value)
+        self.scrollX = self.scrollArea.horizontalScrollBar().value() + delta / 2
+        self.scrollArea.horizontalScrollBar().setValue(self.scrollX)
 
         self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
 
@@ -1622,10 +1667,12 @@ class MidCustomWidget(QWidget):
         if self.current_image_size < 0.1:
             return
 
+        self.zoomed = True
+
         self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
         self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
 
-        self.current_image_size = self.current_image_size * 0.85
+        self.current_image_size *= 0.85
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
                                                     QtCore.Qt.KeepAspectRatio, Qt.FastTransformation)
@@ -1639,10 +1686,12 @@ class MidCustomWidget(QWidget):
         if self.current_image_size > 3:
             return
 
+        self.zoomed = True
+
         self.pixels_x = self.scrollArea.horizontalScrollBar().maximum()
         self.pixels_y = self.scrollArea.verticalScrollBar().maximum()
 
-        self.current_image_size = self.current_image_size * 1.25
+        self.current_image_size *= 1.25
         pixmap = self.current_image_original.scaled(self.current_image_original.width() * self.current_image_size,
                                                     self.current_image_original.width() * self.current_image_size,
                                                     QtCore.Qt.KeepAspectRatio, Qt.FastTransformation)
@@ -1652,6 +1701,8 @@ class MidCustomWidget(QWidget):
     def resize_original(self):
         if not self.current_image_original:
             return
+
+        self.zoomed = False
 
         self.current_image_size = 1.0
         self.imageLabel.setGeometry(0, 0, self.current_image_original.width() + 22,
@@ -1663,6 +1714,9 @@ class MidCustomWidget(QWidget):
             return
         if not self.auto_fit and not force:
             return
+
+        self.zoomed = False
+
         original_width = self.current_image_original.width()
         if original_width != 0:
             self.current_image_size = self.mid_panel.width() / original_width
@@ -1778,6 +1832,7 @@ class LeftCustomWidget(QWidget):
                 self.mid_panel.setTitle(self.image_name + " - Already Removed From Pipeline")
 
             self.MidCustomWidget.setCurrentImage(self.pixmap)
+            self.MidCustomWidget.setPixmap(self.pixmap)
 
             # Connect the trigger signal to a slot.
             # Emit the signal.
@@ -1842,7 +1897,9 @@ class PipCustomWidget(QWidget):
 
     def mousePressEvent(self, event):
         if event.button() == QtCore.Qt.LeftButton:
-            self.MidCustomWidget.setPixmap(QtGui.QPixmap(self.pixmap), self.mid_panel)
+            qpixmap = QtGui.QPixmap(self.pixmap)
+            self.MidCustomWidget.setCurrentImage(qpixmap)
+            self.MidCustomWidget.setPixmap(qpixmap, self.mid_panel)
 
 
 class ComboBoxWidget(QWidget):
