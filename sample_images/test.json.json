@@ -1,1 +1,0 @@
-[["Blur",{"kernelsize":1,"store_image":false,"type":"Preprocessing"}],["Blur",{"kernelsize":10,"store_image":false,"type":"Preprocessing"}],["Blur",{"kernelsize":20,"store_image":false,"type":"Preprocessing"}]]
