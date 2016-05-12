@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quick Start Guide for users &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
+        <link rel="next" title="Quick Start Guide for developers" href="Quick_Start_Guide_for_developers.html"/>
+        <link rel="prev" title="Installation" href="Installation.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quick Start Guide for users</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#categories"><strong>Categories</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#algorithms"><strong>Algorithms</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Quick Start Guide for users</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst_files/Quick_Start_Guide_for_users.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quick-start-guide-for-users">
+<span id="user-guide"></span><h1>Quick Start Guide for users<a class="headerlink" href="#quick-start-guide-for-users" title="Permalink to this headline">¶</a></h1>
+<p>So, you want to know what is NEFI2 good for now? Currently it is good for extracting networks from images.
+Imagine you have a big collection of spider webs pictures and you want to do an interesting research on how different are the web structures of Cross and Banded Garden spider.
+You spend some time on collecting a <em>statistically significant</em> amount of images and... attempt to understand the differences by looking through the collection.
+Well, really?
+No, you better delegate this task to NEFI2.</p>
+<div class="figure align-left">
+<a class="reference internal image-reference" href="../_images/web6.png"><img alt="../_images/web6.png" src="../_images/web6.png" style="width: 214.2px; height: 186.6px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/web6_2.png"><img alt="../_images/web6_2.png" src="../_images/web6_2.png" style="width: 245.35px; height: 250.6px;" /></a>
+</div>
+<p>NEFI2 is capable of batch processing a large collection of images and extracting a <a class="reference external" href="https://networkx.github.io/documentation/latest/reference/introduction.html">NetworkX graph objects</a> that you can use later to process and get numerical data or even train a spider web recognizer.</p>
+<p>There are 3 main components in NEFI2 that you need to know about: <strong>Pipeline</strong>, <strong>Categories</strong> and <strong>Algorithms</strong>.
+<strong>Pipeline</strong> contains <strong>Categories</strong> which in turn contain <strong>Algorithms</strong>.
+<strong>Category</strong> is a collection of algorithms that fulfill specific image processing task.</p>
+<div class="section" id="categories">
+<h2><strong>Categories</strong><a class="headerlink" href="#categories" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><em>Preprocessing</em> (P) &lt;&#8211; contains various preprocessing algorithms</div>
+<div class="line"><em>Segmentation</em> (S) &lt;&#8211; contains algorithms for image segmentation, e.g. &#8220;Otsus&#8217;s Threshold&#8221;</div>
+<div class="line"><em>Graph Detection</em> (D) &lt;&#8211; contains graph detection procedures based on &#8220;Guo &amp; Hall&#8221; thinning algorithm</div>
+<div class="line"><em>Graph Filtering</em> (F) &lt;&#8211; contains various graph pruning algorithms, e.g. &#8220;Keep Largest Connected Component&#8221;</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="algorithms">
+<h2><strong>Algorithms</strong><a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><strong>Abbreviated UI name</strong>  &#8211;&gt; <strong>Full name</strong></div>
+<div class="line"><br /></div>
+<div class="line"><em>Bilateral</em> &#8211;&gt; Bilateral Filter (P)</div>
+<div class="line"><em>Blur</em>  &#8211;&gt;   Blur (P)</div>
+<div class="line"><em>Color Enhance</em> &#8211;&gt; Color Enhancement (P)</div>
+<div class="line"><em>Gauss Blur</em> &#8211;&gt; Gaussian Blur (P)</div>
+<div class="line"><em>FM Denoise</em> &#8211;&gt; Fast nl Means Denoising (P)</div>
+<div class="line"><em>FM Denoise Color</em> &#8211;&gt; Fast nl Means Denoising Colored (P)</div>
+<div class="line"><em>Invert Color</em> &#8211;&gt; Invert Color (P)</div>
+<div class="line"><em>Median Blur</em> &#8211;&gt; Median Blur (P)</div>
+<div class="line"><br /></div>
+<div class="line"><em>Adaptive</em> &#8211;&gt; Adaptive Threshold (S)</div>
+<div class="line"><em>Constant</em> &#8211;&gt; Constant Threshold (S)</div>
+<div class="line"><em>Grabcut DE Otsus</em> &#8211;&gt; Grabcut - Dilation Erosion Otsus (S)</div>
+<div class="line"><em>Grabcut DT Otsus</em> &#8211;&gt; Grabcut with Distance Transform and Otsu&#8217;s Threshold (S)</div>
+<div class="line"><em>Otsus</em> &#8211;&gt; Otsu&#8217;s Threshold (S)</div>
+<div class="line"><em>Watershed DE Adaptive</em> &#8211;&gt; Watershed with Dilation, Erosion and Adaptive Threshold (S)</div>
+<div class="line"><em>Watershed DE Otsus</em> &#8211;&gt; Watershed with Dilation, Erosion and Otsu&#8217;s Threshold (S)</div>
+<div class="line"><em>Watershed DT Otsus</em> &#8211;&gt; Watershed with Distance Transform and Otsu&#8217;s Threshold (S)</div>
+<div class="line"><br /></div>
+<div class="line"><em>Guo Hall</em> &#8211;&gt; Guo Hall thinning (D)</div>
+<div class="line"><br /></div>
+<div class="line"><em>Connected Component</em> &#8211;&gt; Connected Component Filter (F)</div>
+<div class="line"><em>Edge Attribute</em> &#8211;&gt; Edge Attribute Filter (F)</div>
+<div class="line"><em>Keep only LCC</em> &#8211;&gt; Keep only largest connected component (F)</div>
+<div class="line"><em>Simple Cycle</em> &#8211;&gt; Simple Cycle Filter (F)</div>
+<div class="line"><em>Smooth 2 Nodes</em> &#8211;&gt; Smooth Degree 2 Nodes Filter (F)</div>
+</div>
+</div></blockquote>
+<p>Generally, you select an image, load a saved pipeline or create your own (using <strong>&#8216;+&#8217;</strong> buttons).
+When you hit &#8220;Run&#8221; button, the <strong>Pipeline</strong> takes the image and runs it through the selected <strong>Categories</strong> one by one.
+The result is saved into the specified directory.
+In order to extract the Graph (network) from the selected image you only need to add <em>Segmentation</em> and <em>Graph Detection</em> to the <strong>Pipeline</strong>, but using only <em>Segmentation</em> and <em>Graph Detection</em> might not produce good results if the image is of poor quality or noisy.
+That is why you need <em>Preprocessing</em> and <em>Graph Filtering</em>.</p>
+<p>Make yourself familiar with NEFI2 interface.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/nefi2_ui.png"><img alt="../_images/nefi2_ui.png" src="../_images/nefi2_ui.png" style="width: 1360.0px; height: 793.9px;" /></a>
+</div>
+<p>On the top right, you can choose the output directory where NEFI2 stores its results.
+By default the results are stored in <strong>output/pipeline_name_image_name</strong>.
+You can also load/save the <strong>Pipeline</strong>.
+Yes, the <strong>Pipeline</strong> can be saved and loaded later.
+It is saved on disk in <strong>json</strong> format, so you can easily create a new or edit the existing one (see <a class="reference internal" href="Create_Pipeline.html#create-pip"><span>Pipeline Creation</span></a>).</p>
+<p>In the <strong>Pipeline</strong> panel you add/remove your <strong>Categories</strong> and assign the <strong>Algorithms</strong>.
+Each <strong>Category</strong> is created to be empty, you need to select an active <strong>Algorithm</strong> for it.
+The order of the <strong>Categories</strong> is important.
+That is why when you hit &#8220;Run&#8221;, incorrectly positioned will be highlighted with red.</p>
+<p>In the <strong>Algorithm settings</strong> panel you fine-tune currently selected <strong>Algorithm</strong>.
+After the first run, if you replace or change the selected <strong>Algorithm</strong>, the <strong>Pipeline</strong> will not be reprocessed from the very beginning but from the first modified <strong>Algorithm</strong> (this saves resources and your time).</p>
+<p>The left panel is self-explanatory.
+Here the result of each <strong>Algorithm</strong> is displayed.
+When the panel accumulates too many images you can click &#8220;Clear&#8221; button on the top left to clear the results.</p>
+<p>That&#8217;s it, now you know everything you need to use NEFI2.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Quick_Start_Guide_for_developers.html" class="btn btn-neutral float-right" title="Quick Start Guide for developers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="Installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

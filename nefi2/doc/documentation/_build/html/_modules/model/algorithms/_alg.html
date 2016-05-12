@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>model.algorithms._alg &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../rst_files/Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>model.algorithms._alg</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for model.algorithms._alg</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This is Algorithm master class and all algorithms must inherit from it.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QObject</span><span class="p">,</span> <span class="n">pyqtSlot</span>
+
+<span class="n">__authors__</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Dennis Groß&quot;</span><span class="p">:</span> <span class="s2">&quot;gdennis91@googlemail.com&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;Pavel Shkadzko&quot;</span><span class="p">:</span> <span class="s2">&quot;p.shkadzko@gmail.com&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;Philipp Reichert&quot;</span><span class="p">:</span> <span class="s2">&quot;prei@me.com&quot;</span><span class="p">}</span>
+
+
+<div class="viewcode-block" id="Algorithm"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm">[docs]</a><span class="k">class</span> <span class="nc">Algorithm</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Public Attributes:</span>
+<span class="sd">            | *modified*: True if Algorithm settings were modified,</span>
+<span class="sd">                true by default</span>
+<span class="sd">            | *belongs*: A step name to which current algorithm belongs</span>
+<span class="sd">            | *float_sliders*: a list containing all FloatSlider created</span>
+<span class="sd">                by the user</span>
+<span class="sd">            | *integer_sliders*: a list containing all InterSlider</span>
+<span class="sd">                created by the user</span>
+<span class="sd">            | *checkboxes*: a list containing all Checkboxes</span>
+<span class="sd">                created by the user</span>
+<span class="sd">            | *drop_downs*:  a list containing all DropDowns</span>
+<span class="sd">                created by the user</span>
+<span class="sd">            | *result*: a tuple containing all resulting data produced or</span>
+<span class="sd">                modified by the algorithm</span>
+<span class="sd">            | *store_image*: this flag is per default false and indicates if the</span>
+<span class="sd">                calculated image from this algorithm should be stores at the</span>
+<span class="sd">                default location after processing.</span>
+<span class="sd">            | *icon* (str): Path to custom icon to be used for this algorithm.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            | *object*: instance of the algorithm object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># QObject.__init__(self)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modified</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">integer_sliders</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">float_sliders</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checkboxes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_downs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="s2">&quot;./assets/images/missing.png&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;img&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span> <span class="s2">&quot;graph&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store_image</span> <span class="o">=</span> <span class="bp">False</span>
+
+<div class="viewcode-block" id="Algorithm.belongs"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.belongs">[docs]</a>    <span class="k">def</span> <span class="nf">belongs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Identifies the category to which this algorithm implementation is assoc</span>
+<span class="sd">        iated with. Therefore you the contributor returns a string yielding the</span>
+<span class="sd">        name of the associated category. E.g. we have an algorithm &quot;blur&quot; which</span>
+<span class="sd">        is created through implementing the abstract class Algorithm. In &quot;blur&quot;</span>
+<span class="sd">        we override the belongs method to return &quot;preprocessing&quot; to associate</span>
+<span class="sd">        the &quot;blur&quot; algorithm instance with the category &quot;preprocessing&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            | *self.parent*: The string identifier to which category this</span>
+<span class="sd">            algorithm belongs to</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span></div>
+
+<div class="viewcode-block" id="Algorithm.process"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Contains the logic of the implemented algorithm. While computing</span>
+<span class="sd">        the pipeline each algorithm will be called with its process method</span>
+<span class="sd">        giving the output image from the previous algorithm processed in</span>
+<span class="sd">        the pipeline The images are used to draw the result of each algorithm</span>
+<span class="sd">        in the left section of the UI. Therefore the contributor should return</span>
+<span class="sd">        an image itself at the end of this method.</span>
+<span class="sd">        By default this method raises an error if the user is not overriding</span>
+<span class="sd">        his own process</span>
+<span class="sd">        method.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *input_data*: a tuple which contains all relevant arguments found in</span>
+<span class="sd">            the results of the previous processed algorithm. As common in the</span>
+<span class="sd">            pipeline pattern, the successors always get called with the</span>
+<span class="sd">            information the predecessor created.</span>
+<span class="sd">            The first element in input_data should always be image array,</span>
+<span class="sd">            the second element is reserved for graph. This is why algorithm</span>
+<span class="sd">            process methods operate on args indeces (args[0] or args[1]).</span>
+<span class="sd">            Please consider this in case you decide to add an algorithm which</span>
+<span class="sd">            produces something different than an image array or networkx graph</span>
+<span class="sd">            object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Algorithm.get_name"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method returns the name of the implemented algorithm. E.g. int case the contributor</span>
+<span class="sd">        is implementing a &quot;watershed&quot; algorithm, his get_name method should return &quot;watershed&quot;.</span>
+<span class="sd">        By default this method raises an error if the user is not overriding his own get_name</span>
+<span class="sd">        method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             | *self.name*: The name of the algorithm specified in this implementation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="Algorithm.set_icon"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.set_icon">[docs]</a>    <span class="k">def</span> <span class="nf">set_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            | *icon_path*: The path to the icon to be used</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="n">icon_path</span></div>
+
+<div class="viewcode-block" id="Algorithm.get_icon"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.get_icon">[docs]</a>    <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            | *icon_path*: The path to the icon to be used</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">icon</span></div>
+
+<div class="viewcode-block" id="Algorithm.report_pip"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.report_pip">[docs]</a>    <span class="k">def</span> <span class="nf">report_pip</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method returns a dictionary which contains all relevant algorithm</span>
+<span class="sd">        information and returns it to the pipeline along with the algorithm</span>
+<span class="sd">        name. The pipeline needs this information to create a json</span>
+<span class="sd">        representation of the algorithm. It will encode the dic as following:</span>
+<span class="sd">        E.g. blur : {&quot;type&quot; : &quot;preprocessing&quot;, &quot;kernelsize&quot; : 2.5}</span>
+<span class="sd">        The encoding of the dic to json will be done by the pipeline which</span>
+<span class="sd">        collects the dictionary of each algorithm in the processing list.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            | *self.name, collections.OrderedDict* (list): A tuple consisting</span>
+<span class="sd">              of the name of the algorithm and the dic containing all relevant</span>
+<span class="sd">              information about the algorithm which need to be stored on the</span>
+<span class="sd">              filesystem for the pipeline.json.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">list</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;store_image&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_image</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">int_slider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_sliders</span><span class="p">:</span>
+            <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">int_slider</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">int_slider</span><span class="o">.</span><span class="n">value</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">float_slider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_sliders</span><span class="p">:</span>
+            <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">float_slider</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">float_slider</span><span class="o">.</span><span class="n">value</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">checkbox</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkboxes</span><span class="p">:</span>
+            <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">checkbox</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">checkbox</span><span class="o">.</span><span class="n">value</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">dropdown</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_downs</span><span class="p">:</span>
+            <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">dropdown</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">value</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Algorithm.unset_modified"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.unset_modified">[docs]</a>    <span class="k">def</span> <span class="nf">unset_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set modified to False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modified</span> <span class="o">=</span> <span class="bp">False</span></div>
+
+<div class="viewcode-block" id="Algorithm.set_modified"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.set_modified">[docs]</a>    <span class="k">def</span> <span class="nf">set_modified</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set modified to True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modified</span> <span class="o">=</span> <span class="bp">True</span></div>
+
+    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<div class="viewcode-block" id="Algorithm.set_store_image"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.set_store_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_store_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">store_image</span> <span class="o">=</span> <span class="n">state</span></div>
+
+<div class="viewcode-block" id="Algorithm.find_ui_element"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.Algorithm.find_ui_element">[docs]</a>    <span class="k">def</span> <span class="nf">find_ui_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method helps the json parser to find the ui elements</span>
+<span class="sd">        with the given name</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            |name: name of the ui element we are looking for</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">int_slider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_sliders</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">int_slider</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">int_slider</span>
+
+        <span class="k">for</span> <span class="n">float_slider</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_sliders</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">float_slider</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">float_slider</span>
+
+        <span class="c1"># checkboxes are optional</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkboxes</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">checkbox</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">checkboxes</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">checkbox</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">checkbox</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="k">for</span> <span class="n">dropdown</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_downs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dropdown</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">dropdown</span>
+
+        <span class="k">raise</span> <span class="n">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;could not find ui element: &quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="IntegerSlider"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.IntegerSlider">[docs]</a><span class="k">class</span> <span class="nc">IntegerSlider</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class defining a slider of type int to display in the algorithm detail</span>
+<span class="sd">    section of the UI. After calling the IntegerSlider constructor, the program</span>
+<span class="sd">    automatically creates ui widgets as wellas qt slots and signals to connect</span>
+<span class="sd">    this slider with the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">step_size</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            | *name*: The name to be displayed in the UI - label of the slider</span>
+<span class="sd">            | *lower*: The lower bound of the slider in the UI</span>
+<span class="sd">            | *upper*: The upper bound of the slider in the UI</span>
+<span class="sd">            | *step_size*: The amount of a slider step in the UI</span>
+<span class="sd">            | *default*: The default value for the slider in the UI</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            instance of an IntegerSlider object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_size</span> <span class="o">=</span> <span class="n">step_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">=</span> <span class="n">lower</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="n">upper</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<div class="viewcode-block" id="IntegerSlider.set_value"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.IntegerSlider.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The set_value method is used by the UI and the batch-mode of NEFI as</span>
+<span class="sd">        an input source of selected values for this particular slider instance.</span>
+<span class="sd">        The @pyqtSlot(int) decoration declares this method as as QT-Slot.</span>
+<span class="sd">        To get more information about Slots and Signals in QT read about it in</span>
+<span class="sd">        the official QT documentation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *arg1*: the integer value selected in the ui or the pipeline in</span>
+<span class="sd">            batch-mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">arg1</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="ow">or</span> <span class="n">arg1</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Given parameter &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span>  <span class="o">+</span><span class="s2">&quot; for &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; setting is outside range. [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">arg1</span></div></div>
+
+
+<div class="viewcode-block" id="FloatSlider"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.FloatSlider">[docs]</a><span class="k">class</span> <span class="nc">FloatSlider</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class defining a slider of type float to display in the algorithm detail</span>
+<span class="sd">    section of the UI. After calling the FloatSlider constructor, the program</span>
+<span class="sd">    automatically creates ui widgets as well as qt slots and signals to connect</span>
+<span class="sd">    this slider with the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">step_size</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            | *name*: The name to be displayed in the UI - label of the slider</span>
+<span class="sd">            | *lower*: The lower bound of the slider in the UI</span>
+<span class="sd">            | *upper*: The upper bound of the slider in the UI</span>
+<span class="sd">            | *step_size*: The amount of a slider step in the UI</span>
+<span class="sd">            | *default*: The default value for the slider in the UI</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            instance of an IntegerSlider object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_size</span> <span class="o">=</span> <span class="n">step_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">=</span> <span class="n">lower</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="n">upper</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<div class="viewcode-block" id="FloatSlider.set_value"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.FloatSlider.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The set_value method is used by the UI and the batch-mode of NEFI as an</span>
+<span class="sd">        input source of selected values for this particular slider instance.</span>
+<span class="sd">        The @pyqtSlot(int) decoration declares this method as as QT-Slot.</span>
+<span class="sd">        To get more information about Slots and Signals in QT read about it in</span>
+<span class="sd">        the official QT documentation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *arg1*: the integer value selected in the ui or the pipeline in</span>
+<span class="sd">            batch-mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">arg1</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span> <span class="ow">or</span> <span class="n">arg1</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Given parameter &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span>  <span class="o">+</span><span class="s2">&quot; for &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; setting is outside range. [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">arg1</span></div></div>
+
+
+<div class="viewcode-block" id="CheckBox"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.CheckBox">[docs]</a><span class="k">class</span> <span class="nc">CheckBox</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class defining a Checkbox of type boolean to display in the algorithm</span>
+<span class="sd">    detail section of the UI. After calling the CheckBox constructor, the</span>
+<span class="sd">    program automatically creates ui widgets as well as qt slots and signals to</span>
+<span class="sd">    connect this checkbox with the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            | *name*: The name of the checkbox to be displayed in the ui</span>
+<span class="sd">            | *default*: The default value of the checkbox</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<div class="viewcode-block" id="CheckBox.set_value"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.CheckBox.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The set_value method is used by the UI and the batch-mode of NEFI as an</span>
+<span class="sd">        input source of selected values for this particular checkbox instance.</span>
+<span class="sd">        The @pyqtSlot(bool) decoration declares this method as as QT-Slot. To</span>
+<span class="sd">        get more information about Slots and Signals in QT read about it in the</span>
+<span class="sd">        official QT documentation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *arg1*: the boolean value selected in the ui or the pipeline in</span>
+<span class="sd">            batch-mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">arg1</span></div></div>
+
+
+<div class="viewcode-block" id="DropDown"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.DropDown">[docs]</a><span class="k">class</span> <span class="nc">DropDown</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class defining a DropDown menu of type string to display in the algorithm</span>
+<span class="sd">    detail section of the UI. After calling the DropDown constructor, the</span>
+<span class="sd">    program automatically creates ui widgets as well as qt slots and signals to</span>
+<span class="sd">    connect this DropDown with the UI.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            | *name*: The name of the DropDown menu to be displayed in the UI</span>
+<span class="sd">            | *options*: The list of string options a user can select in the UI</span>
+<span class="sd">            | *default*: Optional: default value</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">options</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@pyqtSlot</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<div class="viewcode-block" id="DropDown.set_value"><a class="viewcode-back" href="../../../rst_files/subsection2.html#model.algorithms._alg.DropDown.set_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The set_value method is used by the UI and the batch-mode of NEFI as an</span>
+<span class="sd">        inputsource of selected values for this particular DropDown instance.</span>
+<span class="sd">        The @pyqtSlot(str) decoration declares this method as as QT-Slot. To</span>
+<span class="sd">        get more information about Slots and Signals in QT read about it in the</span>
+<span class="sd">        official QT documentation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            | *arg1*: the string value selected in the ui or the pipeline in</span>
+<span class="sd">              the batch-mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">arg1</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s2">&quot;Given parameter &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arg1</span><span class="p">)</span>  <span class="o">+</span><span class="s2">&quot; for &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; setting is no valid option.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">arg1</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

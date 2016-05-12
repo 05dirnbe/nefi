@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; nefi 2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="nefi 2.0 documentation" href="../index.html"/>
+        <link rel="next" title="Quick Start Guide for users" href="Quick_Start_Guide_for_users.html"/>
+        <link rel="prev" title="Welcome to NEFI2’s documentation!" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> nefi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#macosx">MacOSX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">NetworkX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">demjson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">zope.event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">QDarkStyle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">PyQt5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">OpenCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Thinning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_users.html">Quick Start Guide for users</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Quick_Start_Guide_for_developers.html">Quick Start Guide for developers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Development.html">Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Technologies.html">Dependencies</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">nefi</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/rst_files/Installation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>This document will guide you throuregh the installation of NEFI2.
+We offer installation support for some of the most popular operating systems.
+Just pick your favourite OS section.</p>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">x64 portable version is available &lt;here&gt;.</div>
+<div class="line">x64 installer can be found &lt;here&gt;.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="macosx">
+<h2>MacOSX<a class="headerlink" href="#macosx" title="Permalink to this headline">¶</a></h2>
+<p>Get <strong>homebrew</strong>, a powerful package manger for mac os, by running:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cd ~
+$ ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+$ brew update
+</pre></div>
+</div>
+<p>If you don&#8217;t have it already install python 3 like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ brew install python3
+$ brew linkapps
+</pre></div>
+</div>
+<p>Next we update our PATH in <code class="docutils literal"><span class="pre">~/.bash_profile</span></code> to indicate that Homebrew packages should be used before any system packages. Simply add the following line to <code class="docutils literal"><span class="pre">~/.bash_profile</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ export PATH=/usr/local/bin:$PATH
+</pre></div>
+</div>
+<p>Next reload the contents of <code class="docutils literal"><span class="pre">~/.bash_profile</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ source ~/.bash_profile
+</pre></div>
+</div>
+<p>After typing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ which python3
+</pre></div>
+</div>
+<p>you should see:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/usr/local/bin/python
+</pre></div>
+</div>
+<p>Now we can install the actual dependencies by using <strong>brew</strong> and <strong>pip3</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ pip3 install numpy
+$ pip3 install networkx
+$ pip3 install demjson
+$ pip3 install PyQt5
+</pre></div>
+</div>
+<p>Some of these packages rely on a compiler being present. If you don&#8217;t have we highly recommend to get the current version of clang.</p>
+<p>Finally, we install <strong>OpenCV 3</strong> with the necessary python bindings. To do so we execute:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ brew install opencv3 --with-python3
+</pre></div>
+</div>
+<p>At this point I recommend to start a python3 interpreter and to test whether the import statements go through.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Python 3.5.1 (default, Jan 22 2016, 08:52:08)
+[GCC 4.2.1 Compatible Apple LLVM 7.0.2 (clang-700.1.81)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import networkx
+&gt;&gt;&gt; import numpy
+&gt;&gt;&gt; import demjson
+&gt;&gt;&gt; import PyQt5
+&gt;&gt;&gt; import cv2
+&gt;&gt;&gt;
+</pre></div>
+</div>
+<p>Ideally, all imports go through and you are ready to start <strong>NEFI2</strong>.</p>
+<p>At the time of testing this, however, it seemed that importing OpenCV3 failed, with the interpreter claiming that it doesn&#8217;t know the module. Upon closer inspection it was found that the necessary files where there, but a link between the opencv stuff and the python3 site-packages was missing. I expect this issue to be resolved soon by the developers of brew and opencv. In the meantime, it is possible to rectify the situation manually as follows.</p>
+<p>Brew has placed OpenCV3 somewhere in the its &#8220;cellar&#8221; which on my system resides here:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/usr/local/Cellar/opencv3
+</pre></div>
+</div>
+<p>Somewhere below this path there is a <code class="docutils literal"><span class="pre">.so</span></code> file that we need to symlink to the site-packages folder of our python 3. On my system this file was found to be here:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>/usr/local/Cellar/opencv3/3.1.0_1/lib/python3.5/site-packages/cv2.cpython-35m-darwin.so
+</pre></div>
+</div>
+<p>In the site-packes directory of my python 3 a corresponding <code class="docutils literal"><span class="pre">cv2.so</span></code> files was missing. You can find this directory by running:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ brew info python3
+</pre></div>
+</div>
+<p>All that is left to be done is to symlink the well-hidden, and strangely named, <code class="docutils literal"><span class="pre">cv2.cpython-35m-darwin.so</span></code> to its proper place in site-packages. On my system it was done as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ sudo ln -s /usr/local/Cellar/opencv3/3.1.0_1/lib/python3.5/site-packages/cv2.cpython-35m-darwin.so /usr/local/lib/python3.5/site-packages/cv2.so
+</pre></div>
+</div>
+<p>If the paths differ on your system you need to change the command accordingly. If done correctly the last import should succeed and you are good to go.</p>
+</div>
+<div class="section" id="linux">
+<h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h2>
+<p>Make sure you have your <strong>Python 3.4</strong> installed before performing the steps below.
+Please use <code class="docutils literal"><span class="pre">linux_install.sh</span></code> script for Linux. The script copies the required files into <code class="docutils literal"><span class="pre">~/.nefi2</span></code> directory and creates <strong>nefi2</strong> symlink in <code class="docutils literal"><span class="pre">/usr/local/bin</span></code>.
+It also installs necessary Python dependencies.</p>
+<ul class="simple">
+<li>git clone <a class="reference external" href="https://github.com/tastyminerals/NEFI2.git">https://github.com/tastyminerals/NEFI2.git</a></li>
+<li>cd &#8220;NEFI2&#8221;</li>
+<li><code class="docutils literal"><span class="pre">./linux_install.sh</span></code></li>
+<li>Install <strong>PyQt5</strong> using you default package manager.</li>
+<li>Next, you&#8217;ll need to compile <strong>OpenCV 3.1.0</strong> for your Python 3.</li>
+</ul>
+<p>Next, you&#8217;ll need to compile <strong>OpenCV</strong> for Python3.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseez/opencv.git
+git checkout 3.1.0a
+mkdir release
+cd release
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..
+make -j4
+sudo make install
+</pre></div>
+</div>
+<p>If everything goes well, you can run NEFI2 by typing in console <strong>nefi2</strong>.
+If not, try to perform the installation below step by step.</p>
+<div class="section" id="id1">
+<h3><a class="reference external" href="https://networkx.github.io/documentation/latest/index.html">NetworkX</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install networkx
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3><a class="reference external" href="http://deron.meranda.us/python/demjson/">demjson</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install demjson
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><a class="reference external" href="https://pypi.python.org/pypi/zope.event/4.2.0">zope.event</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install zope.event
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><a class="reference external" href="https://pypi.python.org/pypi/QDarkStyle/2.1">QDarkStyle</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip3 install qdarkstyle
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3><a class="reference external" href="https://www.riverbankcomputing.com/software/pyqt/download5">PyQt5</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>Install <strong>python-pyqt5</strong> using your package manager.</p>
+</div>
+<div class="section" id="id6">
+<h3><a class="reference external" href="http://opencv.org/">OpenCV</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>You need to use OpenCV <strong>version 3.1.0</strong>.
+Unfortunately there are no available binaries, you&#8217;ll need to compile them from source.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>git clone https://github.com/Itseez/opencv.git
+mkdir release
+cd release
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=$(python3 -c &quot;import sys; print(sys.prefix)&quot;) -D PYTHON_EXECUTABLE=$(which python3) ..
+make -j4
+sudo make install
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3><a class="reference external" href="https://bitbucket.org/adrian_n/thinning">Thinning</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>This module was converted for Python3 and can be <a class="reference external" href="https://pypi.python.org/pypi?name=thinning_py3&amp;version=1.2.3&amp;:action=display">downloaded from here</a>.</p>
+<p>Unzip and install.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>python3.4 setup.py install
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Quick_Start_Guide_for_users.html" class="btn btn-neutral float-right" title="Quick Start Guide for users" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Welcome to NEFI2’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Andreas Firczynski, Dennis Gross, Martino Bruni, Pavel Shkadzko, Philipp Reichert, Sebastian Schattner.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
