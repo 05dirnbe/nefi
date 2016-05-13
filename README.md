@@ -48,6 +48,14 @@ Note: If your Linux installation uses `python` instead of `python3` to call your
     sudo make install
 ```
 
-##### Windows/OSX (64 Bit)
+##### Windows
 
-You can use our precompiled launcher to start NEFI. Download coming soon.
+You can use our precompiled launcher to start NEFI.
+https://github.com/05dirnbe/nefi/archive/windows_64bit_build.zip (Commit 1d774aad7478f69deeac5c4fdb5a4716a3894417)
+
+
+##### OSX (64 Bit)
+
+You can use our precompiled launcher to start NEFI.
+https://github.com/05dirnbe/nefi/archive/mac_64bit_build.zip (Commit 1d774aad7478f69deeac5c4fdb5a4716a3894417)
+
