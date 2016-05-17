@@ -52,6 +52,7 @@ Note: If your Linux installation uses `python` instead of `python3` to call your
 
 You can use our precompiled launcher to start NEFI.
 https://github.com/05dirnbe/nefi/archive/windows_64bit_build.zip 
+
 (Based on commit 1d774aad7478f69deeac5c4fdb5a4716a3894417)
 
 
@@ -59,5 +60,6 @@ https://github.com/05dirnbe/nefi/archive/windows_64bit_build.zip
 
 You can use our precompiled launcher to start NEFI.
 https://github.com/05dirnbe/nefi/archive/mac_64bit_build.zip 
+
 (Based on commit 1d774aad7478f69deeac5c4fdb5a4716a3894417)
 
