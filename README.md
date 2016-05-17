@@ -11,7 +11,7 @@ For example, you can add your own faster implementation of "Adaptive Threshold" 
 You don't need to write tons of boilerplate code, reimplement existing UI widgets and then connect them.
 
 
-![0](http://i.imgur.com/HGBwF31.png)
+![0](http://i.imgur.com/ZKoCCMF.jpg)
 
 ### Installation
 
