@@ -843,6 +843,7 @@ class MainView(base, form):
                 print(url)
                 print(name)
                 print("Try to save current graph. Found cat " + str(self.current_cat))
+                print("Run id " + str(self.current_cat.get_run_id()))
                 print("Found graph " + str(id(graph)) + "  Saving it on file system.")
                 shutil.copy(graph, url)
         except Exception as e:

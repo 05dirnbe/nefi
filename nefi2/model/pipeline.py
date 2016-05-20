@@ -85,6 +85,7 @@ class Pipeline:
             os.mkdir(self.out_dir)
         self.input_files = None
         self.original_img = None  # original image file as read first time
+        self.original_img_save_path = None
         # remember the results of each algorithm in the pipeline
         self.pipeline_memory = {}
         self.run_id = 0
@@ -239,13 +240,16 @@ class Pipeline:
         out_path = os.path.join(self.out_dir,
                                 '_'.join([pip_name, orig_fname, "#" + str(self.run_id), self.get_timestamp()]))
         # check if any algorithm has changed
+        start_idx = 0
+        prev_cat_idx = None
+        prev_cat_name = "_INPUT_"
         for idx, cat in enumerate(self.executed_cats):
             cat.set_run_id(self.run_id)
             if cat.active_algorithm.modified:
-                prev_cat_idx = 0 if idx - 1 < 0 else idx - 1
+                prev_cat_idx = None if idx - 1 < 0 else idx - 1
                 if idx - 1 < 0:
                     start_idx = 0
-                    prev_cat_name = self.executed_cats[0].name
+                    prev_cat_name = "_INPUT_"
                 else:
                     start_idx = idx
                     prev_cat_name = self.executed_cats[prev_cat_idx].name
@@ -257,62 +261,107 @@ class Pipeline:
         print("Start pipeline at " + str(start_idx))
 
         # decide which category to continue from if any, act accordingly
-        if prev_cat_idx == 0 and start_idx == 0:
+        if prev_cat_idx is None and start_idx == 0:
             # new pipeline, read original img
+            # save image-path, data[1], data[2], cat
+            self.pipeline_memory = {}
             orig_arr = read_image_file(img_fpath, '', start_idx)
-            self.pipeline_memory[prev_cat_idx] = orig_arr
-            data = [self.pipeline_memory[prev_cat_idx], None]
-            self.original_img = data[0]
+            self.original_img = orig_arr
+            # save input image
+            save_fname = self.get_results_fname(img_fpath, -1)
+            save_path = os.path.join(out_path, save_fname)
+            self.original_img_save_path = save_path
+            # data[0]:= image/narray, data[1]:= graph, data[2] := skeleton, data[3] := cat, data[4] := img-path
+            data = [orig_arr, None, None, None, save_path]
+            self.save_results(save_path, save_fname, data)
         else:
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(prev_cat_idx)
             # remember the prev path
-            prev_path = self.pipeline_memory[prev_cat_idx][0]
+            prev_path = data[4]
+            print("prev_path" + str(prev_path))
             # we need to read grayscale if previous category was Segmentation
             data[0] = read_image_file(prev_path, prev_cat_name, start_idx)
 
-        """
         # send old images for unmodified steps
         if start_idx != 0:
-            for num in range(1, start_idx + 1):
-                current_image_path = self.pipeline_memory[num][0]
-                current_cat = self.executed_cats[num - 1]
-                zope.event.notify(CacheAddEvent(current_cat, current_image_path))
-                #print("current_image_path " + str(current_image_path))
-                #print("current_image_path #2" + str(self.pipeline_memory[num][1]))
-                save_fname = self.get_results_fname(current_image_path, current_cat)
+
+            # save input image
+            old_data = [self.original_img, None, None, None, self.original_img_save_path]
+            print("cat " + str(old_data[3]))
+            save_fname = self.get_results_fname(img_fpath, -1)
+            save_path = os.path.join(out_path, save_fname)
+            self.save_results(save_path, save_fname, old_data)
+
+            for num, cat in enumerate(self.executed_cats[0:start_idx], 0):
+                print("num (old data)" + str(num))
+                old_data = self.pipeline_memory.get(num)
+                old_data[0] = cat.active_algorithm.result['img']
+                old_data[1] = cat.active_algorithm.result['graph']
+                old_data[2] = cat.active_algorithm.result['skeleton']
+                old_data[3] = cat
+                print("cat " + str(old_data[3]))
+                #print("array " + str(old_data[0]))
+                #print("graph " + str(old_data[1]))
+                #print("skeleton " + str(old_data[2]))
+                #print("image path " + str(old_data[4]))
+                current_image_path = old_data[4]
+                current_cat = old_data[3]
+                if current_cat is None:
+                    continue
+                save_fname = self.get_results_fname(img_fpath, num)
                 save_path = os.path.join(out_path, save_fname)
-                self.save_results(save_path, save_fname, data)
+                self.update_cache(cat, save_path)
+                #zope.event.notify(CacheAddEvent(current_cat, current_image_path))
+                #old_save_fname = self.get_results_fname(current_image_path, num, current_cat)
+                #old_save_path = os.path.join(out_path, old_save_fname)
+                #self.save_results(old_save_path, old_save_fname, old_data)
+                #save_fname = self.get_results_fname(img_fpath, num, cat)
+                #print("save_fname " + str(save_fname))
+                #save_path = current_image_path
+                #print("save_path " + str(save_path))
+                #self.save_results(save_path, save_fname, old_data)
+
         """
         # release memory
         if start_idx != 0:
-            released = [prev_path, data[1] or None, prev_cat_name]
+            released = [prev_path, data[1] or None, data[2] or None, prev_cat_name]
             self.pipeline_memory[prev_cat_idx] = released
-
+        """
         # main pipeline loop, execute the pipeline from the modified category
         for num, cat in enumerate(self.executed_cats[start_idx:], start_idx):
+            print("num (new data)" + str(num))
             progress = (num / len(self.executed_cats)) * 100
             report = cat.name + " - " + cat.active_algorithm.name
             zope.event.notify(ProgressEvent(progress, report))
             cat.process(data)
             # reassign results of the prev alg for the next one
-            data = list(cat.active_algorithm.result.items())
-            data.sort(key=lambda x: ['img', 'graph', 'skeleton'].index(x[0]))
-            data = [i[1] for i in data]
+            data[0] = cat.active_algorithm.result['img']
+            data[1] = cat.active_algorithm.result['graph']
+            data[2] = cat.active_algorithm.result['skeleton']
+            #print("cat " + str(data[3]))
+            #print("img " + str(data[0]))
+            #print("graph " + str(data[1]))
+            #print("skeleton " + str(data[2]))
+            #data.sort(key=lambda x: ['img', 'graph', 'skeleton'].index(x[0]))
+            #data = [i[1] for i in data]
             # check if we have graph
             if data[1]:
                 # draw the graph into the original image
                 data[0] = _utility.draw_graph(self.original_img, data[1])
             # save the results
-            save_fname = self.get_results_fname(img_fpath, cat)
+            save_fname = self.get_results_fname(img_fpath, num, cat)
+            print("save_fname " + str(save_fname))
             save_path = os.path.join(out_path, save_fname)
+            print("save_path " + str(save_path))
             self.save_results(save_path, save_fname, data)
             # update the cache
             self.update_cache(cat, save_path)
             cache_path = os.path.join(os.getcwd(), '_cache_', save_fname)
-            self.pipeline_memory[num] = [cache_path, data[1], cat.name]
+            print("cache_path " + str(cache_path))
+            self.pipeline_memory[num] = [data[0], data[1], data[2], cat, cache_path]
             # release memory
-            cat.active_algorithm.result['img'] = ''
+            #cat.active_algorithm.result['img'] = ''
 
         # save pipeline within the folder
         self.save_pipeline_json(pip_name, os.path.join(out_path, pip_name))
@@ -344,7 +393,7 @@ class Pipeline:
                 data[0] = _utility.draw_graph(self.original_img, data[1])
             # save the results and update the cache if store_image is True
             save_fname = self.get_results_fname(fpath, last_cat)
-            save_path = os.path.join(dir_name, save_fname)
+            save_path = os.path.join(dir_name, len(self.executed_cats) - 1, save_fname)
             self.save_results(save_path, save_fname, data)
 
     def save_results(self, save_path, image_name, results):
@@ -353,8 +402,8 @@ class Pipeline:
         Save and put the results of algorithm processing in the directory.
 
         Args:
-            | *save_path* (str): image save path
-            | *image_name* (str): image name
+            | *save_path* (str): save path
+            | *image_name* (str): name
             | *results* (list): a list of arguments to save
 
         """
@@ -379,7 +428,8 @@ class Pipeline:
                   'enough free space on disk')
             sys.exit(1)
 
-        self.save_graph(save_path, image_name, results[1])
+        if results[1] is not None:
+            self.save_graph(save_path, image_name, results[1])
 
     def save_graph(self, save_path, image_name, results):
         dir_to_save = os.path.dirname(save_path)
@@ -587,7 +637,7 @@ class Pipeline:
         alg_names.sort()
         return alg_names
 
-    def get_results_fname(self, img_fpath, cat):
+    def get_results_fname(self, img_fpath, pos, cat=None):
         """
         Create a file name for algorithm results.
 
@@ -599,10 +649,13 @@ class Pipeline:
             *img_name* (str): image file name to save
 
         """
-        alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
+        #step = str(pos)
         basename = os.path.basename(img_fpath)
-        img_name = '_'.join([cat.get_name(), alg_name,
-                             basename])
+        if cat is not None:
+            alg_name = re.sub(' ', '_', cat.active_algorithm.name.lower())
+            img_name = '_'.join([str(pos + 1) ,cat.get_name(), alg_name, basename])
+        else:
+            img_name = '_'.join(["0", "Input", basename])
         return img_name
 
     def set_input(self, input_source):
