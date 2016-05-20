@@ -260,6 +260,42 @@ class Pipeline:
 
         print("Start pipeline at " + str(start_idx))
 
+        """
+        # send old images for unmodified steps
+        if start_idx != 0:
+
+            # save input image
+            old_data = [self.original_img, None, None, None, self.original_img_save_path]
+            print("cat " + str(old_data[3]))
+            save_fname = self.get_results_fname(img_fpath, -1)
+            save_path = os.path.join(out_path, save_fname)
+            self.save_results(save_path, save_fname, old_data)
+
+            for num, cat in enumerate(self.executed_cats[0:start_idx], 0):
+                print("num (old data)" + str(num))
+                old_data = self.pipeline_memory.get(num)
+                print("cat " + str(old_data[3]))
+                # print("array " + str(old_data[0]))
+                # print("graph " + str(old_data[1]))
+                # print("skeleton " + str(old_data[2]))
+                # print("image path " + str(old_data[4]))
+                current_image_path = old_data[4]
+                current_cat = old_data[3]
+                if current_cat is None:
+                    continue
+                #save_fname = self.get_results_fname(current_image_path, num)
+                #save_path = os.path.join(out_path, save_fname)
+                #self.update_cache(cat, current_image_path)
+                zope.event.notify(CacheAddEvent(current_cat, current_image_path))
+                old_save_fname = self.get_results_fname(current_image_path, num, current_cat)
+                old_save_path = os.path.join(out_path, old_save_fname)
+                self.save_results(old_save_path, old_save_fname, old_data)
+                # save_fname = self.get_results_fname(img_fpath, num, cat)
+                # print("save_fname " + str(save_fname))
+                # save_path = current_image_path
+                # print("save_path " + str(save_path))
+                # self.save_results(save_path, save_fname, old_data)
+        """
         # decide which category to continue from if any, act accordingly
         if prev_cat_idx is None and start_idx == 0:
             # new pipeline, read original img
@@ -282,45 +318,6 @@ class Pipeline:
             print("prev_path" + str(prev_path))
             # we need to read grayscale if previous category was Segmentation
             data[0] = read_image_file(prev_path, prev_cat_name, start_idx)
-
-        # send old images for unmodified steps
-        if start_idx != 0:
-
-            # save input image
-            old_data = [self.original_img, None, None, None, self.original_img_save_path]
-            print("cat " + str(old_data[3]))
-            save_fname = self.get_results_fname(img_fpath, -1)
-            save_path = os.path.join(out_path, save_fname)
-            self.save_results(save_path, save_fname, old_data)
-
-            for num, cat in enumerate(self.executed_cats[0:start_idx], 0):
-                print("num (old data)" + str(num))
-                old_data = self.pipeline_memory.get(num)
-                old_data[0] = cat.active_algorithm.result['img']
-                old_data[1] = cat.active_algorithm.result['graph']
-                old_data[2] = cat.active_algorithm.result['skeleton']
-                old_data[3] = cat
-                print("cat " + str(old_data[3]))
-                #print("array " + str(old_data[0]))
-                #print("graph " + str(old_data[1]))
-                #print("skeleton " + str(old_data[2]))
-                #print("image path " + str(old_data[4]))
-                current_image_path = old_data[4]
-                current_cat = old_data[3]
-                if current_cat is None:
-                    continue
-                save_fname = self.get_results_fname(img_fpath, num)
-                save_path = os.path.join(out_path, save_fname)
-                self.update_cache(cat, save_path)
-                #zope.event.notify(CacheAddEvent(current_cat, current_image_path))
-                #old_save_fname = self.get_results_fname(current_image_path, num, current_cat)
-                #old_save_path = os.path.join(out_path, old_save_fname)
-                #self.save_results(old_save_path, old_save_fname, old_data)
-                #save_fname = self.get_results_fname(img_fpath, num, cat)
-                #print("save_fname " + str(save_fname))
-                #save_path = current_image_path
-                #print("save_path " + str(save_path))
-                #self.save_results(save_path, save_fname, old_data)
 
         """
         # release memory

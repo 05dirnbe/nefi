@@ -1,0 +1,1 @@
+[["Median Blur",{"kernelsize":3,"store_image":false,"type":"Preprocessing"}],["Median Blur",{"kernelsize":2,"store_image":false,"type":"Preprocessing"}],["Median Blur",{"kernelsize":6,"store_image":false,"type":"Preprocessing"}]]

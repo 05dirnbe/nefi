@@ -1754,7 +1754,6 @@ class LeftCustomWidget(QWidget):
         super(LeftCustomWidget, self).__init__()
 
         self.setStyleSheet("font:Candara; font-size: 8pt;")
-        # self.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.MidCustomWidget = MidCustomWidget
         self.mid_panel = mid_panel
         self.left_scroll_results = left_scroll_results
@@ -1763,12 +1762,15 @@ class LeftCustomWidget(QWidget):
         self.settings_widget = settings_widget
         self.left_slider = left_slider
         self.step = 0
+        self.runID = None
 
         self.image_label = QLabel()
 
         if cat is None:
             self.image_name = "Input - Image"
         else:
+            self.runID = cat.get_run_id()
+            print("Set run ID " + str(self.runID))
             self.setToolTip("Click here while holding 'CTRL/CMD' button to see used settings .")
             index = self.pipeline.get_index(self.cat)
             if index is not (len(self.pipeline.executed_cats) - 1):
