@@ -446,7 +446,7 @@ class Pipeline:
         Args:
             *selected_cat* (str): Category selected by the user
 
-        Returns:
+        Returns:••••••
             a list of currently allowed category names
 
         <Deprecated function>

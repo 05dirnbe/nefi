@@ -89,7 +89,7 @@ class MainView(base, form):
         self.fileMenu.addAction(self.openPiplineAct)
         self.fileMenu.addAction(self.savePiplineAct)
         self.fileMenu.addSeparator()
-        self.fileMenu.addAction(self.saveGraphAct)
+        #self.fileMenu.addAction(self.saveGraphAct)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.runAct)
         self.fileMenu.addSeparator()
