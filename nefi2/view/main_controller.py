@@ -265,8 +265,8 @@ class MainView(base, form):
 
         iconpath = os.path.join('nefi2', 'icons', 'diskette_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
-        q_icon = QtGui.QIcon(pixmap_icon)
-        self.save_btn.setIcon(q_icon)
+        self.q_icon_disc = QtGui.QIcon(pixmap_icon)
+        self.save_btn.setIcon(self.q_icon_disc)
 
         iconpath = os.path.join('nefi2', 'icons', 'folder_white.png')
         pixmap_icon = QtGui.QPixmap(iconpath)
@@ -750,13 +750,23 @@ class MainView(base, form):
             show_pipeline = QCheckBox()
             show_pipeline.setToolTip("Show/Hide intermediate results")
 
+            save_run = QCheckBox()
+            save_run.setToolTip("Save the computed images, the corresponding pipeline and input image.")
+            save_run.setIcon(self.q_icon_disc)
+
             if self.resultsonly:
                 show_pipeline.setChecked(False)
             else:
                 show_pipeline.setChecked(True)
             show_pipeline.setText("Intermediate Results")
 
-            show_pipeline.setContentsMargins(0, 0, 0, 0)
+            #show_pipeline.setContentsMargins(0, 20, 0, 0)
+
+            buttons = QWidget()
+            buttons_layout = QHBoxLayout()
+            buttons_layout.addWidget(show_pipeline)
+            buttons_layout.addWidget(save_run, Qt.AlignRight)
+            buttons.setLayout(buttons_layout)
 
             line = QFrame()
             line.setFrameShape(QFrame.HLine)
@@ -765,7 +775,7 @@ class MainView(base, form):
 
             titelLayout.addWidget(line)
             titelLayout.addWidget(timestampwidget, Qt.AlignLeft)
-            titelLayout.addWidget(show_pipeline, Qt.AlignLeft)
+            titelLayout.addWidget(buttons, Qt.AlignLeft)
             self.left_scroll_results_vbox_layout.addWidget(title)
             self.right_panel.setEnabled(False)
             self.progress_label.show()

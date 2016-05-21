@@ -228,6 +228,10 @@ class Pipeline:
         _cache_ and enable pipeline recalculation from the category that was
         first changed.
         Keep all intermediate results.
+        For every pipeline run we send every output for every step in the pipeline to the ui.
+        For now the output contains the file paths to the image, graph and pipeline json,
+        so every left panel element in the ui knows where the files are saved on the disc.
+        If something has changed we need to update our cache, if not we send the url to the old files.
         <This function will be obviously slower than the console variant due
         to IO operations on the _cache_ directory.>
         """
@@ -260,42 +264,30 @@ class Pipeline:
 
         print("Start pipeline at " + str(start_idx))
 
-        """
-        # send old images for unmodified steps
+        # send saved cache entries for unmodified steps
         if start_idx != 0:
-
-            # save input image
-            old_data = [self.original_img, None, None, None, self.original_img_save_path]
-            print("cat " + str(old_data[3]))
-            save_fname = self.get_results_fname(img_fpath, -1)
-            save_path = os.path.join(out_path, save_fname)
-            self.save_results(save_path, save_fname, old_data)
-
             for num, cat in enumerate(self.executed_cats[0:start_idx], 0):
                 print("num (old data)" + str(num))
                 old_data = self.pipeline_memory.get(num)
-                print("cat " + str(old_data[3]))
-                # print("array " + str(old_data[0]))
-                # print("graph " + str(old_data[1]))
-                # print("skeleton " + str(old_data[2]))
-                # print("image path " + str(old_data[4]))
-                current_image_path = old_data[4]
-                current_cat = old_data[3]
+                cached_cat = old_data[3]
+                cached_image_path = old_data[4]
+                # Skip input image
                 if current_cat is None:
                     continue
                 #save_fname = self.get_results_fname(current_image_path, num)
                 #save_path = os.path.join(out_path, save_fname)
                 #self.update_cache(cat, current_image_path)
-                zope.event.notify(CacheAddEvent(current_cat, current_image_path))
-                old_save_fname = self.get_results_fname(current_image_path, num, current_cat)
+                # data[0]:= image/narray, data[1]:= graph, data[2] := skeleton, data[3] := cat, data[4] := img-path
+                zope.event.notify(CacheAddEvent(old_data[0], current_image_path))
+                #old_save_fname = self.get_results_fname(current_image_path, num, current_cat)
                 old_save_path = os.path.join(out_path, old_save_fname)
-                self.save_results(old_save_path, old_save_fname, old_data)
+                #self.save_results(old_save_path, old_save_fname, old_data)
                 # save_fname = self.get_results_fname(img_fpath, num, cat)
                 # print("save_fname " + str(save_fname))
                 # save_path = current_image_path
                 # print("save_path " + str(save_path))
                 # self.save_results(save_path, save_fname, old_data)
-        """
+
         # decide which category to continue from if any, act accordingly
         if prev_cat_idx is None and start_idx == 0:
             # new pipeline, read original img
@@ -307,9 +299,9 @@ class Pipeline:
             save_fname = self.get_results_fname(img_fpath, -1)
             save_path = os.path.join(out_path, save_fname)
             self.original_img_save_path = save_path
-            # data[0]:= image/narray, data[1]:= graph, data[2] := skeleton, data[3] := cat, data[4] := img-path
+
             data = [orig_arr, None, None, None, save_path]
-            self.save_results(save_path, save_fname, data)
+            #self.save_results(save_path, save_fname, data)
         else:
             # get the results of the previous (unmodified) algorithm
             data = self.pipeline_memory.get(prev_cat_idx)
@@ -351,9 +343,9 @@ class Pipeline:
             print("save_fname " + str(save_fname))
             save_path = os.path.join(out_path, save_fname)
             print("save_path " + str(save_path))
-            self.save_results(save_path, save_fname, data)
+            #self.save_results(save_path, save_fname, data)
             # update the cache
-            self.update_cache(cat, save_path)
+            self.update_cache(cat, data, save_fname, save_path)
             cache_path = os.path.join(os.getcwd(), '_cache_', save_fname)
             print("cache_path " + str(cache_path))
             self.pipeline_memory[num] = [data[0], data[1], data[2], cat, cache_path]
@@ -401,7 +393,9 @@ class Pipeline:
         Args:
             | *save_path* (str): save path
             | *image_name* (str): name
-            | *results* (list): a list of arguments to save
+            | *results[0]* (array): image
+            | *results[1]* (array): graph
+            | *results[2]* (array): skeleton
 
         """
         # check if the save directory exists
@@ -719,7 +713,7 @@ class Pipeline:
         # reset current cache
         self.set_cache()
 
-    def save_pipeline_json(self, name, url):
+    def save_pipeline_json(self, url):
         """
         Goes trough the list of executed_cats and calls for every
         selected_algorithm its report_pip method. With the returned
@@ -781,16 +775,30 @@ class Pipeline:
                     os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'))
                 return os.path.splitext(entry[2])[0] + "#run_" + str(run_id) + '.txt'
 
-    def update_cache(self, cat, img_path):
+    def update_cache(self, cat, data, save_fname, save_path):
         """
         Copy an img to cache dir and update the cache list.
 
         Args:
             | *category*: Category
-            | *img_path* (str): image path
-            | *graph*:  image graph (if exists)
+            | *data* (array): computed results from one step
+            | *save_fname* (str): output folder name
+            | *save_path* (str): output folder path
 
         """
+        try:
+            self.save_results('_cache_', save_fname, data)
+        except (IOError, OSError) as ex:
+            print(ex)
+            print('ERROR in update_cache() ' +
+                  'Cannot copy to _cache_ directory, make sure there ' +
+                  'is enough space on disk')
+            sys.exit(1)
+
+
+        self.save_pipeline_json()
+        self.save_graph()
+
         try:
             shutil.copy(img_path, '_cache_')
 
@@ -833,9 +841,11 @@ class CacheAddEvent(object):
     This event is used to report the maincontroller the new cached image
     """
 
-    def __init__(self, cat, path):
+    def __init__(self, cat, image_path, json_path, graph_path):
         self.cat = cat
-        self.path = path
+        self.image_path = image_path
+        self.json_path = json_path
+        self.graph_path = graph_path
 
 
 class CacheRemoveEvent(object):
@@ -843,9 +853,11 @@ class CacheRemoveEvent(object):
     This event is used to report the maincontroller the new cached image
     """
 
-    def __init__(self, cat, path):
+    def __init__(self, cat, image_path, json_path, graph_path):
         self.cat = cat
-        self.path = path
+        self.image_path = image_path
+        self.json_path = json_path
+        self.graph_path = graph_path
 
 
 class CacheInputEvent(object):
