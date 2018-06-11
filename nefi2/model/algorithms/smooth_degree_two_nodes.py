@@ -41,7 +41,7 @@ class AlgBody(Algorithm):
         """
         try:
 
-            degree_two_nodes = [v for v in args[1].nodes_iter()
+            degree_two_nodes = [v for v in args[1].nodes()
                                 if args[1].degree(v) == 2]
 
             nodes_removed = []

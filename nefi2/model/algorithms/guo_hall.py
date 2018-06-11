@@ -178,7 +178,7 @@ def breadth_first_edge_detection(skel, segmented, graph):
     queues = []
     label = 1
     label_length = defaultdict(int)
-    for x, y in graph.nodes_iter():
+    for x, y in graph.nodes():
         for a, b in neighbors(x, y):
             label_node[label] = (x, y)
             label_length[label] = 1.414214 if abs(x - a) == 1 and \
