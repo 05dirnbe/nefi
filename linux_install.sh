@@ -26,5 +26,5 @@ sudo pip install numpy
 sudo pip install networkx
 sudo pip install demjson
 sudo pip install QDarkStyle
-sudo easy_install deps/thinning_py3-1.2.3-py3.5-linux-x86_64.egg
+sudo pip install thinning_py3
 echo "Done"

@@ -44,7 +44,7 @@ def draw_nodes(img, graph, radius=1):
     Returns:
         Input image img with nodes drawn into it
     """
-    for x, y in graph.nodes_iter():
+    for x, y in graph.nodes():
         cv2.rectangle(img, (y - radius, x - radius), (y + radius, x + radius),
                      (255, 0, 0), -1)
     return img
@@ -69,7 +69,7 @@ def draw_edges(img, graph, col=(0, 0, 255)):
     if EDGETRANSPARENCY:
         max_standard_deviation = find_max_edge_deviation(graph)
 
-    for (x1, y1), (x2, y2) in graph.edges_iter():
+    for (x1, y1), (x2, y2) in graph.edges():
         start = (y1, x1)
         end = (y2, x2)
         diam = graph[(x1, y1)][(x2, y2)]['width']
@@ -92,14 +92,14 @@ def draw_edges(img, graph, col=(0, 0, 255)):
             (b, g, r) = col
 
             # set overlay in this case white
-            overlay = (0, 0 ,0) 
+            overlay = (0, 0 ,0)
             # compute target color based on the transparency formula
             target_col = (b == 0 if 0 else opacity * 255 + (1 - opacity) * b,
                           g == 0 if 0 else opacity * 255 + (1 - opacity) * g,
                           r == 0 if 0 else opacity * 255 + (1 - opacity) * r)
 
             # draw the line
-            cv2.line(edg_img, start, end, target_col, diam)            
+            cv2.line(edg_img, start, end, target_col, diam)
 
         else:
             # simply draw a red line since we are not in the edge transparency mode
@@ -118,7 +118,7 @@ def find_max_edge_deviation(graph):
     The maximum standard deviation will then be stored in the graph.
     """
     max_standard_deviation = 0
-    for (x1, y1), (x2, y2) in graph.edges_iter():
+    for (x1, y1), (x2, y2) in graph.edges():
         deviation = graph[(x1, y1)][(x2, y2)]['width_var']
         standard_deviation = numpy.sqrt(deviation)
         graph[(x1, y1)][(x2, y2)]['standard_deviation'] = standard_deviation
@@ -127,7 +127,7 @@ def find_max_edge_deviation(graph):
             max_standard_deviation = standard_deviation
 
     return max_standard_deviation
-        
+
 
 
 
