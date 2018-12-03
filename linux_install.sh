@@ -22,9 +22,5 @@ sudo ln -s $HOME/.nefi2/nefi2.py /usr/local/bin/nefi2
 
 echo "Installing dependencies..."
 # install python dependencies
-sudo pip install numpy
-sudo pip install networkx
-sudo pip install demjson
-sudo pip install QDarkStyle
-sudo pip install thinning_py3
+pip install numpy networkx demjson QDarkStyle thinning_py3 zope.event --user
 echo "Done"
