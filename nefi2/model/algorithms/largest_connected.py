@@ -46,9 +46,8 @@ class AlgBody(Algorithm):
         """
         image_arr, graph = args[0:2]
         try:
-            graph = max(nx.connected_component_subgraphs(graph), key=len)
-            # supposedly slower
-            # graph = list(nx.connected_components(graph))[0]
+            subgraph_nodes = max(nx.connected_components(graph), key=len)
+            graph = graph.subgraph(subgraph_nodes).copy()
         except ValueError as e:
             print('ValueError exception:', e)
         self.result['graph'], self.result['img'] = graph, image_arr
