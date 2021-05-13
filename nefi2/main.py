@@ -14,10 +14,11 @@ from nefi2.view.main_controller import MainView
 import sys
 import argparse
 import ctypes
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import QApplication
 import qdarkstyle
 
+os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 
 __authors__ = {"Pavel Shkadzko": "p.shkadzko@gmail.com",
                "Dennig Groß": "gdennis91@googlemail.com",
@@ -37,6 +38,7 @@ class Main:
         extloader = ExtensionLoader()
         pipeline = Pipeline(extloader.cats_container)
         app = QApplication(sys.argv)
+        app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
         app.setQuitOnLastWindowClosed(True)
         app.setWindowIcon(QtGui.QIcon(os.path.join('icons', 'nefi2.ico')))
