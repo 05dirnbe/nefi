@@ -46,7 +46,8 @@ class AlgBody(Algorithm):
         """
         image_arr, graph = args[0:2]
         try:
-            graph = max(nx.connected_component_subgraphs(graph), key=len)
+            ccs = (graph.subgraph(c) for c in nx.connected_components(graph))
+            graph = max(ccs, key=len).copy()
             # supposedly slower
             # graph = list(nx.connected_components(graph))[0]
         except ValueError as e:
