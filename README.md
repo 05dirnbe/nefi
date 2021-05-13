@@ -29,9 +29,11 @@ Depending on your distrbution, you may need to replace the `pip` command by `pip
 
 Next, clone the github repository and run the installation script.
 
-* `git clone https://github.com/05dirnbe/nefi.git`
-* `cd nefi`
-* `./linux_install.sh`
+```
+git clone https://github.com/05dirnbe/nefi.git
+cd nefi
+./linux_install.sh
+```
 
 If everything goes well, you can run **NEFI2** by typing `nefi2` in the console.
 
