@@ -14,6 +14,7 @@ import cv2
 import networkx as nx
 import numpy as np
 import thinning
+from thinning import guo_hall_thinning
 import sys
 import traceback
 from collections import defaultdict
@@ -47,7 +48,7 @@ class AlgBody(Algorithm):
 
         """
         # create a skeleton
-        skeleton = thinning.guo_hall_thinning(args[0].copy())
+        skeleton = guo_hall_thinning(args[0].copy())
         #skeleton = cv2.cvtColor(skeleton, cv2.COLOR_GRAY2BGR)
         self.result['skeleton'] = skeleton
         self.result['img'] = args[0]
